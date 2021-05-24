@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/LoginMahasiswaModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 
 class LoginMahasiswa extends StatefulWidget {
   const LoginMahasiswa({Key key}) : super(key: key);
@@ -15,7 +14,7 @@ class LoginMahasiswa extends StatefulWidget {
 }
 
 class _LoginMahasiswaState extends State<LoginMahasiswa> {
-  int _state = 0;
+  // bool isloading = false;
   var _npmFieldController = TextEditingController();
   var _passwordFieldController = TextEditingController();
   final FocusNode _npmFieldFocus = FocusNode();
@@ -31,19 +30,18 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
     loginMahasiswaRequestModel = new LoginMahasiswaRequestModel();
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return LoginProgressHUD(
-  //     child: _uiSetup(context),
-  //     inAsyncCall: isApiCallProcess,
-  //     opacity: 0.25,
-  //   );
-  // }
-
+  @override
   Widget build(BuildContext context) {
+    return LoginProgressHUD(
+      child: buildLoginMahasiswa(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0,
+    );
+  }
+
+  Widget buildLoginMahasiswa(BuildContext context) {
     return Container(
       key: scaffoldKey,
-
       child: Column(
         children: <Widget>[
           SizedBox(height: 15),
@@ -168,11 +166,13 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                     padding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                     onPressed: () {
-                      setState(() {
-                        if (_state == 0) {
-                          animateButton();
-                        }
-                      });
+                      FocusScope.of(context).unfocus();
+                      // setState(() {
+                      //   if (_state == 0) {
+                      //     animateButton();
+                      //   }
+                      //   isloading = true;
+                      // });
                       try {
                         if (validateAndSave()) {
                           print(loginMahasiswaRequestModel.toJson());
@@ -202,7 +202,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                 Fluttertoast.showToast(
                                     msg: 'Selamat datang ${value.data.namamhs}',
                                     toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.TOP,
+                                    gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.green,
                                     textColor: Colors.white,
@@ -234,17 +234,40 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                             }
                           });
                         }
-                      } catch (error) {}
+                      } catch (error) {
+                        Fluttertoast.showToast(
+                            msg: 'Terjadi kesalahan, silahkan coba lagi',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 14.0);
+                      }
                     },
-                    child: setUpButtonChild(),
-                    // child: Text(
-                    //   "MASUK",
-                    //   style: const TextStyle(
-                    //       fontFamily: 'WorkSansSemiBold',
-                    //       fontSize: 18.0,
-                    //       color: Colors.white),
-                    // ),
-                    color: Colors.blue,
+                    // child: isloading
+                    //     ? new Text(
+                    //         "MASUK",
+                    //         style: const TextStyle(
+                    //             fontFamily: 'WorkSansSemiBold',
+                    //             fontSize: 18.0,
+                    //             color: Colors.white),
+                    //       )
+                    //     : Center(
+                    //         child: CircularProgressIndicator(
+                    //           valueColor:
+                    //               AlwaysStoppedAnimation<Color>(Colors.white),
+                    //         ),
+                    //       ),
+                    // child: setUpButtonChild(),
+                    child: Text(
+                      "MASUK",
+                      style: const TextStyle(
+                          fontFamily: 'WorkSansSemiBold',
+                          fontSize: 18.0,
+                          color: Colors.white),
+                    ),
+                    color: Colors.blue[700],
                     shape: StadiumBorder(),
                   ),
                   SizedBox(height: 15),
@@ -258,44 +281,44 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
     );
   }
 
-  Widget setUpButtonChild() {
-    if (_state == 0) {
-      return new Text(
-        "MASUK",
-        style: const TextStyle(
-            fontFamily: 'WorkSansSemiBold',
-            fontSize: 18.0,
-            color: Colors.white),
-      );
-    } else if (_state == 1) {
-      return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      );
-    } else {
-      return new Text(
-        "MASUK",
-        style: const TextStyle(
-            fontFamily: 'WorkSansSemiBold',
-            fontSize: 18.0,
-            color: Colors.white),
-      );
-    }
-    //  else {
-    //   return Icon(Icons.cancel_rounded, color: Colors.red);
-    // }
-  }
+  // Widget setUpButtonChild() {
+  //   if (_state == 0) {
+  //     return new Text(
+  //       "MASUK",
+  //       style: const TextStyle(
+  //           fontFamily: 'WorkSansSemiBold',
+  //           fontSize: 18.0,
+  //           color: Colors.white),
+  //     );
+  //   } else if (_state == 1) {
+  //     return CircularProgressIndicator(
+  //       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+  //     );
+  //   } else {
+  //     return new Text(
+  //       "MASUK",
+  //       style: const TextStyle(
+  //           fontFamily: 'WorkSansSemiBold',
+  //           fontSize: 18.0,
+  //           color: Colors.white),
+  //     );
+  //   }
+  //   //  else {
+  //   //   return Icon(Icons.cancel_rounded, color: Colors.red);
+  //   // }
+  // }
 
-  void animateButton() {
-    setState(() {
-      _state = 1;
-    });
+  // void animateButton() {
+  //   setState(() {
+  //     _state = 1;
+  //   });
 
-    Timer(Duration(seconds: 25), () {
-      setState(() {
-        _state = 2;
-      });
-    });
-  }
+  //   Timer(Duration(seconds: 25), () {
+  //     setState(() {
+  //       _state = 2;
+  //     });
+  //   });
+  // }
 
   bool validateAndSave() {
     final form = globalFormKey.currentState;
