@@ -20,9 +20,9 @@ class _TentangPageState extends State<TentangPage> {
             pinned: true,
             floating: false,
             snap: false,
-            expandedHeight: 100,
+            expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
+              centerTitle: false,
               title: Text(
                 'Tentang Aplikasi',
                 style: TextStyle(color: Colors.black),

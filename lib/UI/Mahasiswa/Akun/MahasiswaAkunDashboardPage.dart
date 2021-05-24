@@ -20,17 +20,17 @@ class _MahasiswaAkunDashboardPageState
   bool lightSwitch = false;
   bool notifSwitch = false;
 
-  ThemeData _lightTheme = ThemeData(
-    accentColor: Colors.pink,
-    brightness: Brightness.light,
-    primaryColor: Colors.blue,
-  );
+  // ThemeData _lightTheme = ThemeData(
+  //   accentColor: Colors.pink,
+  //   brightness: Brightness.light,
+  //   primaryColor: Colors.blue,
+  // );
 
-  ThemeData _darkTheme = ThemeData(
-    accentColor: Colors.red,
-    brightness: Brightness.dark,
-    primaryColor: Colors.amber,
-  );
+  // ThemeData _darkTheme = ThemeData(
+  //   accentColor: Colors.red,
+  //   brightness: Brightness.dark,
+  //   primaryColor: Colors.amber,
+  // );
 
   @override
   void initState() {
@@ -63,7 +63,7 @@ class _MahasiswaAkunDashboardPageState
             snap: false,
             expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
+              centerTitle: false,
               title: Text(
                 'Akun',
                 style: TextStyle(color: Colors.black),

@@ -11,8 +11,8 @@ class LoginProgressHUD extends StatelessWidget {
     Key key,
     @required this.child,
     @required this.inAsyncCall,
-    this.opacity = 1,
-    this.color = Colors.grey,
+    this.opacity = 0,
+    this.color = Colors.black,
     this.valueColor,
   }) : super(key: key);
 
@@ -27,7 +27,23 @@ class LoginProgressHUD extends StatelessWidget {
             opacity: opacity,
             child: ModalBarrier(dismissible: false, color: color),
           ),
-          new Center(child: new CircularProgressIndicator()),
+          new Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 150),
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue[600]),
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.blue[700],
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.white)),
+                  )),
+            ),
+          ),
         ],
       );
       widgetList.add(modal);

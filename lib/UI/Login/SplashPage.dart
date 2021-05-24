@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
           Container(
             decoration: BoxDecoration(
                 // color: Color.fromRGBO(49, 119, 212, 100),
-                color: Colors.blue[400]),
+                color: Colors.blue),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -52,8 +52,8 @@ class _SplashPageState extends State<SplashPage> {
                 height: 100,
               ),
               CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              ),
+                  backgroundColor: Colors.blue,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
               SizedBox(
                 height: 150,
               ),

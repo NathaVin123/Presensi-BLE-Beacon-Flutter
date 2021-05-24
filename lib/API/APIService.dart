@@ -7,7 +7,7 @@ class APIService {
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
     // String url = "https://192.168.100.2:5000/api/auth/loginmhs";
-    String url = "https://192.168.100.131:5000/api/auth/loginmhs";
+    String url = "https://192.168.100.143:5000/api/auth/loginmhs";
     // String url = "https://10.54.7.241:5000/api/auth/loginmhs";
     // String url = "https://192.168.43.229:5000/api/auth/loginmhs/";
     print(url);
@@ -32,7 +32,7 @@ class APIService {
   Future<LoginDosenResponseModel> loginDosen(
       LoginDosenRequestModel requestModel) async {
     // String url = "https://192.168.100.2:5000/api/auth/logindsn";
-    String url = "https://192.168.100.131:5000/api/auth/logindsn";
+    String url = "https://192.168.100.143:5000/api/auth/logindsn";
     // String url = "https://10.54.7.241:5000/api/auth/logindsn";
     // String url = "https://192.168.43.229:5000/api/auth/loginmhs/";
     print(url);

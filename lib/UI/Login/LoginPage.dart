@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage>
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(color: Colors.blue[400]),
+          decoration: BoxDecoration(color: Colors.blue),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -103,7 +103,8 @@ class _LoginPageState extends State<LoginPage>
       width: 300.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: Color(0x552B2B2B),
+        // color: Color(0x552B2B2B),
+        color: Colors.blue[700],
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
         boxShadow: [
           BoxShadow(

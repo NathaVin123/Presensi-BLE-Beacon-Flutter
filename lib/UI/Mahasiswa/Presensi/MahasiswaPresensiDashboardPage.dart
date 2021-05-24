@@ -26,7 +26,6 @@ class _MahasiswaPresensiDashboardPageState
   bool authorizationStatusOk = false;
   bool locationServiceEnabled = false;
   bool bluetoothEnabled = false;
-  bool _enable = false;
 
   @override
   void initState() {
@@ -132,24 +131,25 @@ class _MahasiswaPresensiDashboardPageState
     return compare;
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   print('AppLifecycleState = $state');
-  //   if (state == AppLifecycleState.resumed) {
-  //     if (_streamBluetooth != null && _streamBluetooth.isPaused) {
-  //       _streamBluetooth.resume();
-  //     }
-  //     await checkAllRequirements();
-  //     if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
-  //       await initScanBeacon();
-  //     } else {
-  //       await pauseScanBeacon();
-  //       await checkAllRequirements();
-  //     }
-  //   } else if (state == AppLifecycleState.paused) {
-  //     _streamBluetooth?.pause();
-  //   }
-  // }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    print('AppLifecycleState = $state');
+    if (state == AppLifecycleState.resumed) {
+      if (_streamBluetooth != null && _streamBluetooth.isPaused) {
+        _streamBluetooth.resume();
+      }
+      await checkAllRequirements();
+      // if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
+      //   await initScanBeacon();
+      // } else {
+      //   await pauseScanBeacon();
+      //   await checkAllRequirements();
+      // }
+    }
+    // else if (state == AppLifecycleState.paused) {
+    //   _streamBluetooth?.pause();
+    // }
+  }
 
   @override
   void dispose() {
@@ -169,19 +169,20 @@ class _MahasiswaPresensiDashboardPageState
       home: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Colors.white,
             // title: const Text(
             //   'Kelas Terdekat',
             //   style: TextStyle(color: Colors.black),
             // ),
-            // leading: IconButton(
-            //   icon: Icon(
-            //     Icons.refresh_rounded,
-            //     color: Colors.black,
-            //   ),
-            //   onPressed: () => initScanBeacon(),
-            // ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.notifications_none_rounded,
+                color: Colors.black,
+              ),
+              onPressed: () => initScanBeacon(),
+            ),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -213,7 +214,7 @@ class _MahasiswaPresensiDashboardPageState
                       return IconButton(
                         icon: Icon(Icons.bluetooth_connected),
                         onPressed: () {},
-                        color: Colors.lightBlueAccent,
+                        color: Colors.blue,
                       );
                     }
 
@@ -299,87 +300,205 @@ class _MahasiswaPresensiDashboardPageState
                 ),
               ),
               Expanded(
-                  child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
-                enabled: _enable,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: ListTile.divideTiles(
-                        context: context,
-                        tiles: _beacons.map((beacon) {
-                          if (beacon.accuracy < 1.0) {
-                            return Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: ListTile(
-                                      title: Text(
-                                          'Kelas : ${beacon.proximityUUID}',
-                                          style: TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold)),
-                                      subtitle: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          // Flexible(
-                                          //     child: Text(
-                                          //         'Alamat MAC: ${beacon.macAddress}',
-                                          //         style: TextStyle(fontSize: 13.0)),
-                                          //     flex: 1,
-                                          //     fit: FlexFit.tight),
-                                          Flexible(
-                                              child: Text(
-                                                  // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                  'Jarak: ${beacon.accuracy} m',
-                                                  style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              flex: 1,
-                                              fit: FlexFit.tight),
-                                          // Flexible(
-                                          //     child: Text(
-                                          //         // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                          //         '${beacon.proximity}',
-                                          //         style: TextStyle(fontSize: 13.0)),
-                                          //     flex: 1,
-                                          //     fit: FlexFit.tight)
-                                        ],
-                                      ),
-                                      trailing: Icon(Icons.arrow_forward),
-                                      onTap: () {
-                                        Get.to(() =>
-                                            MahasiswaPresensiDetailPage());
-                                      },
-                                    )));
-                          } else {
-                            return Padding(
+                child: _beacons == null || _beacons.isEmpty
+                    ? SingleChildScrollView(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[200],
+                          highlightColor: Colors.grey[100],
+                          enabled: true,
+                          child: Column(
+                            children: [
+                              Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: Colors.grey[200],
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Text(
-                                      'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold),
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
                                     ),
                                   ),
-                                ));
-                          }
-                        })).toList(),
-                  ),
-                ),
-              )),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: ListTile.divideTiles(
+                              context: context,
+                              tiles: _beacons.map((beacon) {
+                                if (beacon.accuracy < 1.0) {
+                                  return Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: ListTile(
+                                            title: Text(
+                                                'Kelas : ${beacon.proximityUUID}',
+                                                style: TextStyle(
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            subtitle: new Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: <Widget>[
+                                                // Flexible(
+                                                //     child: Text(
+                                                //         'Alamat MAC: ${beacon.macAddress}',
+                                                //         style: TextStyle(fontSize: 13.0)),
+                                                //     flex: 1,
+                                                //     fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Text(
+                                                        // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                        'Jarak: ${beacon.accuracy} m',
+                                                        style: TextStyle(
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                // Flexible(
+                                                //     child: Text(
+                                                //         // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                //         '${beacon.proximity}',
+                                                //         style: TextStyle(fontSize: 13.0)),
+                                                //     flex: 1,
+                                                //     fit: FlexFit.tight)
+                                              ],
+                                            ),
+                                            trailing: Icon(Icons.arrow_forward),
+                                            onTap: () {
+                                              // Get.to(() =>
+                                              //     MahasiswaPresensiDetailPage());
+                                              showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(25),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      25))),
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  builder: (builder) {
+                                                    return new Container(
+                                                      height: 500,
+                                                      color: Colors.transparent,
+                                                      child: new Center(
+                                                        child: new Text(
+                                                            'Presensi'),
+                                                      ),
+                                                    );
+                                                  });
+                                            },
+                                          )));
+                                } else {
+                                  return Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          color: Colors.grey[200],
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: Text(
+                                            'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ));
+                                }
+                              })).toList(),
+                        ),
+                      ),
+              ),
               // Divider(
               //   height: 20,
               //   thickness: 5,

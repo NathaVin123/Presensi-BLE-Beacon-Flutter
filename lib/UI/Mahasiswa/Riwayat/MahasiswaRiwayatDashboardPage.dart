@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MahasiswaRiwayatDashboardPage extends StatelessWidget {
   const MahasiswaRiwayatDashboardPage({Key key}) : super(key: key);
@@ -10,6 +11,7 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               elevation: 0,
               iconTheme: IconThemeData(color: Colors.black),
               backgroundColor: Colors.white,
@@ -18,7 +20,7 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
               snap: false,
               expandedHeight: 85,
               flexibleSpace: const FlexibleSpaceBar(
-                centerTitle: true,
+                centerTitle: false,
                 title: Text(
                   'Riwayat',
                   style: TextStyle(color: Colors.black),
@@ -27,70 +29,127 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
-                Flexible(
-                    child: ListTile(
-                  title: Text('Tes'),
-                )),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[200],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Flexible(
+                            child: ListTile(
+                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
+                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ]),
             )
           ],

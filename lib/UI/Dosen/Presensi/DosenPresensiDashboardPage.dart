@@ -41,15 +41,15 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
       print('BluetoothState = $state');
       streamController.add(state);
 
-      switch (state) {
-        case BluetoothState.stateOn:
-          initScanBeacon();
-          break;
-        case BluetoothState.stateOff:
-          await pauseScanBeacon();
-          await checkAllRequirements();
-          break;
-      }
+      // switch (state) {
+      //   case BluetoothState.stateOn:
+      //     initScanBeacon();
+      //     break;
+      //   case BluetoothState.stateOff:
+      //     await pauseScanBeacon();
+      //     await checkAllRequirements();
+      //     break;
+      // }
     });
   }
 

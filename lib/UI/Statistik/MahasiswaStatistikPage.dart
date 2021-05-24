@@ -20,20 +20,12 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
             pinned: true,
             floating: false,
             snap: false,
-            expandedHeight: 100,
+            expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
+              centerTitle: false,
               title: Text(
                 'Statistik Mahasiswa',
                 style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
-              child: Center(
-                child: Text('Coba Dlu gan'),
               ),
             ),
           ),
