@@ -1,12 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:get/get.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaPresensiDetailPage.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -464,8 +460,8 @@ class _MahasiswaPresensiDashboardPageState
                                                       .antiAliasWithSaveLayer,
                                                   builder: (builder) {
                                                     return new Container(
-                                                      height: 500,
-                                                      color: Colors.transparent,
+                                                      height: 550,
+                                                      color: Colors.white,
                                                       child: new Center(
                                                         child: new Text(
                                                             'Presensi'),
