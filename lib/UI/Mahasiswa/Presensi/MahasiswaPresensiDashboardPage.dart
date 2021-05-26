@@ -4,7 +4,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
 
 class MahasiswaPresensiDashboardPage extends StatefulWidget {
   @override
@@ -23,13 +25,50 @@ class _MahasiswaPresensiDashboardPageState
   bool locationServiceEnabled = false;
   bool bluetoothEnabled = false;
 
+  String _timeString;
+  String _dateString;
+
+  String kelas = "";
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
 
+    _timeString = _formatTime(DateTime.now());
+    _dateString = _formatDate(DateTime.now());
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    Timer.periodic(Duration(seconds: 100), (Timer t) => _getDate());
+    super.initState();
+
     listeningState();
+  }
+
+  void _getTime() {
+    final DateTime now = DateTime.now();
+    final String formattedTime = _formatTime(now);
+
+    setState(() {
+      _timeString = formattedTime;
+    });
+  }
+
+  void _getDate() {
+    final DateTime now = DateTime.now();
+    final String formattedDate = _formatDate(now);
+
+    setState(() {
+      _dateString = formattedDate;
+    });
+  }
+
+  String _formatDate(DateTime dateTime) {
+    return DateFormat('MM/dd/yyyy').format(dateTime);
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return DateFormat('hh:mm:ss').format(dateTime);
   }
 
   listeningState() async {
@@ -40,14 +79,21 @@ class _MahasiswaPresensiDashboardPageState
       print('BluetoothState = $state');
       streamController.add(state);
 
-      switch (state) {
-        case BluetoothState.stateOn:
-          initScanBeacon();
-          break;
-        case BluetoothState.stateOff:
-          await pauseScanBeacon();
-          await checkAllRequirements();
-          break;
+      // switch (state) {
+      //   case BluetoothState.stateOn:
+      //     initScanBeacon();
+      //     break;
+      //   case BluetoothState.stateOff:
+      //     await pauseScanBeacon();
+      //     await checkAllRequirements();
+      //     break;
+      // }
+      if (BluetoothState.stateOn == state) {
+        initScanBeacon();
+      }
+      if (BluetoothState.stateOff == state) {
+        await pauseScanBeacon();
+        await checkAllRequirements();
       }
     });
   }
@@ -135,16 +181,15 @@ class _MahasiswaPresensiDashboardPageState
         _streamBluetooth.resume();
       }
       await checkAllRequirements();
-      // if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
-      //   await initScanBeacon();
-      // } else {
-      //   await pauseScanBeacon();
-      //   await checkAllRequirements();
-      // }
+      if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
+        await initScanBeacon();
+      } else {
+        await pauseScanBeacon();
+        await checkAllRequirements();
+      }
+    } else if (state == AppLifecycleState.paused) {
+      _streamBluetooth?.pause();
     }
-    // else if (state == AppLifecycleState.paused) {
-    //   _streamBluetooth?.pause();
-    // }
   }
 
   @override
@@ -158,6 +203,13 @@ class _MahasiswaPresensiDashboardPageState
     super.dispose();
   }
 
+  void getModalKelas() async {
+    SharedPreferences modalKelas = await SharedPreferences.getInstance();
+
+    kelas = modalKelas.getString('Kelas');
+    print(kelas);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -168,10 +220,6 @@ class _MahasiswaPresensiDashboardPageState
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Colors.white,
-            // title: const Text(
-            //   'Kelas Terdekat',
-            //   style: TextStyle(color: Colors.black),
-            // ),
             leading: IconButton(
               icon: Icon(
                 Icons.notifications_none_rounded,
@@ -244,26 +292,43 @@ class _MahasiswaPresensiDashboardPageState
               ),
             ],
           ),
-          body: new Container(
-              // if(_beacons == null || _beacons.isEmpty)
-              // {
-              // }
-              // // ? Center(
-              //     child: SpinKitRipple(
-              //       color: Colors.blue,
-              //     ),
-              //   )
-              // :
-              child: Column(
+          body: Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 20, right: 25, top: 10, bottom: 10),
-                child: Align(
-                  alignment: Alignment.topLeft,
+                    left: 20, right: 20, top: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    Center(
+                      // alignment: Alignment.centerRight,
+                      child: Text(
+                        _dateString,
+                        style: TextStyle(
+                            fontSize: 22, fontFamily: 'WorkSansMedium'),
+                      ),
+                    ),
+                    Center(
+                      // alignment: Alignment.centerLeft,
+                      child: Text(
+                        _timeString,
+                        style: TextStyle(
+                            fontSize: 40, fontFamily: 'WorkSansMedium'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
+                child: Center(
+                  // alignment: Alignment.topLeft,
                   child: Text(
                     'Kelas Selanjutnya',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'WorkSansMedium'),
                   ),
                 ),
               ),
@@ -279,7 +344,6 @@ class _MahasiswaPresensiDashboardPageState
                   ),
                 ),
               ),
-              // Expanded(child: Container()),
               Divider(
                 height: 20,
                 thickness: 5,
@@ -289,13 +353,18 @@ class _MahasiswaPresensiDashboardPageState
                     left: 20, right: 25, top: 10, bottom: 5),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                    'Kelas Terdekat',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  child: Center(
+                    child: Text(
+                      'Kelas Terdekat',
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'WorkSansMedium'),
+                    ),
                   ),
                 ),
               ),
-              Expanded(
+              Flexible(
                 child: _beacons == null || _beacons.isEmpty
                     ? SingleChildScrollView(
                         child: Shimmer.fromColors(
@@ -312,8 +381,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -326,8 +395,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -340,8 +409,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -354,8 +423,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -368,8 +437,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -382,8 +451,8 @@ class _MahasiswaPresensiDashboardPageState
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
                                     child: ListTile(
-                                      title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                                      subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
                                     ),
                                   ),
                                 ),
@@ -410,6 +479,8 @@ class _MahasiswaPresensiDashboardPageState
                                                 'Kelas : ${beacon.proximityUUID}',
                                                 style: TextStyle(
                                                     fontSize: 16.0,
+                                                    fontFamily:
+                                                        'WorkSansMedium',
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             subtitle: new Row(
@@ -427,6 +498,8 @@ class _MahasiswaPresensiDashboardPageState
                                                         'Jarak: ${beacon.accuracy} m',
                                                         style: TextStyle(
                                                             fontSize: 14.0,
+                                                            fontFamily:
+                                                                'WorkSansMedium',
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold)),
@@ -442,7 +515,15 @@ class _MahasiswaPresensiDashboardPageState
                                               ],
                                             ),
                                             trailing: Icon(Icons.arrow_forward),
-                                            onTap: () {
+                                            onTap: () async {
+                                              SharedPreferences modalKelas =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              await modalKelas.setString(
+                                                  'Kelas',
+                                                  beacon.proximityUUID);
+
+                                              getModalKelas();
                                               // Get.to(() =>
                                               //     MahasiswaPresensiDetailPage());
                                               showModalBottomSheet(
@@ -462,9 +543,45 @@ class _MahasiswaPresensiDashboardPageState
                                                     return new Container(
                                                       height: 550,
                                                       color: Colors.white,
-                                                      child: new Center(
-                                                        child: new Text(
-                                                            'Presensi'),
+                                                      child: new Column(
+                                                        children: [
+                                                          new Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(10),
+                                                              child: new Text(
+                                                                'Presensi',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        24),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          new Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                kelas,
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     );
                                                   });
@@ -486,6 +603,7 @@ class _MahasiswaPresensiDashboardPageState
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.red,
+                                                fontFamily: 'WorkSansMedium',
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -495,12 +613,8 @@ class _MahasiswaPresensiDashboardPageState
                         ),
                       ),
               ),
-              // Divider(
-              //   height: 20,
-              //   thickness: 5,
-              // ),
             ],
-          ))),
+          )),
     );
   }
 }
