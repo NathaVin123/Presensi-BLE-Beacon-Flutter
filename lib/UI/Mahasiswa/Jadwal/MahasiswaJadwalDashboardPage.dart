@@ -19,10 +19,13 @@ class MahasiswaJadwalDashboardPage extends StatelessWidget {
             snap: false,
             expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: true,
               title: Text(
                 'Jadwal',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'WorkSansMedium'),
               ),
             ),
           ),

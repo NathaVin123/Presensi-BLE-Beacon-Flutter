@@ -44,54 +44,57 @@ class _LoginPageState extends State<LoginPage>
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(color: Colors.blue),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 75.0),
-                child: Image(
-                    height:
-                        MediaQuery.of(context).size.height > 800 ? 150.0 : 120,
-                    fit: BoxFit.fill,
-                    image: const AssetImage(
-                        'assets/png/SplashPage_LogoAtmaJaya.png')),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: _buildMenuBar(context),
-              ),
-              Expanded(
-                flex: 2,
-                child: PageView(
-                  controller: _pageController,
-                  physics: const ClampingScrollPhysics(),
-                  onPageChanged: (int i) {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    if (i == 0) {
-                      setState(() {
-                        right = Colors.white;
-                        left = Colors.black;
-                      });
-                    } else if (i == 1) {
-                      setState(() {
-                        right = Colors.black;
-                        left = Colors.white;
-                      });
-                    }
-                  },
-                  children: <Widget>[
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.expand(),
-                      child: const LoginMahasiswa(),
-                    ),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.expand(),
-                      child: const LoginDosen(),
-                    ),
-                  ],
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 75.0, bottom: 20),
+                  child: Image(
+                      height: MediaQuery.of(context).size.height > 800
+                          ? 150.0
+                          : 120,
+                      fit: BoxFit.fill,
+                      image: const AssetImage(
+                          'assets/png/SplashPage_LogoAtmaJaya.png')),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: _buildMenuBar(context),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const ClampingScrollPhysics(),
+                    onPageChanged: (int i) {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      if (i == 0) {
+                        setState(() {
+                          right = Colors.white;
+                          left = Colors.black;
+                        });
+                      } else if (i == 1) {
+                        setState(() {
+                          right = Colors.black;
+                          left = Colors.white;
+                        });
+                      }
+                    },
+                    children: <Widget>[
+                      ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: const LoginMahasiswa(),
+                      ),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: const LoginDosen(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -110,7 +113,7 @@ class _LoginPageState extends State<LoginPage>
           BoxShadow(
               color: Theme.of(context).hintColor.withOpacity(0.2),
               offset: Offset(0, 10),
-              blurRadius: 20)
+              blurRadius: 10)
         ],
       ),
       child: CustomPaint(

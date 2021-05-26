@@ -63,10 +63,13 @@ class _MahasiswaAkunDashboardPageState
             snap: false,
             expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: true,
               title: Text(
                 'Akun',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'WorkSansMedium',
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -101,10 +104,10 @@ class _MahasiswaAkunDashboardPageState
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(25)),
                         // decoration: BoxDecoration(),
-                        child: Row(
+                        child: Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10, right: 10),
+                              padding: EdgeInsets.all(0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
@@ -120,14 +123,16 @@ class _MahasiswaAkunDashboardPageState
                                 Text(namamhs,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: 'WorkSansMedium',
                                         fontSize: 18)),
                                 SizedBox(
-                                  height: 22,
+                                  height: 10,
                                 ),
                                 Text(
                                   npm,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      fontFamily: 'WorkSansMedium',
                                       fontSize: 16),
                                 )
                               ],
@@ -138,16 +143,18 @@ class _MahasiswaAkunDashboardPageState
               SizedBox(
                 height: 8,
               ),
-              Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Pengaturan',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  )),
+              // Padding(
+              //     padding: EdgeInsets.only(left: 10, right: 10),
+              //     child: Align(
+              //       alignment: Alignment.center,
+              //       child: Text(
+              //         'Menu',
+              //         style: TextStyle(
+              //             fontSize: 28,
+              //             fontFamily: 'WorkSansMedium',
+              //             fontWeight: FontWeight.bold),
+              //       ),
+              //     )),
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -176,6 +183,7 @@ class _MahasiswaAkunDashboardPageState
                                     'Notifikasi Kelas',
                                     style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: 'WorkSansMedium',
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -222,6 +230,7 @@ class _MahasiswaAkunDashboardPageState
                                     'Dark Mode',
                                     style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: 'WorkSansMedium',
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -271,6 +280,7 @@ class _MahasiswaAkunDashboardPageState
                                         'Statistik',
                                         style: TextStyle(
                                             fontSize: 20,
+                                            fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -308,6 +318,7 @@ class _MahasiswaAkunDashboardPageState
                                         'Tentang Aplikasi',
                                         style: TextStyle(
                                             fontSize: 20,
+                                            fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -345,6 +356,7 @@ class _MahasiswaAkunDashboardPageState
                                         'Keluar',
                                         style: TextStyle(
                                             fontSize: 20,
+                                            fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),

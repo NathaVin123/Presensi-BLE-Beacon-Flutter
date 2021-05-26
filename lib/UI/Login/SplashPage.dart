@@ -30,9 +30,7 @@ class _SplashPageState extends State<SplashPage> {
         fit: StackFit.expand,
         children: [
           Container(
-            decoration: BoxDecoration(
-                // color: Color.fromRGBO(49, 119, 212, 100),
-                color: Colors.blue),
+            decoration: BoxDecoration(color: Colors.blue),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,13 +39,13 @@ class _SplashPageState extends State<SplashPage> {
                 child: Text('Sistem Presensi UAJY',
                     style: const TextStyle(
                         fontFamily: 'WorkSansSemiBold',
-                        fontSize: 25.0,
+                        fontSize: 30.0,
                         color: Colors.white)),
               ),
               SizedBox(
                 height: 50,
               ),
-              Image.asset('SplashPage_LogoAtmaJaya'.png, height: 125.0),
+              Image.asset('SplashPage_LogoAtmaJaya'.png, height: 150.0),
               SizedBox(
                 height: 100,
               ),

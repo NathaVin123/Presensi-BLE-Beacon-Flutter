@@ -10,7 +10,6 @@ class BluetoothOff extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      color: Colors.lightBlue,
       home: StreamBuilder<BluetoothState>(
           stream: FlutterBlue.instance.state,
           initialData: BluetoothState.unknown,
@@ -33,45 +32,69 @@ class BluetoothOffScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    return Scaffold(
-      backgroundColor: Colors.lightBlue,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              Icons.bluetooth_disabled,
-              size: 200.0,
-              color: Colors.white54,
-            ),
-            Text(
-              'Bluetooth dalam keadaan ${state.toString().substring(15)}.',
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .subtitle1
-                  .copyWith(color: Colors.white),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MaterialButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(19.0)),
-              onPressed: _jumpToSetting,
-              color: Colors.blue,
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                // Replace with a Row for horizontal icon + text
-                children: <Widget>[
-                  Icon(
-                    Icons.bluetooth_connected_rounded,
-                    color: Colors.white,
+    return Container(
+      color: Colors.blue,
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                  color: Theme.of(context).hintColor.withOpacity(0.2),
+                  offset: Offset(0, 10),
+                  blurRadius: 20)
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(50),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(
+                  Icons.bluetooth_disabled,
+                  size: 150.0,
+                  color: Colors.red,
+                ),
+                // Text(
+                //     'Bluetooth dalam keadaan ${state.toString().substring(15)}.',
+
+                //     style: TextStyle(
+                //         fontFamily: 'WorkSansSemiBold',
+                //         fontSize: 16.0,
+                //         color: Colors.grey)),
+                SizedBox(
+                  height: 25,
+                ),
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                  Text("Hidupkan", style: TextStyle(color: Colors.white))
-                ],
-              ),
-            )
-          ],
+                  onPressed: _jumpToSetting,
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    // Replace with a Row for horizontal icon + text
+                    children: <Widget>[
+                      // Icon(
+                      //   Icons.bluetooth_connected_rounded,
+                      //   color: Colors.white,
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text("Aktifkan",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'WorkSansSemiBold',
+                            )),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

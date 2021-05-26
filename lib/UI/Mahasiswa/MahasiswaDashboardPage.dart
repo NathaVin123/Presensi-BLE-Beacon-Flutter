@@ -17,6 +17,7 @@ class MahasiswaDashboardPage extends StatefulWidget {
 class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  var currentPage = 0;
   @override
   void initState() {
     super.initState();
@@ -56,6 +57,11 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
           indicatorColor: Colors.grey,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
+          onTap: (value) {
+            setState(() {
+              currentPage = value;
+            });
+          },
           tabs: <Widget>[
             new Tab(
               icon: new Icon(Icons.arrow_upward_rounded,

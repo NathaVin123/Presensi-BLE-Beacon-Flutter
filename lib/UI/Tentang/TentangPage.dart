@@ -22,7 +22,7 @@ class _TentangPageState extends State<TentangPage> {
             snap: false,
             expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: true,
               title: Text(
                 'Tentang Aplikasi',
                 style: TextStyle(color: Colors.black),

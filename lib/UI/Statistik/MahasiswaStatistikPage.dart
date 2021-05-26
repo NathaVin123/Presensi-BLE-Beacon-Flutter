@@ -22,9 +22,9 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
             snap: false,
             expandedHeight: 85,
             flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: true,
               title: Text(
-                'Statistik Mahasiswa',
+                'Statistik',
                 style: TextStyle(color: Colors.black),
               ),
             ),

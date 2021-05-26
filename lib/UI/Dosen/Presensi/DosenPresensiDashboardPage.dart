@@ -5,7 +5,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DosenPresensiDashboardPage extends StatefulWidget {
   @override
@@ -227,11 +226,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
           ],
         ),
         body: _beacons == null || _beacons.isEmpty
-            ? Center(
-                child: SpinKitRipple(
-                  color: Colors.blue,
-                ),
-              )
+            ? Center()
             : ListView(
                 children: ListTile.divideTiles(
                     context: context,

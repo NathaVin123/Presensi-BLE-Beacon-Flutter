@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:presensiblebeacon/UI/Dosen/Akun/DosenAkunDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/DosenDashboardPage.dart';
@@ -40,7 +41,26 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    requestLocationPermission();
     // _initCheckLoginMahasiswa();
+  }
+
+  Future<bool> _requestPermission(PermissionGroup permission) async {
+    final PermissionHandler _permissionHandler = PermissionHandler();
+    var result = await _permissionHandler.requestPermissions([permission]);
+    if (result[permission] == PermissionStatus.granted) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> requestLocationPermission({Function onPermissionDenied}) async {
+    var granted = await _requestPermission(PermissionGroup.location);
+    if (granted != true) {
+      requestLocationPermission();
+    }
+    debugPrint('requestContactsPermission $granted');
+    return granted;
   }
 
   @override

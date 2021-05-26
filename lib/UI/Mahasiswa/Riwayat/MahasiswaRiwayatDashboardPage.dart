@@ -20,10 +20,13 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
               snap: false,
               expandedHeight: 85,
               flexibleSpace: const FlexibleSpaceBar(
-                centerTitle: false,
+                centerTitle: true,
                 title: Text(
                   'Riwayat',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'WorkSansMedium',
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
