@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage>
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(color: Colors.blue),
+          decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -57,6 +57,17 @@ class _LoginPageState extends State<LoginPage>
                       fit: BoxFit.fill,
                       image: const AssetImage(
                           'assets/png/SplashPage_LogoAtmaJaya.png')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Center(
+                    child: Text('Sistem Presensi UAJY',
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansMedium',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
@@ -107,7 +118,7 @@ class _LoginPageState extends State<LoginPage>
       height: 50.0,
       decoration: BoxDecoration(
         // color: Color(0x552B2B2B),
-        color: Colors.blue[700],
+        color: Color.fromRGBO(247, 180, 7, 1),
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
         boxShadow: [
           BoxShadow(

@@ -77,7 +77,7 @@ class _MahasiswaAkunDashboardPageState
               child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(14),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 14),
                 child: InkWell(
                     borderRadius: BorderRadius.circular(25),
                     onTap: () async {
@@ -111,7 +111,7 @@ class _MahasiswaAkunDashboardPageState
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'WorkSansMedium',
-                                        fontSize: 18)),
+                                        fontSize: 24)),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -120,8 +120,11 @@ class _MahasiswaAkunDashboardPageState
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'WorkSansMedium',
-                                      fontSize: 16),
-                                )
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
                               ],
                             ))
                           ],

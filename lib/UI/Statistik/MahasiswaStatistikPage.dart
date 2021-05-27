@@ -25,7 +25,10 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
               centerTitle: true,
               title: Text(
                 'Statistik',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'WorkSansMedium',
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),

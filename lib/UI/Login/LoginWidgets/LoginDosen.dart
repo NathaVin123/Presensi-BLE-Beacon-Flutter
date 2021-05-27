@@ -165,7 +165,7 @@ class _LoginDosenState extends State<LoginDosen> {
                   // )),
                   MaterialButton(
                     padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
                     onPressed: () {
                       setState(() {
                         if (_state == 0) {
@@ -243,13 +243,24 @@ class _LoginDosenState extends State<LoginDosen> {
                     //       color: Colors.white),
                     // ),
                     child: setUpButtonChild(),
-                    color: Colors.blue,
+                    color: Color.fromRGBO(247, 180, 7, 1),
                     shape: StadiumBorder(),
                   ),
                   SizedBox(height: 15),
                 ],
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+                child: Text(
+              'Silahkan login dengan akun simka.',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: 'WorkSansMedium'),
+            )),
           ),
         ],
       ),

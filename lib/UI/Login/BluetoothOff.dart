@@ -33,7 +33,7 @@ class BluetoothOffScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Container(
-      color: Colors.blue,
+      color: Color.fromRGBO(23, 75, 137, 1),
       child: Center(
         child: Container(
           decoration: BoxDecoration(
@@ -71,7 +71,7 @@ class BluetoothOffScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   onPressed: _jumpToSetting,
-                  color: Colors.blue,
+                  color: Colors.blue[600],
                   padding: EdgeInsets.all(10.0),
                   child: Column(
                     // Replace with a Row for horizontal icon + text

@@ -16,32 +16,30 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    // Timer(Duration(seconds: 3), () => Get.off(() => BluetoothOff()));
-    Timer(Duration(seconds: 3), () => Get.offNamed('/bluetooth'));
+    Timer(Duration(seconds: 2), () => Get.offNamed('/bluetooth'));
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
     return Scaffold(
-      backgroundColor: Color.fromRGBO(49, 119, 212, 100),
+      // backgroundColor: Color.fromRGBO(49, 119, 212, 100),
       body: Stack(
         fit: StackFit.expand,
         children: [
           Container(
-            decoration: BoxDecoration(color: Colors.blue),
+            decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text('Sistem Presensi UAJY',
-                    style: const TextStyle(
-                        fontFamily: 'WorkSansSemiBold',
-                        fontSize: 30.0,
-                        color: Colors.white)),
-              ),
+              // Center(
+              //   child: Text('Sistem Presensi UAJY',
+              //       style: const TextStyle(
+              //           fontFamily: 'WorkSansSemiBold',
+              //           fontSize: 30.0,
+              //           color: Colors.white)),
+              // ),
               SizedBox(
                 height: 50,
               ),
@@ -50,7 +48,7 @@ class _SplashPageState extends State<SplashPage> {
                 height: 100,
               ),
               CircularProgressIndicator(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color.fromRGBO(23, 75, 137, 1),
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
               SizedBox(
                 height: 150,

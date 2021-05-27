@@ -164,7 +164,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                   // )),
                   MaterialButton(
                     padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       // setState(() {
@@ -267,13 +267,24 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                           fontSize: 18.0,
                           color: Colors.white),
                     ),
-                    color: Colors.blue[700],
+                    color: Color.fromRGBO(247, 180, 7, 1),
                     shape: StadiumBorder(),
                   ),
                   SizedBox(height: 15),
                 ],
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+                child: Text(
+              'Silahkan login dengan akun siatma.',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontFamily: 'WorkSansMedium'),
+            )),
           ),
         ],
       ),

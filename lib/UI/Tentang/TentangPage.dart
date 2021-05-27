@@ -25,7 +25,10 @@ class _TentangPageState extends State<TentangPage> {
               centerTitle: true,
               title: Text(
                 'Tentang Aplikasi',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'WorkSansMedium',
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),

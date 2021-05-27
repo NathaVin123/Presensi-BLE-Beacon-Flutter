@@ -30,15 +30,22 @@ class LoginProgressHUD extends StatelessWidget {
           new Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 150),
+              padding: EdgeInsets.only(bottom: 110),
               child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue[600]),
+                    borderRadius: BorderRadius.circular(100),
+                    color: Color.fromRGBO(247, 180, 7, 1),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Theme.of(context).hintColor.withOpacity(0.2),
+                          offset: Offset(0, 10),
+                          blurRadius: 20)
+                    ],
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(15),
                     child: CircularProgressIndicator(
-                        backgroundColor: Colors.blue[700],
+                        backgroundColor: Color.fromRGBO(247, 180, 7, 1),
                         valueColor:
                             AlwaysStoppedAnimation<Color>(Colors.white)),
                   )),

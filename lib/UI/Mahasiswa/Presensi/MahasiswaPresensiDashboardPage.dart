@@ -230,7 +230,53 @@ class _MahasiswaPresensiDashboardPageState
                 Icons.notifications_none_rounded,
                 color: Colors.black,
               ),
-              onPressed: () => initScanBeacon(),
+              onPressed: () {
+                return showGeneralDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    transitionDuration: Duration(microseconds: 500),
+                    barrierLabel: MaterialLocalizations.of(context).dialogLabel,
+                    barrierColor: Colors.black.withOpacity(0.5),
+                    pageBuilder: (context, _, __) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.white,
+                            child: Card(
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(left: 20, right: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [Text('Notifikasi')],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    transitionBuilder:
+                        (context, animation, secondaryanimation, child) {
+                      return SlideTransition(
+                          position: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutCubic,
+                      ).drive(Tween<Offset>(
+                              begin: Offset(0, -1.0), end: Offset.zero)));
+                    });
+              },
             ),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
@@ -323,6 +369,10 @@ class _MahasiswaPresensiDashboardPageState
                   ],
                 ),
               ),
+              // Divider(
+              //   height: 20,
+              //   thickness: 5,
+              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
