@@ -165,6 +165,15 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                   MaterialButton(
                     padding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                    child: Text(
+                      "MASUK",
+                      style: const TextStyle(
+                          fontFamily: 'WorkSansSemiBold',
+                          fontSize: 18.0,
+                          color: Colors.white),
+                    ),
+                    color: Color.fromRGBO(247, 180, 7, 1),
+                    shape: StadiumBorder(),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       // setState(() {
@@ -260,15 +269,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                     //         ),
                     //       ),
                     // child: setUpButtonChild(),
-                    child: Text(
-                      "MASUK",
-                      style: const TextStyle(
-                          fontFamily: 'WorkSansSemiBold',
-                          fontSize: 18.0,
-                          color: Colors.white),
-                    ),
-                    color: Color.fromRGBO(247, 180, 7, 1),
-                    shape: StadiumBorder(),
                   ),
                   SizedBox(height: 15),
                 ],

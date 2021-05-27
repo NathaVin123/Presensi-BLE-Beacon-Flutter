@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Presensi BLE Beacon',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       debugShowCheckedModeBanner: false,
       // home: SplashPage(),
