@@ -76,19 +76,6 @@ class _MahasiswaAkunDashboardPageState
           SliverToBoxAdapter(
               child: Column(
             children: <Widget>[
-              // SizedBox(
-              //   height: 45,
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 25, right: 25),
-              //   child: Align(
-              //     alignment: Alignment.topLeft,
-              //     child: Text(
-              //       'Akun',
-              //       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(14),
                 child: InkWell(

@@ -46,8 +46,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -60,8 +60,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -74,8 +74,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -88,8 +88,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -102,8 +102,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -116,8 +116,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -130,8 +130,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -144,8 +144,8 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25)),
                           child: Flexible(
                             child: ListTile(
-                              title: Text('Blaaaaaaaaaaaaaaaaaaaaaa'),
-                              subtitle: Text('Blaaaaaaaaaaaaaaaaaaa'),
+                              title: Text(' '),
+                              subtitle: Text(' '),
                             ),
                           ),
                         ),
@@ -156,25 +156,6 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
               ]),
             )
           ],
-        )
-        // Column(
-        //   children: [
-        //     SizedBox(
-        //       height: 45,
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(left: 25, right: 25),
-        //       child: Align(
-        //         alignment: Alignment.topLeft,
-        //         child: Text(
-        //           'Jadwal',
-        //           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        //         ),
-        //       ),
-        //     ),
-
-        //   ],
-        // ),
-        );
+        ));
   }
 }
