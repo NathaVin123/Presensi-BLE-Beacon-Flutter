@@ -17,10 +17,13 @@ class MahasiswaPresensiDashboardPage extends StatefulWidget {
 class _MahasiswaPresensiDashboardPageState
     extends State<MahasiswaPresensiDashboardPage> with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
+
   StreamSubscription<BluetoothState> _streamBluetooth;
   StreamSubscription<RangingResult> _streamRanging;
+
   final _regionBeacons = <Region, List<Beacon>>{};
   final _beacons = <Beacon>[];
+
   bool authorizationStatusOk = false;
   bool locationServiceEnabled = false;
   bool bluetoothEnabled = false;
@@ -38,9 +41,11 @@ class _MahasiswaPresensiDashboardPageState
 
     _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
+
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(seconds: 100), (Timer t) => _getDate());
-    super.initState();
+
+    // super.initState();
 
     listeningState();
   }
@@ -64,7 +69,7 @@ class _MahasiswaPresensiDashboardPageState
   }
 
   String _formatDate(DateTime dateTime) {
-    return DateFormat('MM/dd/yyyy').format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
   String _formatTime(DateTime dateTime) {
@@ -522,10 +527,7 @@ class _MahasiswaPresensiDashboardPageState
                                               await modalKelas.setString(
                                                   'Kelas',
                                                   beacon.proximityUUID);
-
                                               getModalKelas();
-                                              // Get.to(() =>
-                                              //     MahasiswaPresensiDetailPage());
                                               showModalBottomSheet(
                                                   isScrollControlled: true,
                                                   context: context,
