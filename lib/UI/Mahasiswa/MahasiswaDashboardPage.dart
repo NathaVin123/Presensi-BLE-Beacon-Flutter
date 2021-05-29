@@ -53,8 +53,10 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
         elevation: 25,
         color: Colors.white,
         child: new TabBar(
+          labelStyle: TextStyle(
+              fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold),
           controller: controller,
-          indicatorColor: Colors.grey,
+          indicatorColor: Colors.grey[800],
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
           onTap: (value) {

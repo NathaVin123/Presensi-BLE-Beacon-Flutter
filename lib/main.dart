@@ -153,67 +153,6 @@ class _MyAppState extends State<MyApp> {
   // }
 }
 
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       debugShowCheckedModeBanner: false,
-//       // home: SplashPage(),
-//       initialRoute: '/',
-//       getPages: [
-//         // Splash Page
-//         GetPage(name: '/', page: () => SplashPage()),
-//         // BluetoothOff Page
-//         GetPage(name: '/bluetooth', page: () => BluetoothOff()),
-//         // Login Page
-//         GetPage(name: '/login', page: () => LoginPage()),
-//         GetPage(name: '/login/mahasiswa', page: () => LoginMahasiswa()),
-//         GetPage(name: '/login/dosen', page: () => LoginDosen()),
-//         // Mahasiswa Page
-//         GetPage(
-//             name: '/mahasiswa/dashboard', page: () => MahasiswaDashboardPage()),
-//         GetPage(
-//             name: '/mahasiswa/dashboard/presensi',
-//             page: () => MahasiswaPresensiDashboardPage()),
-//         GetPage(
-//             name: '/mahasiswa/dashboard/jadwal',
-//             page: () => MahasiswaJadwalDashboardPage()),
-//         GetPage(
-//             name: '/mahasiswa/dashboard/riwayat',
-//             page: () => MahasiswaRiwayatDashboardPage()),
-//         GetPage(
-//             name: '/mahasiswa/dashboard/akun',
-//             page: () => MahasiswaAkunDashboardPage()),
-//         // Dosen Page
-//         GetPage(name: '/dosen/dashboard', page: () => DosenDashboardPage()),
-//         GetPage(
-//             name: '/dosen/dashboard/presensi',
-//             page: () => DosenPresensiDashboardPage()),
-//         GetPage(
-//             name: '/dosen/dashboard/jadwal',
-//             page: () => DosenJadwalDashboardPage()),
-//         GetPage(
-//             name: '/dosen/dashboard/riwayat',
-//             page: () => DosenRiwayatDashboardPage()),
-//         GetPage(
-//             name: '/dosen/dashboard/akun',
-//             page: () => DosenAkunDashboardPage()),
-//         // Statistik Page
-//         GetPage(
-//             name: '/statistik/mahasiswa', page: () => MahasiswaStatistikPage()),
-//         GetPage(name: '/statistik/dosen', page: () => DosenStatistikPage()),
-//         // Tentang Page
-//         GetPage(name: '/tentang', page: () => TentangPage()),
-//       ],
-//     );
-//   }
-// }
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {
