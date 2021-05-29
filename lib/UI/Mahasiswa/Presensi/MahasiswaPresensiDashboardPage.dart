@@ -7,6 +7,7 @@ import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
+import 'package:system_setting/system_setting.dart';
 
 class MahasiswaPresensiDashboardPage extends StatefulWidget {
   @override
@@ -46,8 +47,6 @@ class _MahasiswaPresensiDashboardPageState
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    // super.initState();
-
     listeningState();
   }
 
@@ -78,47 +77,37 @@ class _MahasiswaPresensiDashboardPageState
   }
 
   listeningState() async {
-    print('Listening to bluetooth state');
-    _streamBluetooth = flutterBeacon
-        .bluetoothStateChanged()
-        .listen((BluetoothState state) async {
-      print('BluetoothState = $state');
-      streamController.add(state);
+    if (Platform.isAndroid) {
+      print('Listening to bluetooth state');
+      _streamBluetooth = flutterBeacon
+          .bluetoothStateChanged()
+          .listen((BluetoothState state) async {
+        print('BluetoothState = $state');
+        streamController.add(state);
+        if (BluetoothState.stateOn == state) {
+          initScanBeacon();
+        }
+        if (BluetoothState.stateOff == state) {
+          await pauseScanBeacon();
+          await checkAllRequirements();
+        }
+      });
+    } else if (Platform.isIOS) {
+      print('Listening to bluetooth state');
+      _streamBluetooth = flutterBeacon
+          .bluetoothStateChanged()
+          .listen((BluetoothState state) async {
+        print('BluetoothState = $state');
+        streamController.add(state);
 
-      // switch (state) {
-      //   case BluetoothState.stateOn:
-      //     initScanBeacon();
-      //     break;
-      //   case BluetoothState.stateOff:
-      //     await pauseScanBeacon();
-      //     await checkAllRequirements();
-      //     break;
-      // }
-      if (BluetoothState.stateOn == state) {
-        initScanBeacon();
-      }
-      if (BluetoothState.stateOff == state) {
-        await pauseScanBeacon();
-        await checkAllRequirements();
-      }
-    });
-  }
-
-  checkAllRequirements() async {
-    final bluetoothState = await flutterBeacon.bluetoothState;
-    final bluetoothEnabled = bluetoothState == BluetoothState.stateOn;
-    final authorizationStatus = await flutterBeacon.authorizationStatus;
-    final authorizationStatusOk =
-        authorizationStatus == AuthorizationStatus.allowed ||
-            authorizationStatus == AuthorizationStatus.always;
-    final locationServiceEnabled =
-        await flutterBeacon.checkLocationServicesIfEnabled;
-
-    setState(() {
-      this.authorizationStatusOk = authorizationStatusOk;
-      this.locationServiceEnabled = locationServiceEnabled;
-      this.bluetoothEnabled = bluetoothEnabled;
-    });
+        if (BluetoothState.stateOn == state) {
+          initScanBeacon();
+        }
+        if (BluetoothState.stateOff == state) {
+          await pauseScanBeacon();
+        }
+      });
+    }
   }
 
   initScanBeacon() async {
@@ -140,19 +129,57 @@ class _MahasiswaPresensiDashboardPageState
       }
     }
 
-    _streamRanging = flutterBeacon.ranging(
-        <Region>[new Region(identifier: "")]).listen((RangingResult result) {
-      print(result);
-      if (result != null && mounted) {
-        setState(() {
-          _regionBeacons[result.region] = result.beacons;
-          _beacons.clear();
-          _regionBeacons.values.forEach((list) {
-            _beacons.addAll(list);
+    if (Platform.isIOS) {
+      _streamRanging = flutterBeacon.ranging(<Region>[
+        new Region(
+          identifier: '',
+          proximityUUID: 'FDA50693-A4E2-4FB1-AFCF-C6EB07647825',
+        )
+      ]).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
           });
-          _beacons.sort(_compareParameters);
-        });
-      }
+        }
+      });
+    } else if (Platform.isAndroid) {
+      _streamRanging = flutterBeacon.ranging(
+          <Region>[new Region(identifier: '')]).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
+          });
+        }
+      });
+    }
+  }
+
+  checkAllRequirements() async {
+    final bluetoothState = await flutterBeacon.bluetoothState;
+    final bluetoothEnabled = bluetoothState == BluetoothState.stateOn;
+    final authorizationStatus = await flutterBeacon.authorizationStatus;
+    final authorizationStatusOk =
+        authorizationStatus == AuthorizationStatus.allowed ||
+            authorizationStatus == AuthorizationStatus.always;
+    final locationServiceEnabled =
+        await flutterBeacon.checkLocationServicesIfEnabled;
+
+    setState(() {
+      this.authorizationStatusOk = authorizationStatusOk;
+      this.locationServiceEnabled = locationServiceEnabled;
+      this.bluetoothEnabled = bluetoothEnabled;
     });
   }
 
@@ -181,20 +208,33 @@ class _MahasiswaPresensiDashboardPageState
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    print('AppLifecycleState = $state');
-    if (state == AppLifecycleState.resumed) {
-      if (_streamBluetooth != null && _streamBluetooth.isPaused) {
-        _streamBluetooth.resume();
-      }
-      await checkAllRequirements();
-      if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
-        await initScanBeacon();
-      } else {
-        await pauseScanBeacon();
+    if (Platform.isAndroid) {
+      print('AppLifecycleState = $state');
+      if (state == AppLifecycleState.resumed) {
+        if (_streamBluetooth != null && _streamBluetooth.isPaused) {
+          _streamBluetooth.resume();
+        }
         await checkAllRequirements();
+        if (authorizationStatusOk &&
+            locationServiceEnabled &&
+            bluetoothEnabled) {
+          await initScanBeacon();
+        } else {
+          await pauseScanBeacon();
+          await checkAllRequirements();
+        }
+      } else if (state == AppLifecycleState.paused) {
+        _streamBluetooth?.pause();
       }
-    } else if (state == AppLifecycleState.paused) {
-      _streamBluetooth?.pause();
+    } else if (Platform.isIOS) {
+      print('AppLifecycleState = $state');
+      if (state == AppLifecycleState.resumed) {
+        if (_streamBluetooth != null && _streamBluetooth.isPaused) {
+          _streamBluetooth.resume();
+        }
+      } else if (state == AppLifecycleState.paused) {
+        _streamBluetooth?.pause();
+      }
     }
   }
 
@@ -300,7 +340,9 @@ class _MahasiswaPresensiDashboardPageState
                     onPressed: () async {
                       if (Platform.isAndroid) {
                         await flutterBeacon.openLocationSettings;
-                      } else if (Platform.isIOS) {}
+                      } else if (Platform.isIOS) {
+                        await _jumpToSetting();
+                      }
                     }),
               StreamBuilder<BluetoothState>(
                 builder: (context, snapshot) {
@@ -325,7 +367,13 @@ class _MahasiswaPresensiDashboardPageState
                             } on PlatformException catch (e) {
                               print(e);
                             }
-                          } else if (Platform.isIOS) {}
+                          } else if (Platform.isIOS) {
+                            try {
+                              await _jumpToSetting();
+                            } on PlatformException catch (e) {
+                              print(e);
+                            }
+                          }
                         },
                         color: Colors.red,
                       );
@@ -582,6 +630,7 @@ class _MahasiswaPresensiDashboardPageState
                                               await modalKelas.setString(
                                                   'Jam', _timeString);
                                               getModalKelas();
+                                              // Tampilan Modal Kelas
                                               showModalBottomSheet(
                                                   isScrollControlled: true,
                                                   context: context,
@@ -792,13 +841,13 @@ class _MahasiswaPresensiDashboardPageState
                                                                           StadiumBorder(),
                                                                       padding: EdgeInsets.only(
                                                                           left:
-                                                                              55,
+                                                                              50,
                                                                           right:
-                                                                              55,
+                                                                              50,
                                                                           top:
-                                                                              10,
+                                                                              5,
                                                                           bottom:
-                                                                              10),
+                                                                              5),
                                                                       onPressed:
                                                                           () {},
                                                                       child:
@@ -834,13 +883,13 @@ class _MahasiswaPresensiDashboardPageState
                                                                           StadiumBorder(),
                                                                       padding: EdgeInsets.only(
                                                                           left:
-                                                                              55,
+                                                                              50,
                                                                           right:
-                                                                              55,
+                                                                              50,
                                                                           top:
-                                                                              10,
+                                                                              5,
                                                                           bottom:
-                                                                              10),
+                                                                              5),
                                                                       onPressed:
                                                                           () {},
                                                                       child:
@@ -908,4 +957,8 @@ class _MahasiswaPresensiDashboardPageState
           )),
     );
   }
+}
+
+_jumpToSetting() {
+  SystemSetting.goto(SettingTarget.BLUETOOTH);
 }

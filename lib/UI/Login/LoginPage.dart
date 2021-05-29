@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage>
                   child: Image(
                       height: MediaQuery.of(context).size.height > 800
                           ? 150.0
-                          : 120,
+                          : 110,
                       fit: BoxFit.fill,
                       image: const AssetImage(
                           'assets/png/SplashPage_LogoAtmaJaya.png')),

@@ -323,7 +323,7 @@ class _MahasiswaAkunDashboardPageState
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.offAllNamed('/login'),
+                          onTap: () => Get.offAllNamed('/bluetooth'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.red,

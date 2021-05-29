@@ -43,226 +43,227 @@ class _LoginDosenState extends State<LoginDosen> {
   Widget build(BuildContext context) {
     return Container(
       key: scaffoldKey,
-
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 15),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).hintColor.withOpacity(0.2),
-                    offset: Offset(0, 10),
-                    blurRadius: 20)
-              ],
-            ),
-            child: Form(
-              key: globalFormKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: _nppFieldController,
-                      focusNode: _nppFieldFocus,
-                      onFieldSubmitted: (term) {
-                        _fieldFocusChange(
-                            context, _nppFieldFocus, _passwordFieldFocus);
-                      },
-                      textInputAction: TextInputAction.next,
-                      style: const TextStyle(
-                          fontFamily: 'WorkSansSemiBold',
-                          fontSize: 18.0,
-                          color: Colors.black),
-                      keyboardType: TextInputType.number,
-                      onSaved: (input) => loginDosenRequestModel.npp = input,
-                      validator: (input) =>
-                          input.length < 8 ? "NPP minimal 9 karakter" : null,
-                      decoration: new InputDecoration(
-                        contentPadding: EdgeInsets.all(20.0),
-                        hintText: "NPP",
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
-                        prefixIcon: Icon(
-                          Icons.person_rounded,
-                          color: Colors.black,
-                          size: 22.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10.0, bottom: 0.0, left: 10, right: 10),
-                    child: TextFormField(
-                      controller: _passwordFieldController,
-                      focusNode: _passwordFieldFocus,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (value) {
-                        _passwordFieldFocus.unfocus();
-                      },
-                      style: const TextStyle(
-                          fontFamily: 'WorkSansSemiBold',
-                          fontSize: 18.0,
-                          color: Colors.black),
-                      keyboardType: TextInputType.text,
-                      onSaved: (input) =>
-                          loginDosenRequestModel.password = input,
-                      validator: (input) => input.length < 5
-                          ? "PASSWORD minimal 5 karakter"
-                          : null,
-                      obscureText: hidePassword,
-                      decoration: new InputDecoration(
-                        contentPadding: EdgeInsets.all(20.0),
-                        hintText: "PASSWORD",
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
-                        prefixIcon: Icon(
-                          Icons.lock_rounded,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              hidePassword = !hidePassword;
-                            });
-                          },
-                          color: Colors.black,
-                          icon: Icon(hidePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  // Center(
-                  //     child: CheckboxListTile(
-                  //   title: Text("Ingat Saya",
-                  //       style: const TextStyle(
-                  //           fontFamily: 'WorkSansSemiBold',
-                  //           fontSize: 14.0,
-                  //           color: Colors.black)),
-                  //   value: timeDilation != 0.5,
-                  //   onChanged: (bool value) {
-                  //     setState(() {
-                  //       timeDilation = value ? 2.0 : 0.5;
-                  //     });
-                  //   },
-                  //   activeColor: Colors.white,
-                  //   checkColor: Colors.blue,
-                  //   controlAffinity: ListTileControlAffinity.leading,
-                  // )),
-                  MaterialButton(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
-                    onPressed: () {
-                      setState(() {
-                        if (_state == 0) {
-                          animateButton();
-                        }
-                      });
-                      try {
-                        if (validateAndSave()) {
-                          print(loginDosenRequestModel.toJson());
-
-                          setState(() {
-                            isApiCallProcess = true;
-                          });
-
-                          APIService apiService = new APIService();
-                          apiService
-                              .loginDosen(loginDosenRequestModel)
-                              .then((value) async {
-                            if (value != null) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-
-                              if (value?.data?.token?.isNotEmpty ?? false) {
-                                // Get.to(() => DosenDashboardPage());
-                                Get.offNamed('/dosen/dashboard');
-
-                                // Get.snackbar('Berhasil Login',
-                                //     'Selamat Datang ${value.data.namadsn}',
-                                //     snackPosition: SnackPosition.TOP,
-                                //     colorText: Colors.white,
-                                //     backgroundColor: Colors.blue);
-                                Fluttertoast.showToast(
-                                    msg: 'Selamat datang ${value.data.namadsn}',
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.TOP,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.green,
-                                    textColor: Colors.white,
-                                    fontSize: 14.0);
-
-                                SharedPreferences loginMahasiswa =
-                                    await SharedPreferences.getInstance();
-                                await loginMahasiswa.setString(
-                                    'npm', value.data.npp);
-                                await loginMahasiswa.setString(
-                                    'namamhs', value.data.namadsn);
-                              } else {
-                                // Get.snackbar('Gagal Login',
-                                //     'Silahkan masukan NPP dan Password yang terdaftar',
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //     colorText: Colors.white,
-                                //     backgroundColor: Colors.red);
-                                Fluttertoast.showToast(
-                                    // msg: '${value.error}',
-                                    msg:
-                                        'Silahkan Masukan NPP/Password dengan benar',
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 14.0);
-                              }
-                            }
-                          });
-                        }
-                      } catch (error) {}
-                    },
-                    // child: Text(
-                    //   "MASUK",
-                    //   style: const TextStyle(
-                    //       fontFamily: 'WorkSansSemiBold',
-                    //       fontSize: 18.0,
-                    //       color: Colors.white),
-                    // ),
-                    child: setUpButtonChild(),
-                    color: Color.fromRGBO(247, 180, 7, 1),
-                    shape: StadiumBorder(),
-                  ),
-                  SizedBox(height: 15),
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 15),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Theme.of(context).hintColor.withOpacity(0.2),
+                      offset: Offset(0, 10),
+                      blurRadius: 20)
                 ],
               ),
+              child: Form(
+                key: globalFormKey,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        controller: _nppFieldController,
+                        focusNode: _nppFieldFocus,
+                        onFieldSubmitted: (term) {
+                          _fieldFocusChange(
+                              context, _nppFieldFocus, _passwordFieldFocus);
+                        },
+                        textInputAction: TextInputAction.next,
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 18.0,
+                            color: Colors.black),
+                        keyboardType: TextInputType.number,
+                        onSaved: (input) => loginDosenRequestModel.npp = input,
+                        validator: (input) =>
+                            input.length < 8 ? "NPP minimal 9 karakter" : null,
+                        decoration: new InputDecoration(
+                          contentPadding: EdgeInsets.all(20.0),
+                          hintText: "NPP",
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black)),
+                          prefixIcon: Icon(
+                            Icons.person_rounded,
+                            color: Colors.black,
+                            size: 22.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: TextFormField(
+                        controller: _passwordFieldController,
+                        focusNode: _passwordFieldFocus,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (value) {
+                          _passwordFieldFocus.unfocus();
+                        },
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 18.0,
+                            color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        onSaved: (input) =>
+                            loginDosenRequestModel.password = input,
+                        validator: (input) => input.length < 5
+                            ? "PASSWORD minimal 5 karakter"
+                            : null,
+                        obscureText: hidePassword,
+                        decoration: new InputDecoration(
+                          contentPadding: EdgeInsets.all(20.0),
+                          hintText: "PASSWORD",
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black)),
+                          prefixIcon: Icon(
+                            Icons.lock_rounded,
+                            color: Colors.black,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                hidePassword = !hidePassword;
+                              });
+                            },
+                            color: Colors.black,
+                            icon: Icon(hidePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    // Center(
+                    //     child: CheckboxListTile(
+                    //   title: Text("Ingat Saya",
+                    //       style: const TextStyle(
+                    //           fontFamily: 'WorkSansSemiBold',
+                    //           fontSize: 14.0,
+                    //           color: Colors.black)),
+                    //   value: timeDilation != 0.5,
+                    //   onChanged: (bool value) {
+                    //     setState(() {
+                    //       timeDilation = value ? 2.0 : 0.5;
+                    //     });
+                    //   },
+                    //   activeColor: Colors.white,
+                    //   checkColor: Colors.blue,
+                    //   controlAffinity: ListTileControlAffinity.leading,
+                    // )),
+                    MaterialButton(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                      onPressed: () {
+                        setState(() {
+                          if (_state == 0) {
+                            animateButton();
+                          }
+                        });
+                        try {
+                          if (validateAndSave()) {
+                            print(loginDosenRequestModel.toJson());
+
+                            setState(() {
+                              isApiCallProcess = true;
+                            });
+
+                            APIService apiService = new APIService();
+                            apiService
+                                .loginDosen(loginDosenRequestModel)
+                                .then((value) async {
+                              if (value != null) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                if (value?.data?.token?.isNotEmpty ?? false) {
+                                  // Get.to(() => DosenDashboardPage());
+                                  Get.offNamed('/dosen/dashboard');
+
+                                  // Get.snackbar('Berhasil Login',
+                                  //     'Selamat Datang ${value.data.namadsn}',
+                                  //     snackPosition: SnackPosition.TOP,
+                                  //     colorText: Colors.white,
+                                  //     backgroundColor: Colors.blue);
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          'Selamat datang ${value.data.namadsn}',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 14.0);
+
+                                  SharedPreferences loginMahasiswa =
+                                      await SharedPreferences.getInstance();
+                                  await loginMahasiswa.setString(
+                                      'npm', value.data.npp);
+                                  await loginMahasiswa.setString(
+                                      'namamhs', value.data.namadsn);
+                                } else {
+                                  // Get.snackbar('Gagal Login',
+                                  //     'Silahkan masukan NPP dan Password yang terdaftar',
+                                  //     snackPosition: SnackPosition.BOTTOM,
+                                  //     colorText: Colors.white,
+                                  //     backgroundColor: Colors.red);
+                                  Fluttertoast.showToast(
+                                      // msg: '${value.error}',
+                                      msg:
+                                          'Silahkan Masukan NPP/Password dengan benar',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 14.0);
+                                }
+                              }
+                            });
+                          }
+                        } catch (error) {}
+                      },
+                      // child: Text(
+                      //   "MASUK",
+                      //   style: const TextStyle(
+                      //       fontFamily: 'WorkSansSemiBold',
+                      //       fontSize: 18.0,
+                      //       color: Colors.white),
+                      // ),
+                      child: setUpButtonChild(),
+                      color: Color.fromRGBO(247, 180, 7, 1),
+                      shape: StadiumBorder(),
+                    ),
+                    SizedBox(height: 15),
+                  ],
+                ),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-                child: Text(
-              'Silahkan login dengan akun simka.',
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: 'WorkSansMedium'),
-            )),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                  child: Text(
+                'Silahkan login dengan akun simka.',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: 'WorkSansMedium'),
+              )),
+            ),
+          ],
+        ),
       ),
       // ),
     );
