@@ -59,6 +59,7 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
           indicatorColor: Colors.grey[800],
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
+          // isScrollable: true,
           onTap: (value) {
             setState(() {
               currentPage = value;

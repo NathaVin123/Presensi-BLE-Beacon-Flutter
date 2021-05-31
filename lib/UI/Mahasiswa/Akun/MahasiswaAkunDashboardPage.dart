@@ -81,6 +81,7 @@ class _MahasiswaAkunDashboardPageState
                 child: InkWell(
                     borderRadius: BorderRadius.circular(25),
                     onTap: () async {
+                      Get.toNamed('/mahasiswa/dashboard/akun/informasi');
                       // SharedPreferences loginMahasiswa =
                       //     await SharedPreferences.getInstance();
                       // String npm = (loginMahasiswa.getString('npm') ?? 'null');

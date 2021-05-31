@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:presensiblebeacon/MODEL/JadwalMahasiswaModel.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
 
-class MahasiswaJadwalDashboardPage extends StatelessWidget {
-  const MahasiswaJadwalDashboardPage({Key key}) : super(key: key);
+class MahasiswaJadwalDashboardPage extends StatefulWidget {
+  MahasiswaJadwalDashboardPage({Key key}) : super(key: key);
+
+  @override
+  _MahasiswaJadwalDashboardPageState createState() =>
+      _MahasiswaJadwalDashboardPageState();
+}
+
+class _MahasiswaJadwalDashboardPageState
+    extends State<MahasiswaJadwalDashboardPage> {
+  JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _jadwal = <JadwalMahasiswaRequestModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+    jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
+
+    APIService apiService = new APIService();
+    apiService
+        .jadwalMahasiswa(jadwalMahasiswaRequestModel)
+        .then((value) async {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +177,22 @@ class MahasiswaJadwalDashboardPage extends StatelessWidget {
                   ],
                 ),
               )
+              // SingleChildScrollView(
+              //   child: Column(
+              //     children: ListTile.divideTiles(
+              //         context: context,
+              //         tiles: _jadwal.map((jadwal) {
+              //           return Padding(
+              //             padding: EdgeInsets.all(10),
+              //             child: Container(
+              //               decoration: BoxDecoration(
+              //                   color: Colors.grey[200],
+              //                   borderRadius: BorderRadius.circular(25)),
+              //             ),
+              //           );
+              //         })),
+              //   ),
+              // )
             ]),
           )
         ]));

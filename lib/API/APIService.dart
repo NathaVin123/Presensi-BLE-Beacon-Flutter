@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../MODEL/LoginMahasiswaModel.dart';
+import '../MODEL/JadwalMahasiswaModel.dart';
 import '../MODEL/LoginDosenModel.dart';
 
 class APIService {
@@ -48,6 +49,50 @@ class APIService {
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
       return LoginDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future<JadwalMahasiswaResponseModel> jadwalMahasiswa(
+      JadwalMahasiswaRequestModel requestModel) async {
+    String url = "https://192.168.100.56:5000/api/jadwalmhs/jadwalmhs";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return JadwalMahasiswaResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return JadwalMahasiswaResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future<JadwalMahasiswaResponseModel> riwayatMahasiswa(
+      JadwalMahasiswaRequestModel requestModel) async {
+    String url = "https://192.168.100.56:5000/api/jadwalmhs/jadwalmhs";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return JadwalMahasiswaResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return JadwalMahasiswaResponseModel.fromJson(
         json.decode(response.body),
       );
     } else {

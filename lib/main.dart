@@ -23,6 +23,8 @@ import 'package:presensiblebeacon/UI/Statistik/DosenStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Statistik/MahasiswaStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
 
+import 'UI/Mahasiswa/Akun/MahasiswaInformasiAkunPage.dart';
+
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
   runApp(MyApp());
@@ -106,6 +108,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/mahasiswa/dashboard/akun',
             page: () => MahasiswaAkunDashboardPage()),
+        GetPage(
+            name: '/mahasiswa/dashboard/akun/informasi',
+            page: () => MahasiswaInformasiAkunPage()),
         // Dosen Page
         GetPage(
             name: '/dosen/dashboard',
