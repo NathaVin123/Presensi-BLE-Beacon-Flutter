@@ -16,6 +16,12 @@ class _MahasiswaAkunDashboardPageState
     extends State<MahasiswaAkunDashboardPage> {
   String npm = "";
   String namamhs = "";
+  // String tmplahir = "";
+  // String tgllahir = "";
+  // String alamat = "";
+  // String fakultas = "";
+  String prodi = "";
+  // String pembimbingakademik = "";
 
   bool lightSwitch = false;
   bool notifSwitch = false;
@@ -43,9 +49,12 @@ class _MahasiswaAkunDashboardPageState
 
     npm = loginMahasiswa.getString('npm');
     namamhs = loginMahasiswa.getString('namamhs');
-
-    print(npm);
-    print(namamhs);
+    // tmplahir = loginMahasiswa.getString('tmplahir');
+    // tgllahir = loginMahasiswa.getString('tgllahir');
+    // alamat = loginMahasiswa.getString('alamat');
+    // fakultas = loginMahasiswa.getString('fakultas');
+    prodi = loginMahasiswa.getString('prodi');
+    // pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
   }
 
   @override
@@ -118,6 +127,16 @@ class _MahasiswaAkunDashboardPageState
                                 ),
                                 Text(
                                   npm,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  prodi,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'WorkSansMedium',

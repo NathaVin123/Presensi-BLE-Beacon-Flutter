@@ -28,12 +28,29 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 
 class Data {
-  Data({this.npm, this.namamhs, this.password, this.kdstatusmhs, this.token});
+  Data(
+      {this.npm,
+      this.namamhs,
+      this.password,
+      this.kdstatusmhs,
+      this.tmplahir,
+      this.tgllahir,
+      this.alamat,
+      this.fakultas,
+      this.prodi,
+      this.pembimbingakademik,
+      this.token});
 
   final String npm;
   final String namamhs;
   final String password;
   final String kdstatusmhs;
+  final String tmplahir;
+  final String tgllahir;
+  final String alamat;
+  final String fakultas;
+  final String prodi;
+  final String pembimbingakademik;
   final String token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -42,6 +59,14 @@ class Data {
         password: json["PASSWORD"] == null ? null : json["PASSWORD"],
         kdstatusmhs:
             json["KD_STATUS_MHS"] == null ? null : json["KD_STATUS_MHS"],
+        tmplahir: json["TMP_LAHIR"] == null ? null : json["TMP_LAHIR"],
+        tgllahir: json["TGL_LAHIR"] == null ? null : json["TGL_LAHIR"],
+        alamat: json["ALAMAT"] == null ? null : json["ALAMAT"],
+        fakultas: json["FAKULTAS"] == null ? null : json["FAKULTAS"],
+        prodi: json["PRODI"] == null ? null : json["PRODI"],
+        pembimbingakademik: json["DSN_PEMBIMBING_AKADEMIK"] == null
+            ? null
+            : json["DSN_PEMBIMBING_AKADEMIK"],
         token: json["token"] == null ? null : json["token"],
       );
 
@@ -50,6 +75,13 @@ class Data {
         "NAMA_MHS": namamhs == null ? null : namamhs,
         "PASSWORD": password == null ? null : password,
         "KD_STATUS_MHS": kdstatusmhs == null ? null : kdstatusmhs,
+        "TMP_LAHIR": tmplahir == null ? null : tmplahir,
+        "TGL_LAHIR": tgllahir == null ? null : tgllahir,
+        "ALAMAT": alamat == null ? null : alamat,
+        "FAKULTAS": fakultas == null ? null : fakultas,
+        "PRODI": prodi == null ? null : prodi,
+        "DSN_PEMBIMBING_AKADEMIK":
+            pembimbingakademik == null ? null : pembimbingakademik,
         "token": token == null ? null : token
       };
 }

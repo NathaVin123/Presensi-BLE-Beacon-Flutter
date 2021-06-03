@@ -222,7 +222,18 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                   await loginMahasiswa.setString(
                                       'npm', value.data.npm);
                                   await loginMahasiswa.setString(
-                                      'namamhs', value.data.namamhs);
+                                      'tmplahir', value.data.tmplahir);
+                                  await loginMahasiswa.setString(
+                                      'tgllahir', value.data.tgllahir);
+                                  await loginMahasiswa.setString(
+                                      'alamat', value.data.alamat);
+                                  await loginMahasiswa.setString(
+                                      'fakultas', value.data.fakultas);
+                                  await loginMahasiswa.setString(
+                                      'prodi', value.data.prodi);
+                                  await loginMahasiswa.setString(
+                                      'pembimbingakademik',
+                                      value.data.pembimbingakademik);
                                 } else {
                                   // Get.snackbar('Gagal Login',
                                   //     'Silahkan masukan NPM dan Password yang terdaftar',

@@ -580,14 +580,18 @@ class _MahasiswaPresensiDashboardPageState
                                               borderRadius:
                                                   BorderRadius.circular(25)),
                                           child: ListTile(
-                                            title: Text(
-                                                'Kelas : ${beacon.proximityUUID}',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                            title: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  'Kelas : ${beacon.proximityUUID}',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
                                             subtitle: new Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: <Widget>[
@@ -598,16 +602,39 @@ class _MahasiswaPresensiDashboardPageState
                                                 //     flex: 1,
                                                 //     fit: FlexFit.tight),
                                                 Flexible(
-                                                    child: Text(
-                                                        // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                        'Jarak: ${beacon.accuracy} m',
-                                                        style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Mata Kuliah : -',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Jarak: ${beacon.accuracy} m',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
                                                     flex: 1,
                                                     fit: FlexFit.tight),
                                                 // Flexible(
@@ -646,7 +673,7 @@ class _MahasiswaPresensiDashboardPageState
                                                       .antiAliasWithSaveLayer,
                                                   builder: (builder) {
                                                     return new Container(
-                                                      height: 550,
+                                                      height: 650,
                                                       color: Colors.white,
                                                       child: new Column(
                                                         children: [
@@ -794,7 +821,7 @@ class _MahasiswaPresensiDashboardPageState
                                                                         new Center(
                                                                       child:
                                                                           new Text(
-                                                                        'Jam',
+                                                                        'Jam Masuk',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',
@@ -813,6 +840,41 @@ class _MahasiswaPresensiDashboardPageState
                                                                       child:
                                                                           new Text(
                                                                         jam,
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Jam Keluar',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '-',
                                                                         style: TextStyle(
                                                                             fontFamily: 'WorkSansMedium',
                                                                             // fontWeight:
