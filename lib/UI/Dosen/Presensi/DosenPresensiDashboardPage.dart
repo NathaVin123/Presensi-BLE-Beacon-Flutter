@@ -584,7 +584,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                  'Kelas : ${beacon.proximityUUID}',
+                                                  'Ruangan : ${beacon.proximityUUID}',
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontFamily:
@@ -609,6 +609,24 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                       child: Text(
                                                           // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
                                                           'Mata Kuliah : -',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Kelas : -',
                                                           style: TextStyle(
                                                               fontSize: 14.0,
                                                               fontFamily:
@@ -716,7 +734,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                         new Center(
                                                                       child:
                                                                           new Text(
-                                                                        'Kelas',
+                                                                        'Ruangan',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',
@@ -786,7 +804,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                         new Center(
                                                                       child:
                                                                           new Text(
-                                                                        'Dosen',
+                                                                        'Kelas',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',

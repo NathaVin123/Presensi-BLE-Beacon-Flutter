@@ -15,24 +15,24 @@ class DosenJadwalDashboardPage extends StatefulWidget {
 }
 
 class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
-  JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _jadwal = <JadwalMahasiswaRequestModel>[];
+  // JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
+  // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final _jadwal = <JadwalMahasiswaRequestModel>[];
   String _dateString;
   @override
   void initState() {
     super.initState();
 
-    jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
+    // jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
 
     _dateString = _formatDate(DateTime.now());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    APIService apiService = new APIService();
-    apiService
-        .jadwalMahasiswa(jadwalMahasiswaRequestModel)
-        .then((value) async {});
+    // APIService apiService = new APIService();
+    // apiService
+    //     .jadwalMahasiswa(jadwalMahasiswaRequestModel)
+    //     .then((value) async {});
   }
 
   void _getDate() {
@@ -228,7 +228,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                               ),
                             ),
                             Text(
-                              'Kuliah Hari Ini',
+                              'Kelas Hari Ini',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -344,9 +344,12 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                                   fontSize: 20),
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
                                           Center(
                                             child: Text(
-                                              'Dosen Tek. Informatika',
+                                              'Kelas B',
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontWeight: FontWeight.bold,
@@ -354,6 +357,16 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                                   fontSize: 18),
                                             ),
                                           ),
+                                          // Center(
+                                          //   child: Text(
+                                          //     'Dosen Tek. Informatika',
+                                          //     style: TextStyle(
+                                          //         color: Colors.grey,
+                                          //         fontWeight: FontWeight.bold,
+                                          //         fontFamily: 'WorkSansMedium',
+                                          //         fontSize: 18),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     )
@@ -396,7 +409,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: Text(
-                                                'SABTU',
+                                                'Senin',
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -430,7 +443,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                         children: <Widget>[
                                           Center(
                                             child: Text(
-                                              'Tugas Akhir',
+                                              'Magang',
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
@@ -438,9 +451,12 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                                   fontSize: 20),
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
                                           Center(
                                             child: Text(
-                                              'Dosen Tek. Informatika',
+                                              'Kelas A',
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontWeight: FontWeight.bold,
@@ -448,6 +464,16 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                                   fontSize: 18),
                                             ),
                                           ),
+                                          // Center(
+                                          //   child: Text(
+                                          //     'Dosen Tek. Informatika',
+                                          //     style: TextStyle(
+                                          //         color: Colors.grey,
+                                          //         fontWeight: FontWeight.bold,
+                                          //         fontFamily: 'WorkSansMedium',
+                                          //         fontSize: 18),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     )

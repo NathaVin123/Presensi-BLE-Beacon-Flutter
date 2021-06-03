@@ -86,7 +86,7 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
                               padding: const EdgeInsets.all(10),
                               child: Center(
                                   child: Column(
-                                children: [
+                                children: <Widget>[
                                   Text('Nama Dosen',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,

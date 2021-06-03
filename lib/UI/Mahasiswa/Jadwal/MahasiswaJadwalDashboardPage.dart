@@ -16,24 +16,24 @@ class MahasiswaJadwalDashboardPage extends StatefulWidget {
 
 class _MahasiswaJadwalDashboardPageState
     extends State<MahasiswaJadwalDashboardPage> {
-  JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _jadwal = <JadwalMahasiswaRequestModel>[];
+  // JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
+  // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final _jadwal = <JadwalMahasiswaRequestModel>[];
   String _dateString;
 
   @override
   void initState() {
     super.initState();
-    jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
+    // jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
 
     _dateString = _formatDate(DateTime.now());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    APIService apiService = new APIService();
-    apiService
-        .jadwalMahasiswa(jadwalMahasiswaRequestModel)
-        .then((value) async {});
+    // APIService apiService = new APIService();
+    // apiService
+    //     .jadwalMahasiswa(jadwalMahasiswaRequestModel)
+    //     .then((value) async {});
   }
 
   void _getDate() {
@@ -345,6 +345,22 @@ class _MahasiswaJadwalDashboardPageState
                                                   fontSize: 20),
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              'Kelas A',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
                                           Center(
                                             child: Text(
                                               'Dosen Tek. Informatika',
@@ -438,6 +454,22 @@ class _MahasiswaJadwalDashboardPageState
                                                   fontFamily: 'WorkSansMedium',
                                                   fontSize: 20),
                                             ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              'Kelas A',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
                                           ),
                                           Center(
                                             child: Text(

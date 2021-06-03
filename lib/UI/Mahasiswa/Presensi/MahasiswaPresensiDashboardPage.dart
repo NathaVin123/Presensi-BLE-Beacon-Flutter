@@ -267,59 +267,59 @@ class _MahasiswaPresensiDashboardPageState
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Colors.white,
-            leading: IconButton(
-              icon: Icon(
-                Icons.notifications_none_rounded,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                return showGeneralDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    transitionDuration: Duration(microseconds: 500),
-                    barrierLabel: MaterialLocalizations.of(context).dialogLabel,
-                    barrierColor: Colors.black.withOpacity(0.5),
-                    pageBuilder: (context, _, __) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.white,
-                            child: Card(
-                              child: ListView(
-                                shrinkWrap: true,
-                                children: [
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(left: 20, right: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [Text('Notifikasi')],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                    transitionBuilder:
-                        (context, animation, secondaryanimation, child) {
-                      return SlideTransition(
-                          position: CurvedAnimation(
-                        parent: animation,
-                        curve: Curves.easeInOutCubic,
-                      ).drive(Tween<Offset>(
-                              begin: Offset(0, -1.0), end: Offset.zero)));
-                    });
-              },
-            ),
+            // leading: IconButton(
+            //   icon: Icon(
+            //     Icons.notifications_none_rounded,
+            //     color: Colors.black,
+            //   ),
+            //   onPressed: () {
+            //     return showGeneralDialog(
+            //         context: context,
+            //         barrierDismissible: true,
+            //         transitionDuration: Duration(microseconds: 500),
+            //         barrierLabel: MaterialLocalizations.of(context).dialogLabel,
+            //         barrierColor: Colors.black.withOpacity(0.5),
+            //         pageBuilder: (context, _, __) {
+            //           return Column(
+            //             mainAxisAlignment: MainAxisAlignment.start,
+            //             children: [
+            //               Container(
+            //                 width: MediaQuery.of(context).size.width,
+            //                 color: Colors.white,
+            //                 child: Card(
+            //                   child: ListView(
+            //                     shrinkWrap: true,
+            //                     children: [
+            //                       SizedBox(
+            //                         height: 15,
+            //                       ),
+            //                       Container(
+            //                         margin:
+            //                             EdgeInsets.only(left: 20, right: 20),
+            //                         child: Row(
+            //                           mainAxisAlignment:
+            //                               MainAxisAlignment.spaceBetween,
+            //                           children: [Text('Notifikasi')],
+            //                         ),
+            //                       )
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           );
+            //         },
+            //         transitionBuilder:
+            //             (context, animation, secondaryanimation, child) {
+            //           return SlideTransition(
+            //               position: CurvedAnimation(
+            //             parent: animation,
+            //             curve: Curves.easeInOutCubic,
+            //           ).drive(Tween<Offset>(
+            //                   begin: Offset(0, -1.0), end: Offset.zero)));
+            //         });
+            //   },
+            // ),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -584,7 +584,7 @@ class _MahasiswaPresensiDashboardPageState
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                  'Kelas : ${beacon.proximityUUID}',
+                                                  'Ruangan : ${beacon.proximityUUID}',
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontFamily:
@@ -609,6 +609,24 @@ class _MahasiswaPresensiDashboardPageState
                                                       child: Text(
                                                           // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
                                                           'Mata Kuliah : -',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Kelas : -',
                                                           style: TextStyle(
                                                               fontSize: 14.0,
                                                               fontFamily:
@@ -716,7 +734,7 @@ class _MahasiswaPresensiDashboardPageState
                                                                         new Center(
                                                                       child:
                                                                           new Text(
-                                                                        'Kelas',
+                                                                        'Ruangan',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',
@@ -752,6 +770,41 @@ class _MahasiswaPresensiDashboardPageState
                                                                       child:
                                                                           new Text(
                                                                         'Mata Kuliah',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '-',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Kelas',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',

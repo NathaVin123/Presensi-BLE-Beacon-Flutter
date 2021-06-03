@@ -95,7 +95,7 @@ class _MahasiswaInformasiAkunPageState
                               padding: const EdgeInsets.all(10),
                               child: Center(
                                   child: Column(
-                                children: [
+                                children: <Widget>[
                                   Text('Nama Mahasiswa',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,

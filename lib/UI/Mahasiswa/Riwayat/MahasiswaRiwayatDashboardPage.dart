@@ -99,6 +99,22 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                                               fontSize: 20),
                                         ),
                                       ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Kelas B',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       Center(
                                         child: Text(
                                           'Dosen Tek. Informatika',
@@ -180,6 +196,22 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                                               fontFamily: 'WorkSansMedium',
                                               fontSize: 20),
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Kelas A',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
                                       ),
                                       Center(
                                         child: Text(
@@ -263,6 +295,22 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                                               fontSize: 20),
                                         ),
                                       ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Kelas E',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       Center(
                                         child: Text(
                                           'Dosen Tek. Informatika',
@@ -345,6 +393,22 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                                               fontSize: 20),
                                         ),
                                       ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Kelas B',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       Center(
                                         child: Text(
                                           'Dosen Tek. Informatika',
@@ -426,6 +490,22 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
                                               fontFamily: 'WorkSansMedium',
                                               fontSize: 20),
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Kelas B',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
                                       ),
                                       Center(
                                         child: Text(

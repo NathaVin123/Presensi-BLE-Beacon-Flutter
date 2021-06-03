@@ -106,7 +106,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Dosen Tek. Informatika',
+                                          'Kelas A',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Dosen Tek. Informatika',
+                                          'Kelas C',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               fontWeight: FontWeight.bold,
@@ -270,7 +270,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Dosen Tek. Informatika',
+                                          'Kelas E',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               fontWeight: FontWeight.bold,
@@ -352,7 +352,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Dosen Tek. Informatika',
+                                          'Kelas B',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               fontWeight: FontWeight.bold,
@@ -434,7 +434,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Dosen Tek. Informatika',
+                                          'Kelas E',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               fontWeight: FontWeight.bold,
