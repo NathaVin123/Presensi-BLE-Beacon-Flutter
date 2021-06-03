@@ -1,45 +1,36 @@
 import 'dart:async';
-import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
 
-class MahasiswaInformasiAkunPage extends StatefulWidget {
-  MahasiswaInformasiAkunPage({Key key}) : super(key: key);
+class DosenInformasiAkunPage extends StatefulWidget {
+  DosenInformasiAkunPage({Key key}) : super(key: key);
 
   @override
-  _MahasiswaInformasiAkunPageState createState() =>
-      _MahasiswaInformasiAkunPageState();
+  _DosenInformasiAkunPageState createState() => _DosenInformasiAkunPageState();
 }
 
-class _MahasiswaInformasiAkunPageState
-    extends State<MahasiswaInformasiAkunPage> {
-  String npm = "";
-  String namamhs = "";
-  String tmplahir = "";
-  String tgllahir = "";
-  String alamat = "";
+class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
+  String npp = "";
+  String namadsn = "";
   String fakultas = "";
   String prodi = "";
-  String pembimbingakademik = "";
 
   @override
   void initState() {
     super.initState();
-    getDataInfoMahasiswa();
+    getDataInfoDosen();
   }
 
-  getDataInfoMahasiswa() async {
+  getDataInfoDosen() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
 
-    npm = loginMahasiswa.getString('npm');
-    namamhs = loginMahasiswa.getString('namamhs');
-    alamat = loginMahasiswa.getString('alamat');
+    npp = loginMahasiswa.getString('npp');
+    namadsn = loginMahasiswa.getString('namadsn');
     fakultas = loginMahasiswa.getString('fakultas');
     prodi = loginMahasiswa.getString('prodi');
-    pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
   }
 
   @override
@@ -96,7 +87,7 @@ class _MahasiswaInformasiAkunPageState
                               child: Center(
                                   child: Column(
                                 children: [
-                                  Text('Nama Mahasiswa',
+                                  Text('Nama Dosen',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'WorkSansMedium',
@@ -104,7 +95,7 @@ class _MahasiswaInformasiAkunPageState
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text(namamhs,
+                                  Text(namadsn,
                                       style: TextStyle(
                                           fontFamily: 'WorkSansMedium',
                                           fontSize: 18)),
@@ -112,7 +103,7 @@ class _MahasiswaInformasiAkunPageState
                                     height: 16,
                                   ),
                                   Text(
-                                    'NPM',
+                                    'NPP',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'WorkSansMedium',
@@ -122,7 +113,7 @@ class _MahasiswaInformasiAkunPageState
                                     height: 5,
                                   ),
                                   Text(
-                                    npm,
+                                    npp,
                                     style: TextStyle(
                                         fontFamily: 'WorkSansMedium',
                                         fontSize: 18),
@@ -161,25 +152,6 @@ class _MahasiswaInformasiAkunPageState
                                   ),
                                   Text(
                                     fakultas,
-                                    style: TextStyle(
-                                        fontFamily: 'WorkSansMedium',
-                                        fontSize: 18),
-                                  ),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  Text(
-                                    'Dosen Pembimbing Akademik',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontSize: 22),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    pembimbingakademik,
                                     style: TextStyle(
                                         fontFamily: 'WorkSansMedium',
                                         fontSize: 18),

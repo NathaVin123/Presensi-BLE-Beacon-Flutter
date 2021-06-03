@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/LoginDosenModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 
 class LoginDosen extends StatefulWidget {
   const LoginDosen({Key key}) : super(key: key);
@@ -15,32 +14,37 @@ class LoginDosen extends StatefulWidget {
 }
 
 class _LoginDosenState extends State<LoginDosen> {
-  int _state = 0;
   var _nppFieldController = TextEditingController();
   var _passwordFieldController = TextEditingController();
+
   final FocusNode _nppFieldFocus = FocusNode();
   final FocusNode _passwordFieldFocus = FocusNode();
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool hidePassword = true;
   bool isApiCallProcess = false;
+
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+
   LoginDosenRequestModel loginDosenRequestModel;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
     loginDosenRequestModel = new LoginDosenRequestModel();
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return LoginProgressHUD(
-  //     child: _uiSetup(context),
-  //     inAsyncCall: isApiCallProcess,
-  //     opacity: 0.5,
-  //   );
-  // }
-
+  @override
   Widget build(BuildContext context) {
+    return LoginProgressHUD(
+      child: buildLoginDosen(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0,
+    );
+  }
+
+  Widget buildLoginDosen(BuildContext context) {
     return Container(
       key: scaffoldKey,
       child: SingleChildScrollView(
@@ -165,12 +169,17 @@ class _LoginDosenState extends State<LoginDosen> {
                     MaterialButton(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                      child: Text(
+                        "MASUK",
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 18.0,
+                            color: Colors.white),
+                      ),
+                      color: Color.fromRGBO(247, 180, 7, 1),
+                      shape: StadiumBorder(),
                       onPressed: () {
-                        setState(() {
-                          if (_state == 0) {
-                            animateButton();
-                          }
-                        });
+                        FocusScope.of(context).unfocus();
                         try {
                           if (validateAndSave()) {
                             print(loginDosenRequestModel.toJson());
@@ -189,38 +198,30 @@ class _LoginDosenState extends State<LoginDosen> {
                                 });
 
                                 if (value?.data?.token?.isNotEmpty ?? false) {
-                                  // Get.to(() => DosenDashboardPage());
                                   Get.offNamed('/dosen/dashboard');
 
-                                  // Get.snackbar('Berhasil Login',
-                                  //     'Selamat Datang ${value.data.namadsn}',
-                                  //     snackPosition: SnackPosition.TOP,
-                                  //     colorText: Colors.white,
-                                  //     backgroundColor: Colors.blue);
                                   Fluttertoast.showToast(
                                       msg:
                                           'Selamat datang ${value.data.namadsn}',
                                       toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.TOP,
+                                      gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
                                       backgroundColor: Colors.green,
                                       textColor: Colors.white,
                                       fontSize: 14.0);
 
-                                  SharedPreferences loginMahasiswa =
+                                  SharedPreferences loginDosen =
                                       await SharedPreferences.getInstance();
-                                  await loginMahasiswa.setString(
-                                      'npm', value.data.npp);
-                                  await loginMahasiswa.setString(
-                                      'namamhs', value.data.namadsn);
+                                  await loginDosen.setString(
+                                      'npp', value.data.npp);
+                                  await loginDosen.setString(
+                                      'namadsn', value.data.namadsn);
+                                  await loginDosen.setString(
+                                      'prodi', value.data.prodi);
+                                  await loginDosen.setString(
+                                      'fakultas', value.data.fakultas);
                                 } else {
-                                  // Get.snackbar('Gagal Login',
-                                  //     'Silahkan masukan NPP dan Password yang terdaftar',
-                                  //     snackPosition: SnackPosition.BOTTOM,
-                                  //     colorText: Colors.white,
-                                  //     backgroundColor: Colors.red);
                                   Fluttertoast.showToast(
-                                      // msg: '${value.error}',
                                       msg:
                                           'Silahkan Masukan NPP/Password dengan benar',
                                       toastLength: Toast.LENGTH_SHORT,
@@ -233,18 +234,17 @@ class _LoginDosenState extends State<LoginDosen> {
                               }
                             });
                           }
-                        } catch (error) {}
+                        } catch (error) {
+                          Fluttertoast.showToast(
+                              msg: 'Terjadi kesalahan, silahkan coba lagi',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 14.0);
+                        }
                       },
-                      // child: Text(
-                      //   "MASUK",
-                      //   style: const TextStyle(
-                      //       fontFamily: 'WorkSansSemiBold',
-                      //       fontSize: 18.0,
-                      //       color: Colors.white),
-                      // ),
-                      child: setUpButtonChild(),
-                      color: Color.fromRGBO(247, 180, 7, 1),
-                      shape: StadiumBorder(),
                     ),
                     SizedBox(height: 15),
                   ],
@@ -267,45 +267,6 @@ class _LoginDosenState extends State<LoginDosen> {
       ),
       // ),
     );
-  }
-
-  Widget setUpButtonChild() {
-    if (_state == 0) {
-      return new Text(
-        "MASUK",
-        style: const TextStyle(
-            fontFamily: 'WorkSansSemiBold',
-            fontSize: 18.0,
-            color: Colors.white),
-      );
-    } else if (_state == 1) {
-      return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      );
-    } else {
-      return new Text(
-        "MASUK",
-        style: const TextStyle(
-            fontFamily: 'WorkSansSemiBold',
-            fontSize: 18.0,
-            color: Colors.white),
-      );
-    }
-    //  else {
-    //   return Icon(Icons.cancel_rounded, color: Colors.red);
-    // }
-  }
-
-  void animateButton() {
-    setState(() {
-      _state = 1;
-    });
-
-    Timer(Duration(seconds: 3), () {
-      setState(() {
-        _state = 2;
-      });
-    });
   }
 
   bool validateAndSave() {

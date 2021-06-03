@@ -23,6 +23,7 @@ import 'package:presensiblebeacon/UI/Statistik/DosenStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Statistik/MahasiswaStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
 
+import 'UI/Dosen/Akun/DosenInformasiAkunPage.dart';
 import 'UI/Mahasiswa/Akun/MahasiswaInformasiAkunPage.dart';
 
 void main() {
@@ -128,6 +129,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/dosen/dashboard/akun',
             page: () => DosenAkunDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/akun/informasi',
+            page: () => DosenInformasiAkunPage()),
         // Statistik Page
         GetPage(
             name: '/statistik/mahasiswa',

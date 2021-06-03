@@ -429,7 +429,7 @@ class _MahasiswaPresensiDashboardPageState
                 child: Center(
                   // alignment: Alignment.topLeft,
                   child: Text(
-                    'Kelas Selanjutnya',
+                    'Kuliah Selanjutnya',
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

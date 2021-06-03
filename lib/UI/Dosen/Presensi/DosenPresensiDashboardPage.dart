@@ -1,10 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:presensiblebeacon/Utils/extension_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
+import 'package:system_setting/system_setting.dart';
 
 class DosenPresensiDashboardPage extends StatefulWidget {
   @override
@@ -15,13 +18,22 @@ class DosenPresensiDashboardPage extends StatefulWidget {
 class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
+
   StreamSubscription<BluetoothState> _streamBluetooth;
   StreamSubscription<RangingResult> _streamRanging;
+
   final _regionBeacons = <Region, List<Beacon>>{};
   final _beacons = <Beacon>[];
+
   bool authorizationStatusOk = false;
   bool locationServiceEnabled = false;
   bool bluetoothEnabled = false;
+
+  String _timeString;
+  String _dateString;
+
+  String kelas = "";
+  String jam = "";
 
   @override
   void initState() {
@@ -29,44 +41,73 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
     super.initState();
 
+    _timeString = _formatTime(DateTime.now());
+    _dateString = _formatDate(DateTime.now());
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
+
     listeningState();
   }
 
-  listeningState() async {
-    print('Listening to bluetooth state');
-    _streamBluetooth = flutterBeacon
-        .bluetoothStateChanged()
-        .listen((BluetoothState state) async {
-      print('BluetoothState = $state');
-      streamController.add(state);
+  void _getTime() {
+    final DateTime now = DateTime.now();
+    final String formattedTime = _formatTime(now);
 
-      // switch (state) {
-      //   case BluetoothState.stateOn:
-      //     initScanBeacon();
-      //     break;
-      //   case BluetoothState.stateOff:
-      //     await pauseScanBeacon();
-      //     await checkAllRequirements();
-      //     break;
-      // }
+    setState(() {
+      _timeString = formattedTime;
     });
   }
 
-  checkAllRequirements() async {
-    final bluetoothState = await flutterBeacon.bluetoothState;
-    final bluetoothEnabled = bluetoothState == BluetoothState.stateOn;
-    final authorizationStatus = await flutterBeacon.authorizationStatus;
-    final authorizationStatusOk =
-        authorizationStatus == AuthorizationStatus.allowed ||
-            authorizationStatus == AuthorizationStatus.always;
-    final locationServiceEnabled =
-        await flutterBeacon.checkLocationServicesIfEnabled;
+  void _getDate() {
+    final DateTime now = DateTime.now();
+    final String formattedDate = _formatDate(now);
 
     setState(() {
-      this.authorizationStatusOk = authorizationStatusOk;
-      this.locationServiceEnabled = locationServiceEnabled;
-      this.bluetoothEnabled = bluetoothEnabled;
+      _dateString = formattedDate;
     });
+  }
+
+  String _formatDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return DateFormat('hh:mm:ss').format(dateTime);
+  }
+
+  listeningState() async {
+    if (Platform.isAndroid) {
+      print('Listening to bluetooth state');
+      _streamBluetooth = flutterBeacon
+          .bluetoothStateChanged()
+          .listen((BluetoothState state) async {
+        print('BluetoothState = $state');
+        streamController.add(state);
+        if (BluetoothState.stateOn == state) {
+          initScanBeacon();
+        }
+        if (BluetoothState.stateOff == state) {
+          await pauseScanBeacon();
+          await checkAllRequirements();
+        }
+      });
+    } else if (Platform.isIOS) {
+      print('Listening to bluetooth state');
+      _streamBluetooth = flutterBeacon
+          .bluetoothStateChanged()
+          .listen((BluetoothState state) async {
+        print('BluetoothState = $state');
+        streamController.add(state);
+
+        if (BluetoothState.stateOn == state) {
+          initScanBeacon();
+        }
+        if (BluetoothState.stateOff == state) {
+          await pauseScanBeacon();
+        }
+      });
+    }
   }
 
   initScanBeacon() async {
@@ -88,19 +129,57 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
       }
     }
 
-    _streamRanging = flutterBeacon.ranging(
-        <Region>[new Region(identifier: "")]).listen((RangingResult result) {
-      print(result);
-      if (result != null && mounted) {
-        setState(() {
-          _regionBeacons[result.region] = result.beacons;
-          _beacons.clear();
-          _regionBeacons.values.forEach((list) {
-            _beacons.addAll(list);
+    if (Platform.isIOS) {
+      _streamRanging = flutterBeacon.ranging(<Region>[
+        new Region(
+          identifier: '',
+          proximityUUID: 'FDA50693-A4E2-4FB1-AFCF-C6EB07647825',
+        )
+      ]).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
           });
-          _beacons.sort(_compareParameters);
-        });
-      }
+        }
+      });
+    } else if (Platform.isAndroid) {
+      _streamRanging = flutterBeacon.ranging(
+          <Region>[new Region(identifier: '')]).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
+          });
+        }
+      });
+    }
+  }
+
+  checkAllRequirements() async {
+    final bluetoothState = await flutterBeacon.bluetoothState;
+    final bluetoothEnabled = bluetoothState == BluetoothState.stateOn;
+    final authorizationStatus = await flutterBeacon.authorizationStatus;
+    final authorizationStatusOk =
+        authorizationStatus == AuthorizationStatus.allowed ||
+            authorizationStatus == AuthorizationStatus.always;
+    final locationServiceEnabled =
+        await flutterBeacon.checkLocationServicesIfEnabled;
+
+    setState(() {
+      this.authorizationStatusOk = authorizationStatusOk;
+      this.locationServiceEnabled = locationServiceEnabled;
+      this.bluetoothEnabled = bluetoothEnabled;
     });
   }
 
@@ -129,20 +208,33 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    print('AppLifecycleState = $state');
-    if (state == AppLifecycleState.resumed) {
-      if (_streamBluetooth != null && _streamBluetooth.isPaused) {
-        _streamBluetooth.resume();
-      }
-      await checkAllRequirements();
-      if (authorizationStatusOk && locationServiceEnabled && bluetoothEnabled) {
-        await initScanBeacon();
-      } else {
-        await pauseScanBeacon();
+    if (Platform.isAndroid) {
+      print('AppLifecycleState = $state');
+      if (state == AppLifecycleState.resumed) {
+        if (_streamBluetooth != null && _streamBluetooth.isPaused) {
+          _streamBluetooth.resume();
+        }
         await checkAllRequirements();
+        if (authorizationStatusOk &&
+            locationServiceEnabled &&
+            bluetoothEnabled) {
+          await initScanBeacon();
+        } else {
+          await pauseScanBeacon();
+          await checkAllRequirements();
+        }
+      } else if (state == AppLifecycleState.paused) {
+        _streamBluetooth?.pause();
       }
-    } else if (state == AppLifecycleState.paused) {
-      _streamBluetooth?.pause();
+    } else if (Platform.isIOS) {
+      print('AppLifecycleState = $state');
+      if (state == AppLifecycleState.resumed) {
+        if (_streamBluetooth != null && _streamBluetooth.isPaused) {
+          _streamBluetooth.resume();
+        }
+      } else if (state == AppLifecycleState.paused) {
+        _streamBluetooth?.pause();
+      }
     }
   }
 
@@ -157,110 +249,778 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     super.dispose();
   }
 
+  void getModalKelas() async {
+    SharedPreferences modalKelas = await SharedPreferences.getInstance();
+
+    kelas = modalKelas.getString('Kelas');
+    jam = modalKelas.getString('Jam');
+    print(kelas);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Kelas Terdekat'),
-          centerTitle: true,
-          actions: <Widget>[
-            if (!authorizationStatusOk)
-              IconButton(
-                  icon: Icon(Icons.portable_wifi_off),
-                  color: Colors.red,
-                  onPressed: () async {
-                    await flutterBeacon.requestAuthorization;
-                  }),
-            if (!locationServiceEnabled)
-              IconButton(
-                  icon: Icon(Icons.location_off),
-                  color: Colors.red,
-                  onPressed: () async {
-                    if (Platform.isAndroid) {
-                      await flutterBeacon.openLocationSettings;
-                    } else if (Platform.isIOS) {}
-                  }),
-            StreamBuilder<BluetoothState>(
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final state = snapshot.data;
-
-                  if (state == BluetoothState.stateOn) {
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth_connected),
-                      onPressed: () {},
-                      color: Colors.lightBlueAccent,
-                    );
-                  }
-
-                  if (state == BluetoothState.stateOff) {
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth),
-                      onPressed: () async {
-                        if (Platform.isAndroid) {
-                          try {
-                            await flutterBeacon.openBluetoothSettings;
-                          } on PlatformException catch (e) {
-                            print(e);
-                          }
-                        } else if (Platform.isIOS) {}
-                      },
-                      color: Colors.red,
-                    );
-                  }
-
-                  return IconButton(
-                    icon: Icon(Icons.bluetooth_disabled),
-                    onPressed: () {},
-                    color: Colors.grey,
-                  );
-                }
-
-                return SizedBox.shrink();
-              },
-              stream: streamController.stream,
-              initialData: BluetoothState.stateUnknown,
-            ),
-          ],
-        ),
-        body: _beacons == null || _beacons.isEmpty
-            ? Center()
-            : ListView(
-                children: ListTile.divideTiles(
-                    context: context,
-                    tiles: _beacons.map((beacon) {
-                      return ListTile(
-                        title: Text(beacon.proximityUUID),
-                        subtitle: new Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Flexible(
-                                child: Text('Mac Address: ${beacon.macAddress}',
-                                    style: TextStyle(fontSize: 13.0)),
-                                flex: 1,
-                                fit: FlexFit.tight),
-                            Flexible(
-                                child: Text(
-                                    // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                    'Accuracy: ${beacon.accuracy} m',
-                                    style: TextStyle(fontSize: 13.0)),
-                                flex: 1,
-                                fit: FlexFit.tight),
-                            Flexible(
-                                child: Text(
-                                    // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                    '${beacon.proximity}',
-                                    style: TextStyle(fontSize: 13.0)),
-                                flex: 1,
-                                fit: FlexFit.tight)
-                          ],
-                        ),
-                      );
-                    })).toList(),
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            backgroundColor: Colors.white,
+            leading: IconButton(
+              icon: Icon(
+                Icons.notifications_none_rounded,
+                color: Colors.black,
               ),
-      ),
+              onPressed: () {
+                return showGeneralDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    transitionDuration: Duration(microseconds: 500),
+                    barrierLabel: MaterialLocalizations.of(context).dialogLabel,
+                    barrierColor: Colors.black.withOpacity(0.5),
+                    pageBuilder: (context, _, __) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.white,
+                            child: Card(
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(left: 20, right: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [Text('Notifikasi')],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    transitionBuilder:
+                        (context, animation, secondaryanimation, child) {
+                      return SlideTransition(
+                          position: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutCubic,
+                      ).drive(Tween<Offset>(
+                              begin: Offset(0, -1.0), end: Offset.zero)));
+                    });
+              },
+            ),
+            title: Image.asset(
+              'SplashPage_LogoAtmaJaya'.png,
+              height: 30,
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              if (!authorizationStatusOk)
+                IconButton(
+                    icon: Icon(Icons.portable_wifi_off),
+                    color: Colors.red,
+                    onPressed: () async {
+                      await flutterBeacon.requestAuthorization;
+                    }),
+              if (!locationServiceEnabled)
+                IconButton(
+                    icon: Icon(Icons.location_off),
+                    color: Colors.red,
+                    onPressed: () async {
+                      if (Platform.isAndroid) {
+                        await flutterBeacon.openLocationSettings;
+                      } else if (Platform.isIOS) {
+                        await _jumpToSetting();
+                      }
+                    }),
+              StreamBuilder<BluetoothState>(
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final state = snapshot.data;
+
+                    if (state == BluetoothState.stateOn) {
+                      return IconButton(
+                        icon: Icon(Icons.bluetooth_connected),
+                        onPressed: () {},
+                        color: Colors.blue,
+                      );
+                    }
+
+                    if (state == BluetoothState.stateOff) {
+                      return IconButton(
+                        icon: Icon(Icons.bluetooth),
+                        onPressed: () async {
+                          if (Platform.isAndroid) {
+                            try {
+                              await flutterBeacon.openBluetoothSettings;
+                            } on PlatformException catch (e) {
+                              print(e);
+                            }
+                          } else if (Platform.isIOS) {
+                            try {
+                              await _jumpToSetting();
+                            } on PlatformException catch (e) {
+                              print(e);
+                            }
+                          }
+                        },
+                        color: Colors.red,
+                      );
+                    }
+
+                    return IconButton(
+                      icon: Icon(Icons.bluetooth_disabled),
+                      onPressed: () {},
+                      color: Colors.grey,
+                    );
+                  }
+
+                  return SizedBox.shrink();
+                },
+                stream: streamController.stream,
+                initialData: BluetoothState.stateUnknown,
+              ),
+            ],
+          ),
+          body: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    Center(
+                      // alignment: Alignment.centerRight,
+                      child: Text(
+                        _dateString,
+                        style: TextStyle(
+                            fontSize: 22, fontFamily: 'WorkSansMedium'),
+                      ),
+                    ),
+                    Center(
+                      // alignment: Alignment.centerLeft,
+                      child: Text(
+                        _timeString,
+                        style: TextStyle(
+                            fontSize: 40, fontFamily: 'WorkSansMedium'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Divider(
+              //   height: 20,
+              //   thickness: 5,
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
+                child: Center(
+                  // alignment: Alignment.topLeft,
+                  child: Text(
+                    'Kuliah Selanjutnya',
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'WorkSansMedium'),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text('-'),
+                  ),
+                ),
+              ),
+              Divider(
+                height: 20,
+                thickness: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 25, top: 10, bottom: 5),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Center(
+                    child: Text(
+                      'Kelas Terdekat',
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'WorkSansMedium'),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: _beacons == null || _beacons.isEmpty
+                    ? SingleChildScrollView(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[200],
+                          highlightColor: Colors.grey[100],
+                          enabled: true,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Flexible(
+                                    child: ListTile(
+                                      title: Text('                        '),
+                                      subtitle: Text('                       '),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: ListTile.divideTiles(
+                              context: context,
+                              tiles: _beacons.map((beacon) {
+                                if (beacon.accuracy < 1.0) {
+                                  return Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: ListTile(
+                                            title: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  'Kelas : ${beacon.proximityUUID}',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            subtitle: new Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: <Widget>[
+                                                // Flexible(
+                                                //     child: Text(
+                                                //         'Alamat MAC: ${beacon.macAddress}',
+                                                //         style: TextStyle(fontSize: 13.0)),
+                                                //     flex: 1,
+                                                //     fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Mata Kuliah : -',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                          'Jarak: ${beacon.accuracy} m',
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    flex: 1,
+                                                    fit: FlexFit.tight),
+                                                // Flexible(
+                                                //     child: Text(
+                                                //         // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+                                                //         '${beacon.proximity}',
+                                                //         style: TextStyle(fontSize: 13.0)),
+                                                //     flex: 1,
+                                                //     fit: FlexFit.tight)
+                                              ],
+                                            ),
+                                            trailing: Icon(Icons.arrow_forward),
+                                            onTap: () async {
+                                              SharedPreferences modalKelas =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              await modalKelas.setString(
+                                                  'Kelas',
+                                                  beacon.proximityUUID);
+                                              await modalKelas.setString(
+                                                  'Jam', _timeString);
+                                              getModalKelas();
+                                              // Tampilan Modal Kelas
+                                              showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(25),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      25))),
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  builder: (builder) {
+                                                    return new Container(
+                                                      height: 650,
+                                                      color: Colors.white,
+                                                      child: new Column(
+                                                        children: [
+                                                          new Center(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 25,
+                                                                      bottom:
+                                                                          10),
+                                                              child: new Text(
+                                                                'Presensi',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        24),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Divider(
+                                                            height: 20,
+                                                            thickness: 5,
+                                                          ),
+                                                          new Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(10),
+                                                              child: Column(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Kelas',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        kelas,
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 16),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Mata Kuliah',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '-',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Dosen',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '-',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Jam Masuk',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        jam,
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Jam Keluar',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '-',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                          new Align(
+                                                            child: new Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(10),
+                                                              child: new Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    MaterialButton(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      shape:
+                                                                          StadiumBorder(),
+                                                                      padding: EdgeInsets.only(
+                                                                          left:
+                                                                              50,
+                                                                          right:
+                                                                              50,
+                                                                          top:
+                                                                              5,
+                                                                          bottom:
+                                                                              5),
+                                                                      onPressed:
+                                                                          () {},
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Icon(
+                                                                            Icons.arrow_upward_rounded,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                5,
+                                                                          ),
+                                                                          Text(
+                                                                            'MASUK',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                color: Colors.white,
+                                                                                fontSize: 18),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    MaterialButton(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      shape:
+                                                                          StadiumBorder(),
+                                                                      padding: EdgeInsets.only(
+                                                                          left:
+                                                                              50,
+                                                                          right:
+                                                                              50,
+                                                                          top:
+                                                                              5,
+                                                                          bottom:
+                                                                              5),
+                                                                      onPressed:
+                                                                          () {},
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Icon(
+                                                                            Icons.arrow_downward_rounded,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                5,
+                                                                          ),
+                                                                          Text(
+                                                                            'KELUAR',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                color: Colors.white,
+                                                                                fontSize: 18),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ]),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  });
+                                            },
+                                          )));
+                                } else {
+                                  return Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          color: Colors.grey[200],
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: Text(
+                                            'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.red,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ));
+                                }
+                              })).toList(),
+                        ),
+                      ),
+              ),
+            ],
+          )),
     );
   }
+}
+
+_jumpToSetting() {
+  SystemSetting.goto(SettingTarget.BLUETOOTH);
 }

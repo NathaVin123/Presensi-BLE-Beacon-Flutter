@@ -16,27 +16,9 @@ class _MahasiswaAkunDashboardPageState
     extends State<MahasiswaAkunDashboardPage> {
   String npm = "";
   String namamhs = "";
-  // String tmplahir = "";
-  // String tgllahir = "";
-  // String alamat = "";
-  // String fakultas = "";
-  String prodi = "";
-  // String pembimbingakademik = "";
 
   bool lightSwitch = false;
   bool notifSwitch = false;
-
-  // ThemeData _lightTheme = ThemeData(
-  //   accentColor: Colors.pink,
-  //   brightness: Brightness.light,
-  //   primaryColor: Colors.blue,
-  // );
-
-  // ThemeData _darkTheme = ThemeData(
-  //   accentColor: Colors.red,
-  //   brightness: Brightness.dark,
-  //   primaryColor: Colors.amber,
-  // );
 
   @override
   void initState() {
@@ -44,7 +26,7 @@ class _MahasiswaAkunDashboardPageState
     getDataMahasiswa();
   }
 
-  void getDataMahasiswa() async {
+  getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
 
     npm = loginMahasiswa.getString('npm');
@@ -53,7 +35,7 @@ class _MahasiswaAkunDashboardPageState
     // tgllahir = loginMahasiswa.getString('tgllahir');
     // alamat = loginMahasiswa.getString('alamat');
     // fakultas = loginMahasiswa.getString('fakultas');
-    prodi = loginMahasiswa.getString('prodi');
+    // prodi = loginMahasiswa.getString('prodi');
     // pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
   }
 
@@ -89,13 +71,8 @@ class _MahasiswaAkunDashboardPageState
                 padding: const EdgeInsets.only(left: 14, right: 14, top: 14),
                 child: InkWell(
                     borderRadius: BorderRadius.circular(25),
-                    onTap: () async {
-                      Get.toNamed('/mahasiswa/dashboard/akun/informasi');
-                      // SharedPreferences loginMahasiswa =
-                      //     await SharedPreferences.getInstance();
-                      // String npm = (loginMahasiswa.getString('npm') ?? 'null');
-                      // Get.snackbar('title', npm);
-                    },
+                    onTap: () =>
+                        Get.toNamed('/mahasiswa/dashboard/akun/informasi'),
                     child: Container(
                         decoration: BoxDecoration(
                             color: Colors.grey[200],
@@ -135,13 +112,13 @@ class _MahasiswaAkunDashboardPageState
                                 SizedBox(
                                   height: 16,
                                 ),
-                                Text(
-                                  prodi,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontSize: 20),
-                                ),
+                                // Text(
+                                //   prodi,
+                                //   style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       fontFamily: 'WorkSansMedium',
+                                //       fontSize: 20),
+                                // ),
                                 SizedBox(
                                   height: 16,
                                 ),
@@ -153,18 +130,6 @@ class _MahasiswaAkunDashboardPageState
               SizedBox(
                 height: 8,
               ),
-              // Padding(
-              //     padding: EdgeInsets.only(left: 10, right: 10),
-              //     child: Align(
-              //       alignment: Alignment.center,
-              //       child: Text(
-              //         'Menu',
-              //         style: TextStyle(
-              //             fontSize: 28,
-              //             fontFamily: 'WorkSansMedium',
-              //             fontWeight: FontWeight.bold),
-              //       ),
-              //     )),
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[

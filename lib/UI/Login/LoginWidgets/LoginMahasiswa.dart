@@ -16,13 +16,19 @@ class LoginMahasiswa extends StatefulWidget {
 class _LoginMahasiswaState extends State<LoginMahasiswa> {
   var _npmFieldController = TextEditingController();
   var _passwordFieldController = TextEditingController();
+
   final FocusNode _npmFieldFocus = FocusNode();
   final FocusNode _passwordFieldFocus = FocusNode();
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool hidePassword = true;
   bool isApiCallProcess = false;
+
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+
   LoginMahasiswaRequestModel loginMahasiswaRequestModel;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -175,12 +181,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                       shape: StadiumBorder(),
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        // setState(() {
-                        //   if (_state == 0) {
-                        //     animateButton();
-                        //   }
-                        //   isloading = true;
-                        // });
                         try {
                           if (validateAndSave()) {
                             print(loginMahasiswaRequestModel.toJson());
@@ -199,14 +199,8 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                 });
 
                                 if (value?.data?.token?.isNotEmpty ?? false) {
-                                  // Get.off(() => MahasiswaDashboardPage());
                                   Get.offNamed('/mahasiswa/dashboard');
 
-                                  // Get.snackbar('Berhasil Login',
-                                  //     'Selamat datang kembali ${value.data.namamhs}',
-                                  //     snackPosition: SnackPosition.BOTTOM,
-                                  //     colorText: Colors.white,
-                                  //     backgroundColor: Colors.black);
                                   Fluttertoast.showToast(
                                       msg:
                                           'Selamat datang ${value.data.namamhs}',
@@ -222,9 +216,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                   await loginMahasiswa.setString(
                                       'npm', value.data.npm);
                                   await loginMahasiswa.setString(
-                                      'tmplahir', value.data.tmplahir);
-                                  await loginMahasiswa.setString(
-                                      'tgllahir', value.data.tgllahir);
+                                      'namamhs', value.data.namamhs);
                                   await loginMahasiswa.setString(
                                       'alamat', value.data.alamat);
                                   await loginMahasiswa.setString(
@@ -235,13 +227,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                       'pembimbingakademik',
                                       value.data.pembimbingakademik);
                                 } else {
-                                  // Get.snackbar('Gagal Login',
-                                  //     'Silahkan masukan NPM dan Password yang terdaftar',
-                                  //     snackPosition: SnackPosition.BOTTOM,
-                                  //     colorText: Colors.white,
-                                  //     backgroundColor: Colors.red);
                                   Fluttertoast.showToast(
-                                      // msg: '${value.error}',
                                       msg:
                                           'Silahkan Masukan NPM/Password dengan benar',
                                       toastLength: Toast.LENGTH_SHORT,
