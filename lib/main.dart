@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+
 import 'package:presensiblebeacon/UI/Dosen/Akun/DosenAkunDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/DosenDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Jadwal/DosenJadwalDashboardPage.dart';
@@ -22,6 +23,7 @@ import 'package:presensiblebeacon/UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboard
 import 'package:presensiblebeacon/UI/Statistik/DosenStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Statistik/MahasiswaStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'UI/Dosen/Akun/DosenInformasiAkunPage.dart';
 import 'UI/Mahasiswa/Akun/MahasiswaInformasiAkunPage.dart';
@@ -38,14 +40,20 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  // bool isMahasiswa = false;
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
+class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
     requestLocationPermission();
-    // _initCheckLoginMahasiswa();
   }
 
   Future<bool> _requestPermission(PermissionGroup permission) async {
@@ -148,25 +156,5 @@ class _MyAppState extends State<MyApp> {
             transition: Transition.fade),
       ],
     );
-  }
-
-  // void _initCheckLoginMahasiswa() async {
-  //   SharedPreferences dataLoginMahasiswa =
-  //       await SharedPreferences.getInstance();
-
-  //   if (dataLoginMahasiswa.getBool('isMahasiswa') != null) {
-  //     setState(() {
-  //       isMahasiswa = dataLoginMahasiswa.getBool('isMahasiswa');
-  //     });
-  //   }
-  // }
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
   }
 }

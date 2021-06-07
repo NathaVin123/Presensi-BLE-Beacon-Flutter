@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -15,8 +16,23 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    Timer(Duration(seconds: 3), () => navigateMahasiswa());
+  }
 
-    Timer(Duration(seconds: 2), () => Get.offNamed('/bluetooth'));
+  void navigateMahasiswa() async {
+    SharedPreferences autoLogin = await SharedPreferences.getInstance();
+    var statusMahasiswa = autoLogin.getBool('isLoggedMahasiswa') ?? false;
+    var statusDosen = autoLogin.getBool('isLoggedDosen') ?? false;
+    print(statusMahasiswa);
+    print(statusDosen);
+    if (statusMahasiswa) {
+      Get.offNamed('/mahasiswa/dashboard');
+    }
+    if (statusDosen) {
+      Get.offNamed('/dosen/dashboard');
+    } else {
+      Get.offNamed('/bluetooth');
+    }
   }
 
   @override

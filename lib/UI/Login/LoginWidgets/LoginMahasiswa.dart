@@ -226,6 +226,10 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                   await loginMahasiswa.setString(
                                       'pembimbingakademik',
                                       value.data.pembimbingakademik);
+
+                                  SharedPreferences autoLogin =
+                                      await SharedPreferences.getInstance();
+                                  autoLogin?.setBool("isLoggedMahasiswa", true);
                                 } else {
                                   Fluttertoast.showToast(
                                       msg:

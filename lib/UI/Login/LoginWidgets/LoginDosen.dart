@@ -220,6 +220,10 @@ class _LoginDosenState extends State<LoginDosen> {
                                       'prodi', value.data.prodi);
                                   await loginDosen.setString(
                                       'fakultas', value.data.fakultas);
+
+                                  SharedPreferences autoLogin =
+                                      await SharedPreferences.getInstance();
+                                  autoLogin?.setBool("isLoggedDosen", true);
                                 } else {
                                   Fluttertoast.showToast(
                                       msg:

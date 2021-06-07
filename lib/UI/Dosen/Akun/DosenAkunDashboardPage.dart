@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -289,7 +290,21 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.offAllNamed('/bluetooth'),
+                          onTap: () async {
+                            SharedPreferences autoLogin =
+                                await SharedPreferences.getInstance();
+                            autoLogin.clear();
+                            Get.offAllNamed('/');
+
+                            Fluttertoast.showToast(
+                                msg: 'Anda telah keluar',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 14.0);
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.red,
