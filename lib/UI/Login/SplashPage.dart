@@ -16,22 +16,24 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => navigateMahasiswa());
+    Timer(Duration(seconds: 3), () => navigateUser());
   }
 
-  void navigateMahasiswa() async {
+  void navigateUser() async {
     SharedPreferences autoLogin = await SharedPreferences.getInstance();
+
     var statusMahasiswa = autoLogin.getBool('isLoggedMahasiswa') ?? false;
     var statusDosen = autoLogin.getBool('isLoggedDosen') ?? false;
+
     print(statusMahasiswa);
     print(statusDosen);
+
     if (statusMahasiswa) {
-      Get.offNamed('/mahasiswa/dashboard');
-    }
-    if (statusDosen) {
-      Get.offNamed('/dosen/dashboard');
+      return Get.offNamed('/mahasiswa/dashboard');
+    } else if (statusDosen) {
+      return Get.offNamed('/dosen/dashboard');
     } else {
-      Get.offNamed('/bluetooth');
+      return Get.offNamed('/bluetooth');
     }
   }
 
@@ -49,17 +51,17 @@ class _SplashPageState extends State<SplashPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Center(
-              //   child: Text('Sistem Presensi UAJY',
-              //       style: const TextStyle(
-              //           fontFamily: 'WorkSansSemiBold',
-              //           fontSize: 30.0,
-              //           color: Colors.white)),
-              // ),
+              Image.asset('SplashPage_LogoAtmaJaya'.png, height: 150.0),
               SizedBox(
                 height: 50,
               ),
-              Image.asset('SplashPage_LogoAtmaJaya'.png, height: 150.0),
+              Center(
+                child: Text('Universitas Atma Jaya Yogyakarta',
+                    style: const TextStyle(
+                        fontFamily: 'WorkSansSemiBold',
+                        fontSize: 22.0,
+                        color: Colors.white)),
+              ),
               SizedBox(
                 height: 100,
               ),
@@ -69,7 +71,7 @@ class _SplashPageState extends State<SplashPage> {
               SizedBox(
                 height: 150,
               ),
-              Text('Ver 0.0',
+              Text('Version 1.0',
                   style: const TextStyle(
                       fontFamily: 'WorkSansSemiBold',
                       fontSize: 18.0,

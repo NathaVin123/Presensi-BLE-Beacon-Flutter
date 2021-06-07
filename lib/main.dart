@@ -26,7 +26,9 @@ import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'UI/Dosen/Akun/DosenInformasiAkunPage.dart';
+import 'UI/Dosen/Presensi/DosenNotifikasiPresensiPage.dart';
 import 'UI/Mahasiswa/Akun/MahasiswaInformasiAkunPage.dart';
+import 'UI/Mahasiswa/Presensi/MahasiswaNotifikasiPresensiPage.dart';
 
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
@@ -109,6 +111,9 @@ class _MyAppState extends State<MyApp> {
             name: '/mahasiswa/dashboard/presensi',
             page: () => MahasiswaPresensiDashboardPage()),
         GetPage(
+            name: '/mahasiswa/dashboard/presensi/notifikasi',
+            page: () => MahasiswaNotifikasiPresensiPage()),
+        GetPage(
             name: '/mahasiswa/dashboard/jadwal',
             page: () => MahasiswaJadwalDashboardPage()),
         GetPage(
@@ -128,6 +133,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/dosen/dashboard/presensi',
             page: () => DosenPresensiDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/presensi/notifikasi',
+            page: () => DosenNotifikasiPresensiPage()),
         GetPage(
             name: '/dosen/dashboard/jadwal',
             page: () => DosenJadwalDashboardPage()),

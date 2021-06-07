@@ -202,7 +202,7 @@ class _LoginDosenState extends State<LoginDosen> {
 
                                   Fluttertoast.showToast(
                                       msg:
-                                          'Selamat datang ${value.data.namadsn}',
+                                          'Selamat datang,\n${value.data.namadsn}',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,

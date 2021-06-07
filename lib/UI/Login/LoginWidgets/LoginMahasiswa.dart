@@ -203,7 +203,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
 
                                   Fluttertoast.showToast(
                                       msg:
-                                          'Selamat datang ${value.data.namamhs}',
+                                          'Selamat datang,\n${value.data.namamhs}',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,

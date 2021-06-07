@@ -55,7 +55,9 @@ class _DosenDashboardPageState extends State<DosenDashboardPage>
         color: Colors.white,
         child: new TabBar(
           labelStyle: TextStyle(
-              fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold),
+              fontFamily: 'WorkSansMedium',
+              fontWeight: FontWeight.bold,
+              fontSize: 12),
           controller: controller,
           indicatorColor: Colors.grey[800],
           labelColor: Colors.black,
@@ -85,7 +87,7 @@ class _DosenDashboardPageState extends State<DosenDashboardPage>
             new Tab(
               icon: new Icon(Icons.person_rounded,
                   color: controller.index == 3 ? Colors.black : Colors.grey),
-              text: "Akun",
+              text: "Akun Saya",
             )
           ],
         ),

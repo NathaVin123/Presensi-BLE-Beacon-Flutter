@@ -134,54 +134,55 @@ class _MahasiswaAkunDashboardPageState
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: 14, right: 14, top: 14, bottom: 14),
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.grey[200],
+                    //         borderRadius: BorderRadius.circular(25)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: <Widget>[
+                    //         Padding(
+                    //           padding: EdgeInsets.all(20),
+                    //           child: Row(
+                    //             children: [
+                    //               Icon(
+                    //                 Icons.notifications_active,
+                    //                 color: Colors.black,
+                    //               ),
+                    //               SizedBox(
+                    //                 width: 10,
+                    //               ),
+                    //               Text(
+                    //                 'Notifikasi Kelas',
+                    //                 style: TextStyle(
+                    //                     fontSize: 20,
+                    //                     fontFamily: 'WorkSansMedium',
+                    //                     fontWeight: FontWeight.bold),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Align(
+                    //           alignment: Alignment.bottomRight,
+                    //           child: Switch(
+                    //               value: notifSwitch,
+                    //               onChanged: (value) {
+                    //                 setState(() {
+                    //                   notifSwitch = value;
+                    //                   print(notifSwitch);
+                    //                 });
+                    //               }),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: EdgeInsets.only(
                           left: 14, right: 14, top: 14, bottom: 14),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.notifications_active,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Notifikasi Kelas',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Switch(
-                                  value: notifSwitch,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      notifSwitch = value;
-                                      print(notifSwitch);
-                                    });
-                                  }),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.grey[200],

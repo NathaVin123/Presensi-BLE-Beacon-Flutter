@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -35,6 +36,8 @@ class _MahasiswaPresensiDashboardPageState
   String kelas = "";
   String jam = "";
 
+  String namamhs = "";
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -46,6 +49,8 @@ class _MahasiswaPresensiDashboardPageState
 
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
+
+    getDataMahasiswa();
 
     listeningState();
   }
@@ -254,7 +259,14 @@ class _MahasiswaPresensiDashboardPageState
 
     kelas = modalKelas.getString('Kelas');
     jam = modalKelas.getString('Jam');
+
     print(kelas);
+  }
+
+  getDataMahasiswa() async {
+    SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
+
+    namamhs = loginMahasiswa.getString('namamhs');
   }
 
   @override
@@ -267,59 +279,14 @@ class _MahasiswaPresensiDashboardPageState
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Colors.white,
-            // leading: IconButton(
-            //   icon: Icon(
-            //     Icons.notifications_none_rounded,
-            //     color: Colors.black,
-            //   ),
-            //   onPressed: () {
-            //     return showGeneralDialog(
-            //         context: context,
-            //         barrierDismissible: true,
-            //         transitionDuration: Duration(microseconds: 500),
-            //         barrierLabel: MaterialLocalizations.of(context).dialogLabel,
-            //         barrierColor: Colors.black.withOpacity(0.5),
-            //         pageBuilder: (context, _, __) {
-            //           return Column(
-            //             mainAxisAlignment: MainAxisAlignment.start,
-            //             children: [
-            //               Container(
-            //                 width: MediaQuery.of(context).size.width,
-            //                 color: Colors.white,
-            //                 child: Card(
-            //                   child: ListView(
-            //                     shrinkWrap: true,
-            //                     children: [
-            //                       SizedBox(
-            //                         height: 15,
-            //                       ),
-            //                       Container(
-            //                         margin:
-            //                             EdgeInsets.only(left: 20, right: 20),
-            //                         child: Row(
-            //                           mainAxisAlignment:
-            //                               MainAxisAlignment.spaceBetween,
-            //                           children: [Text('Notifikasi')],
-            //                         ),
-            //                       )
-            //                     ],
-            //                   ),
-            //                 ),
-            //               )
-            //             ],
-            //           );
-            //         },
-            //         transitionBuilder:
-            //             (context, animation, secondaryanimation, child) {
-            //           return SlideTransition(
-            //               position: CurvedAnimation(
-            //             parent: animation,
-            //             curve: Curves.easeInOutCubic,
-            //           ).drive(Tween<Offset>(
-            //                   begin: Offset(0, -1.0), end: Offset.zero)));
-            //         });
-            //   },
-            // ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.notifications,
+                color: Colors.black,
+              ),
+              onPressed: () =>
+                  Get.toNamed('/mahasiswa/dashboard/presensi/notifikasi'),
+            ),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -419,10 +386,33 @@ class _MahasiswaPresensiDashboardPageState
                   ],
                 ),
               ),
-              // Divider(
-              //   height: 20,
-              //   thickness: 5,
-              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Text(
+                            'Halo, ',
+                            style: TextStyle(
+                                fontSize: 20, fontFamily: 'WorkSansMedium'),
+                          ),
+                          Text(
+                            namamhs,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
