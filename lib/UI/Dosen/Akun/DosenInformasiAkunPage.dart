@@ -72,16 +72,25 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'person-male'.png,
-                                  height: 150.0,
-                                  width: 100.0,
-                                ),
-                              ),
-                            ),
+                                padding: EdgeInsets.all(0),
+                                // child: ClipRRect(
+                                //   borderRadius: BorderRadius.circular(8.0),
+                                //   child: Image.asset(
+                                //     'person-male'.png,
+                                //     height: 150.0,
+                                //     width: 100.0,
+                                //   ),
+                                // ),
+                                child: CircleAvatar(
+                                    backgroundColor: Colors.grey[350],
+                                    radius: 50,
+                                    // child: const Text('NV'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Image.asset(
+                                        'person-male'.png,
+                                      ),
+                                    ))),
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: Center(

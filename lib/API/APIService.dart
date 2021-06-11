@@ -7,7 +7,7 @@ import '../MODEL/LoginDosenModel.dart';
 class APIService {
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
-    String url = "https://192.168.100.194:5000/api/auth/loginmhs";
+    String url = "https://10.54.11.68:5000/api/auth/loginmhs";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);

@@ -73,16 +73,25 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'person-male'.png,
-                                  height: 150.0,
-                                  width: 100.0,
-                                ),
-                              ),
-                            ),
+                                padding: EdgeInsets.all(22),
+                                // child: ClipRRect(
+                                //   borderRadius: BorderRadius.circular(8.0),
+                                //   child: Image.asset(
+                                //     'person-male'.png,
+                                //     height: 150.0,
+                                //     width: 100.0,
+                                //   ),
+                                // ),
+                                child: CircleAvatar(
+                                    backgroundColor: Colors.grey[350],
+                                    radius: 50,
+                                    // child: const Text('NV'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Image.asset(
+                                        'person-male'.png,
+                                      ),
+                                    ))),
                             Center(
                                 child: Column(
                               children: [
