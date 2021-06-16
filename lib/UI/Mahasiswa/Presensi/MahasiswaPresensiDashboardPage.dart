@@ -264,7 +264,7 @@ class _MahasiswaPresensiDashboardPageState
     });
   }
 
-  getDataMahasiswa() async {
+  void getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
     setState(() {
       namamhs = loginMahasiswa.getString('namamhs');
@@ -406,15 +406,15 @@ class _MahasiswaPresensiDashboardPageState
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          Text(
+                          new Text(
                             'Halo, ',
                             style: TextStyle(
                                 fontSize: 20, fontFamily: 'WorkSansMedium'),
                           ),
-                          Text(
-                            namamhs,
+                          new Text(
+                            '${namamhs ?? "-"}',
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontFamily: 'WorkSansMedium',
                                 fontWeight: FontWeight.bold),
                           ),

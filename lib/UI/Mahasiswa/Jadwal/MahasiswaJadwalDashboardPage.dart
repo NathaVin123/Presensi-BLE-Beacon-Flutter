@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:shimmer/shimmer.dart';
@@ -238,13 +239,72 @@ class _MahasiswaJadwalDashboardPageState
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text('-'),
+                              child: CarouselSlider(
+                                items: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Text('Mata Kuliah : -',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            'WorkSansMedium')),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Text('Ruangan : -',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            'WorkSansMedium')),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Text('Sesi : -',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            'WorkSansMedium')),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                options: CarouselOptions(
+                                  initialPage: 0,
+                                  enlargeCenterPage: false,
+                                  height: 125,
+                                  scrollDirection: Axis.horizontal,
                                 ),
                               ),
                             ),

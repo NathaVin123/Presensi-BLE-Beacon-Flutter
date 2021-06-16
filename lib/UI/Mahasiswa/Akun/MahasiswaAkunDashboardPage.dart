@@ -29,15 +29,10 @@ class _MahasiswaAkunDashboardPageState
 
   getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-
-    npm = loginMahasiswa.getString('npm');
-    namamhs = loginMahasiswa.getString('namamhs');
-    // tmplahir = loginMahasiswa.getString('tmplahir');
-    // tgllahir = loginMahasiswa.getString('tgllahir');
-    // alamat = loginMahasiswa.getString('alamat');
-    // fakultas = loginMahasiswa.getString('fakultas');
-    // prodi = loginMahasiswa.getString('prodi');
-    // pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
+    setState(() {
+      npm = loginMahasiswa.getString('npm');
+      namamhs = loginMahasiswa.getString('namamhs');
+    });
   }
 
   @override

@@ -177,6 +177,29 @@ class _MahasiswaInformasiAkunPageState
                                     height: 16,
                                   ),
                                   Text(
+                                    'Alamat',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontSize: 22),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Text(
+                                      alamat,
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
                                     'Dosen Pembimbing Akademik',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
