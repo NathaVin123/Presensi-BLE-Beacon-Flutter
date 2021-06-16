@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presensiblebeacon/Utils/extension_image.dart';
 
 class TentangPage extends StatefulWidget {
   TentangPage({Key key}) : super(key: key);
@@ -32,14 +33,116 @@ class _TentangPageState extends State<TentangPage> {
               ),
             ),
           ),
-          // const SliverToBoxAdapter(
-          //   child: SizedBox(
-          //     height: 20,
-          //     child: Center(
-          //       child: Text('Coba Dlu gan'),
-          //     ),
-          //   ),
-          // ),
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 14, right: 14, top: 14),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(25)),
+                        // decoration: BoxDecoration(),
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.all(22),
+                                // child: ClipRRect(
+                                //   borderRadius: BorderRadius.circular(8.0),
+                                //   child: Image.asset(
+                                //     'person-male'.png,
+                                //     height: 150.0,
+                                //     width: 100.0,
+                                //   ),
+                                // ),
+                                child: CircleAvatar(
+                                    backgroundColor: Colors.grey[350],
+                                    radius: 50,
+                                    // child: const Text('NV'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Image.asset(
+                                        'SplashPage_LogoAtmaJaya'.png,
+                                      ),
+                                    ))),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Sistem Presensi UAJY',
+                                        style: const TextStyle(
+                                            fontFamily: 'WorkSansSemiBold',
+                                            fontSize: 22.0,
+                                            color: Colors.black)),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                          'Aplikasi untuk mengisi data kehadiran perkuliahan new normal mahasiswa dan dosen dengan teknologi bluetooth low energy.',
+                                          style: const TextStyle(
+                                              fontFamily: 'WorkSansMedium',
+                                              fontSize: 16,
+                                              color: Colors.black)),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 20,
+                                    thickness: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Column(
+                                        children: [
+                                          Text('KSI UAJY',
+                                              style: const TextStyle(
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Colors.black)),
+                                          Text('2021',
+                                              style: const TextStyle(
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Colors.black)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text('Version 1.0',
+                                          style: const TextStyle(
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Colors.black)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          )
+
           // SliverList(
           //   delegate: SliverChildBuilderDelegate(
           //     (BuildContext context, int index) {

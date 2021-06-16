@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => navigateUser());
+    Timer(Duration(seconds: 2), () => navigateUser());
   }
 
   void navigateUser() async {

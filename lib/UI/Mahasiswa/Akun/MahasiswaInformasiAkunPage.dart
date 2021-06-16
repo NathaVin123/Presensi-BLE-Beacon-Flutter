@@ -18,8 +18,6 @@ class _MahasiswaInformasiAkunPageState
     extends State<MahasiswaInformasiAkunPage> {
   String npm = "";
   String namamhs = "";
-  String tmplahir = "";
-  String tgllahir = "";
   String alamat = "";
   String fakultas = "";
   String prodi = "";
@@ -28,18 +26,19 @@ class _MahasiswaInformasiAkunPageState
   @override
   void initState() {
     super.initState();
-    getDataInfoMahasiswa();
+    getDataMahasiswa();
   }
 
-  getDataInfoMahasiswa() async {
+  getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-
-    npm = loginMahasiswa.getString('npm');
-    namamhs = loginMahasiswa.getString('namamhs');
-    alamat = loginMahasiswa.getString('alamat');
-    fakultas = loginMahasiswa.getString('fakultas');
-    prodi = loginMahasiswa.getString('prodi');
-    pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
+    setState(() {
+      npm = loginMahasiswa.getString('npm');
+      namamhs = loginMahasiswa.getString('namamhs');
+      alamat = loginMahasiswa.getString('alamat');
+      fakultas = loginMahasiswa.getString('fakultas');
+      prodi = loginMahasiswa.getString('prodi');
+      pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
+    });
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
@@ -165,6 +166,7 @@ class _MahasiswaPresensiDashboardPageState
               _beacons.addAll(list);
             });
             _beacons.sort(_compareParameters);
+            Timer(Duration(seconds: 2), () => _streamRanging?.pause());
           });
         }
       });
@@ -256,17 +258,17 @@ class _MahasiswaPresensiDashboardPageState
 
   void getModalKelas() async {
     SharedPreferences modalKelas = await SharedPreferences.getInstance();
-
-    kelas = modalKelas.getString('Kelas');
-    jam = modalKelas.getString('Jam');
-
-    print(kelas);
+    setState(() {
+      kelas = modalKelas.getString('Kelas');
+      jam = modalKelas.getString('Jam');
+    });
   }
 
   getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-
-    namamhs = loginMahasiswa.getString('namamhs');
+    setState(() {
+      namamhs = loginMahasiswa.getString('namamhs');
+    });
   }
 
   @override
@@ -275,6 +277,15 @@ class _MahasiswaPresensiDashboardPageState
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: Colors.white,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => _streamRanging?.resume(),
+            label: Text(
+              'Pindai Kelas',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
+            ),
+            icon: Icon(Icons.search_rounded),
+          ),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -429,13 +440,62 @@ class _MahasiswaPresensiDashboardPageState
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(25)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('-'),
+                child: CarouselSlider(
+                  items: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text('Mata Kuliah : -',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'WorkSansMedium')),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text('Ruangan : -',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'WorkSansMedium')),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text('Sesi : -',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'WorkSansMedium')),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  options: CarouselOptions(
+                    initialPage: 0,
+                    enlargeCenterPage: false,
+                    height: 125,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
               ),
@@ -475,83 +535,87 @@ class _MahasiswaPresensiDashboardPageState
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(25)),
                                   child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          '                                              ',
+                                          style: TextStyle(fontSize: 225),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
-                                    child: ListTile(
-                                      title: Text('                        '),
-                                      subtitle: Text('                       '),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         color: Colors.grey,
+                              //         borderRadius: BorderRadius.circular(25)),
+                              //     child: Flexible(
+                              //       child: ListTile(
+                              //         title: Text('                        '),
+                              //         subtitle: Text('                       '),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         color: Colors.grey,
+                              //         borderRadius: BorderRadius.circular(25)),
+                              //     child: Flexible(
+                              //       child: ListTile(
+                              //         title: Text('                        '),
+                              //         subtitle: Text('                       '),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         color: Colors.grey,
+                              //         borderRadius: BorderRadius.circular(25)),
+                              //     child: Flexible(
+                              //       child: ListTile(
+                              //         title: Text('                        '),
+                              //         subtitle: Text('                       '),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         color: Colors.grey,
+                              //         borderRadius: BorderRadius.circular(25)),
+                              //     child: Flexible(
+                              //       child: ListTile(
+                              //         title: Text('                        '),
+                              //         subtitle: Text('                       '),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         color: Colors.grey,
+                              //         borderRadius: BorderRadius.circular(25)),
+                              //     child: Flexible(
+                              //       child: ListTile(
+                              //         title: Text('                        '),
+                              //         subtitle: Text('                       '),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -1033,26 +1097,27 @@ class _MahasiswaPresensiDashboardPageState
                                             },
                                           )));
                                 } else {
-                                  return Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          color: Colors.grey[200],
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(20),
-                                          child: Text(
-                                            'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.red,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ));
+                                  // return Padding(
+                                  //     padding: EdgeInsets.all(10),
+                                  //     child: Container(
+                                  //       decoration: BoxDecoration(
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(25),
+                                  //         color: Colors.grey[200],
+                                  //       ),
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(20),
+                                  //         child: Text(
+                                  //           'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
+                                  //           style: TextStyle(
+                                  //               fontSize: 16,
+                                  //               color: Colors.red,
+                                  //               fontFamily: 'WorkSansMedium',
+                                  //               fontWeight: FontWeight.bold),
+                                  //         ),
+                                  //       ),
+                                  //     ));
+                                  return SizedBox.shrink();
                                 }
                               })).toList(),
                         ),

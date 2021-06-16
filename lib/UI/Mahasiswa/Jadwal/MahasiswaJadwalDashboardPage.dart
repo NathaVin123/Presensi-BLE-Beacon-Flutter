@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:presensiblebeacon/MODEL/JadwalMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:intl/intl.dart';

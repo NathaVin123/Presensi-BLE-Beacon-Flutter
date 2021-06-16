@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/LoginDosenModel.dart';
+import 'package:presensiblebeacon/MODEL/Login/LoginDosenModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';

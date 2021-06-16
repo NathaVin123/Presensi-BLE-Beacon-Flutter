@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/LoginMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Login/LoginMahasiswaModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
@@ -181,79 +183,93 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                       shape: StadiumBorder(),
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        try {
-                          if (validateAndSave()) {
-                            print(loginMahasiswaRequestModel.toJson());
+                        // try {
+                        if (validateAndSave()) {
+                          print(loginMahasiswaRequestModel.toJson());
 
-                            setState(() {
-                              isApiCallProcess = true;
-                            });
+                          setState(() {
+                            isApiCallProcess = true;
+                          });
 
-                            APIService apiService = new APIService();
-                            apiService
-                                .loginMahasiswa(loginMahasiswaRequestModel)
-                                .then((value) async {
-                              if (value != null) {
-                                setState(() {
-                                  isApiCallProcess = false;
-                                });
+                          APIService apiService = new APIService();
+                          apiService
+                              .loginMahasiswa(loginMahasiswaRequestModel)
+                              .then((value) async {
+                            if (value != null) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
 
-                                if (value?.data?.token?.isNotEmpty ?? false) {
-                                  Get.offNamed('/mahasiswa/dashboard');
+                              if (value?.data?.token?.isNotEmpty ?? false) {
+                                Get.offNamed('/mahasiswa/dashboard');
 
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Selamat datang,\n${value.data.namamhs}',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
+                                Fluttertoast.showToast(
+                                    msg:
+                                        'Selamat datang,\n${value.data.namamhs}',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.white,
+                                    fontSize: 14.0);
 
-                                  SharedPreferences loginMahasiswa =
-                                      await SharedPreferences.getInstance();
-                                  await loginMahasiswa.setString(
-                                      'npm', value.data.npm);
-                                  await loginMahasiswa.setString(
-                                      'namamhs', value.data.namamhs);
-                                  await loginMahasiswa.setString(
-                                      'alamat', value.data.alamat);
-                                  await loginMahasiswa.setString(
-                                      'fakultas', value.data.fakultas);
-                                  await loginMahasiswa.setString(
-                                      'prodi', value.data.prodi);
-                                  await loginMahasiswa.setString(
-                                      'pembimbingakademik',
-                                      value.data.pembimbingakademik);
+                                SharedPreferences loginMahasiswa =
+                                    await SharedPreferences.getInstance();
+                                await loginMahasiswa.setString(
+                                    'npm', value.data.npm);
+                                await loginMahasiswa.setString(
+                                    'namamhs', value.data.namamhs);
+                                await loginMahasiswa.setString(
+                                    'alamat', value.data.alamat);
+                                await loginMahasiswa.setString(
+                                    'fakultas', value.data.fakultas);
+                                await loginMahasiswa.setString(
+                                    'prodi', value.data.prodi);
+                                await loginMahasiswa.setString(
+                                    'pembimbingakademik',
+                                    value.data.pembimbingakademik);
 
-                                  SharedPreferences autoLogin =
-                                      await SharedPreferences.getInstance();
-                                  autoLogin?.setBool("isLoggedMahasiswa", true);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Silahkan Masukan NPM/Password dengan benar',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
-                                }
+                                SharedPreferences autoLogin =
+                                    await SharedPreferences.getInstance();
+                                autoLogin?.setBool("isLoggedMahasiswa", true);
+
+                                print(isApiCallProcess);
+
+                                // Timer(Duration(seconds: 15), () {
+                                //   Fluttertoast.showToast(
+                                //       msg:
+                                //           'Mohon maaf mungkin sedang terjadi kesalahan\nMohon luncurkan ulang aplikasi',
+                                //       toastLength: Toast.LENGTH_SHORT,
+                                //       gravity: ToastGravity.BOTTOM,
+                                //       timeInSecForIosWeb: 1,
+                                //       backgroundColor: Colors.red,
+                                //       textColor: Colors.white,
+                                //       fontSize: 14.0);
+                                // });
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        'Silahkan Masukan NPM/Password dengan benar',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 14.0);
                               }
-                            });
-                          }
-                        } catch (error) {
-                          Fluttertoast.showToast(
-                              msg: 'Terjadi kesalahan, silahkan coba lagi',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 14.0);
+                            }
+                          });
                         }
+                        // } catch (error) {
+                        //   Fluttertoast.showToast(
+                        //       msg: 'Terjadi kesalahan, silahkan coba lagi',
+                        //       toastLength: Toast.LENGTH_SHORT,
+                        //       gravity: ToastGravity.BOTTOM,
+                        //       timeInSecForIosWeb: 1,
+                        //       backgroundColor: Colors.red,
+                        //       textColor: Colors.white,
+                        //       fontSize: 14.0);
+                        // }
                       },
                     ),
                     SizedBox(height: 15),

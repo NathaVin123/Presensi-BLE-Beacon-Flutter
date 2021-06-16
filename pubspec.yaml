@@ -54,6 +54,8 @@ dependencies:
 
   # Permission
   permission_handler: ^4.4.0+hotfix.2
+
+  carousel_slider: ^3.0.0
   
 # Cadangan Package
   # provider: ^5.0.0
