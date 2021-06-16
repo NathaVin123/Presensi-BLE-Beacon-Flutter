@@ -36,9 +36,12 @@ class _MahasiswaNotifikasiPresensiPageState
               ),
             ),
             SliverToBoxAdapter(
-                child: Center(
-                    child: Text(
-                        'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')))
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                  child: Text(
+                      'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')),
+            ))
           ],
         ));
   }

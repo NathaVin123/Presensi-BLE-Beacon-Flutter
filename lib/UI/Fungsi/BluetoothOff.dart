@@ -47,7 +47,7 @@ class BluetoothOffScreen extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.all(50),
+            padding: EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -63,6 +63,20 @@ class BluetoothOffScreen extends StatelessWidget {
                 //         fontFamily: 'WorkSansSemiBold',
                 //         fontSize: 16.0,
                 //         color: Colors.grey)),
+                Text('Bluetooth dalam keadaan mati,',
+                    style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontFamily: 'WorkSansMedium',
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+                Text('Silahkan aktifkan bluetooth anda',
+                    style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontFamily: 'WorkSansMedium',
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
                 SizedBox(
                   height: 25,
                 ),

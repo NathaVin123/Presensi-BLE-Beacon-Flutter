@@ -22,7 +22,7 @@ class MahasiswaRiwayatDashboardPage extends StatelessWidget {
               flexibleSpace: const FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
-                  'Riwayat',
+                  'Riwayat Kelas',
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'WorkSansMedium',

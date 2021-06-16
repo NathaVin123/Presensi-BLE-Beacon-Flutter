@@ -71,7 +71,7 @@ class _SplashPageState extends State<SplashPage> {
               SizedBox(
                 height: 150,
               ),
-              Text('Version 1.0',
+              Text('Version Pre-Alpha',
                   style: const TextStyle(
                       fontFamily: 'WorkSansSemiBold',
                       fontSize: 18.0,

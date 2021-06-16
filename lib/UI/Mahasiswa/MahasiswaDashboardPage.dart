@@ -70,7 +70,7 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
           },
           tabs: <Widget>[
             new Tab(
-              icon: new Icon(Icons.arrow_upward_rounded,
+              icon: new Icon(Icons.home_rounded,
                   color: controller.index == 0 ? Colors.black : Colors.grey),
               // text: "Presensi",
             ),

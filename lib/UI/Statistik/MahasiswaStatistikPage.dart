@@ -32,6 +32,13 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Text(
+                    'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')),
+          ))
         ],
       ),
     );

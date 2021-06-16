@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginMahasiswa.dart';
 import 'package:presensiblebeacon/utils/bubble_indicator_painter.dart';
@@ -27,7 +31,42 @@ class _LoginPageState extends State<LoginPage>
   @override
   void initState() {
     super.initState();
+    Timer.periodic(
+        Duration(seconds: 10), (Timer t) => _checkInternetConnectivity());
     _pageController = PageController();
+  }
+
+  _checkInternetConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: 'Tidak ada internet',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    } else if (result == ConnectivityResult.mobile) {
+      Fluttertoast.showToast(
+          msg: 'Anda menggunakan jaringan mobile',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    } else if (result == ConnectivityResult.wifi) {
+      Fluttertoast.showToast(
+          msg: 'Anda menggunakan jaringan wifi',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
   }
 
   @override

@@ -32,6 +32,13 @@ class _DosenStatistikPageState extends State<DosenStatistikPage> {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Text(
+                    'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')),
+          ))
         ],
       ),
     );

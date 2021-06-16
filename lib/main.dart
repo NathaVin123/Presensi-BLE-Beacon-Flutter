@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,7 +11,7 @@ import 'package:presensiblebeacon/UI/Dosen/DosenDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Jadwal/DosenJadwalDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/DosenPresensiDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Riwayat/DosenRiwayatDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Login/BluetoothOff.dart';
+import 'package:presensiblebeacon/UI/Fungsi/BluetoothOff.dart';
 import 'package:presensiblebeacon/UI/Login/LoginPage.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginMahasiswa.dart';

@@ -67,7 +67,7 @@ class _MahasiswaJadwalDashboardPageState
             flexibleSpace: const FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
-                'Jadwal',
+                'Jadwal Kelas',
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -218,7 +218,7 @@ class _MahasiswaJadwalDashboardPageState
                 child: Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
                         child: Column(
                           children: <Widget>[
                             Padding(
@@ -238,7 +238,8 @@ class _MahasiswaJadwalDashboardPageState
                                   fontSize: 20),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 10),
                               child: CarouselSlider(
                                 items: [
                                   Padding(
@@ -301,11 +302,13 @@ class _MahasiswaJadwalDashboardPageState
                                   ),
                                 ],
                                 options: CarouselOptions(
-                                  initialPage: 0,
-                                  enlargeCenterPage: false,
-                                  height: 125,
-                                  scrollDirection: Axis.horizontal,
-                                ),
+                                    initialPage: 0,
+                                    enlargeCenterPage: false,
+                                    height: 125,
+                                    scrollDirection: Axis.horizontal,
+                                    autoPlay: true,
+                                    autoPlayAnimationDuration:
+                                        Duration(seconds: 1)),
                               ),
                             ),
                           ],
@@ -330,7 +333,7 @@ class _MahasiswaJadwalDashboardPageState
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey[200],
@@ -440,7 +443,7 @@ class _MahasiswaJadwalDashboardPageState
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey[200],

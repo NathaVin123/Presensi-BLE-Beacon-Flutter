@@ -17,6 +17,7 @@ class _MahasiswaAkunDashboardPageState
     extends State<MahasiswaAkunDashboardPage> {
   String npm = "";
   String namamhs = "";
+  String prodi = "";
 
   bool lightSwitch = false;
   bool notifSwitch = false;
@@ -32,6 +33,7 @@ class _MahasiswaAkunDashboardPageState
     setState(() {
       npm = loginMahasiswa.getString('npm');
       namamhs = loginMahasiswa.getString('namamhs');
+      prodi = loginMahasiswa.getString('prodi');
     });
   }
 
@@ -52,7 +54,7 @@ class _MahasiswaAkunDashboardPageState
             flexibleSpace: const FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
-                'Akun',
+                'Akun Saya',
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'WorkSansMedium',
@@ -103,7 +105,7 @@ class _MahasiswaAkunDashboardPageState
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'WorkSansMedium',
-                                        fontSize: 24)),
+                                        fontSize: 22)),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -112,7 +114,17 @@ class _MahasiswaAkunDashboardPageState
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'WorkSansMedium',
-                                      fontSize: 20),
+                                      fontSize: 18),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  prodi,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontSize: 18),
                                 ),
                                 SizedBox(
                                   height: 16,

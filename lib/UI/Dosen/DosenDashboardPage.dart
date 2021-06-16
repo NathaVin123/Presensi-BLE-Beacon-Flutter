@@ -70,24 +70,24 @@ class _DosenDashboardPageState extends State<DosenDashboardPage>
           },
           tabs: <Widget>[
             new Tab(
-              icon: new Icon(Icons.arrow_upward_rounded,
+              icon: new Icon(Icons.home_rounded,
                   color: controller.index == 0 ? Colors.black : Colors.grey),
-              text: "Presensi",
+              // text: "Presensi",
             ),
             new Tab(
               icon: new Icon(Icons.schedule_rounded,
                   color: controller.index == 1 ? Colors.black : Colors.grey),
-              text: "Jadwal",
+              // text: "Jadwal",
             ),
             new Tab(
               icon: new Icon(Icons.history_rounded,
                   color: controller.index == 2 ? Colors.black : Colors.grey),
-              text: "Riwayat",
+              // text: "Riwayat",
             ),
             new Tab(
               icon: new Icon(Icons.person_rounded,
                   color: controller.index == 3 ? Colors.black : Colors.grey),
-              text: "Akun Saya",
+              // text: "Akun Saya",
             )
           ],
         ),

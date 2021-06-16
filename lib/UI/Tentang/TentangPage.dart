@@ -124,7 +124,7 @@ class _TentangPageState extends State<TentangPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Align(
                                       alignment: Alignment.center,
-                                      child: Text('Version 1.0',
+                                      child: Text('Version Pre-Alpha',
                                           style: const TextStyle(
                                               fontFamily: 'WorkSansMedium',
                                               fontWeight: FontWeight.bold,

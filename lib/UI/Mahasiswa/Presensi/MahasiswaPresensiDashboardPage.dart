@@ -286,6 +286,8 @@ class _MahasiswaPresensiDashboardPageState
             ),
             icon: Icon(Icons.search_rounded),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniCenterFloat,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -439,7 +441,7 @@ class _MahasiswaPresensiDashboardPageState
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: CarouselSlider(
                   items: [
                     Padding(
@@ -492,11 +494,12 @@ class _MahasiswaPresensiDashboardPageState
                     ),
                   ],
                   options: CarouselOptions(
-                    initialPage: 0,
-                    enlargeCenterPage: false,
-                    height: 125,
-                    scrollDirection: Axis.horizontal,
-                  ),
+                      initialPage: 0,
+                      enlargeCenterPage: false,
+                      height: 125,
+                      scrollDirection: Axis.horizontal,
+                      autoPlay: true,
+                      autoPlayAnimationDuration: Duration(seconds: 1)),
                 ),
               ),
               Divider(
@@ -510,7 +513,7 @@ class _MahasiswaPresensiDashboardPageState
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kelas Terdekat',
+                      'Kelas Saya Terdekat',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
