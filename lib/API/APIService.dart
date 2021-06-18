@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'dart:convert';
 import '../MODEL/Login/LoginMahasiswaModel.dart';
 import '../MODEL/Login/LoginDosenModel.dart';
@@ -59,10 +60,11 @@ class APIService {
       print(e);
     }
   }
+
   // Get Jadwal Mahasiswa API
   // Future<JadwalMahasiswaResponseModel> jadwalMahasiswa(
   //     JadwalMahasiswaRequestModel requestModel) async {
-  //   String url = "https://192.168.100.56:5000/api/jadwalmhs/jadwalmhs";
+  //   String url = "https://192.168.100.227:5000/api/jadwalmhs/postgetall";
   //   print(url);
   //   http.Response response = await http.post(url, body: requestModel.toJson());
   //   print(response.statusCode);

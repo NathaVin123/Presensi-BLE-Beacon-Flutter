@@ -29,16 +29,15 @@ String dataToJson(Data data) => json.encode(data.toJson());
 
 class Data {
   Data(
-      {this.npm,
-      this.idkelas,
+      {this.idkelas,
       this.namamk,
       this.pertemuan,
       this.status,
       this.tglin,
       this.tglout,
-      this.tglverifikasi});
+      this.tglverifikasi,
+      this.semester});
 
-  final String npm;
   final String idkelas;
   final String namamk;
   final String pertemuan;
@@ -46,9 +45,9 @@ class Data {
   final String tglin;
   final String tglout;
   final String tglverifikasi;
+  final String semester;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        npm: json["NPM"] == null ? null : json["NPM"],
         idkelas: json["ID_Kelas"] == null ? null : json["ID_Kelas"],
         namamk: json["NAMA_MK"] == null ? null : json["NAMA_MK"],
         pertemuan: json["PERTEMUAN_KE"] == null ? null : json["PERTEMUAN_KE"],
@@ -57,10 +56,10 @@ class Data {
         tglout: json["TGL_OUT"] == null ? null : json["TGL_OUT"],
         tglverifikasi:
             json["TGL_VERIFIKASI"] == null ? null : json["TGL_VERIFIKASI"],
+        semester: json["SEMESTER"] == null ? null : json["SEMESTER"],
       );
 
   Map<String, dynamic> toJson() => {
-        "NPM": npm == null ? null : npm,
         "ID_Kelas": idkelas == null ? null : idkelas,
         "NAMA_MK": namamk == null ? null : namamk,
         "PERTEMUAN_KE": pertemuan == null ? null : pertemuan,
@@ -68,6 +67,7 @@ class Data {
         "TGL_IN": tglin == null ? null : tglin,
         "TGL_OUT": tglout == null ? null : tglout,
         "TGL_VERIFIKASI": tglverifikasi == null ? null : tglverifikasi,
+        "SEMESTER": semester == null ? null : semester,
       };
 }
 
@@ -78,17 +78,18 @@ String requestModelToJson(RiwayatMahasiswaRequestModel data) =>
 
 class RiwayatMahasiswaRequestModel {
   String npm;
+  String semester;
 
-  RiwayatMahasiswaRequestModel({
-    this.npm,
-  });
+  RiwayatMahasiswaRequestModel({this.npm, this.semester});
 
   factory RiwayatMahasiswaRequestModel.fromJson(Map<String, dynamic> json) =>
       RiwayatMahasiswaRequestModel(
         npm: json["NPM"] == null ? null : json["NPM"],
+        semester: json["SEMESTER"] == null ? null : json["SEMESTER"],
       );
 
   Map<String, dynamic> toJson() => {
         "NPM": npm == null ? null : npm.trim(),
+        "SEMESTER": semester == null ? null : semester.trim(),
       };
 }
