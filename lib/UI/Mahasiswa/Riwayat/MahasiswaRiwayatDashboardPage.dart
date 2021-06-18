@@ -1,8 +1,60 @@
-import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'dart:convert';
 
-class MahasiswaRiwayatDashboardPage extends StatelessWidget {
-  const MahasiswaRiwayatDashboardPage({Key key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
+
+class MahasiswaRiwayatDashboardPage extends StatefulWidget {
+  MahasiswaRiwayatDashboardPage({Key key}) : super(key: key);
+
+  @override
+  _MahasiswaRiwayatDashboardPageState createState() =>
+      _MahasiswaRiwayatDashboardPageState();
+}
+
+class _MahasiswaRiwayatDashboardPageState
+    extends State<MahasiswaRiwayatDashboardPage> {
+  String npm = "";
+  String semester = '6';
+
+  String namamk = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    getDataMahasiswa();
+  }
+
+  getDataMahasiswa() async {
+    SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
+    setState(() {
+      npm = loginMahasiswa.getString('npm');
+    });
+  }
+
+  Future getRiwayatDataFromAPI(String npm, String semester) async {
+    final queryParams = {'NPM': npm, 'SEMESTER': semester};
+
+    String queryString = Uri(queryParameters: queryParams).query;
+
+    var response = await http.get(Uri.https('192.168.100.227:5000',
+        'api' + 'riwayatmhs' + 'postgetall' + '?' + queryString));
+
+    var jsonData = jsonDecode(response.body);
+    List<Data> riwayatmhs = [];
+
+    for (var r in jsonData) {
+      Data data = Data(r['idkelas'], r["namamk"], r["pertemuan"], r["status"],
+          r["tglin"], r["tglout"], r["tglverifikasi"], r["semester"]);
+      riwayatmhs.add(data);
+    }
+
+    print(riwayatmhs.length);
+    return riwayatmhs;
+  }
 
   @override
   Widget build(BuildContext context) {

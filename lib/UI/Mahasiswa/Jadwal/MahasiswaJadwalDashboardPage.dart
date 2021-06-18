@@ -24,7 +24,7 @@ class _MahasiswaJadwalDashboardPageState
   String _dateString;
 
   String npm = "";
-  String semester = "";
+  String semester = '6';
 
   String namamk = "";
 
@@ -34,29 +34,25 @@ class _MahasiswaJadwalDashboardPageState
 
     getDataMahasiswa();
 
-    // jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
-    // jadwalMahasiswaResponseModel = new JadwalMahasiswaResponseModel();
-    // jadwalMahasiswaRequestModel.npm = npm;
-    // jadwalMahasiswaRequestModel.semester = '6';
-
-    // setState(() {
-    //   isApiCallProcess = true;
-    // });
-
-    // apiService.jadwalMahasiswa(jadwalMahasiswaRequestModel);
-
     _dateString = _formatDate(DateTime.now());
 
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
   }
 
+  getDataMahasiswa() async {
+    SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
+    setState(() {
+      npm = loginMahasiswa.getString('npm');
+    });
+  }
+
   Future getJadwalDataFromAPI(String npm, String semester) async {
-    Map<String, String> queryParams = {'NPM': npm, 'SEMESTER': semester};
+    final queryParams = {'NPM': npm, 'SEMESTER': semester};
 
     String queryString = Uri(queryParameters: queryParams).query;
 
     var response = await http.get(Uri.https('192.168.100.227:5000',
-        'api' + 'jadwalmhs' + 'postgetall' + '?', queryParams));
+        'api' + 'jadwalmhs' + 'postgetall' + '?' + queryString));
 
     var jsonData = jsonDecode(response.body);
     List<Data> jadwalmhs = [];
@@ -68,13 +64,6 @@ class _MahasiswaJadwalDashboardPageState
     }
     print(jadwalmhs.length);
     return jadwalmhs;
-  }
-
-  getDataMahasiswa() async {
-    SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-    setState(() {
-      npm = loginMahasiswa.getString('npm');
-    });
   }
 
   void _getDate() {
@@ -129,7 +118,7 @@ class _MahasiswaJadwalDashboardPageState
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, i) {
                       return ListTile(
-                        title: Text(snapshot.data[i]),
+                        title: Text(snapshot.data[i].namamk),
                       );
                     },
                   );
