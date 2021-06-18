@@ -82,7 +82,10 @@ class _MahasiswaJadwalDashboardPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(),
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text('Reload'),
+          onPressed: () => null,
+        ),
         backgroundColor: Colors.white,
         body: CustomScrollView(slivers: <Widget>[
           SliverAppBar(

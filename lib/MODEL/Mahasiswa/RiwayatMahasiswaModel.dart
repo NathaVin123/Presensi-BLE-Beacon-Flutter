@@ -9,7 +9,7 @@ class RiwayatMahasiswaResponseModel {
   factory RiwayatMahasiswaResponseModel.fromJson(Map<String, dynamic> json) =>
       RiwayatMahasiswaResponseModel(
         error: json["error"],
-        data: json["data"]),
+        data: json["data"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -19,15 +19,8 @@ class RiwayatMahasiswaResponseModel {
 }
 
 class Data {
-  Data(
-      this.idkelas,
-      this.namamk,
-      this.pertemuan,
-      this.status,
-      this.tglin,
-      this.tglout,
-      this.tglverifikasi,
-      this.semester);
+  Data(this.idkelas, this.namamk, this.pertemuan, this.status, this.tglin,
+      this.tglout, this.tglverifikasi, this.semester);
 
   final String idkelas;
   final String namamk;
@@ -37,5 +30,4 @@ class Data {
   final String tglout;
   final String tglverifikasi;
   final String semester;
-
 }
