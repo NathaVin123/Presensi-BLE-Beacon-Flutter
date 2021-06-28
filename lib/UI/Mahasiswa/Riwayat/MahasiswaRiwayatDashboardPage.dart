@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -14,18 +16,61 @@ class MahasiswaRiwayatDashboardPage extends StatefulWidget {
       _MahasiswaRiwayatDashboardPageState();
 }
 
+class Semester {
+  String semester;
+  Semester(this.semester);
+}
+
 class _MahasiswaRiwayatDashboardPageState
     extends State<MahasiswaRiwayatDashboardPage> {
   String npm = "";
-  String semester = '6';
+  String semesterShared = "";
 
-  String namamk = "";
+  String data;
+
+  Semester selectedSemester;
+
+  List<Semester> semesters = [
+    Semester("1"),
+    Semester("2"),
+    Semester("3"),
+    Semester("4"),
+    Semester("5"),
+    Semester("6"),
+    Semester("7"),
+    Semester("8"),
+    Semester("9"),
+    Semester("10"),
+    Semester("11"),
+    Semester("12"),
+    Semester("13"),
+    Semester("14"),
+  ];
+
+  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
+    List<DropdownMenuItem> items = [];
+
+    for (var item in semesters) {
+      items.add(DropdownMenuItem(
+        child: Text((item.semester)),
+        value: item,
+      ));
+    }
+    return items;
+  }
+
+  RiwayatMahasiswaRequestModel riwayatMahasiswaRequestModel;
+
+  RiwayatMahasiswaResponseModel riwayatMahasiswaResponseModel;
 
   @override
   void initState() {
     super.initState();
 
-    getDataMahasiswa();
+    this.getDataMahasiswa();
+
+    riwayatMahasiswaRequestModel = RiwayatMahasiswaRequestModel();
+    riwayatMahasiswaResponseModel = RiwayatMahasiswaResponseModel();
   }
 
   getDataMahasiswa() async {
@@ -35,30 +80,29 @@ class _MahasiswaRiwayatDashboardPageState
     });
   }
 
-  Future getRiwayatDataFromAPI(String npm, String semester) async {
-    final queryParams = {'NPM': npm, 'SEMESTER': semester};
+  void getDataRiwayatMahasiswa() async {
+    setState(() {
+      riwayatMahasiswaRequestModel.npm = npm;
+      riwayatMahasiswaRequestModel.semester = semesterShared;
 
-    String queryString = Uri(queryParameters: queryParams).query;
-
-    var response = await http.get(Uri.https('192.168.100.227:5000',
-        'api' + 'riwayatmhs' + 'postgetall' + '?' + queryString));
-
-    var jsonData = jsonDecode(response.body);
-    List<Data> riwayatmhs = [];
-
-    for (var r in jsonData) {
-      Data data = Data(r['idkelas'], r["namamk"], r["pertemuan"], r["status"],
-          r["tglin"], r["tglout"], r["tglverifikasi"], r["semester"]);
-      riwayatmhs.add(data);
-    }
-
-    print(riwayatmhs.length);
-    return riwayatmhs;
+      print(riwayatMahasiswaRequestModel.toJson());
+      APIService apiService = new APIService();
+      apiService
+          .postRiwayatMahasiswa(riwayatMahasiswaRequestModel)
+          .then((value) async {
+        riwayatMahasiswaResponseModel = value;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text('Segarkan'),
+          icon: Icon(Icons.refresh_rounded),
+          onPressed: () => getDataRiwayatMahasiswa(),
+        ),
         backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: <Widget>[
@@ -82,627 +126,160 @@ class _MahasiswaRiwayatDashboardPageState
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Flexible(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[600],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            '03/06/2021',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          'Pertemuan ke - 5',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  height: 10,
-                                  thickness: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          'Magang',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Kelas B',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Dosen Tek. Informatika',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+            SliverToBoxAdapter(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                        child: Text(
+                      'Pilih Semester',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'WorkSansMedium',
+                          fontWeight: FontWeight.bold),
+                    )),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                              width: 1),
+                        ),
+                        child: DropdownButton(
+                          // style: TextStyle(
+                          //   fontFamily: 'WorkSansMedium',
+                          // ),
+                          onTap: () => getDataRiwayatMahasiswa(),
+                          items: generateSemester(semesters),
+                          value: selectedSemester,
+                          onChanged: (item) {
+                            setState(() {
+                              selectedSemester = item;
+                              semesterShared = selectedSemester.semester;
+                            });
+                          },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Flexible(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+                child: Container(
+                    child: ListView.builder(
+                        itemCount: riwayatMahasiswaResponseModel.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: new ListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[600],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            '03/05/2021',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontSize: 16),
-                                          ),
-                                        ),
+                                      // new Text(
+                                      //   riwayatMahasiswaResponseModel
+                                      //       .data[index].tglin,
+                                      //   style: TextStyle(
+                                      //       fontSize: 15,
+                                      //       fontFamily: 'WorkSansMedium',
+                                      //       fontWeight: FontWeight.bold),
+                                      // ),
+                                      new Text(
+                                        riwayatMahasiswaResponseModel
+                                            .data[index].namamk,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          'Pertemuan ke - 4',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 16),
-                                        ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        riwayatMahasiswaResponseModel
+                                            .data[index].kelas,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Divider(
-                                  height: 10,
-                                  thickness: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          'Magang',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Kelas A',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Dosen Tek. Informatika',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
+                                      Text(
+                                        'Status : ${riwayatMahasiswaResponseModel.data[index].status}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
                                         ),
                                       ),
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Flexible(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[600],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            '03/04/2021',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontSize: 16),
+                                ),
+                                onTap: () async {
+                                  // Tampilan Modal Kelas
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(25))),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      builder: (builder) {
+                                        return new Container(
+                                          height: 650,
+                                          color: Colors.white,
+                                          child: new Column(
+                                            children: [
+                                              new Center(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 25, bottom: 10),
+                                                  child: new Text(
+                                                    'Detail Riwayat',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 24),
+                                                  ),
+                                                ),
+                                              ),
+                                              Divider(
+                                                height: 20,
+                                                thickness: 5,
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          'Pertemuan ke - 3',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  height: 10,
-                                  thickness: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          'Magang',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Kelas E',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Dosen Tek. Informatika',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        );
+                                      });
+                                },
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Flexible(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[600],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            '03/03/2021',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          'Pertemuan ke - 2',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  height: 10,
-                                  thickness: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          'Magang',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Kelas B',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Dosen Tek. Informatika',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Flexible(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[600],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            '03/02/2021',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          'Pertemuan ke - 1',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  height: 10,
-                                  thickness: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          'Magang',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Kelas B',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Dosen Tek. Informatika',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-                // Shimmer.fromColors(
-                //   baseColor: Colors.grey[200],
-                //   highlightColor: Colors.grey[100],
-                //   enabled: true,
-                //   child: Column(
-                //     children: [
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // )
-              ]),
-            )
+                          );
+                        })))
           ],
         ));
   }

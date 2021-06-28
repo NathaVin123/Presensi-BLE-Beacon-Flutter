@@ -287,7 +287,7 @@ class _MahasiswaPresensiDashboardPageState
             icon: Icon(Icons.search_rounded),
           ),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniCenterFloat,
+              FloatingActionButtonLocation.miniEndFloat,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,

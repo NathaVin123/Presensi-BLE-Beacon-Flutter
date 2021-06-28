@@ -7,6 +7,7 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
         android:label="Presensi UAJY"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
