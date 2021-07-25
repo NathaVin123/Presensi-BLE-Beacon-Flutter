@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,11 +23,14 @@ class _MahasiswaPresensiDashboardPageState
     extends State<MahasiswaPresensiDashboardPage> with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
 
+  RuangBeaconResponseModel ruangBeaconResponseModel;
+
   StreamSubscription<BluetoothState> _streamBluetooth;
   StreamSubscription<RangingResult> _streamRanging;
 
   final _regionBeacons = <Region, List<Beacon>>{};
   final _beacons = <Beacon>[];
+  final _regions = <Region>[];
 
   bool authorizationStatusOk = false;
   bool locationServiceEnabled = false;
@@ -45,6 +50,8 @@ class _MahasiswaPresensiDashboardPageState
 
     super.initState();
 
+    ruangBeaconResponseModel = RuangBeaconResponseModel();
+
     _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
 
@@ -53,7 +60,18 @@ class _MahasiswaPresensiDashboardPageState
 
     getDataMahasiswa();
 
+    getDataRuangBeacon();
+
     listeningState();
+  }
+
+  getDataRuangBeacon() async {
+    setState(() {
+      APIService apiService = new APIService();
+      apiService.getKelasBeacon().then((value) async {
+        ruangBeaconResponseModel = value;
+      });
+    });
   }
 
   void _getTime() {
@@ -135,12 +153,66 @@ class _MahasiswaPresensiDashboardPageState
       }
     }
 
+    // if (Platform.isIOS) {
+    //   _regions.add(Region(
+    //       identifier: '',
+    //       proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825'));
+    //   _regions.add(Region(
+    //       identifier: '',
+    //       proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'));
+
+    //   _streamRanging =
+    //       flutterBeacon.ranging(_regions).listen((RangingResult result) {
+    //     print(result);
+    //     if (result != null && mounted) {
+    //       setState(() {
+    //         _regionBeacons[result.region] = result.beacons;
+    //         _beacons.clear();
+    //         _regionBeacons.values.forEach((list) {
+    //           _beacons.addAll(list);
+    //         });
+    //         _beacons.sort(_compareParameters);
+    //       });
+    //     }
+    //   });
+    // } else if (Platform.isAndroid) {
+    //   _regions.add(Region(
+    //     identifier: '',
+    //     proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
+    //   ));
+    //   _regions.add(Region(
+    //       identifier: '',
+    //       proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'));
+    //   // _regions.add(Region(
+    //   //   identifier: '',
+    //   // ));
+
+    //   _streamRanging =
+    //       flutterBeacon.ranging(_regions).listen((RangingResult result) {
+    //     print(result);
+    //     if (result != null && mounted) {
+    //       setState(() {
+    //         _regionBeacons[result.region] = result.beacons;
+    //         _beacons.clear();
+    //         _regionBeacons.values.forEach((list) {
+    //           _beacons.addAll(list);
+    //         });
+    //         _beacons.sort(_compareParameters);
+    //         Timer(Duration(seconds: 2), () => _streamRanging?.pause());
+    //       });
+    //     }
+    //   });
+    // }
+
     if (Platform.isIOS) {
       _streamRanging = flutterBeacon.ranging(<Region>[
         new Region(
           identifier: '',
-          proximityUUID: 'FDA50693-A4E2-4FB1-AFCF-C6EB07647825',
-        )
+          proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
+        ),
+        new Region(
+            identifier: '',
+            proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d')
       ]).listen((RangingResult result) {
         print(result);
         if (result != null && mounted) {
@@ -155,21 +227,33 @@ class _MahasiswaPresensiDashboardPageState
         }
       });
     } else if (Platform.isAndroid) {
-      _streamRanging = flutterBeacon.ranging(
-          <Region>[new Region(identifier: '')]).listen((RangingResult result) {
-        print(result);
-        if (result != null && mounted) {
-          setState(() {
-            _regionBeacons[result.region] = result.beacons;
-            _beacons.clear();
-            _regionBeacons.values.forEach((list) {
-              _beacons.addAll(list);
+      for (var i = 0; i < 100; i++) {
+        _streamRanging = flutterBeacon.ranging(<Region>[
+          // new Region(
+          //   identifier: '',
+          //   proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
+          // ),
+          // new Region(
+          //     identifier: '',
+          //     proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'),
+          new Region(
+              identifier: '',
+              proximityUUID: ruangBeaconResponseModel.data[i].uuid)
+        ]).listen((RangingResult result) {
+          print(result);
+          if (result != null && mounted) {
+            setState(() {
+              _regionBeacons[result.region] = result.beacons;
+              _beacons.clear();
+              _regionBeacons.values.forEach((list) {
+                _beacons.addAll(list);
+              });
+              _beacons.sort(_compareParameters);
+              Timer(Duration(seconds: 2), () => _streamRanging?.pause());
             });
-            _beacons.sort(_compareParameters);
-            Timer(Duration(seconds: 2), () => _streamRanging?.pause());
-          });
-        }
-      });
+          }
+        });
+      }
     }
   }
 
@@ -271,6 +355,13 @@ class _MahasiswaPresensiDashboardPageState
     });
   }
 
+  void getDataBeacon() async {
+    SharedPreferences dataBeacon = await SharedPreferences.getInstance();
+    _beacons.map((beacon) async {
+      await dataBeacon.setString('UUID', beacon.proximityUUID);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -278,7 +369,7 @@ class _MahasiswaPresensiDashboardPageState
       home: Scaffold(
           backgroundColor: Colors.white,
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => _streamRanging?.resume(),
+            onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
             label: Text(
               'Pindai Kelas',
               style: TextStyle(
@@ -731,372 +822,377 @@ class _MahasiswaPresensiDashboardPageState
                                                   beacon.proximityUUID);
                                               await modalKelas.setString(
                                                   'Jam', _timeString);
-                                              getModalKelas();
+                                              await modalKelas.setString(
+                                                  'Tanggal', _dateString);
+
+                                              Get.toNamed(
+                                                  '/mahasiswa/dashboard/presensi/detail');
+                                              // getModalKelas();
                                               // Tampilan Modal Kelas
-                                              showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  context: context,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(25),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      25))),
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  builder: (builder) {
-                                                    return new Container(
-                                                      height: 650,
-                                                      color: Colors.white,
-                                                      child: new Column(
-                                                        children: [
-                                                          new Center(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 25,
-                                                                      bottom:
-                                                                          10),
-                                                              child: new Text(
-                                                                'Presensi',
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansMedium',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        24),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Divider(
-                                                            height: 20,
-                                                            thickness: 5,
-                                                          ),
-                                                          new Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(10),
-                                                              child: Column(
-                                                                children: <
-                                                                    Widget>[
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Ruangan',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        kelas,
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 16),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Mata Kuliah',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        '-',
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 18),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Kelas',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        '-',
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 18),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Dosen',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        '-',
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 18),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Jam Masuk',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        jam,
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 18),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        'Jam Keluar',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        new Center(
-                                                                      child:
-                                                                          new Text(
-                                                                        '-',
-                                                                        style: TextStyle(
-                                                                            fontFamily: 'WorkSansMedium',
-                                                                            // fontWeight:
-                                                                            //     FontWeight.bold,
-                                                                            fontSize: 18),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              )),
-                                                          new Align(
-                                                            child: new Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(10),
-                                                              child: new Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    MaterialButton(
-                                                                      color: Colors
-                                                                          .green,
-                                                                      shape:
-                                                                          StadiumBorder(),
-                                                                      padding: EdgeInsets.only(
-                                                                          left:
-                                                                              50,
-                                                                          right:
-                                                                              50,
-                                                                          top:
-                                                                              5,
-                                                                          bottom:
-                                                                              5),
-                                                                      onPressed:
-                                                                          () {},
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceAround,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Icon(
-                                                                            Icons.arrow_upward_rounded,
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                5,
-                                                                          ),
-                                                                          Text(
-                                                                            'MASUK',
-                                                                            style: TextStyle(
-                                                                                fontFamily: 'WorkSansMedium',
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Colors.white,
-                                                                                fontSize: 18),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    MaterialButton(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      shape:
-                                                                          StadiumBorder(),
-                                                                      padding: EdgeInsets.only(
-                                                                          left:
-                                                                              50,
-                                                                          right:
-                                                                              50,
-                                                                          top:
-                                                                              5,
-                                                                          bottom:
-                                                                              5),
-                                                                      onPressed:
-                                                                          () {},
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceAround,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Icon(
-                                                                            Icons.arrow_downward_rounded,
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                5,
-                                                                          ),
-                                                                          Text(
-                                                                            'KELUAR',
-                                                                            style: TextStyle(
-                                                                                fontFamily: 'WorkSansMedium',
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Colors.white,
-                                                                                fontSize: 18),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  });
+                                              // showModalBottomSheet(
+                                              //     isScrollControlled: true,
+                                              //     context: context,
+                                              //     shape: RoundedRectangleBorder(
+                                              //         borderRadius:
+                                              //             BorderRadius.only(
+                                              //                 topLeft: Radius
+                                              //                     .circular(25),
+                                              //                 topRight: Radius
+                                              //                     .circular(
+                                              //                         25))),
+                                              //     clipBehavior: Clip
+                                              //         .antiAliasWithSaveLayer,
+                                              //     builder: (builder) {
+                                              //       return new Container(
+                                              //         height: 650,
+                                              //         color: Colors.white,
+                                              //         child: new Column(
+                                              //           children: [
+                                              //             new Center(
+                                              //               child: Padding(
+                                              //                 padding: EdgeInsets
+                                              //                     .only(
+                                              //                         top: 25,
+                                              //                         bottom:
+                                              //                             10),
+                                              //                 child: new Text(
+                                              //                   'Presensi',
+                                              //                   style: TextStyle(
+                                              //                       fontFamily:
+                                              //                           'WorkSansMedium',
+                                              //                       fontWeight:
+                                              //                           FontWeight
+                                              //                               .bold,
+                                              //                       fontSize:
+                                              //                           24),
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             Divider(
+                                              //               height: 20,
+                                              //               thickness: 5,
+                                              //             ),
+                                              //             new Padding(
+                                              //                 padding:
+                                              //                     EdgeInsets
+                                              //                         .all(10),
+                                              //                 child: Column(
+                                              //                   children: <
+                                              //                       Widget>[
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Ruangan',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           kelas,
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 16),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Mata Kuliah',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           '-',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 18),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Kelas',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           '-',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 18),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Dosen',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           '-',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 18),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Jam Masuk',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           jam,
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 18),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           'Jam Keluar',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily:
+                                              //                                   'WorkSansMedium',
+                                              //                               fontWeight:
+                                              //                                   FontWeight.bold,
+                                              //                               fontSize: 20),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                     Padding(
+                                              //                       padding:
+                                              //                           const EdgeInsets.all(
+                                              //                               8.0),
+                                              //                       child:
+                                              //                           new Center(
+                                              //                         child:
+                                              //                             new Text(
+                                              //                           '-',
+                                              //                           style: TextStyle(
+                                              //                               fontFamily: 'WorkSansMedium',
+                                              //                               // fontWeight:
+                                              //                               //     FontWeight.bold,
+                                              //                               fontSize: 18),
+                                              //                         ),
+                                              //                       ),
+                                              //                     ),
+                                              //                   ],
+                                              //                 )),
+                                              //             new Align(
+                                              //               child: new Padding(
+                                              //                 padding:
+                                              //                     EdgeInsets
+                                              //                         .all(10),
+                                              //                 child: new Row(
+                                              //                     mainAxisAlignment:
+                                              //                         MainAxisAlignment
+                                              //                             .spaceAround,
+                                              //                     children: <
+                                              //                         Widget>[
+                                              //                       MaterialButton(
+                                              //                         color: Colors
+                                              //                             .green,
+                                              //                         shape:
+                                              //                             StadiumBorder(),
+                                              //                         padding: EdgeInsets.only(
+                                              //                             left:
+                                              //                                 50,
+                                              //                             right:
+                                              //                                 50,
+                                              //                             top:
+                                              //                                 5,
+                                              //                             bottom:
+                                              //                                 5),
+                                              //                         onPressed:
+                                              //                             () {},
+                                              //                         child:
+                                              //                             Column(
+                                              //                           mainAxisAlignment:
+                                              //                               MainAxisAlignment.spaceAround,
+                                              //                           children: <
+                                              //                               Widget>[
+                                              //                             Icon(
+                                              //                               Icons.arrow_upward_rounded,
+                                              //                               color:
+                                              //                                   Colors.white,
+                                              //                             ),
+                                              //                             SizedBox(
+                                              //                               height:
+                                              //                                   5,
+                                              //                             ),
+                                              //                             Text(
+                                              //                               'MASUK',
+                                              //                               style: TextStyle(
+                                              //                                   fontFamily: 'WorkSansMedium',
+                                              //                                   fontWeight: FontWeight.bold,
+                                              //                                   color: Colors.white,
+                                              //                                   fontSize: 18),
+                                              //                             ),
+                                              //                           ],
+                                              //                         ),
+                                              //                       ),
+                                              //                       MaterialButton(
+                                              //                         color: Colors
+                                              //                             .red,
+                                              //                         shape:
+                                              //                             StadiumBorder(),
+                                              //                         padding: EdgeInsets.only(
+                                              //                             left:
+                                              //                                 50,
+                                              //                             right:
+                                              //                                 50,
+                                              //                             top:
+                                              //                                 5,
+                                              //                             bottom:
+                                              //                                 5),
+                                              //                         onPressed:
+                                              //                             () {},
+                                              //                         child:
+                                              //                             Column(
+                                              //                           mainAxisAlignment:
+                                              //                               MainAxisAlignment.spaceAround,
+                                              //                           children: <
+                                              //                               Widget>[
+                                              //                             Icon(
+                                              //                               Icons.arrow_downward_rounded,
+                                              //                               color:
+                                              //                                   Colors.white,
+                                              //                             ),
+                                              //                             SizedBox(
+                                              //                               height:
+                                              //                                   5,
+                                              //                             ),
+                                              //                             Text(
+                                              //                               'KELUAR',
+                                              //                               style: TextStyle(
+                                              //                                   fontFamily: 'WorkSansMedium',
+                                              //                                   fontWeight: FontWeight.bold,
+                                              //                                   color: Colors.white,
+                                              //                                   fontSize: 18),
+                                              //                             ),
+                                              //                           ],
+                                              //                         ),
+                                              //                       ),
+                                              //                     ]),
+                                              //               ),
+                                              //             ),
+                                              //           ],
+                                              //         ),
+                                              //       );
+                                              //     });
                                             },
                                           )));
                                 } else {

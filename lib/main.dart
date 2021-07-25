@@ -19,6 +19,7 @@ import 'package:presensiblebeacon/UI/Login/SplashPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Jadwal/MahasiswaJadwalDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/MahasiswaDashboardPage.dart';
+import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaPresensiDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Statistik/DosenStatistikPage.dart';
@@ -111,6 +112,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/mahasiswa/dashboard/presensi',
             page: () => MahasiswaPresensiDashboardPage()),
+        GetPage(
+            name: '/mahasiswa/dashboard/presensi/detail',
+            page: () => MahasiswaDetailPresensiPage()),
         GetPage(
             name: '/mahasiswa/dashboard/presensi/notifikasi',
             page: () => MahasiswaNotifikasiPresensiPage()),

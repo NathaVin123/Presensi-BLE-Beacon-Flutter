@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,6 +21,8 @@ class DosenPresensiDashboardPage extends StatefulWidget {
 class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
+
+  RuangBeaconResponseModel ruangBeaconResponseModel;
 
   StreamSubscription<BluetoothState> _streamBluetooth;
   StreamSubscription<RangingResult> _streamRanging;
@@ -44,6 +48,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
     super.initState();
 
+    ruangBeaconResponseModel = RuangBeaconResponseModel();
+
     _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
 
@@ -53,6 +59,15 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     getDataDosen();
 
     listeningState();
+
+    getDataRuangBeacon();
+  }
+
+  void getDataRuangBeacon() async {
+    APIService apiService = new APIService();
+    apiService.getKelasBeacon().then((value) async {
+      ruangBeaconResponseModel = value;
+    });
   }
 
   void _getTime() {

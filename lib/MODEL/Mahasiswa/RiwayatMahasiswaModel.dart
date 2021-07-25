@@ -35,7 +35,7 @@ class Data {
   final String status;
   // final String tglin;
   // final String tglout;
-  final String tglverifikasi;
+  // final String tglverifikasi;
   // final int semester;
 
   Data({
@@ -46,7 +46,7 @@ class Data {
     this.status,
     // this.tglin,
     // this.tglout,
-    this.tglverifikasi,
+    // this.tglverifikasi,
     // this.semester
   });
 
@@ -58,7 +58,7 @@ class Data {
         status: json["STATUS"],
         // tglin: json["TGL_IN"],
         // tglout: json["TGL_OUT"],
-        tglverifikasi: json["TGL_VERIFIKASI"],
+        // tglverifikasi: json["TGL_VERIFIKASI"],
         // semester: json["SEMESTER"],
       );
 
@@ -70,7 +70,7 @@ class Data {
         "STATUS": status,
         // "TGL_IN": tglin,
         // "TGL_OUT": tglout,
-        "TGL_VERIFIKASI": tglverifikasi,
+        // "TGL_VERIFIKASI": tglverifikasi,
         // "SEMESTER": semester,
       };
 }

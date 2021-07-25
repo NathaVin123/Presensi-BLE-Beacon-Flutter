@@ -27,7 +27,6 @@ dependencies:
   shimmer: ^2.0.0
 
   # Bluetooth On / Off.
-  # flutter_blue: ^0.6.0+2
   flutter_blue: ^0.8.0
 
   # Memanggil sistem untuk menghidupkan bluetooth.
@@ -60,6 +59,11 @@ dependencies:
   
   # Cek Koneksi Internet
   connectivity: ^3.0.6
+
+  # Cek String sama
+  string_similarity: ^2.0.0
+
+  avatars: ^2.0.0
   
 # Cadangan Package
   # provider: ^5.0.0

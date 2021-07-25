@@ -44,12 +44,6 @@ class _MahasiswaJadwalDashboardPageState
     Semester("6"),
     Semester("7"),
     Semester("8"),
-    Semester("9"),
-    Semester("10"),
-    Semester("11"),
-    Semester("12"),
-    Semester("13"),
-    Semester("14"),
   ];
 
   List<DropdownMenuItem> generateSemester(List<Semester> semesters) {

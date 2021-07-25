@@ -72,22 +72,22 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
             new Tab(
               icon: new Icon(Icons.home_rounded,
                   color: controller.index == 0 ? Colors.black : Colors.grey),
-              // text: "Presensi",
+              text: "Presensi",
             ),
             new Tab(
               icon: new Icon(Icons.schedule_rounded,
                   color: controller.index == 1 ? Colors.black : Colors.grey),
-              // text: "Jadwal",
+              text: "Jadwal",
             ),
             new Tab(
               icon: new Icon(Icons.history_rounded,
                   color: controller.index == 2 ? Colors.black : Colors.grey),
-              // text: "Riwayat",
+              text: "Riwayat",
             ),
             new Tab(
               icon: new Icon(Icons.person_rounded,
                   color: controller.index == 3 ? Colors.black : Colors.grey),
-              // text: "Akun Saya",
+              text: "Akun Saya",
             )
           ],
         ),
@@ -95,3 +95,51 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
     );
   }
 }
+
+// TabBar Tanpa Animasi
+// class MahasiswaDashboardPage extends State<TabContainerIndexedStack> {
+//   int tabIndex = 0;
+//   List<Widget> listScreens;
+//   @override
+//   void initState() {
+//     super.initState();
+//     listScreens = [
+//       new Presensi.MahasiswaPresensiDashboardPage(),
+//       new Jadwal.MahasiswaJadwalDashboardPage(),
+//       new Riwayat.MahasiswaRiwayatDashboardPage(),
+//       new Akun.MahasiswaAkunDashboardPage(),
+//     ];
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       color: Colors.yellow,
+//       home: Scaffold(
+//         body: IndexedStack(index: tabIndex, children: listScreens),
+//         bottomNavigationBar: BottomNavigationBar(
+//             currentIndex: tabIndex,
+//             onTap: (int index) {
+//               setState(() {
+//                 tabIndex = index;
+//               });
+//             },
+//             items: [
+//               BottomNavigationBarItem(
+//                 icon: Icon(Icons.home),
+//                 // title: Text('Tab1'),
+//               ),
+//               BottomNavigationBarItem(
+//                 icon: Icon(Icons.report_problem),
+//                 // title: Text('Tab2'),
+//               ),
+//               BottomNavigationBarItem(
+//                 icon: Icon(Icons.settings),
+//                 // title: Text('Tab3'),
+//               ),
+//             ]),
+//         backgroundColor: Theme.of(context).primaryColor,
+//       ),
+//     );
+//   }
+// }
