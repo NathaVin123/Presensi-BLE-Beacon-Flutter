@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DosenTambahBeacon extends StatefulWidget {
+class DosenHapusBeacon extends StatefulWidget {
   @override
-  _DosenTambahBeaconState createState() => _DosenTambahBeaconState();
+  _DosenHapusBeaconState createState() => _DosenHapusBeaconState();
 }
 
-class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
+class _DosenHapusBeaconState extends State<DosenHapusBeacon> {
   @override
   Widget build(BuildContext context) {
     return Container(

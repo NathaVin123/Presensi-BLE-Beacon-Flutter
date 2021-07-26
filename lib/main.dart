@@ -1,36 +1,64 @@
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'package:presensiblebeacon/UI/Dosen/Akun/DosenAkunDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/DosenDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/Jadwal/DosenJadwalDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/Presensi/DosenPresensiDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/Riwayat/DosenRiwayatDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Fungsi/BluetoothOff.dart';
-import 'package:presensiblebeacon/UI/Login/LoginPage.dart';
-import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
-import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginMahasiswa.dart';
-import 'package:presensiblebeacon/UI/Login/SplashPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Jadwal/MahasiswaJadwalDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/MahasiswaDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/Detail/MahasiswaDetailPresensiPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaPresensiDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/Akun/Statistik/DosenStatistikPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Akun/Statistik/MahasiswaStatistikPage.dart';
-import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'UI/Login/SplashPage.dart';
+
+import 'UI/Fungsi/BluetoothOff.dart';
+
+import 'UI/Login/LoginPage.dart';
+import 'UI/Login/LoginWidgets/LoginDosen.dart';
+import 'UI/Login/LoginWidgets/LoginMahasiswa.dart';
+
+import 'UI/Mahasiswa/MahasiswaDashboardPage.dart';
+
+import 'UI/Mahasiswa/Presensi/MahasiswaPresensiDashboardPage.dart';
+import 'UI/Mahasiswa/Presensi/Detail/MahasiswaDetailPresensiPage.dart';
+
+import 'UI/Mahasiswa/Presensi/Notifikasi/MahasiswaNotifikasiPresensiPage.dart';
+
+import 'UI/Mahasiswa/Presensi/Detail/TampilPesertaKelas/MahasiswaTampilPesertaKelasPage.dart';
+
+import 'UI/Mahasiswa/Jadwal/MahasiswaJadwalDashboardPage.dart';
+import 'UI/Mahasiswa/Jadwal/Detail/MahasiswaDetailJadwalPage.dart';
+
+import 'UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboardPage.dart';
+import 'UI/Mahasiswa/Riwayat/Detail/MahasiswaDetailRiwayatPage.dart';
+
+import 'UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
+import 'UI/Mahasiswa/Akun/InformasiAkun/MahasiswaInformasiAkunPage.dart';
+import 'UI/Mahasiswa/Akun/Statistik/MahasiswaStatistikPage.dart';
+
+import 'UI/Dosen/DosenDashboardPage.dart';
+
+import 'UI/Dosen/Presensi/DosenPresensiDashboardPage.dart';
+import 'UI/Dosen/Presensi/Detail/TampilPesertaKelas/DosenTampilPesertaKelasPage.dart';
+import 'UI/Dosen/Presensi/Notifikasi/DosenNotifikasiPresensiPage.dart';
+
+import 'UI/Dosen/Jadwal/DosenJadwalDashboardPage.dart';
+import 'UI/Dosen/Jadwal/Detail/DosenDetailJadwalPage.dart';
+
+import 'UI/Dosen/Riwayat/DosenRiwayatDashboardPage.dart';
+import 'UI/Dosen/Riwayat/Detail/DosenDetailRiwayatPage.dart';
+
+import 'UI/Dosen/Akun/DosenAkunDashboardPage.dart';
 
 import 'UI/Dosen/Akun/InformasiAkun/DosenInformasiAkunPage.dart';
-import 'UI/Dosen/Presensi/DosenNotifikasiPresensiPage.dart';
-import 'UI/Mahasiswa/Akun/InformasiAkun/MahasiswaInformasiAkunPage.dart';
-import 'UI/Mahasiswa/Presensi/Notifikasi/MahasiswaNotifikasiPresensiPage.dart';
+
+import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/DosenMenuBeaconPage.dart';
+import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenHapusBeacon.dart';
+import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenPindaiBeacon.dart';
+import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenTambahBeacon.dart';
+import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenUbahBeacon.dart';
+
+import 'package:presensiblebeacon/UI/Dosen/Akun/GantiPassword/DosenGantiPasswordPage.dart';
+
+import 'UI/Dosen/Akun/Statistik/DosenStatistikPage.dart';
+
+import 'UI/Tentang/TentangPage.dart';
 
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
@@ -90,25 +118,28 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       getPages: [
         // Splash Page
-        GetPage(
-            name: '/', page: () => SplashPage(), transition: Transition.fade),
+        GetPage(name: '/', page: () => SplashPage()),
+
         // BluetoothOff Page
         GetPage(
-            name: '/bluetooth',
-            page: () => BluetoothOff(),
-            transition: Transition.fade),
+          name: '/bluetooth',
+          page: () => BluetoothOff(),
+        ),
+
         // Login Page
         GetPage(
-            name: '/login',
-            page: () => LoginPage(),
-            transition: Transition.fade),
+          name: '/login',
+          page: () => LoginPage(),
+        ),
         GetPage(name: '/login/mahasiswa', page: () => LoginMahasiswa()),
         GetPage(name: '/login/dosen', page: () => LoginDosen()),
+
         // Mahasiswa Page
         GetPage(
-            name: '/mahasiswa/dashboard',
-            page: () => MahasiswaDashboardPage(),
-            transition: Transition.fade),
+          name: '/mahasiswa/dashboard',
+          page: () => MahasiswaDashboardPage(),
+        ),
+
         GetPage(
             name: '/mahasiswa/dashboard/presensi',
             page: () => MahasiswaPresensiDashboardPage()),
@@ -116,57 +147,110 @@ class _MyAppState extends State<MyApp> {
             name: '/mahasiswa/dashboard/presensi/detail',
             page: () => MahasiswaDetailPresensiPage()),
         GetPage(
+            name: '/mahasiswa/dashboard/presensi/detail/tampilpeserta',
+            page: () => MahasiswaTampilPesertaKelasPage()),
+
+        GetPage(
             name: '/mahasiswa/dashboard/presensi/notifikasi',
             page: () => MahasiswaNotifikasiPresensiPage()),
+
         GetPage(
             name: '/mahasiswa/dashboard/jadwal',
             page: () => MahasiswaJadwalDashboardPage()),
         GetPage(
+            name: '/mahasiswa/dashboard/jadwal/detail',
+            page: () => MahasiswaDetailJadwalPage()),
+
+        GetPage(
             name: '/mahasiswa/dashboard/riwayat',
             page: () => MahasiswaRiwayatDashboardPage()),
+        GetPage(
+            name: '/mahasiswa/dashboard/riwayat/detail',
+            page: () => MahasiswaDetailRiwayatPage()),
+
         GetPage(
             name: '/mahasiswa/dashboard/akun',
             page: () => MahasiswaAkunDashboardPage()),
         GetPage(
             name: '/mahasiswa/dashboard/akun/informasi',
             page: () => MahasiswaInformasiAkunPage()),
-        // Dosen Page
-        GetPage(
-            name: '/dosen/dashboard',
-            page: () => DosenDashboardPage(),
-            transition: Transition.fade),
-        GetPage(
-            name: '/dosen/dashboard/presensi',
-            page: () => DosenPresensiDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/presensi/notifikasi',
-            page: () => DosenNotifikasiPresensiPage()),
-        GetPage(
-            name: '/dosen/dashboard/jadwal',
-            page: () => DosenJadwalDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/riwayat',
-            page: () => DosenRiwayatDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/akun',
-            page: () => DosenAkunDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/akun/informasi',
-            page: () => DosenInformasiAkunPage()),
-        // Statistik Page
         GetPage(
             name: '/statistik/mahasiswa',
             page: () => MahasiswaStatistikPage(),
             transition: Transition.fade),
+
+        // Dosen Page
+        GetPage(
+          name: '/dosen/dashboard',
+          page: () => DosenDashboardPage(),
+        ),
+
+        GetPage(
+            name: '/dosen/dashboard/presensi',
+            page: () => DosenPresensiDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/presensi/detail',
+            page: () => DosenPresensiDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/presensi/detail/tampilpeserta',
+            page: () => DosenTampilPesertaKelasPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/presensi/notifikasi',
+            page: () => DosenNotifikasiPresensiPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/jadwal',
+            page: () => DosenJadwalDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/jadwal/detail',
+            page: () => DosenDetailJadwalPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/riwayat',
+            page: () => DosenRiwayatDashboardPage()),
+        GetPage(
+            name: '/dosen/dashboard/riwayat/detail',
+            page: () => DosenDetailRiwayatPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/akun',
+            page: () => DosenAkunDashboardPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/akun/informasi',
+            page: () => DosenInformasiAkunPage()),
+
+        GetPage(
+            name: '/dosen/dashboard/akun/beacon',
+            page: () => DosenMenuBeaconPage()),
+        GetPage(
+            name: '/dosen/dashboard/akun/beacon/pindai',
+            page: () => DosenPindaiBeacon()),
+        GetPage(
+            name: '/dosen/dashboard/akun/beacon/tambah',
+            page: () => DosenTambahBeacon()),
+        GetPage(
+            name: '/dosen/dashboard/akun/beacon/ubah',
+            page: () => DosenUbahBeacon()),
+        GetPage(
+            name: '/dosen/dashboard/akun/beacon/hapus',
+            page: () => DosenHapusBeacon()),
+
+        GetPage(
+            name: '/dosen/dashboard/akun/gantipassword',
+            page: () => DosenGantiPasswordPage()),
+
         GetPage(
             name: '/statistik/dosen',
             page: () => DosenStatistikPage(),
             transition: Transition.fade),
+
         // Tentang Page
         GetPage(
-            name: '/tentang',
-            page: () => TentangPage(),
-            transition: Transition.fade),
+          name: '/tentang',
+          page: () => TentangPage(),
+        ),
       ],
     );
   }
