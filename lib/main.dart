@@ -19,18 +19,18 @@ import 'package:presensiblebeacon/UI/Login/SplashPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Jadwal/MahasiswaJadwalDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/MahasiswaDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaDetailPresensiPage.dart';
+import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/Detail/MahasiswaDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/MahasiswaPresensiDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboardPage.dart';
-import 'package:presensiblebeacon/UI/Statistik/DosenStatistikPage.dart';
-import 'package:presensiblebeacon/UI/Statistik/MahasiswaStatistikPage.dart';
+import 'package:presensiblebeacon/UI/Dosen/Akun/Statistik/DosenStatistikPage.dart';
+import 'package:presensiblebeacon/UI/Mahasiswa/Akun/Statistik/MahasiswaStatistikPage.dart';
 import 'package:presensiblebeacon/UI/Tentang/TentangPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'UI/Dosen/Akun/DosenInformasiAkunPage.dart';
+import 'UI/Dosen/Akun/InformasiAkun/DosenInformasiAkunPage.dart';
 import 'UI/Dosen/Presensi/DosenNotifikasiPresensiPage.dart';
-import 'UI/Mahasiswa/Akun/MahasiswaInformasiAkunPage.dart';
-import 'UI/Mahasiswa/Presensi/MahasiswaNotifikasiPresensiPage.dart';
+import 'UI/Mahasiswa/Akun/InformasiAkun/MahasiswaInformasiAkunPage.dart';
+import 'UI/Mahasiswa/Presensi/Notifikasi/MahasiswaNotifikasiPresensiPage.dart';
 
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
