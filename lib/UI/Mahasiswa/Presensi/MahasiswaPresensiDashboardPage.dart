@@ -153,16 +153,61 @@ class _MahasiswaPresensiDashboardPageState
       }
     }
 
-    // if (Platform.isIOS) {
-    //   _regions.add(Region(
-    //       identifier: '',
-    //       proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825'));
-    //   _regions.add(Region(
-    //       identifier: '',
-    //       proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'));
+    // Bluetooth ranging Algorithm 1
+    if (Platform.isIOS) {
+      _regions.add(Region(
+          identifier: '',
+          proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825'));
+      _regions.add(Region(
+          identifier: '',
+          proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'));
+      _streamRanging =
+          flutterBeacon.ranging(_regions).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
+            Timer(Duration(seconds: 2), () => _streamRanging?.pause());
+          });
+        }
+      });
+    } else if (Platform.isAndroid) {
+      _regions.add(Region(
+        identifier: '',
+      ));
+      _streamRanging =
+          flutterBeacon.ranging(_regions).listen((RangingResult result) {
+        print(result);
+        if (result != null && mounted) {
+          setState(() {
+            _regionBeacons[result.region] = result.beacons;
+            _beacons.clear();
+            _regionBeacons.values.forEach((list) {
+              _beacons.addAll(list);
+            });
+            _beacons.sort(_compareParameters);
+            Timer(Duration(seconds: 2), () => _streamRanging?.pause());
+          });
+        }
+      });
+    }
 
-    //   _streamRanging =
-    //       flutterBeacon.ranging(_regions).listen((RangingResult result) {
+    // Bluetooth ranging Algorithm 1
+    // if (Platform.isIOS) {
+    //   _streamRanging = flutterBeacon.ranging(<Region>[
+    //     new Region(
+    //       identifier: '',
+    //       proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
+    //     ),
+    //     new Region(
+    //         identifier: '',
+    //         proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d')
+    //   ]).listen((RangingResult result) {
     //     print(result);
     //     if (result != null && mounted) {
     //       setState(() {
@@ -172,23 +217,16 @@ class _MahasiswaPresensiDashboardPageState
     //           _beacons.addAll(list);
     //         });
     //         _beacons.sort(_compareParameters);
+    //         Timer(Duration(seconds: 2), () => _streamRanging?.pause());
     //       });
     //     }
     //   });
     // } else if (Platform.isAndroid) {
-    //   _regions.add(Region(
-    //     identifier: '',
-    //     proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
-    //   ));
-    //   _regions.add(Region(
+    //   _streamRanging = flutterBeacon.ranging(<Region>[
+    //     new Region(
     //       identifier: '',
-    //       proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'));
-    //   // _regions.add(Region(
-    //   //   identifier: '',
-    //   // ));
-
-    //   _streamRanging =
-    //       flutterBeacon.ranging(_regions).listen((RangingResult result) {
+    //     )
+    //   ]).listen((RangingResult result) {
     //     print(result);
     //     if (result != null && mounted) {
     //       setState(() {
@@ -203,58 +241,6 @@ class _MahasiswaPresensiDashboardPageState
     //     }
     //   });
     // }
-
-    if (Platform.isIOS) {
-      _streamRanging = flutterBeacon.ranging(<Region>[
-        new Region(
-          identifier: '',
-          proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
-        ),
-        new Region(
-            identifier: '',
-            proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d')
-      ]).listen((RangingResult result) {
-        print(result);
-        if (result != null && mounted) {
-          setState(() {
-            _regionBeacons[result.region] = result.beacons;
-            _beacons.clear();
-            _regionBeacons.values.forEach((list) {
-              _beacons.addAll(list);
-            });
-            _beacons.sort(_compareParameters);
-          });
-        }
-      });
-    } else if (Platform.isAndroid) {
-      for (var i = 0; i < 100; i++) {
-        _streamRanging = flutterBeacon.ranging(<Region>[
-          // new Region(
-          //   identifier: '',
-          //   proximityUUID: 'fda50693-a4e2-4fb1-afcf-c6eb07647825',
-          // ),
-          // new Region(
-          //     identifier: '',
-          //     proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d'),
-          new Region(
-              identifier: '',
-              proximityUUID: ruangBeaconResponseModel.data[i].uuid)
-        ]).listen((RangingResult result) {
-          print(result);
-          if (result != null && mounted) {
-            setState(() {
-              _regionBeacons[result.region] = result.beacons;
-              _beacons.clear();
-              _regionBeacons.values.forEach((list) {
-                _beacons.addAll(list);
-              });
-              _beacons.sort(_compareParameters);
-              Timer(Duration(seconds: 2), () => _streamRanging?.pause());
-            });
-          }
-        });
-      }
-    }
   }
 
   checkAllRequirements() async {
