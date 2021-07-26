@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
@@ -80,25 +82,34 @@ class _MahasiswaInformasiAkunPageState
                         child: Column(
                           children: [
                             Padding(
-                                padding: EdgeInsets.all(22),
-                                // child: ClipRRect(
-                                //   borderRadius: BorderRadius.circular(8.0),
-                                //   child: Image.asset(
-                                //     'person-male'.png,
-                                //     height: 150.0,
-                                //     width: 100.0,
-                                //   ),
-                                // ),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.grey[350],
-                                    radius: 50,
-                                    // child: const Text('NV'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Image.asset(
-                                        'person-male'.png,
-                                      ),
-                                    ))),
+                              padding: EdgeInsets.all(22),
+                              // child: ClipRRect(
+                              //   borderRadius: BorderRadius.circular(8.0),
+                              //   child: Image.asset(
+                              //     'person-male'.png,
+                              //     height: 150.0,
+                              //     width: 100.0,
+                              //   ),
+                              // ),
+                              // child: CircleAvatar(
+                              //     backgroundColor: Colors.grey[350],
+                              //     radius: 50,
+                              //     // child: const Text('NV'),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(10.0),
+                              //       child: Image.asset(
+                              //         'person-male'.png,
+                              //       ),
+                              //     ))
+                              // child: AdvancedAvatar(
+                              //   name: namamhs,
+                              // ),
+                              child: Initicon(
+                                text: namamhs,
+                                backgroundColor: Colors.grey[400],
+                                size: 80,
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: Center(

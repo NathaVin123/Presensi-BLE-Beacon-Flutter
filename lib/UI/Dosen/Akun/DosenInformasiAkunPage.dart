@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
@@ -26,11 +27,12 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
 
   getDataInfoDosen() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-
-    npp = loginMahasiswa.getString('npp');
-    namadsn = loginMahasiswa.getString('namadsn');
-    fakultas = loginMahasiswa.getString('fakultas');
-    prodi = loginMahasiswa.getString('prodi');
+    setState(() {
+      npp = loginMahasiswa.getString('npp');
+      namadsn = loginMahasiswa.getString('namadsn');
+      fakultas = loginMahasiswa.getString('fakultas');
+      prodi = loginMahasiswa.getString('prodi');
+    });
   }
 
   @override
@@ -72,25 +74,31 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
                         child: Column(
                           children: [
                             Padding(
-                                padding: EdgeInsets.all(0),
-                                // child: ClipRRect(
-                                //   borderRadius: BorderRadius.circular(8.0),
-                                //   child: Image.asset(
-                                //     'person-male'.png,
-                                //     height: 150.0,
-                                //     width: 100.0,
-                                //   ),
-                                // ),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.grey[350],
-                                    radius: 50,
-                                    // child: const Text('NV'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Image.asset(
-                                        'person-male'.png,
-                                      ),
-                                    ))),
+                              padding: EdgeInsets.all(22),
+                              // child: ClipRRect(
+                              //   borderRadius: BorderRadius.circular(8.0),
+                              //   child: Image.asset(
+                              //     'person-male'.png,
+                              //     height: 150.0,
+                              //     width: 100.0,
+                              //   ),
+                              // ),
+                              // child: CircleAvatar(
+                              //     backgroundColor: Colors.grey[350],
+                              //     radius: 50,
+                              //     // child: const Text('NV'),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(10.0),
+                              //       child: Image.asset(
+                              //         'person-male'.png,
+                              //       ),
+                              //     ))
+                              child: Initicon(
+                                text: namadsn,
+                                backgroundColor: Colors.grey[400],
+                                size: 80,
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: Center(

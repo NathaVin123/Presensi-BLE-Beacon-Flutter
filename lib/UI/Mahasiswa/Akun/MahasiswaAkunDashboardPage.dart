@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
@@ -79,25 +81,34 @@ class _MahasiswaAkunDashboardPageState
                         child: Column(
                           children: [
                             Padding(
-                                padding: EdgeInsets.all(22),
-                                // child: ClipRRect(
-                                //   borderRadius: BorderRadius.circular(8.0),
-                                //   child: Image.asset(
-                                //     'person-male'.png,
-                                //     height: 150.0,
-                                //     width: 100.0,
-                                //   ),
-                                // ),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.grey[350],
-                                    radius: 50,
-                                    // child: const Text('NV'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Image.asset(
-                                        'person-male'.png,
-                                      ),
-                                    ))),
+                              padding: EdgeInsets.all(22),
+                              // child: ClipRRect(
+                              //   borderRadius: BorderRadius.circular(8.0),
+                              //   child: Image.asset(
+                              //     'person-male'.png,
+                              //     height: 150.0,
+                              //     width: 100.0,
+                              //   ),
+                              // ),
+                              // child: CircleAvatar(
+                              //     backgroundColor: Colors.grey[350],
+                              //     radius: 50,
+                              //     // child: const Text('NV'),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(10.0),
+                              //       child: Image.asset(
+                              //         'person-male'.png,
+                              //       ),
+                              //     ))
+                              // child: AdvancedAvatar(
+                              //   name: namamhs,
+                              // ),
+                              child: Initicon(
+                                text: namamhs,
+                                backgroundColor: Colors.grey[400],
+                                size: 80,
+                              ),
+                            ),
                             Center(
                                 child: Column(
                               children: [
@@ -196,53 +207,53 @@ class _MahasiswaAkunDashboardPageState
                     //     ),
                     //   ),
                     // ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 14, right: 14, top: 14, bottom: 14),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 24, right: 20, top: 20, bottom: 20),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    FontAwesomeIcons.solidMoon,
-                                    color: Colors.black,
-                                    size: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 11,
-                                  ),
-                                  Text(
-                                    'Dark Mode',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Switch(
-                                  value: lightSwitch,
-                                  onChanged: (toggle) {
-                                    setState(() {
-                                      lightSwitch = toggle;
-                                    });
-                                  }),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: 14, right: 14, top: 14, bottom: 14),
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.grey[200],
+                    //         borderRadius: BorderRadius.circular(25)),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: <Widget>[
+                    //         Padding(
+                    //           padding: EdgeInsets.only(
+                    //               left: 24, right: 20, top: 20, bottom: 20),
+                    //           child: Row(
+                    //             children: [
+                    //               Icon(
+                    //                 FontAwesomeIcons.solidMoon,
+                    //                 color: Colors.black,
+                    //                 size: 20,
+                    //               ),
+                    //               SizedBox(
+                    //                 width: 11,
+                    //               ),
+                    //               Text(
+                    //                 'Dark Mode',
+                    //                 style: TextStyle(
+                    //                     fontSize: 20,
+                    //                     fontFamily: 'WorkSansMedium',
+                    //                     fontWeight: FontWeight.bold),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Align(
+                    //           alignment: Alignment.bottomRight,
+                    //           child: Switch(
+                    //               value: lightSwitch,
+                    //               onChanged: (toggle) {
+                    //                 setState(() {
+                    //                   lightSwitch = toggle;
+                    //                 });
+                    //               }),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                         padding:
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),

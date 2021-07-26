@@ -62,9 +62,11 @@ dependencies:
 
   # Cek String sama
   string_similarity: ^2.0.0
-
-  avatars: ^2.0.0
   
+  flutter_advanced_avatar: ^1.0.0+1
+
+  flutter_initicon: ^2.0.0
+
 # Cadangan Package
   # provider: ^5.0.0
   # path_provider: ^2.0.1
