@@ -502,82 +502,82 @@ class _MahasiswaPresensiDashboardPageState
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 10, bottom: 10),
-                child: Center(
-                  // alignment: Alignment.topLeft,
-                  child: Text(
-                    'Kuliah Selanjutnya',
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'WorkSansMedium'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: CarouselSlider(
-                  items: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text('Mata Kuliah : -',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'WorkSansMedium')),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text('Ruangan : -',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'WorkSansMedium')),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text('Sesi : -',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'WorkSansMedium')),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                  options: CarouselOptions(
-                      initialPage: 0,
-                      enlargeCenterPage: false,
-                      height: 125,
-                      scrollDirection: Axis.horizontal,
-                      autoPlay: true,
-                      autoPlayAnimationDuration: Duration(seconds: 1)),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: 20, right: 20, top: 10, bottom: 10),
+              //   child: Center(
+              //     // alignment: Alignment.topLeft,
+              //     child: Text(
+              //       'Kuliah Selanjutnya',
+              //       style: TextStyle(
+              //           fontSize: 22,
+              //           fontWeight: FontWeight.bold,
+              //           fontFamily: 'WorkSansMedium'),
+              //     ),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10, bottom: 10),
+              //   child: CarouselSlider(
+              //     items: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Container(
+              //           decoration: BoxDecoration(
+              //               color: Colors.grey[200],
+              //               borderRadius: BorderRadius.circular(25)),
+              //           child: Padding(
+              //             padding: EdgeInsets.all(10),
+              //             child: Column(
+              //               children: [
+              //                 Align(
+              //                   alignment: Alignment.centerLeft,
+              //                   child: Padding(
+              //                     padding: const EdgeInsets.all(5.0),
+              //                     child: Text('Mata Kuliah : -',
+              //                         style: TextStyle(
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.bold,
+              //                             fontFamily: 'WorkSansMedium')),
+              //                   ),
+              //                 ),
+              //                 Align(
+              //                   alignment: Alignment.centerLeft,
+              //                   child: Padding(
+              //                     padding: const EdgeInsets.all(5.0),
+              //                     child: Text('Ruangan : -',
+              //                         style: TextStyle(
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.bold,
+              //                             fontFamily: 'WorkSansMedium')),
+              //                   ),
+              //                 ),
+              //                 Align(
+              //                   alignment: Alignment.centerLeft,
+              //                   child: Padding(
+              //                     padding: const EdgeInsets.all(5.0),
+              //                     child: Text('Sesi : -',
+              //                         style: TextStyle(
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.bold,
+              //                             fontFamily: 'WorkSansMedium')),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //     options: CarouselOptions(
+              //         initialPage: 0,
+              //         enlargeCenterPage: false,
+              //         height: 125,
+              //         scrollDirection: Axis.horizontal,
+              //         autoPlay: true,
+              //         autoPlayAnimationDuration: Duration(seconds: 1)),
+              //   ),
+              // ),
               Divider(
                 height: 20,
                 thickness: 5,
