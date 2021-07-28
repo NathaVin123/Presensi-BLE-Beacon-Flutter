@@ -9,6 +9,8 @@ import 'UI/Login/SplashPage.dart';
 
 import 'UI/Fungsi/BluetoothOff.dart';
 
+import 'UI/Fungsi/PindaiKelasPage.dart';
+
 import 'UI/Login/LoginPage.dart';
 import 'UI/Login/LoginWidgets/LoginDosen.dart';
 import 'UI/Login/LoginWidgets/LoginMahasiswa.dart';
@@ -124,6 +126,11 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: '/bluetooth',
           page: () => BluetoothOff(),
+        ),
+
+        GetPage(
+          name: '/pindai',
+          page: () => PindaiKelasPage(),
         ),
 
         // Login Page

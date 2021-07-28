@@ -16,11 +16,13 @@ class RuangBeaconResponseModel {
       RuangBeaconResponseModel(
         error: json["error"],
         data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+        // data: json["data"]
       );
 
   Map<String, dynamic> toJson() => {
         "error": error,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        // "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data == null
       };
 }
 

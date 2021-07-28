@@ -39,9 +39,6 @@ class _MahasiswaPresensiDashboardPageState
   String _timeString;
   String _dateString;
 
-  String kelas = "";
-  String jam = "";
-
   String namamhs = "";
 
   @override
@@ -62,16 +59,7 @@ class _MahasiswaPresensiDashboardPageState
 
     getDataRuangBeacon();
 
-    listeningState();
-  }
-
-  getDataRuangBeacon() async {
-    setState(() {
-      APIService apiService = new APIService();
-      apiService.getKelasBeacon().then((value) async {
-        ruangBeaconResponseModel = value;
-      });
-    });
+    // listeningState();
   }
 
   void _getTime() {
@@ -326,13 +314,13 @@ class _MahasiswaPresensiDashboardPageState
     super.dispose();
   }
 
-  void getModalKelas() async {
-    SharedPreferences modalKelas = await SharedPreferences.getInstance();
-    setState(() {
-      kelas = modalKelas.getString('Kelas');
-      jam = modalKelas.getString('Jam');
-    });
-  }
+  // void getModalKelas() async {
+  //   SharedPreferences modalKelas = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     kelas = modalKelas.getString('Kelas');
+  //     jam = modalKelas.getString('Jam');
+  //   });
+  // }
 
   void getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
@@ -341,12 +329,22 @@ class _MahasiswaPresensiDashboardPageState
     });
   }
 
-  void getDataBeacon() async {
-    SharedPreferences dataBeacon = await SharedPreferences.getInstance();
-    _beacons.map((beacon) async {
-      await dataBeacon.setString('UUID', beacon.proximityUUID);
+  void getDataRuangBeacon() async {
+    setState(() {
+      print(ruangBeaconResponseModel.toJson());
+      APIService apiService = new APIService();
+      apiService.getKelasBeacon().then((value) async {
+        ruangBeaconResponseModel = value;
+      });
     });
   }
+
+  // void getDataBeacon() async {
+  //   SharedPreferences dataBeacon = await SharedPreferences.getInstance();
+  //   _beacons.map((beacon) async {
+  //     await dataBeacon.setString('UUID', beacon.proximityUUID);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -355,9 +353,10 @@ class _MahasiswaPresensiDashboardPageState
       home: Scaffold(
           backgroundColor: Colors.white,
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
+            // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
+            onPressed: () => getDataRuangBeacon(),
             label: Text(
-              'Pindai Kelas',
+              'Segarkan',
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
             ),
@@ -382,73 +381,73 @@ class _MahasiswaPresensiDashboardPageState
               height: 30,
             ),
             centerTitle: true,
-            actions: <Widget>[
-              if (!authorizationStatusOk)
-                IconButton(
-                    icon: Icon(Icons.portable_wifi_off),
-                    color: Colors.red,
-                    onPressed: () async {
-                      await flutterBeacon.requestAuthorization;
-                    }),
-              if (!locationServiceEnabled)
-                IconButton(
-                    icon: Icon(Icons.location_off),
-                    color: Colors.red,
-                    onPressed: () async {
-                      if (Platform.isAndroid) {
-                        await flutterBeacon.openLocationSettings;
-                      } else if (Platform.isIOS) {
-                        await _jumpToSetting();
-                      }
-                    }),
-              StreamBuilder<BluetoothState>(
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final state = snapshot.data;
+            // actions: <Widget>[
+            //   if (!authorizationStatusOk)
+            //     IconButton(
+            //         icon: Icon(Icons.portable_wifi_off),
+            //         color: Colors.red,
+            //         onPressed: () async {
+            //           await flutterBeacon.requestAuthorization;
+            //         }),
+            //   if (!locationServiceEnabled)
+            //     IconButton(
+            //         icon: Icon(Icons.location_off),
+            //         color: Colors.red,
+            //         onPressed: () async {
+            //           if (Platform.isAndroid) {
+            //             await flutterBeacon.openLocationSettings;
+            //           } else if (Platform.isIOS) {
+            //             await _jumpToSetting();
+            //           }
+            //         }),
+            //   StreamBuilder<BluetoothState>(
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         final state = snapshot.data;
 
-                    if (state == BluetoothState.stateOn) {
-                      return IconButton(
-                        icon: Icon(Icons.bluetooth_connected),
-                        onPressed: () {},
-                        color: Colors.blue,
-                      );
-                    }
+            //         if (state == BluetoothState.stateOn) {
+            //           return IconButton(
+            //             icon: Icon(Icons.bluetooth_connected),
+            //             onPressed: () {},
+            //             color: Colors.blue,
+            //           );
+            //         }
 
-                    if (state == BluetoothState.stateOff) {
-                      return IconButton(
-                        icon: Icon(Icons.bluetooth),
-                        onPressed: () async {
-                          if (Platform.isAndroid) {
-                            try {
-                              await flutterBeacon.openBluetoothSettings;
-                            } on PlatformException catch (e) {
-                              print(e);
-                            }
-                          } else if (Platform.isIOS) {
-                            try {
-                              await _jumpToSetting();
-                            } on PlatformException catch (e) {
-                              print(e);
-                            }
-                          }
-                        },
-                        color: Colors.red,
-                      );
-                    }
+            //         if (state == BluetoothState.stateOff) {
+            //           return IconButton(
+            //             icon: Icon(Icons.bluetooth),
+            //             onPressed: () async {
+            //               if (Platform.isAndroid) {
+            //                 try {
+            //                   await flutterBeacon.openBluetoothSettings;
+            //                 } on PlatformException catch (e) {
+            //                   print(e);
+            //                 }
+            //               } else if (Platform.isIOS) {
+            //                 try {
+            //                   await _jumpToSetting();
+            //                 } on PlatformException catch (e) {
+            //                   print(e);
+            //                 }
+            //               }
+            //             },
+            //             color: Colors.red,
+            //           );
+            //         }
 
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth_disabled),
-                      onPressed: () {},
-                      color: Colors.grey,
-                    );
-                  }
+            //         return IconButton(
+            //           icon: Icon(Icons.bluetooth_disabled),
+            //           onPressed: () {},
+            //           color: Colors.grey,
+            //         );
+            //       }
 
-                  return SizedBox.shrink();
-                },
-                stream: streamController.stream,
-                initialData: BluetoothState.stateUnknown,
-              ),
-            ],
+            //       return SizedBox.shrink();
+            //     },
+            //     stream: streamController.stream,
+            //     initialData: BluetoothState.stateUnknown,
+            //   ),
+            // ],
           ),
           body: Column(
             children: <Widget>[
@@ -480,7 +479,7 @@ class _MahasiswaPresensiDashboardPageState
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
@@ -590,7 +589,7 @@ class _MahasiswaPresensiDashboardPageState
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kelas Saya Terdekat',
+                      'Kelas Aktif Saya',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -599,621 +598,790 @@ class _MahasiswaPresensiDashboardPageState
                   ),
                 ),
               ),
-              Flexible(
-                child: _beacons == null || _beacons.isEmpty
-                    ? SingleChildScrollView(
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[200],
-                          highlightColor: Colors.grey[100],
-                          enabled: true,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Flexible(
+              ruangBeaconResponseModel.data == null
+                  ? Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Center(
+                          child: Text(
+                            'Silakan tekan tombol segarkan',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount: ruangBeaconResponseModel.data?.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 12, right: 12, top: 8, bottom: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: new ListTile(
+                                  title: Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      children: <Widget>[
-                                        Text(
-                                          '                                              ',
-                                          style: TextStyle(fontSize: 225),
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        new Text(
+                                          ruangBeaconResponseModel
+                                              .data[index].ruang,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        new Text(
+                                          'Mata Kuliah : ${ruangBeaconResponseModel.data[index].namamk}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(10),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //         color: Colors.grey,
-                              //         borderRadius: BorderRadius.circular(25)),
-                              //     child: Flexible(
-                              //       child: ListTile(
-                              //         title: Text('                        '),
-                              //         subtitle: Text('                       '),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(10),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //         color: Colors.grey,
-                              //         borderRadius: BorderRadius.circular(25)),
-                              //     child: Flexible(
-                              //       child: ListTile(
-                              //         title: Text('                        '),
-                              //         subtitle: Text('                       '),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(10),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //         color: Colors.grey,
-                              //         borderRadius: BorderRadius.circular(25)),
-                              //     child: Flexible(
-                              //       child: ListTile(
-                              //         title: Text('                        '),
-                              //         subtitle: Text('                       '),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(10),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //         color: Colors.grey,
-                              //         borderRadius: BorderRadius.circular(25)),
-                              //     child: Flexible(
-                              //       child: ListTile(
-                              //         title: Text('                        '),
-                              //         subtitle: Text('                       '),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(10),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //         color: Colors.grey,
-                              //         borderRadius: BorderRadius.circular(25)),
-                              //     child: Flexible(
-                              //       child: ListTile(
-                              //         title: Text('                        '),
-                              //         subtitle: Text('                       '),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        child: Column(
-                          children: ListTile.divideTiles(
-                              context: context,
-                              tiles: _beacons.map((beacon) {
-                                if (beacon.accuracy < 1.0) {
-                                  return Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              borderRadius:
-                                                  BorderRadius.circular(25)),
-                                          child: ListTile(
-                                            title: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Ruangan : ${beacon.proximityUUID}',
-                                                  style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                            subtitle: new Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: <Widget>[
-                                                // Flexible(
-                                                //     child: Text(
-                                                //         'Alamat MAC: ${beacon.macAddress}',
-                                                //         style: TextStyle(fontSize: 13.0)),
-                                                //     flex: 1,
-                                                //     fit: FlexFit.tight),
-                                                Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                          'Mata Kuliah : -',
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                    ),
-                                                    flex: 1,
-                                                    fit: FlexFit.tight),
-                                                Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                          'Kelas : -',
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                    ),
-                                                    flex: 1,
-                                                    fit: FlexFit.tight),
-                                                Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                          // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                          'Jarak: ${beacon.accuracy} m',
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                    ),
-                                                    flex: 1,
-                                                    fit: FlexFit.tight),
-                                                // Flexible(
-                                                //     child: Text(
-                                                //         // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
-                                                //         '${beacon.proximity}',
-                                                //         style: TextStyle(fontSize: 13.0)),
-                                                //     flex: 1,
-                                                //     fit: FlexFit.tight)
-                                              ],
-                                            ),
-                                            trailing: Icon(Icons.arrow_forward),
-                                            onTap: () async {
-                                              SharedPreferences modalKelas =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              await modalKelas.setString(
-                                                  'Kelas',
-                                                  beacon.proximityUUID);
-                                              await modalKelas.setString(
-                                                  'Jam', _timeString);
-                                              await modalKelas.setString(
-                                                  'Tanggal', _dateString);
-
-                                              Get.toNamed(
-                                                  '/mahasiswa/dashboard/presensi/detail');
-                                              // getModalKelas();
-                                              // Tampilan Modal Kelas
-                                              // showModalBottomSheet(
-                                              //     isScrollControlled: true,
-                                              //     context: context,
-                                              //     shape: RoundedRectangleBorder(
-                                              //         borderRadius:
-                                              //             BorderRadius.only(
-                                              //                 topLeft: Radius
-                                              //                     .circular(25),
-                                              //                 topRight: Radius
-                                              //                     .circular(
-                                              //                         25))),
-                                              //     clipBehavior: Clip
-                                              //         .antiAliasWithSaveLayer,
-                                              //     builder: (builder) {
-                                              //       return new Container(
-                                              //         height: 650,
-                                              //         color: Colors.white,
-                                              //         child: new Column(
-                                              //           children: [
-                                              //             new Center(
-                                              //               child: Padding(
-                                              //                 padding: EdgeInsets
-                                              //                     .only(
-                                              //                         top: 25,
-                                              //                         bottom:
-                                              //                             10),
-                                              //                 child: new Text(
-                                              //                   'Presensi',
-                                              //                   style: TextStyle(
-                                              //                       fontFamily:
-                                              //                           'WorkSansMedium',
-                                              //                       fontWeight:
-                                              //                           FontWeight
-                                              //                               .bold,
-                                              //                       fontSize:
-                                              //                           24),
-                                              //                 ),
-                                              //               ),
-                                              //             ),
-                                              //             Divider(
-                                              //               height: 20,
-                                              //               thickness: 5,
-                                              //             ),
-                                              //             new Padding(
-                                              //                 padding:
-                                              //                     EdgeInsets
-                                              //                         .all(10),
-                                              //                 child: Column(
-                                              //                   children: <
-                                              //                       Widget>[
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Ruangan',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           kelas,
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 16),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Mata Kuliah',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           '-',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 18),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Kelas',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           '-',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 18),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Dosen',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           '-',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 18),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Jam Masuk',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           jam,
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 18),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           'Jam Keluar',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily:
-                                              //                                   'WorkSansMedium',
-                                              //                               fontWeight:
-                                              //                                   FontWeight.bold,
-                                              //                               fontSize: 20),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                     Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               8.0),
-                                              //                       child:
-                                              //                           new Center(
-                                              //                         child:
-                                              //                             new Text(
-                                              //                           '-',
-                                              //                           style: TextStyle(
-                                              //                               fontFamily: 'WorkSansMedium',
-                                              //                               // fontWeight:
-                                              //                               //     FontWeight.bold,
-                                              //                               fontSize: 18),
-                                              //                         ),
-                                              //                       ),
-                                              //                     ),
-                                              //                   ],
-                                              //                 )),
-                                              //             new Align(
-                                              //               child: new Padding(
-                                              //                 padding:
-                                              //                     EdgeInsets
-                                              //                         .all(10),
-                                              //                 child: new Row(
-                                              //                     mainAxisAlignment:
-                                              //                         MainAxisAlignment
-                                              //                             .spaceAround,
-                                              //                     children: <
-                                              //                         Widget>[
-                                              //                       MaterialButton(
-                                              //                         color: Colors
-                                              //                             .green,
-                                              //                         shape:
-                                              //                             StadiumBorder(),
-                                              //                         padding: EdgeInsets.only(
-                                              //                             left:
-                                              //                                 50,
-                                              //                             right:
-                                              //                                 50,
-                                              //                             top:
-                                              //                                 5,
-                                              //                             bottom:
-                                              //                                 5),
-                                              //                         onPressed:
-                                              //                             () {},
-                                              //                         child:
-                                              //                             Column(
-                                              //                           mainAxisAlignment:
-                                              //                               MainAxisAlignment.spaceAround,
-                                              //                           children: <
-                                              //                               Widget>[
-                                              //                             Icon(
-                                              //                               Icons.arrow_upward_rounded,
-                                              //                               color:
-                                              //                                   Colors.white,
-                                              //                             ),
-                                              //                             SizedBox(
-                                              //                               height:
-                                              //                                   5,
-                                              //                             ),
-                                              //                             Text(
-                                              //                               'MASUK',
-                                              //                               style: TextStyle(
-                                              //                                   fontFamily: 'WorkSansMedium',
-                                              //                                   fontWeight: FontWeight.bold,
-                                              //                                   color: Colors.white,
-                                              //                                   fontSize: 18),
-                                              //                             ),
-                                              //                           ],
-                                              //                         ),
-                                              //                       ),
-                                              //                       MaterialButton(
-                                              //                         color: Colors
-                                              //                             .red,
-                                              //                         shape:
-                                              //                             StadiumBorder(),
-                                              //                         padding: EdgeInsets.only(
-                                              //                             left:
-                                              //                                 50,
-                                              //                             right:
-                                              //                                 50,
-                                              //                             top:
-                                              //                                 5,
-                                              //                             bottom:
-                                              //                                 5),
-                                              //                         onPressed:
-                                              //                             () {},
-                                              //                         child:
-                                              //                             Column(
-                                              //                           mainAxisAlignment:
-                                              //                               MainAxisAlignment.spaceAround,
-                                              //                           children: <
-                                              //                               Widget>[
-                                              //                             Icon(
-                                              //                               Icons.arrow_downward_rounded,
-                                              //                               color:
-                                              //                                   Colors.white,
-                                              //                             ),
-                                              //                             SizedBox(
-                                              //                               height:
-                                              //                                   5,
-                                              //                             ),
-                                              //                             Text(
-                                              //                               'KELUAR',
-                                              //                               style: TextStyle(
-                                              //                                   fontFamily: 'WorkSansMedium',
-                                              //                                   fontWeight: FontWeight.bold,
-                                              //                                   color: Colors.white,
-                                              //                                   fontSize: 18),
-                                              //                             ),
-                                              //                           ],
-                                              //                         ),
-                                              //                       ),
-                                              //                     ]),
-                                              //               ),
-                                              //             ),
-                                              //           ],
-                                              //         ),
-                                              //       );
-                                              //     });
-                                            },
-                                          )));
-                                } else {
-                                  // return Padding(
-                                  //     padding: EdgeInsets.all(10),
-                                  //     child: Container(
-                                  //       decoration: BoxDecoration(
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(25),
-                                  //         color: Colors.grey[200],
-                                  //       ),
-                                  //       child: Padding(
-                                  //         padding: EdgeInsets.all(20),
-                                  //         child: Text(
-                                  //           'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
-                                  //           style: TextStyle(
-                                  //               fontSize: 16,
-                                  //               color: Colors.red,
-                                  //               fontFamily: 'WorkSansMedium',
-                                  //               fontWeight: FontWeight.bold),
+                                  // subtitle: Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Column(
+                                  //     children: <Widget>[
+                                  //       Text(
+                                  //         jadwalMahasiswaResponseModel
+                                  //             .data[index].namadosen,
+                                  //         style: TextStyle(
+                                  //           fontSize: 14,
+                                  //           fontFamily: 'WorkSansMedium',
                                   //         ),
                                   //       ),
-                                  //     ));
-                                  return SizedBox.shrink();
-                                }
-                              })).toList(),
-                        ),
-                      ),
-              ),
+                                  //       Padding(
+                                  //         padding: const EdgeInsets.all(8.0),
+                                  //         child: Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceAround,
+                                  //           children: <Widget>[
+                                  //             Text(
+                                  //               jadwalMahasiswaResponseModel
+                                  //                   .data[index].hari,
+                                  //               style: TextStyle(
+                                  //                 fontSize: 12,
+                                  //                 fontFamily: 'WorkSansMedium',
+                                  //               ),
+                                  //             ),
+                                  //             Text(
+                                  //               'Ruang ${jadwalMahasiswaResponseModel.data[index].ruang}',
+                                  //               style: TextStyle(
+                                  //                 fontSize: 12,
+                                  //                 fontFamily: 'WorkSansMedium',
+                                  //               ),
+                                  //             ),
+                                  //             Text(
+                                  //               'Sesi ${jadwalMahasiswaResponseModel.data[index].sesi}',
+                                  //               style: TextStyle(
+                                  //                 fontSize: 12,
+                                  //                 fontFamily: 'WorkSansMedium',
+                                  //               ),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  onTap: () async {
+                                    SharedPreferences dataPresensiMahasiswa =
+                                        await SharedPreferences.getInstance();
+                                    await dataPresensiMahasiswa.setString(
+                                        'ruang',
+                                        ruangBeaconResponseModel
+                                            .data[index].ruang);
+                                    await dataPresensiMahasiswa.setString(
+                                        'namamk',
+                                        ruangBeaconResponseModel
+                                            .data[index].namamk);
+                                    await dataPresensiMahasiswa.setString(
+                                        'namadosen',
+                                        ruangBeaconResponseModel
+                                            .data[index].namadosen);
+                                    await dataPresensiMahasiswa.setString(
+                                        'hari',
+                                        ruangBeaconResponseModel
+                                            .data[index].hari);
+                                    await dataPresensiMahasiswa.setString(
+                                        'sesi',
+                                        ruangBeaconResponseModel
+                                            .data[index].sesi);
+                                    await dataPresensiMahasiswa.setString(
+                                        'uuid',
+                                        ruangBeaconResponseModel
+                                            .data[index].uuid);
+                                    await dataPresensiMahasiswa.setString(
+                                        'jam', _timeString);
+                                    await dataPresensiMahasiswa.setString(
+                                        'tanggal', _dateString);
+                                    await Get.toNamed('/pindai');
+
+                                    // Tampilan Modal Kelas
+                                    // showModalBottomSheet(
+                                    //     isScrollControlled: true,
+                                    //     context: context,
+                                    //     shape: RoundedRectangleBorder(
+                                    //         borderRadius: BorderRadius.only(
+                                    //             topLeft: Radius.circular(25),
+                                    //             topRight: Radius.circular(25))),
+                                    //     clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    //     builder: (builder) {
+                                    //       return new Container(
+                                    //         height: 650,
+                                    //         color: Colors.white,
+                                    //         child: new Column(
+                                    //           children: [
+                                    //             new Center(
+                                    //               child: Padding(
+                                    //                 padding: EdgeInsets.only(
+                                    //                     top: 25, bottom: 10),
+                                    //                 child: new Text(
+                                    //                   'Detail Kelas',
+                                    //                   style: TextStyle(
+                                    //                       fontFamily:
+                                    //                           'WorkSansMedium',
+                                    //                       fontWeight:
+                                    //                           FontWeight.bold,
+                                    //                       fontSize: 24),
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //             Divider(
+                                    //               height: 20,
+                                    //               thickness: 5,
+                                    //             ),
+                                    //           ],
+                                    //         ),
+                                    //       );
+                                    //     });
+                                  },
+                                ),
+                              ),
+                            );
+                          }),
+                    )
+
+              // Flexible(
+              //   child: _beacons == null || _beacons.isEmpty
+              //       ? SingleChildScrollView(
+              //           child: Shimmer.fromColors(
+              //             baseColor: Colors.grey[200],
+              //             highlightColor: Colors.grey[100],
+              //             enabled: true,
+              //             child: Column(
+              //               children: <Widget>[
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: Column(
+              //                 //         children: <Widget>[
+              //                 //           Text(
+              //                 //             '                                              ',
+              //                 //             style: TextStyle(fontSize: 225),
+              //                 //           ),
+              //                 //         ],
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: ListTile(
+              //                 //         title: Text('                        '),
+              //                 //         subtitle: Text('                       '),
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: ListTile(
+              //                 //         title: Text('                        '),
+              //                 //         subtitle: Text('                       '),
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: ListTile(
+              //                 //         title: Text('                        '),
+              //                 //         subtitle: Text('                       '),
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: ListTile(
+              //                 //         title: Text('                        '),
+              //                 //         subtitle: Text('                       '),
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //                 // Padding(
+              //                 //   padding: EdgeInsets.all(10),
+              //                 //   child: Container(
+              //                 //     decoration: BoxDecoration(
+              //                 //         color: Colors.grey,
+              //                 //         borderRadius: BorderRadius.circular(25)),
+              //                 //     child: Flexible(
+              //                 //       child: ListTile(
+              //                 //         title: Text('                        '),
+              //                 //         subtitle: Text('                       '),
+              //                 //       ),
+              //                 //     ),
+              //                 //   ),
+              //                 // ),
+              //               ],
+              //             ),
+              //           ),
+              //         )
+              //       : SingleChildScrollView(
+              //           child: Column(
+              //             children: ListTile.divideTiles(
+              //                 context: context,
+              //                 tiles: _beacons.map((beacon) {
+              //                   if (beacon.accuracy < 1.0) {
+              //                     return Padding(
+              //                         padding: EdgeInsets.all(10),
+              //                         child: Container(
+              //                             decoration: BoxDecoration(
+              //                                 color: Colors.grey[200],
+              //                                 borderRadius:
+              //                                     BorderRadius.circular(25)),
+              //                             child: ListTile(
+              //                               title: Padding(
+              //                                 padding:
+              //                                     const EdgeInsets.all(8.0),
+              //                                 child: Text(
+              //                                     'Ruangan : ${beacon.proximityUUID}',
+              //                                     style: TextStyle(
+              //                                         fontSize: 16.0,
+              //                                         fontFamily:
+              //                                             'WorkSansMedium',
+              //                                         fontWeight:
+              //                                             FontWeight.bold)),
+              //                               ),
+              //                               subtitle: new Row(
+              //                                 mainAxisSize: MainAxisSize.max,
+              //                                 children: <Widget>[
+              //                                   Flexible(
+              //                                       child: Padding(
+              //                                         padding:
+              //                                             const EdgeInsets.all(
+              //                                                 8.0),
+              //                                         child: Text(
+              //                                             // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+              //                                             'Mata Kuliah : -',
+              //                                             style: TextStyle(
+              //                                                 fontSize: 14.0,
+              //                                                 fontFamily:
+              //                                                     'WorkSansMedium',
+              //                                                 fontWeight:
+              //                                                     FontWeight
+              //                                                         .bold)),
+              //                                       ),
+              //                                       flex: 1,
+              //                                       fit: FlexFit.tight),
+              //                                   Flexible(
+              //                                       child: Padding(
+              //                                         padding:
+              //                                             const EdgeInsets.all(
+              //                                                 8.0),
+              //                                         child: Text(
+              //                                             // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+              //                                             'Kelas : -',
+              //                                             style: TextStyle(
+              //                                                 fontSize: 14.0,
+              //                                                 fontFamily:
+              //                                                     'WorkSansMedium',
+              //                                                 fontWeight:
+              //                                                     FontWeight
+              //                                                         .bold)),
+              //                                       ),
+              //                                       flex: 1,
+              //                                       fit: FlexFit.tight),
+              //                                   Flexible(
+              //                                       child: Padding(
+              //                                         padding:
+              //                                             const EdgeInsets.all(
+              //                                                 8.0),
+              //                                         child: Text(
+              //                                             // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+              //                                             'Jarak: ${beacon.accuracy} m',
+              //                                             style: TextStyle(
+              //                                                 fontSize: 14.0,
+              //                                                 fontFamily:
+              //                                                     'WorkSansMedium',
+              //                                                 fontWeight:
+              //                                                     FontWeight
+              //                                                         .bold)),
+              //                                       ),
+              //                                       flex: 1,
+              //                                       fit: FlexFit.tight),
+              //                                   // Flexible(
+              //                                   //     child: Text(
+              //                                   //         // 'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.proximityUUID}',
+              //                                   //         '${beacon.proximity}',
+              //                                   //         style: TextStyle(fontSize: 13.0)),
+              //                                   //     flex: 1,
+              //                                   //     fit: FlexFit.tight)
+              //                                 ],
+              //                               ),
+              //                               trailing: Icon(Icons.arrow_forward),
+              //                               onTap: () async {
+              //                                 SharedPreferences modalKelas =
+              //                                     await SharedPreferences
+              //                                         .getInstance();
+              //                                 await modalKelas.setString(
+              //                                     'Kelas',
+              //                                     beacon.proximityUUID);
+              //                                 await modalKelas.setString(
+              //                                     'Jam', _timeString);
+              //                                 await modalKelas.setString(
+              //                                     'Tanggal', _dateString);
+
+              //                                 Get.toNamed(
+              //                                     '/mahasiswa/dashboard/presensi/detail');
+              //                                 // getModalKelas();
+              //                                 // Tampilan Modal Kelas
+              //                                 // showModalBottomSheet(
+              //                                 //     isScrollControlled: true,
+              //                                 //     context: context,
+              //                                 //     shape: RoundedRectangleBorder(
+              //                                 //         borderRadius:
+              //                                 //             BorderRadius.only(
+              //                                 //                 topLeft: Radius
+              //                                 //                     .circular(25),
+              //                                 //                 topRight: Radius
+              //                                 //                     .circular(
+              //                                 //                         25))),
+              //                                 //     clipBehavior: Clip
+              //                                 //         .antiAliasWithSaveLayer,
+              //                                 //     builder: (builder) {
+              //                                 //       return new Container(
+              //                                 //         height: 650,
+              //                                 //         color: Colors.white,
+              //                                 //         child: new Column(
+              //                                 //           children: [
+              //                                 //             new Center(
+              //                                 //               child: Padding(
+              //                                 //                 padding: EdgeInsets
+              //                                 //                     .only(
+              //                                 //                         top: 25,
+              //                                 //                         bottom:
+              //                                 //                             10),
+              //                                 //                 child: new Text(
+              //                                 //                   'Presensi',
+              //                                 //                   style: TextStyle(
+              //                                 //                       fontFamily:
+              //                                 //                           'WorkSansMedium',
+              //                                 //                       fontWeight:
+              //                                 //                           FontWeight
+              //                                 //                               .bold,
+              //                                 //                       fontSize:
+              //                                 //                           24),
+              //                                 //                 ),
+              //                                 //               ),
+              //                                 //             ),
+              //                                 //             Divider(
+              //                                 //               height: 20,
+              //                                 //               thickness: 5,
+              //                                 //             ),
+              //                                 //             new Padding(
+              //                                 //                 padding:
+              //                                 //                     EdgeInsets
+              //                                 //                         .all(10),
+              //                                 //                 child: Column(
+              //                                 //                   children: <
+              //                                 //                       Widget>[
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Ruangan',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           kelas,
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 16),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Mata Kuliah',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           '-',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 18),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Kelas',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           '-',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 18),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Dosen',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           '-',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 18),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Jam Masuk',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           jam,
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 18),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           'Jam Keluar',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily:
+              //                                 //                                   'WorkSansMedium',
+              //                                 //                               fontWeight:
+              //                                 //                                   FontWeight.bold,
+              //                                 //                               fontSize: 20),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                     Padding(
+              //                                 //                       padding:
+              //                                 //                           const EdgeInsets.all(
+              //                                 //                               8.0),
+              //                                 //                       child:
+              //                                 //                           new Center(
+              //                                 //                         child:
+              //                                 //                             new Text(
+              //                                 //                           '-',
+              //                                 //                           style: TextStyle(
+              //                                 //                               fontFamily: 'WorkSansMedium',
+              //                                 //                               // fontWeight:
+              //                                 //                               //     FontWeight.bold,
+              //                                 //                               fontSize: 18),
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ),
+              //                                 //                   ],
+              //                                 //                 )),
+              //                                 //             new Align(
+              //                                 //               child: new Padding(
+              //                                 //                 padding:
+              //                                 //                     EdgeInsets
+              //                                 //                         .all(10),
+              //                                 //                 child: new Row(
+              //                                 //                     mainAxisAlignment:
+              //                                 //                         MainAxisAlignment
+              //                                 //                             .spaceAround,
+              //                                 //                     children: <
+              //                                 //                         Widget>[
+              //                                 //                       MaterialButton(
+              //                                 //                         color: Colors
+              //                                 //                             .green,
+              //                                 //                         shape:
+              //                                 //                             StadiumBorder(),
+              //                                 //                         padding: EdgeInsets.only(
+              //                                 //                             left:
+              //                                 //                                 50,
+              //                                 //                             right:
+              //                                 //                                 50,
+              //                                 //                             top:
+              //                                 //                                 5,
+              //                                 //                             bottom:
+              //                                 //                                 5),
+              //                                 //                         onPressed:
+              //                                 //                             () {},
+              //                                 //                         child:
+              //                                 //                             Column(
+              //                                 //                           mainAxisAlignment:
+              //                                 //                               MainAxisAlignment.spaceAround,
+              //                                 //                           children: <
+              //                                 //                               Widget>[
+              //                                 //                             Icon(
+              //                                 //                               Icons.arrow_upward_rounded,
+              //                                 //                               color:
+              //                                 //                                   Colors.white,
+              //                                 //                             ),
+              //                                 //                             SizedBox(
+              //                                 //                               height:
+              //                                 //                                   5,
+              //                                 //                             ),
+              //                                 //                             Text(
+              //                                 //                               'MASUK',
+              //                                 //                               style: TextStyle(
+              //                                 //                                   fontFamily: 'WorkSansMedium',
+              //                                 //                                   fontWeight: FontWeight.bold,
+              //                                 //                                   color: Colors.white,
+              //                                 //                                   fontSize: 18),
+              //                                 //                             ),
+              //                                 //                           ],
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                       MaterialButton(
+              //                                 //                         color: Colors
+              //                                 //                             .red,
+              //                                 //                         shape:
+              //                                 //                             StadiumBorder(),
+              //                                 //                         padding: EdgeInsets.only(
+              //                                 //                             left:
+              //                                 //                                 50,
+              //                                 //                             right:
+              //                                 //                                 50,
+              //                                 //                             top:
+              //                                 //                                 5,
+              //                                 //                             bottom:
+              //                                 //                                 5),
+              //                                 //                         onPressed:
+              //                                 //                             () {},
+              //                                 //                         child:
+              //                                 //                             Column(
+              //                                 //                           mainAxisAlignment:
+              //                                 //                               MainAxisAlignment.spaceAround,
+              //                                 //                           children: <
+              //                                 //                               Widget>[
+              //                                 //                             Icon(
+              //                                 //                               Icons.arrow_downward_rounded,
+              //                                 //                               color:
+              //                                 //                                   Colors.white,
+              //                                 //                             ),
+              //                                 //                             SizedBox(
+              //                                 //                               height:
+              //                                 //                                   5,
+              //                                 //                             ),
+              //                                 //                             Text(
+              //                                 //                               'KELUAR',
+              //                                 //                               style: TextStyle(
+              //                                 //                                   fontFamily: 'WorkSansMedium',
+              //                                 //                                   fontWeight: FontWeight.bold,
+              //                                 //                                   color: Colors.white,
+              //                                 //                                   fontSize: 18),
+              //                                 //                             ),
+              //                                 //                           ],
+              //                                 //                         ),
+              //                                 //                       ),
+              //                                 //                     ]),
+              //                                 //               ),
+              //                                 //             ),
+              //                                 //           ],
+              //                                 //         ),
+              //                                 //       );
+              //                                 //     });
+              //                               },
+              //                             )));
+              //                   } else {
+              //                     // return Padding(
+              //                     //     padding: EdgeInsets.all(10),
+              //                     //     child: Container(
+              //                     //       decoration: BoxDecoration(
+              //                     //         borderRadius:
+              //                     //             BorderRadius.circular(25),
+              //                     //         color: Colors.grey[200],
+              //                     //       ),
+              //                     //       child: Padding(
+              //                     //         padding: EdgeInsets.all(20),
+              //                     //         child: Text(
+              //                     //           'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
+              //                     //           style: TextStyle(
+              //                     //               fontSize: 16,
+              //                     //               color: Colors.red,
+              //                     //               fontFamily: 'WorkSansMedium',
+              //                     //               fontWeight: FontWeight.bold),
+              //                     //         ),
+              //                     //       ),
+              //                     //     ));
+              //                     return SizedBox.shrink();
+              //                   }
+              //                 })).toList(),
+              //           ),
+              //         ),
+              // ),
             ],
           )),
     );
   }
 }
 
-_jumpToSetting() {
-  SystemSetting.goto(SettingTarget.BLUETOOTH);
-}
+// _jumpToSetting() {
+//   SystemSetting.goto(SettingTarget.BLUETOOTH);
+// }

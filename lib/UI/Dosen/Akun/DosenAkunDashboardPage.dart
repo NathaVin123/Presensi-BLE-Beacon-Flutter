@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
 class DosenAkunDashboardPage extends StatefulWidget {
   DosenAkunDashboardPage({Key key}) : super(key: key);
@@ -269,7 +270,8 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.toNamed('/statistik/mahasiswa'),
+                          onTap: () =>
+                              Get.toNamed('/dosen/dashboard/akun/beacon'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -291,7 +293,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                                         width: 11,
                                       ),
                                       Text(
-                                        'Tambah Kelas Beacon',
+                                        'Konfigurasi Beacon',
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontFamily: 'WorkSansMedium',
@@ -309,7 +311,8 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.toNamed('/statistik/mahasiswa'),
+                          onTap: () => Get.toNamed(
+                              '/dosen/dashboard/akun/gantipassword'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -387,20 +390,48 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () async {
-                            SharedPreferences autoLogin =
-                                await SharedPreferences.getInstance();
-                            autoLogin.clear();
-                            Get.offAllNamed('/');
+                          onTap: () {
+                            SKAlertDialog.show(
+                              context: context,
+                              type: SKAlertType.buttons,
+                              title: 'LOG OUT',
+                              message: 'Apakah anda yakin ingin keluar?',
+                              okBtnText: 'Ya',
+                              okBtnTxtColor: Colors.white,
+                              okBtnColor: Colors.red,
+                              cancelBtnText: 'Tidak',
+                              cancelBtnTxtColor: Colors.white,
+                              cancelBtnColor: Colors.grey,
+                              onOkBtnTap: (value) async {
+                                SharedPreferences autoLogin =
+                                    await SharedPreferences.getInstance();
+                                autoLogin.clear();
+                                Get.offAllNamed('/');
 
-                            Fluttertoast.showToast(
-                                msg: 'Anda telah keluar',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 14.0);
+                                Fluttertoast.showToast(
+                                    msg: 'Anda telah keluar',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 14.0);
+                              },
+                              onCancelBtnTap: (value) {},
+                            );
+                            // SharedPreferences autoLogin =
+                            //     await SharedPreferences.getInstance();
+                            // autoLogin.clear();
+                            // Get.offAllNamed('/');
+
+                            // Fluttertoast.showToast(
+                            //     msg: 'Anda telah keluar',
+                            //     toastLength: Toast.LENGTH_SHORT,
+                            //     gravity: ToastGravity.BOTTOM,
+                            //     timeInSecForIosWeb: 1,
+                            //     backgroundColor: Colors.red,
+                            //     textColor: Colors.white,
+                            //     fontSize: 14.0);
                           },
                           child: Container(
                             decoration: BoxDecoration(

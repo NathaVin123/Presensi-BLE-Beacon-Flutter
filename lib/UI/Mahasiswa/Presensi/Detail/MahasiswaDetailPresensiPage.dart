@@ -9,23 +9,47 @@ class MahasiswaDetailPresensiPage extends StatefulWidget {
 
 class _MahasiswaDetailPresensiPageState
     extends State<MahasiswaDetailPresensiPage> {
-  String kelas = "";
+  // String kelas = "";
+  // String jam = "";
+  // String tanggal = "";
+
+  // void getModalKelas() async {
+  //   SharedPreferences modalKelas = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     kelas = modalKelas.getString('Kelas');
+  //     jam = modalKelas.getString('Jam');
+  //     tanggal = modalKelas.getString('Tanggal');
+  //   });
+  // }
+
+  String ruang = "";
+  String namamk = "";
+  String namadosen = "";
+  String hari = "";
+  String sesi = "";
   String jam = "";
   String tanggal = "";
-
-  void getModalKelas() async {
-    SharedPreferences modalKelas = await SharedPreferences.getInstance();
-    setState(() {
-      kelas = modalKelas.getString('Kelas');
-      jam = modalKelas.getString('Jam');
-      tanggal = modalKelas.getString('Tanggal');
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    getModalKelas();
+
+    getDetailKelas();
+  }
+
+  getDetailKelas() async {
+    SharedPreferences dataPresensiMahasiswa =
+        await SharedPreferences.getInstance();
+
+    setState(() {
+      ruang = dataPresensiMahasiswa.getString('ruang');
+      namamk = dataPresensiMahasiswa.getString('namamk');
+      namadosen = dataPresensiMahasiswa.getString('namadosen');
+      hari = dataPresensiMahasiswa.getString('hari');
+      sesi = dataPresensiMahasiswa.getString('sesi');
+      jam = dataPresensiMahasiswa.getString('jam');
+      tanggal = dataPresensiMahasiswa.getString('tanggal');
+    });
   }
 
   @override
@@ -34,7 +58,7 @@ class _MahasiswaDetailPresensiPageState
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            //
+            automaticallyImplyLeading: false,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
             backgroundColor: Colors.white,
@@ -119,7 +143,7 @@ class _MahasiswaDetailPresensiPageState
                           padding: const EdgeInsets.all(8.0),
                           child: new Center(
                             child: new Text(
-                              kelas,
+                              ruang,
                               style: TextStyle(
                                   fontFamily: 'WorkSansMedium',
                                   // fontWeight:
@@ -144,7 +168,7 @@ class _MahasiswaDetailPresensiPageState
                           padding: const EdgeInsets.all(8.0),
                           child: new Center(
                             child: new Text(
-                              '-',
+                              namamk,
                               style: TextStyle(
                                   fontFamily: 'WorkSansMedium',
                                   // fontWeight:
@@ -194,7 +218,7 @@ class _MahasiswaDetailPresensiPageState
                           padding: const EdgeInsets.all(8.0),
                           child: new Center(
                             child: new Text(
-                              '-',
+                              namadosen,
                               style: TextStyle(
                                   fontFamily: 'WorkSansMedium',
                                   // fontWeight:
@@ -291,33 +315,33 @@ class _MahasiswaDetailPresensiPageState
                           SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
-                            color: Colors.red,
-                            shape: StadiumBorder(),
-                            padding: EdgeInsets.only(
-                                left: 125, right: 125, top: 25, bottom: 25),
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.arrow_downward_rounded,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'KELUAR',
-                                  style: TextStyle(
-                                      fontFamily: 'WorkSansMedium',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 18),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // MaterialButton(
+                          //   color: Colors.red,
+                          //   shape: StadiumBorder(),
+                          //   padding: EdgeInsets.only(
+                          //       left: 125, right: 125, top: 25, bottom: 25),
+                          //   onPressed: () {},
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //     children: <Widget>[
+                          //       Icon(
+                          //         Icons.arrow_downward_rounded,
+                          //         color: Colors.white,
+                          //       ),
+                          //       SizedBox(
+                          //         height: 10,
+                          //       ),
+                          //       Text(
+                          //         'KELUAR',
+                          //         style: TextStyle(
+                          //             fontFamily: 'WorkSansMedium',
+                          //             fontWeight: FontWeight.bold,
+                          //             color: Colors.white,
+                          //             fontSize: 18),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ]),
                   ),
                 ),

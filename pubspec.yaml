@@ -63,15 +63,18 @@ dependencies:
   # Cek String sama
   string_similarity: ^2.0.0
   
-  flutter_advanced_avatar: ^1.0.0+1
+  sk_alert_dialog: ^1.0.0
 
+  # Inisial Nama Icon
   flutter_initicon: ^2.0.0
+
 
 # Cadangan Package
   # provider: ^5.0.0
   # path_provider: ^2.0.1
   # beacons_plugin: ^2.0.0
   # flutter_spinkit: ^5.0.0
+  # flutter_advanced_avatar: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +87,7 @@ flutter:
     - assets/images/error_icon.png
     - assets/images/background1.jpg
     - assets/images/not_found_icon.png
+    - assets/gif/
 
   fonts:
     - family: WorkSansSemiBold

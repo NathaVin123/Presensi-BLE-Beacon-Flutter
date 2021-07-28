@@ -171,8 +171,22 @@ class _MahasiswaRiwayatDashboardPageState
               ),
             ),
             SliverFillRemaining(
-                child: Container(
-                    child: ListView.builder(
+                child: riwayatMahasiswaResponseModel.data == null
+                    ? Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Center(
+                            child: Text(
+                              'Silakan pilih semester, \n lalu tekan tombol segarkan',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'WorkSansMedium',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
                         itemCount: riwayatMahasiswaResponseModel.data?.length,
                         itemBuilder: (context, index) {
                           return Padding(
@@ -275,7 +289,7 @@ class _MahasiswaRiwayatDashboardPageState
                               ),
                             ),
                           );
-                        })))
+                        }))
           ],
         ));
   }
