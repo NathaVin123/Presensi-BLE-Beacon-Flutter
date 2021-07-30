@@ -589,7 +589,7 @@ class _MahasiswaPresensiDashboardPageState
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kelas Aktif Saya',
+                      'Kuliah Hari Ini',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,

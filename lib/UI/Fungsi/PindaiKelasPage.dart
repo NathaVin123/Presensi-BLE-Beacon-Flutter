@@ -276,7 +276,7 @@ class _PindaiKelasPageState extends State<PindaiKelasPage>
                 ],
               )
             : Future.delayed(Duration.zero, () {
-                Get.toNamed('/mahasiswa/dashboard/presensi/detail');
+                Get.offAllNamed('/mahasiswa/dashboard/presensi/detail');
               }));
   }
 }

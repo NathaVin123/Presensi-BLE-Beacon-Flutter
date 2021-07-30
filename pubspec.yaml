@@ -21,6 +21,8 @@ dependencies:
 
   # Ikon dan Font
   cupertino_icons: ^1.0.2
+
+  # Kostum Ikon dan Font
   font_awesome_flutter: ^9.0.0
 
   # Animasi progress dalam bentuk shimmer.
@@ -37,6 +39,8 @@ dependencies:
   
   # API.
   http: ^0.12.1
+
+  # Local Storage Session
   shared_preferences: ^2.0.5
 
   # Transisi halaman dan routing.
@@ -63,11 +67,14 @@ dependencies:
   # Cek String sama
   string_similarity: ^2.0.0
   
+  # Modal Alert
   sk_alert_dialog: ^1.0.0
 
   # Inisial Nama Icon
   flutter_initicon: ^2.0.0
 
+  # Progress Bar Animation
+  flutter_animation_progress_bar: ^2.0.0
 
 # Cadangan Package
   # provider: ^5.0.0

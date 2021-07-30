@@ -62,8 +62,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     getDataRuangBeacon();
 
     // listeningState();
-
-    
   }
 
   void getDataRuangBeacon() async {
@@ -312,73 +310,73 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
               height: 30,
             ),
             centerTitle: true,
-            actions: <Widget>[
-              if (!authorizationStatusOk)
-                IconButton(
-                    icon: Icon(Icons.portable_wifi_off),
-                    color: Colors.red,
-                    onPressed: () async {
-                      await flutterBeacon.requestAuthorization;
-                    }),
-              if (!locationServiceEnabled)
-                IconButton(
-                    icon: Icon(Icons.location_off),
-                    color: Colors.red,
-                    onPressed: () async {
-                      if (Platform.isAndroid) {
-                        await flutterBeacon.openLocationSettings;
-                      } else if (Platform.isIOS) {
-                        await _jumpToSetting();
-                      }
-                    }),
-              StreamBuilder<BluetoothState>(
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final state = snapshot.data;
+            // actions: <Widget>[
+            //   if (!authorizationStatusOk)
+            //     IconButton(
+            //         icon: Icon(Icons.portable_wifi_off),
+            //         color: Colors.red,
+            //         onPressed: () async {
+            //           await flutterBeacon.requestAuthorization;
+            //         }),
+            //   if (!locationServiceEnabled)
+            //     IconButton(
+            //         icon: Icon(Icons.location_off),
+            //         color: Colors.red,
+            //         onPressed: () async {
+            //           if (Platform.isAndroid) {
+            //             await flutterBeacon.openLocationSettings;
+            //           } else if (Platform.isIOS) {
+            //             await _jumpToSetting();
+            //           }
+            //         }),
+            //   StreamBuilder<BluetoothState>(
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         final state = snapshot.data;
 
-                    if (state == BluetoothState.stateOn) {
-                      return IconButton(
-                        icon: Icon(Icons.bluetooth_connected),
-                        onPressed: () {},
-                        color: Colors.blue,
-                      );
-                    }
+            //         if (state == BluetoothState.stateOn) {
+            //           return IconButton(
+            //             icon: Icon(Icons.bluetooth_connected),
+            //             onPressed: () {},
+            //             color: Colors.blue,
+            //           );
+            //         }
 
-                    if (state == BluetoothState.stateOff) {
-                      return IconButton(
-                        icon: Icon(Icons.bluetooth),
-                        onPressed: () async {
-                          if (Platform.isAndroid) {
-                            try {
-                              await flutterBeacon.openBluetoothSettings;
-                            } on PlatformException catch (e) {
-                              print(e);
-                            }
-                          } else if (Platform.isIOS) {
-                            try {
-                              await _jumpToSetting();
-                            } on PlatformException catch (e) {
-                              print(e);
-                            }
-                          }
-                        },
-                        color: Colors.red,
-                      );
-                    }
+            //         if (state == BluetoothState.stateOff) {
+            //           return IconButton(
+            //             icon: Icon(Icons.bluetooth),
+            //             onPressed: () async {
+            //               if (Platform.isAndroid) {
+            //                 try {
+            //                   await flutterBeacon.openBluetoothSettings;
+            //                 } on PlatformException catch (e) {
+            //                   print(e);
+            //                 }
+            //               } else if (Platform.isIOS) {
+            //                 try {
+            //                   await _jumpToSetting();
+            //                 } on PlatformException catch (e) {
+            //                   print(e);
+            //                 }
+            //               }
+            //             },
+            //             color: Colors.red,
+            //           );
+            //         }
 
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth_disabled),
-                      onPressed: () {},
-                      color: Colors.grey,
-                    );
-                  }
+            //         return IconButton(
+            //           icon: Icon(Icons.bluetooth_disabled),
+            //           onPressed: () {},
+            //           color: Colors.grey,
+            //         );
+            //       }
 
-                  return SizedBox.shrink();
-                },
-                stream: streamController.stream,
-                initialData: BluetoothState.stateUnknown,
-              ),
-            ],
+            //       return SizedBox.shrink();
+            //     },
+            //     stream: streamController.stream,
+            //     initialData: BluetoothState.stateUnknown,
+            //   ),
+            // ],
           ),
           body: Column(
             children: <Widget>[
@@ -439,7 +437,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                 child: Center(
                   // alignment: Alignment.topLeft,
                   child: Text(
-                    'Kuliah Selanjutnya',
+                    'Kuliah Hari Ini',
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

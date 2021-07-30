@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class DosenStatistikPage extends StatefulWidget {
   DosenStatistikPage({Key key}) : super(key: key);
@@ -32,12 +33,85 @@ class _DosenStatistikPageState extends State<DosenStatistikPage> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          SliverFillRemaining(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(
-                child: Text(
-                    'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')),
+            child: Container(
+              child: Center(
+                  child: Column(
+                children: <Widget>[
+                  Text(
+                    'Nama Matakuliah',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FAProgressBar(
+                    currentValue: 80,
+                    displayText: '%',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nama Matakuliah',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FAProgressBar(
+                    currentValue: 40,
+                    displayText: '%',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nama Matakuliah',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FAProgressBar(
+                    currentValue: 50,
+                    displayText: '%',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nama Matakuliah',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FAProgressBar(
+                    currentValue: 20,
+                    displayText: '%',
+                  ),
+                ],
+              )),
+            ),
           ))
         ],
       ),

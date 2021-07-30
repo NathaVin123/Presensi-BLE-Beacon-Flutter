@@ -31,7 +31,7 @@ import 'UI/Mahasiswa/Riwayat/MahasiswaRiwayatDashboardPage.dart';
 import 'UI/Mahasiswa/Riwayat/Detail/MahasiswaDetailRiwayatPage.dart';
 
 import 'UI/Mahasiswa/Akun/MahasiswaAkunDashboardPage.dart';
-import 'UI/Mahasiswa/Akun/InformasiAkun/MahasiswaInformasiAkunPage.dart';
+import 'UI/Mahasiswa/Akun/Informasi Akun/MahasiswaInformasiAkunPage.dart';
 import 'UI/Mahasiswa/Akun/Statistik/MahasiswaStatistikPage.dart';
 
 import 'UI/Dosen/DosenDashboardPage.dart';
