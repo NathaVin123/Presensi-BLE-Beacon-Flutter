@@ -8,10 +8,55 @@ class DosenRiwayatDashboardPage extends StatefulWidget {
       _DosenRiwayatDashboardPageState();
 }
 
+class Semester {
+  String semester;
+  Semester(this.semester);
+}
+
 class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
+  String npp = "";
+  String semesterShared = "";
+
+  String data;
+
+  Semester selectedSemester;
+
+  List<Semester> semesters = [
+    Semester("1"),
+    Semester("2"),
+    Semester("3"),
+    Semester("4"),
+    Semester("5"),
+    Semester("6"),
+    Semester("7"),
+    Semester("8"),
+  ];
+
+  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
+    List<DropdownMenuItem> items = [];
+
+    for (var item in semesters) {
+      items.add(DropdownMenuItem(
+        child: Text((item.semester)),
+        value: item,
+      ));
+    }
+    return items;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text('Segarkan'),
+          icon: Icon(Icons.refresh_rounded),
+          onPressed: () => {},
+        ),
         backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: <Widget>[
@@ -27,7 +72,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
               flexibleSpace: const FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
-                  'Riwayat',
+                  'Riwayat Presensi',
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'WorkSansMedium',
@@ -35,547 +80,54 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                // SingleChildScrollView(
-                //   child: Column(
-                //     children: <Widget>[
-                //       Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: Column(
-                //               children: <Widget>[
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: <Widget>[
-                //                       Container(
-                //                         decoration: BoxDecoration(
-                //                             color: Colors.yellow[600],
-                //                             borderRadius:
-                //                                 BorderRadius.circular(25)),
-                //                         child: Padding(
-                //                           padding: const EdgeInsets.all(10),
-                //                           child: Text(
-                //                             '03/06/2021',
-                //                             style: TextStyle(
-                //                                 color: Colors.white,
-                //                                 fontWeight: FontWeight.bold,
-                //                                 fontFamily: 'WorkSansMedium',
-                //                                 fontSize: 16),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(10),
-                //                         child: Text(
-                //                           'Pertemuan ke - 5',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 16),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //                 Divider(
-                //                   height: 10,
-                //                   thickness: 5,
-                //                 ),
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Column(
-                //                     children: <Widget>[
-                //                       Center(
-                //                         child: Text(
-                //                           'Magang',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 20),
-                //                         ),
-                //                       ),
-                //                       Center(
-                //                         child: Text(
-                //                           'Kelas A',
-                //                           style: TextStyle(
-                //                               color: Colors.grey,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 18),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: Column(
-                //               children: <Widget>[
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: <Widget>[
-                //                       Container(
-                //                         decoration: BoxDecoration(
-                //                             color: Colors.yellow[600],
-                //                             borderRadius:
-                //                                 BorderRadius.circular(25)),
-                //                         child: Padding(
-                //                           padding: const EdgeInsets.all(10),
-                //                           child: Text(
-                //                             '03/05/2021',
-                //                             style: TextStyle(
-                //                                 color: Colors.white,
-                //                                 fontWeight: FontWeight.bold,
-                //                                 fontFamily: 'WorkSansMedium',
-                //                                 fontSize: 16),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(10),
-                //                         child: Text(
-                //                           'Pertemuan ke - 4',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 16),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //                 Divider(
-                //                   height: 10,
-                //                   thickness: 5,
-                //                 ),
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Column(
-                //                     children: <Widget>[
-                //                       Center(
-                //                         child: Text(
-                //                           'Magang',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 20),
-                //                         ),
-                //                       ),
-                //                       Center(
-                //                         child: Text(
-                //                           'Kelas C',
-                //                           style: TextStyle(
-                //                               color: Colors.grey,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 18),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: Column(
-                //               children: <Widget>[
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: <Widget>[
-                //                       Container(
-                //                         decoration: BoxDecoration(
-                //                             color: Colors.yellow[600],
-                //                             borderRadius:
-                //                                 BorderRadius.circular(25)),
-                //                         child: Padding(
-                //                           padding: const EdgeInsets.all(10),
-                //                           child: Text(
-                //                             '03/04/2021',
-                //                             style: TextStyle(
-                //                                 color: Colors.white,
-                //                                 fontWeight: FontWeight.bold,
-                //                                 fontFamily: 'WorkSansMedium',
-                //                                 fontSize: 16),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(10),
-                //                         child: Text(
-                //                           'Pertemuan ke - 3',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 16),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //                 Divider(
-                //                   height: 10,
-                //                   thickness: 5,
-                //                 ),
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Column(
-                //                     children: <Widget>[
-                //                       Center(
-                //                         child: Text(
-                //                           'Magang',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 20),
-                //                         ),
-                //                       ),
-                //                       Center(
-                //                         child: Text(
-                //                           'Kelas E',
-                //                           style: TextStyle(
-                //                               color: Colors.grey,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 18),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: Column(
-                //               children: <Widget>[
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: <Widget>[
-                //                       Container(
-                //                         decoration: BoxDecoration(
-                //                             color: Colors.yellow[600],
-                //                             borderRadius:
-                //                                 BorderRadius.circular(25)),
-                //                         child: Padding(
-                //                           padding: const EdgeInsets.all(10),
-                //                           child: Text(
-                //                             '03/03/2021',
-                //                             style: TextStyle(
-                //                                 color: Colors.white,
-                //                                 fontWeight: FontWeight.bold,
-                //                                 fontFamily: 'WorkSansMedium',
-                //                                 fontSize: 16),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(10),
-                //                         child: Text(
-                //                           'Pertemuan ke - 2',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 16),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //                 Divider(
-                //                   height: 10,
-                //                   thickness: 5,
-                //                 ),
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Column(
-                //                     children: <Widget>[
-                //                       Center(
-                //                         child: Text(
-                //                           'Magang',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 20),
-                //                         ),
-                //                       ),
-                //                       Center(
-                //                         child: Text(
-                //                           'Kelas B',
-                //                           style: TextStyle(
-                //                               color: Colors.grey,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 18),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: Column(
-                //               children: <Widget>[
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: <Widget>[
-                //                       Container(
-                //                         decoration: BoxDecoration(
-                //                             color: Colors.yellow[600],
-                //                             borderRadius:
-                //                                 BorderRadius.circular(25)),
-                //                         child: Padding(
-                //                           padding: const EdgeInsets.all(10),
-                //                           child: Text(
-                //                             '03/02/2021',
-                //                             style: TextStyle(
-                //                                 color: Colors.white,
-                //                                 fontWeight: FontWeight.bold,
-                //                                 fontFamily: 'WorkSansMedium',
-                //                                 fontSize: 16),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(10),
-                //                         child: Text(
-                //                           'Pertemuan ke - 1',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 16),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //                 Divider(
-                //                   height: 10,
-                //                   thickness: 5,
-                //                 ),
-                //                 Padding(
-                //                   padding: const EdgeInsets.all(10),
-                //                   child: Column(
-                //                     children: <Widget>[
-                //                       Center(
-                //                         child: Text(
-                //                           'Magang',
-                //                           style: TextStyle(
-                //                               color: Colors.black,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 20),
-                //                         ),
-                //                       ),
-                //                       Center(
-                //                         child: Text(
-                //                           'Kelas E',
-                //                           style: TextStyle(
-                //                               color: Colors.grey,
-                //                               fontWeight: FontWeight.bold,
-                //                               fontFamily: 'WorkSansMedium',
-                //                               fontSize: 18),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // )
-                // Shimmer.fromColors(
-                //   baseColor: Colors.grey[200],
-                //   highlightColor: Colors.grey[100],
-                //   enabled: true,
-                //   child: Column(
-                //     children: [
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //               color: Colors.grey,
-                //               borderRadius: BorderRadius.circular(25)),
-                //           child: Flexible(
-                //             child: ListTile(
-                //               title: Text(' '),
-                //               subtitle: Text(' '),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // )
-              ]),
-            )
+            SliverToBoxAdapter(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                        child: Text(
+                      'Pilih Semester',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'WorkSansMedium',
+                          fontWeight: FontWeight.bold),
+                    )),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                              width: 1),
+                        ),
+                        child: DropdownButton(
+                          // style: TextStyle(
+                          //   fontFamily: 'WorkSansMedium',
+                          // ),
+                          onTap: () => {},
+                          items: generateSemester(semesters),
+                          value: selectedSemester,
+                          onChanged: (item) {
+                            setState(() {
+                              selectedSemester = item;
+                              semesterShared = selectedSemester.semester;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ));
   }

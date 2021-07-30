@@ -11,7 +11,7 @@ class APIService {
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
-    String url = "https://192.168.100.239:5000/api/auth/loginmhs";
+    String url = "https://192.168.240.65:5000/api/auth/loginmhs";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -34,7 +34,7 @@ class APIService {
   // Login Dosen API
   Future<LoginDosenResponseModel> loginDosen(
       LoginDosenRequestModel requestModel) async {
-    String url = "https://192.168.100.239:5000/api/auth/logindsn";
+    String url = "https://192.168.240.65:5000/api/auth/logindsn";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -57,7 +57,7 @@ class APIService {
   // Post Get Data Jadwal Mahasiswa
   Future<JadwalMahasiswaResponseModel> postJadwalMahasiswa(
       JadwalMahasiswaRequestModel requestModel) async {
-    String url = "https://192.168.100.239:5000/api/jadwalmhs/postgetall";
+    String url = "https://192.168.240.65:5000/api/jadwalmhs/postgetall";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -80,7 +80,7 @@ class APIService {
   // Post Get Data Jadwal Dosen
   Future<RiwayatMahasiswaResponseModel> postRiwayatMahasiswa(
       RiwayatMahasiswaRequestModel requestModel) async {
-    String url = "https://192.168.100.239:5000/api/riwayatmhs/postgetall/";
+    String url = "https://192.168.240.65:5000/api/riwayatmhs/postgetall/";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -102,7 +102,7 @@ class APIService {
 
   // Get Jadwal Beaconscr
   Future<RuangBeaconResponseModel> getKelasBeacon() async {
-    String url = "https://192.168.100.239:5000/api/ruangbeacon";
+    String url = "https://192.168.240.65:5000/api/ruangbeacon";
     print(url);
     http.Response response = await http.get(url);
     print(response.statusCode);

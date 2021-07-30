@@ -10,19 +10,6 @@ class MahasiswaDetailPresensiPage extends StatefulWidget {
 
 class _MahasiswaDetailPresensiPageState
     extends State<MahasiswaDetailPresensiPage> {
-  // String kelas = "";
-  // String jam = "";
-  // String tanggal = "";
-
-  // void getModalKelas() async {
-  //   SharedPreferences modalKelas = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     kelas = modalKelas.getString('Kelas');
-  //     jam = modalKelas.getString('Jam');
-  //     tanggal = modalKelas.getString('Tanggal');
-  //   });
-  // }
-
   String ruang = "";
   String namamk = "";
   String namadosen = "";
@@ -356,34 +343,6 @@ class _MahasiswaDetailPresensiPageState
                               ],
                             ),
                           ),
-
-                          // MaterialButton(
-                          //   color: Colors.red,
-                          //   shape: StadiumBorder(),
-                          //   padding: EdgeInsets.only(
-                          //       left: 125, right: 125, top: 25, bottom: 25),
-                          //   onPressed: () {},
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //     children: <Widget>[
-                          //       Icon(
-                          //         Icons.arrow_downward_rounded,
-                          //         color: Colors.white,
-                          //       ),
-                          //       SizedBox(
-                          //         height: 10,
-                          //       ),
-                          //       Text(
-                          //         'KELUAR',
-                          //         style: TextStyle(
-                          //             fontFamily: 'WorkSansMedium',
-                          //             fontWeight: FontWeight.bold,
-                          //             color: Colors.white,
-                          //             fontSize: 18),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ]),
                   ),
                 ),

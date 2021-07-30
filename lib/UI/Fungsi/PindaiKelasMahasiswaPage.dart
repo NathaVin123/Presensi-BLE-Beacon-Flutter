@@ -7,12 +7,13 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PindaiKelasPage extends StatefulWidget {
+class PindaiKelasMahasiswaPage extends StatefulWidget {
   @override
-  _PindaiKelasPageState createState() => _PindaiKelasPageState();
+  _PindaiKelasMahasiswaPageState createState() =>
+      _PindaiKelasMahasiswaPageState();
 }
 
-class _PindaiKelasPageState extends State<PindaiKelasPage>
+class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
 
@@ -238,7 +239,7 @@ class _PindaiKelasPageState extends State<PindaiKelasPage>
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: <Widget>[
                         Text(
                           'Mohon Tunggu...',
                           style: TextStyle(
@@ -275,8 +276,42 @@ class _PindaiKelasPageState extends State<PindaiKelasPage>
                   ),
                 ],
               )
-            : Future.delayed(Duration.zero, () {
-                Get.offAllNamed('/mahasiswa/dashboard/presensi/detail');
-              }));
+            : Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Ruangan kelas sudah ditemukan',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'WorkSansMedium',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        MaterialButton(
+                          child: Text(
+                            'Lanjutkan',
+                            style: const TextStyle(
+                                fontFamily: 'WorkSansSemiBold',
+                                fontSize: 18.0,
+                                color: Colors.white),
+                          ),
+                          onPressed: () => {
+                            Get.offAllNamed(
+                                '/mahasiswa/dashboard/presensi/detail')
+                          },
+                          shape: StadiumBorder(),
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ));
   }
 }

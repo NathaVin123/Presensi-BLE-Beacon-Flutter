@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
@@ -247,44 +248,46 @@ class _MahasiswaRiwayatDashboardPageState
                                   ),
                                 ),
                                 onTap: () async {
+                                  Get.toNamed(
+                                      '/mahasiswa/dashboard/riwayat/detail');
                                   // Tampilan Modal Kelas
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(25),
-                                              topRight: Radius.circular(25))),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      builder: (builder) {
-                                        return new Container(
-                                          height: 650,
-                                          color: Colors.white,
-                                          child: new Column(
-                                            children: [
-                                              new Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 25, bottom: 10),
-                                                  child: new Text(
-                                                    'Detail Riwayat',
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            'WorkSansMedium',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 24),
-                                                  ),
-                                                ),
-                                              ),
-                                              Divider(
-                                                height: 20,
-                                                thickness: 5,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      });
+                                  // showModalBottomSheet(
+                                  //     isScrollControlled: true,
+                                  //     context: context,
+                                  //     shape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.only(
+                                  //             topLeft: Radius.circular(25),
+                                  //             topRight: Radius.circular(25))),
+                                  //     clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  //     builder: (builder) {
+                                  //       return new Container(
+                                  //         height: 650,
+                                  //         color: Colors.white,
+                                  //         child: new Column(
+                                  //           children: [
+                                  //             new Center(
+                                  //               child: Padding(
+                                  //                 padding: EdgeInsets.only(
+                                  //                     top: 25, bottom: 10),
+                                  //                 child: new Text(
+                                  //                   'Detail Riwayat',
+                                  //                   style: TextStyle(
+                                  //                       fontFamily:
+                                  //                           'WorkSansMedium',
+                                  //                       fontWeight:
+                                  //                           FontWeight.bold,
+                                  //                       fontSize: 24),
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //             Divider(
+                                  //               height: 20,
+                                  //               thickness: 5,
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       );
+                                  //     });
                                 },
                               ),
                             ),

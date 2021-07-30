@@ -111,7 +111,7 @@ class _MahasiswaAkunDashboardPageState
                             ),
                             Center(
                                 child: Column(
-                              children: [
+                              children: <Widget>[
                                 Text(namamhs,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -130,16 +130,16 @@ class _MahasiswaAkunDashboardPageState
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(
-                                  prodi,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontSize: 18),
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                ),
+                                // Text(
+                                //   prodi,
+                                //   style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       fontFamily: 'WorkSansMedium',
+                                //       fontSize: 18),
+                                // ),
+                                // SizedBox(
+                                //   height: 16,
+                                // ),
                                 // Text(
                                 //   prodi,
                                 //   style: TextStyle(
@@ -147,9 +147,9 @@ class _MahasiswaAkunDashboardPageState
                                 //       fontFamily: 'WorkSansMedium',
                                 //       fontSize: 20),
                                 // ),
-                                SizedBox(
-                                  height: 16,
-                                ),
+                                // SizedBox(
+                                //   height: 16,
+                                // ),
                               ],
                             ))
                           ],

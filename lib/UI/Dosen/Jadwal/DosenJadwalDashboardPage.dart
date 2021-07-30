@@ -14,12 +14,49 @@ class DosenJadwalDashboardPage extends StatefulWidget {
       _DosenJadwalDashboardPageState();
 }
 
+class Semester {
+  String semester;
+  Semester(this.semester);
+}
+
 class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
   // JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
   // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   // final _jadwal = <JadwalMahasiswaRequestModel>[];
+
   String _dateString;
+
+  String npm = "";
+  String semesterShared = "";
+
+  String data;
+
+  Semester selectedSemester;
+
+  List<Semester> semesters = [
+    Semester("1"),
+    Semester("2"),
+    Semester("3"),
+    Semester("4"),
+    Semester("5"),
+    Semester("6"),
+    Semester("7"),
+    Semester("8"),
+  ];
+
+  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
+    List<DropdownMenuItem> items = [];
+
+    for (var item in semesters) {
+      items.add(DropdownMenuItem(
+        child: Text((item.semester)),
+        value: item,
+      ));
+    }
+    return items;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +88,10 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+            label: Text('Segarkan'),
+            icon: Icon(Icons.refresh_rounded),
+            onPressed: () {}),
         backgroundColor: Colors.white,
         body: CustomScrollView(slivers: <Widget>[
           SliverAppBar(
@@ -65,7 +106,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
             flexibleSpace: const FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
-                'Jadwal',
+                'Jadwal Kelas',
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -73,423 +114,68 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              // Shimmer.fromColors(
-              //   baseColor: Colors.grey[200],
-              //   highlightColor: Colors.grey[100],
-              //   enabled: true,
-              //   child: Column(
-              //     children: [
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: EdgeInsets.all(10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //               color: Colors.grey,
-              //               borderRadius: BorderRadius.circular(25)),
-              //           child: Flexible(
-              //             child: ListTile(
-              //               title: Text(' '),
-              //               subtitle: Text(' '),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // )
-              // SingleChildScrollView(
-              //   child: Column(
-              //     children: ListTile.divideTiles(
-              //         context: context,
-              //         tiles: _jadwal.map((jadwal) {
-              //           return Padding(
-              //             padding: EdgeInsets.all(10),
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                   color: Colors.grey[200],
-              //                   borderRadius: BorderRadius.circular(25)),
-              //             ),
-              //           );
-              //         })),
-              //   ),
-              // )
-              SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                _dateString,
-                                style: TextStyle(
-                                    fontSize: 22, fontFamily: 'WorkSansMedium'),
-                              ),
-                            ),
-                            Text(
-                              'Kuliah Hari Ini',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontSize: 20),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text('-'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Divider(
-                      height: 20,
-                      thickness: 5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              'Jadwal Dosen',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontSize: 20),
-                            ),
+          SliverToBoxAdapter(
+              child: Center(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            _dateString,
+                            style: TextStyle(
+                                fontSize: 22, fontFamily: 'WorkSansMedium'),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10),
-                          //   child: Container(
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.grey[200],
-                          //         borderRadius: BorderRadius.circular(25)),
-                          //     child: Flexible(
-                          //       child: Column(
-                          //         children: <Widget>[
-                          //           Padding(
-                          //             padding: const EdgeInsets.all(10),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceAround,
-                          //               children: <Widget>[
-                          //                 Padding(
-                          //                   padding: const EdgeInsets.all(10),
-                          //                   child: Text(
-                          //                     'Sesi 1',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 16),
-                          //                   ),
-                          //                 ),
-                          //                 Container(
-                          //                   decoration: BoxDecoration(
-                          //                       color: Colors.yellow[600],
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(25)),
-                          //                   child: Padding(
-                          //                     padding: const EdgeInsets.all(10),
-                          //                     child: Text(
-                          //                       'SABTU',
-                          //                       style: TextStyle(
-                          //                           color: Colors.white,
-                          //                           fontWeight: FontWeight.bold,
-                          //                           fontFamily:
-                          //                               'WorkSansMedium',
-                          //                           fontSize: 16),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //                 Padding(
-                          //                   padding: const EdgeInsets.all(10),
-                          //                   child: Text(
-                          //                     'R.3315',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 16),
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //           Divider(
-                          //             height: 10,
-                          //             thickness: 5,
-                          //           ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.all(10),
-                          //             child: Column(
-                          //               children: <Widget>[
-                          //                 Center(
-                          //                   child: Text(
-                          //                     'Magang',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 20),
-                          //                   ),
-                          //                 ),
-                          //                 SizedBox(
-                          //                   height: 5,
-                          //                 ),
-                          //                 Center(
-                          //                   child: Text(
-                          //                     'Kelas B',
-                          //                     style: TextStyle(
-                          //                         color: Colors.grey,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 18),
-                          //                   ),
-                          //                 ),
-                          //                 // Center(
-                          //                 //   child: Text(
-                          //                 //     'Dosen Tek. Informatika',
-                          //                 //     style: TextStyle(
-                          //                 //         color: Colors.grey,
-                          //                 //         fontWeight: FontWeight.bold,
-                          //                 //         fontFamily: 'WorkSansMedium',
-                          //                 //         fontSize: 18),
-                          //                 //   ),
-                          //                 // ),
-                          //               ],
-                          //             ),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10),
-                          //   child: Container(
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.grey[200],
-                          //         borderRadius: BorderRadius.circular(25)),
-                          //     child: Flexible(
-                          //       child: Column(
-                          //         children: <Widget>[
-                          //           Padding(
-                          //             padding: const EdgeInsets.all(10),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceAround,
-                          //               children: <Widget>[
-                          //                 Padding(
-                          //                   padding: const EdgeInsets.all(10),
-                          //                   child: Text(
-                          //                     'Sesi 2',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 16),
-                          //                   ),
-                          //                 ),
-                          //                 Container(
-                          //                   decoration: BoxDecoration(
-                          //                       color: Colors.yellow[600],
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(25)),
-                          //                   child: Padding(
-                          //                     padding: const EdgeInsets.all(10),
-                          //                     child: Text(
-                          //                       'Senin',
-                          //                       style: TextStyle(
-                          //                           color: Colors.white,
-                          //                           fontWeight: FontWeight.bold,
-                          //                           fontFamily:
-                          //                               'WorkSansMedium',
-                          //                           fontSize: 16),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //                 Padding(
-                          //                   padding: const EdgeInsets.all(10),
-                          //                   child: Text(
-                          //                     'R.3317',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 16),
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //           Divider(
-                          //             height: 10,
-                          //             thickness: 5,
-                          //           ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.all(10),
-                          //             child: Column(
-                          //               children: <Widget>[
-                          //                 Center(
-                          //                   child: Text(
-                          //                     'Magang',
-                          //                     style: TextStyle(
-                          //                         color: Colors.black,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 20),
-                          //                   ),
-                          //                 ),
-                          //                 SizedBox(
-                          //                   height: 5,
-                          //                 ),
-                          //                 Center(
-                          //                   child: Text(
-                          //                     'Kelas A',
-                          //                     style: TextStyle(
-                          //                         color: Colors.grey,
-                          //                         fontWeight: FontWeight.bold,
-                          //                         fontFamily: 'WorkSansMedium',
-                          //                         fontSize: 18),
-                          //                   ),
-                          //                 ),
-                          //                 // Center(
-                          //                 //   child: Text(
-                          //                 //     'Dosen Tek. Informatika',
-                          //                 //     style: TextStyle(
-                          //                 //         color: Colors.grey,
-                          //                 //         fontWeight: FontWeight.bold,
-                          //                 //         fontFamily: 'WorkSansMedium',
-                          //                 //         fontSize: 18),
-                          //                 //   ),
-                          //                 // ),
-                          //               ],
-                          //             ),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    )
-                  ],
+                        ),
+                      ],
+                    )),
+                Center(
+                    child: Text(
+                  'Pilih Semester',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'WorkSansMedium',
+                      fontWeight: FontWeight.bold),
+                )),
+                SizedBox(
+                  height: 8,
                 ),
-              )
-            ]),
-          )
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all(
+                          color: Colors.grey,
+                          style: BorderStyle.solid,
+                          width: 1),
+                    ),
+                    child: DropdownButton(
+                      // style: TextStyle(
+                      //   fontFamily: Font,
+                      // ),
+                      onTap: () => {},
+                      items: generateSemester(semesters),
+                      value: selectedSemester,
+                      onChanged: (item) {
+                        setState(() {
+                          selectedSemester = item;
+                          semesterShared = selectedSemester.semester;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+          )),
+          SliverFillRemaining()
         ]));
   }
 }

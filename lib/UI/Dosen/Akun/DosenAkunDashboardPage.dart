@@ -107,7 +107,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'WorkSansMedium',
-                                        fontSize: 24)),
+                                        fontSize: 18)),
                                 SizedBox(
                                   height: 10,
                                 ),

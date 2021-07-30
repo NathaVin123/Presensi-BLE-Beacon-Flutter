@@ -23,7 +23,7 @@ class _MahasiswaDetailJadwalPageState extends State<MahasiswaDetailJadwalPage> {
             flexibleSpace: const FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
-                'Detail Presensi',
+                'Detail Jadwal',
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'WorkSansMedium',

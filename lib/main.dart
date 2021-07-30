@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
+import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 
 import 'UI/Login/SplashPage.dart';
 
 import 'UI/Fungsi/BluetoothOff.dart';
 
-import 'UI/Fungsi/PindaiKelasPage.dart';
+import 'UI/Fungsi/PindaiKelasMahasiswaPage.dart';
 
 import 'UI/Login/LoginPage.dart';
 import 'UI/Login/LoginWidgets/LoginDosen.dart';
@@ -129,8 +131,13 @@ class _MyAppState extends State<MyApp> {
         ),
 
         GetPage(
-          name: '/pindai',
-          page: () => PindaiKelasPage(),
+          name: '/pindaiMahasiswa',
+          page: () => PindaiKelasMahasiswaPage(),
+        ),
+
+        GetPage(
+          name: '/pindaiDosen',
+          page: () => PindaiKelasDosenPage(),
         ),
 
         // Login Page
@@ -197,7 +204,7 @@ class _MyAppState extends State<MyApp> {
             page: () => DosenPresensiDashboardPage()),
         GetPage(
             name: '/dosen/dashboard/presensi/detail',
-            page: () => DosenPresensiDashboardPage()),
+            page: () => DosenDetailPresensiPage()),
         GetPage(
             name: '/dosen/dashboard/presensi/detail/tampilpeserta',
             page: () => DosenTampilPesertaKelasPage()),
