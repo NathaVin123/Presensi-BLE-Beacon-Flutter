@@ -230,85 +230,116 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
         ),
-        body: _beacons == null || _beacons.isEmpty
-            ? Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Mohon Tunggu...',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'WorkSansMedium',
-                              fontWeight: FontWeight.bold),
+        body: Container(
+            child: _beacons == null || _beacons.isEmpty
+                ? Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Mohon Tunggu...',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'WorkSansMedium',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Text(
+                              'Sistem sedang menghubungkan ke\nperangkat beacon kelas yang dipilih.',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'WorkSansMedium',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            CircularProgressIndicator(),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Text(
+                              'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'WorkSansMedium',
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Text(
-                          'Sistem sedang menghubungkan ke\nperangkat beacon kelas yang dipilih.',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'WorkSansMedium',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        CircularProgressIndicator(),
-                        SizedBox(
-                          height: 100,
-                        ),
-                        Text(
-                          'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'WorkSansMedium',
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            : Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Ruangan kelas sudah ditemukan',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'WorkSansMedium',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        MaterialButton(
-                          child: Text(
-                            'Lanjutkan',
-                            style: const TextStyle(
-                                fontFamily: 'WorkSansSemiBold',
-                                fontSize: 18.0,
-                                color: Colors.white),
-                          ),
-                          onPressed: () => {
-                            Get.offAllNamed('/dosen/dashboard/presensi/detail')
-                          },
-                          shape: StadiumBorder(),
-                          color: Colors.blue,
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   )
-                ],
-              ));
+                : SingleChildScrollView(
+                    child: Column(
+                        children: ListTile.divideTiles(
+                            context: context,
+                            tiles: _beacons.map((beacon) {
+                              if (beacon.accuracy < 1.0) {
+                                return Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Ruangan kelas sudah ditemukan',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 25,
+                                      ),
+                                      MaterialButton(
+                                        child: Text(
+                                          'Lanjutkan',
+                                          style: const TextStyle(
+                                              fontFamily: 'WorkSansSemiBold',
+                                              fontSize: 18.0,
+                                              color: Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                          Get.offAllNamed(
+                                              '/mahasiswa/dashboard/presensi/detail')
+                                        },
+                                        shape: StadiumBorder(),
+                                        color: Colors.blue,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Anda berada di luar jangkauan maksimal perangkat beacon',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 25,
+                                      ),
+                                      Text(
+                                        'Jarak Anda : ${beacon.accuracy}',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            })).toList()),
+                  )));
   }
 }

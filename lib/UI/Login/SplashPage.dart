@@ -62,12 +62,6 @@ class _SplashPageState extends State<SplashPage> {
                         fontSize: 20.0,
                         color: Colors.white)),
               ),
-              // SizedBox(
-              //   height: 100,
-              // ),
-              // CircularProgressIndicator(
-              //     backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-              //     valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
               SizedBox(
                 height: 150,
               ),

@@ -314,7 +314,6 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                                 children: ListTile.divideTiles(
                                     context: context,
                                     tiles: _beacons.map((beacon) {
-                                      // if (beacon.accuracy < 1.0) {
                                       return Padding(
                                           padding: EdgeInsets.all(8),
                                           child: Container(
@@ -341,7 +340,6 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                                                           Colors.green,
                                                       textColor: Colors.white,
                                                       fontSize: 14.0),
-                                                  // Get.toNamed('/pindai')
                                                 },
                                                 title: Padding(
                                                   padding:
@@ -428,98 +426,7 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                                                     ],
                                                   ),
                                                 ),
-                                                // subtitle: new Row(
-                                                //   // mainAxisSize: MainAxisSize.max,
-                                                //   children: <Widget>[
-                                                //     new Row(
-                                                //       children: <Widget>[
-                                                //         Flexible(
-                                                //             child: Padding(
-                                                //               padding:
-                                                //                   const EdgeInsets
-                                                //                       .all(8.0),
-                                                //               child: Text(
-                                                //                   'MAC Address : ${beacon.macAddress}',
-                                                //                   style: TextStyle(
-                                                //                       fontSize: 14.0,
-                                                //                       fontFamily:
-                                                //                           'WorkSansMedium',
-                                                //                       fontWeight:
-                                                //                           FontWeight
-                                                //                               .bold)),
-                                                //             ),
-                                                //             flex: 1,
-                                                //             fit: FlexFit.tight),
-                                                //       ],
-                                                //     ),
-                                                //     new Row(
-                                                //       children: <Widget>[
-                                                //         Flexible(
-                                                //             child: Padding(
-                                                //               padding:
-                                                //                   const EdgeInsets
-                                                //                       .all(8.0),
-                                                //               child: Text(
-                                                //                   'RSSI : ${beacon.rssi}',
-                                                //                   style: TextStyle(
-                                                //                       fontSize: 14.0,
-                                                //                       fontFamily:
-                                                //                           'WorkSansMedium',
-                                                //                       fontWeight:
-                                                //                           FontWeight
-                                                //                               .bold)),
-                                                //             ),
-                                                //             flex: 1,
-                                                //             fit: FlexFit.tight),
-                                                //       ],
-                                                //     ),
-                                                //     new Row(
-                                                //       children: <Widget>[
-                                                //         Flexible(
-                                                //             child: Padding(
-                                                //               padding:
-                                                //                   const EdgeInsets
-                                                //                       .all(8.0),
-                                                //               child: Text(
-                                                //                   'Major : ${beacon.major}',
-                                                //                   style: TextStyle(
-                                                //                       fontSize: 14.0,
-                                                //                       fontFamily:
-                                                //                           'WorkSansMedium',
-                                                //                       fontWeight:
-                                                //                           FontWeight
-                                                //                               .bold)),
-                                                //             ),
-                                                //             flex: 1,
-                                                //             fit: FlexFit.tight),
-                                                //       ],
-                                                //     ),
-                                                //   ],
-                                                // ),
-                                                // trailing: Icon(Icons.arrow_forward),
                                               )));
-                                      // } else {
-                                      //   return Padding(
-                                      //       padding: EdgeInsets.all(10),
-                                      //       child: Container(
-                                      //         decoration: BoxDecoration(
-                                      //           borderRadius:
-                                      //               BorderRadius.circular(25),
-                                      //           color: Colors.grey[200],
-                                      //         ),
-                                      //         child: Padding(
-                                      //           padding: EdgeInsets.all(20),
-                                      //           child: Text(
-                                      //             'Anda harus di dekat kelas ${beacon.proximityUUID} minimal 1 meter.',
-                                      //             style: TextStyle(
-                                      //                 fontSize: 16,
-                                      //                 color: Colors.red,
-                                      //                 fontFamily: 'WorkSansMedium',
-                                      //                 fontWeight: FontWeight.bold),
-                                      //           ),
-                                      //         ),
-                                      //       ));
-                                      // }
                                     })).toList(),
                               ),
                             ),

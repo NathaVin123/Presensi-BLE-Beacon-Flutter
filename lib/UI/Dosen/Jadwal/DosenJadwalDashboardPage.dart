@@ -20,11 +20,6 @@ class Semester {
 }
 
 class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
-  // JadwalMahasiswaRequestModel jadwalMahasiswaRequestModel;
-  // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
-  // final _jadwal = <JadwalMahasiswaRequestModel>[];
-
   String _dateString;
 
   String npm = "";
@@ -61,15 +56,8 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
   void initState() {
     super.initState();
 
-    // jadwalMahasiswaRequestModel = new JadwalMahasiswaRequestModel();
-
     _dateString = _formatDate(DateTime.now());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
-
-    // APIService apiService = new APIService();
-    // apiService
-    //     .jadwalMahasiswa(jadwalMahasiswaRequestModel)
-    //     .then((value) async {});
   }
 
   void _getDate() {
