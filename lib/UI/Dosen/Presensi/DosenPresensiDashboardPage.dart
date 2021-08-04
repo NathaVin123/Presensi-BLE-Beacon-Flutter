@@ -52,7 +52,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
     getDataDosen();
-    
+
     getDataRuangBeacon();
   }
 
@@ -203,7 +203,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kuliah Hari Ini',
+                      'Kuliah Minggu Ini',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,

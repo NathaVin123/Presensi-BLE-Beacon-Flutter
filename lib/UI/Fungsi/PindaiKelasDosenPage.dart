@@ -278,39 +278,42 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                 : SingleChildScrollView(
                     child: Column(
                         children: ListTile.divideTiles(
-                            context: context,
-                            tiles: _beacons.map((beacon) {
+                            context: context,                            tiles: _beacons.map((beacon) {
                               if (beacon.accuracy < 1.0) {
-                                return Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        'Ruangan kelas sudah ditemukan',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 25,
-                                      ),
-                                      MaterialButton(
-                                        child: Text(
-                                          'Lanjutkan',
-                                          style: const TextStyle(
-                                              fontFamily: 'WorkSansSemiBold',
-                                              fontSize: 18.0,
-                                              color: Colors.white),
+                                return Container(
+                                  child: Center(
+                                    child: Column(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          height: 250,
                                         ),
-                                        onPressed: () => {
-                                          Get.offAllNamed(
-                                              '/mahasiswa/dashboard/presensi/detail')
-                                        },
-                                        shape: StadiumBorder(),
-                                        color: Colors.blue,
-                                      )
-                                    ],
+                                        Text(
+                                          'Ruangan kelas sudah ditemukan',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        MaterialButton(
+                                          child: Text(
+                                            'Masuk',
+                                            style: const TextStyle(
+                                                fontFamily: 'WorkSansSemiBold',
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                          ),
+                                          onPressed: () => {
+                                            Get.offAllNamed(
+                                                '/mahasiswa/dashboard/presensi/detail')
+                                          },
+                                          shape: StadiumBorder(),
+                                          color: Colors.blue,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               } else {

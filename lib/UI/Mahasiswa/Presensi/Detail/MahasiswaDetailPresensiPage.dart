@@ -228,31 +228,31 @@ class _MahasiswaDetailPresensiPageState
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                'Jam Keluar',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '-',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: new Center(
+                          //     child: new Text(
+                          //       'Jam Keluar',
+                          //       style: TextStyle(
+                          //           fontFamily: 'WorkSansMedium',
+                          //           fontWeight: FontWeight.bold,
+                          //           fontSize: 20),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: new Center(
+                          //     child: new Text(
+                          //       '-',
+                          //       style: TextStyle(
+                          //           fontFamily: 'WorkSansMedium',
+                          //           // fontWeight:
+                          //           //     FontWeight.bold,
+                          //           fontSize: 18),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       )),
                 ),
