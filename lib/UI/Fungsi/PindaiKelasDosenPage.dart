@@ -336,7 +336,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                         height: 25,
                                       ),
                                       Text(
-                                        'Jarak Anda : ${beacon.accuracy}',
+                                        'Jarak Anda : ${beacon.accuracy} m',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
