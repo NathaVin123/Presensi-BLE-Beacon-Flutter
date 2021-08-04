@@ -282,7 +282,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                         children: ListTile.divideTiles(
                             context: context,
                             tiles: _beacons.map((beacon) {
-                              if (beacon.accuracy < 1.0) {
+                              if (beacon.accuracy < 0.7) {
                                 return Container(
                                   child: Center(
                                     child: Column(
@@ -324,8 +324,11 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
+                                      SizedBox(
+                                        height: 250,
+                                      ),
                                       Text(
-                                        'Anda berada di luar jangkauan maksimal perangkat beacon',
+                                        'Anda berada di luar jangkauan\nminimal kelas',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',

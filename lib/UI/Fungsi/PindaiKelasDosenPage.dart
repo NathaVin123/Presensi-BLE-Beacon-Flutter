@@ -278,7 +278,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                 : SingleChildScrollView(
                     child: Column(
                         children: ListTile.divideTiles(
-                            context: context,                            tiles: _beacons.map((beacon) {
+                            context: context,
+                            tiles: _beacons.map((beacon) {
                               if (beacon.accuracy < 1.0) {
                                 return Container(
                                   child: Center(
@@ -307,7 +308,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                           ),
                                           onPressed: () => {
                                             Get.offAllNamed(
-                                                '/mahasiswa/dashboard/presensi/detail')
+                                                '/dosen/dashboard/presensi/detail')
                                           },
                                           shape: StadiumBorder(),
                                           color: Colors.blue,
@@ -321,8 +322,11 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
+                                      SizedBox(
+                                        height: 250,
+                                      ),
                                       Text(
-                                        'Anda berada di luar jangkauan maksimal perangkat beacon',
+                                        'Anda berada di luar jangkauan\nminimal kelas',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',

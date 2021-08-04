@@ -295,6 +295,36 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                             height: 10,
                           ),
                           MaterialButton(
+                            color: Colors.grey,
+                            shape: StadiumBorder(),
+                            padding: EdgeInsets.only(
+                                left: 50, right: 50, top: 25, bottom: 25),
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_downward_rounded,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                Text(
+                                  'Keluar',
+                                  style: TextStyle(
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          MaterialButton(
                             color: Colors.red,
                             shape: StadiumBorder(),
                             padding: EdgeInsets.only(
