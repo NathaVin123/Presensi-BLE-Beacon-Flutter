@@ -49,14 +49,6 @@ class _TentangPageState extends State<TentangPage> {
                           children: [
                             Padding(
                                 padding: EdgeInsets.all(22),
-                                // child: ClipRRect(
-                                //   borderRadius: BorderRadius.circular(8.0),
-                                //   child: Image.asset(
-                                //     'person-male'.png,
-                                //     height: 150.0,
-                                //     width: 100.0,
-                                //   ),
-                                // ),
                                 child: CircleAvatar(
                                     backgroundColor: Colors.grey[350],
                                     radius: 50,

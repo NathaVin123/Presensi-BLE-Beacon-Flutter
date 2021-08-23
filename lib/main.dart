@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:presensiblebeacon/UI/Admin/Login/LoginAdmin.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 
@@ -250,10 +251,11 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/dosen/dashboard/akun/beacon/hapus',
             page: () => DosenHapusBeacon()),
-
         GetPage(
             name: '/dosen/dashboard/akun/gantipassword',
             page: () => DosenGantiPasswordPage()),
+
+        GetPage(name: '/login/admin', page: () => LoginAdmin()),
 
         GetPage(
             name: '/statistik/dosen',

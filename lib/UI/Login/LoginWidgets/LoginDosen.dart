@@ -90,7 +90,7 @@ class _LoginDosenState extends State<LoginDosen> {
                             input.length < 8 ? "NPP minimal 9 karakter" : null,
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.all(20.0),
-                          hintText: "NPP",
+                          hintText: "NPP DOSEN",
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: UnderlineInputBorder(
@@ -149,23 +149,6 @@ class _LoginDosenState extends State<LoginDosen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Center(
-                    //     child: CheckboxListTile(
-                    //   title: Text("Ingat Saya",
-                    //       style: const TextStyle(
-                    //           fontFamily: 'WorkSansSemiBold',
-                    //           fontSize: 14.0,
-                    //           color: Colors.black)),
-                    //   value: timeDilation != 0.5,
-                    //   onChanged: (bool value) {
-                    //     setState(() {
-                    //       timeDilation = value ? 2.0 : 0.5;
-                    //     });
-                    //   },
-                    //   activeColor: Colors.white,
-                    //   checkColor: Colors.blue,
-                    //   controlAffinity: ListTileControlAffinity.leading,
-                    // )),
                     MaterialButton(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 130),

@@ -94,7 +94,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                             input.length < 8 ? "NPM minimal 9 karakter" : null,
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.all(20.0),
-                          hintText: "NPM",
+                          hintText: "NPM MAHASISWA",
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: UnderlineInputBorder(
@@ -153,23 +153,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Center(
-                    //     child: CheckboxListTile(
-                    //   title: Text("Ingat Saya",
-                    //       style: const TextStyle(
-                    //           fontFamily: 'WorkSansSemiBold',
-                    //           fontSize: 14.0,
-                    //           color: Colors.black)),
-                    //   value: timeDilation != 0.5,
-                    //   onChanged: (bool value) {
-                    //     setState(() {
-                    //       timeDilation = value ? 2.0 : 0.5;
-                    //     });
-                    //   },
-                    //   activeColor: Colors.white,
-                    //   checkColor: Colors.blue,
-                    //   controlAffinity: ListTileControlAffinity.leading,
-                    // )),
                     MaterialButton(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 130),
@@ -235,18 +218,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                 autoLogin?.setBool("isLoggedMahasiswa", true);
 
                                 print(isApiCallProcess);
-
-                                // Timer(Duration(seconds: 15), () {
-                                //   Fluttertoast.showToast(
-                                //       msg:
-                                //           'Mohon maaf mungkin sedang terjadi kesalahan\nMohon luncurkan ulang aplikasi',
-                                //       toastLength: Toast.LENGTH_SHORT,
-                                //       gravity: ToastGravity.BOTTOM,
-                                //       timeInSecForIosWeb: 1,
-                                //       backgroundColor: Colors.red,
-                                //       textColor: Colors.white,
-                                //       fontSize: 14.0);
-                                // });
                               } else {
                                 Fluttertoast.showToast(
                                     msg:
@@ -261,16 +232,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                             }
                           });
                         }
-                        // } catch (error) {
-                        //   Fluttertoast.showToast(
-                        //       msg: 'Terjadi kesalahan, silahkan coba lagi',
-                        //       toastLength: Toast.LENGTH_SHORT,
-                        //       gravity: ToastGravity.BOTTOM,
-                        //       timeInSecForIosWeb: 1,
-                        //       backgroundColor: Colors.red,
-                        //       textColor: Colors.white,
-                        //       fontSize: 14.0);
-                        // }
                       },
                     ),
                     SizedBox(height: 15),

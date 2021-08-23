@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginMahasiswa.dart';
 import 'package:presensiblebeacon/utils/bubble_indicator_painter.dart';
@@ -39,82 +40,125 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
-        body: SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+          actions: <Widget>[
+            Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 75.0, bottom: 20),
-                  child: Image(
-                      height: MediaQuery.of(context).size.height > 800
-                          ? 150.0
-                          : 110,
-                      fit: BoxFit.fill,
-                      image: const AssetImage(
-                          'assets/png/SplashPage_LogoAtmaJaya.png')),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Center(
-                    child: Text('Sistem Presensi UAJY',
-                        style: const TextStyle(
-                            fontFamily: 'WorkSansMedium',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: _buildMenuBar(context),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: PageView(
-                    controller: _pageController,
-                    physics: const ClampingScrollPhysics(),
-                    onPageChanged: (int i) {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      if (i == 0) {
-                        setState(() {
-                          right = Colors.white;
-                          left = Colors.black;
-                        });
-                      } else if (i == 1) {
-                        setState(() {
-                          right = Colors.black;
-                          left = Colors.white;
-                        });
-                      }
-                    },
-                    children: <Widget>[
-                      ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: const LoginMahasiswa(),
-                      ),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: const LoginDosen(),
-                      ),
-                    ],
-                  ),
+                IconButton(
+                  iconSize: 35,
+                  onPressed: () => Get.toNamed('/login/admin'),
+                  icon: Icon(Icons.settings_accessibility_rounded),
+                  color: Colors.white,
                 ),
               ],
             ),
-          ),
+          ],
         ),
-      ),
-    ));
+        body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 25, right: 8),
+                    //   child: Align(
+                    //       alignment: Alignment.topRight,
+                    //       child: Container(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             IconButton(
+                    //               iconSize: 40,
+                    //               onPressed: () => Get.toNamed('/login/admin'),
+                    //               icon:
+                    //                   Icon(Icons.admin_panel_settings_rounded),
+                    //               color: Colors.white,
+                    //             ),
+                    //             Text(
+                    //               'ADMIN',
+                    //               style: const TextStyle(
+                    //                   fontFamily: 'WorkSansMedium',
+                    //                   fontSize: 10,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.white),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       )),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+                      child: Image(
+                          height: MediaQuery.of(context).size.height > 800
+                              ? 150.0
+                              : 110,
+                          fit: BoxFit.fill,
+                          image: const AssetImage(
+                              'assets/png/SplashPage_LogoAtmaJaya.png')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Center(
+                        child: Text('Sistem Presensi UAJY',
+                            style: const TextStyle(
+                                fontFamily: 'WorkSansMedium',
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: _buildMenuBar(context),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: PageView(
+                        controller: _pageController,
+                        physics: const ClampingScrollPhysics(),
+                        onPageChanged: (int i) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          if (i == 0) {
+                            setState(() {
+                              right = Colors.white;
+                              left = Colors.black;
+                            });
+                          } else if (i == 1) {
+                            setState(() {
+                              right = Colors.black;
+                              left = Colors.white;
+                            });
+                          }
+                        },
+                        children: <Widget>[
+                          ConstrainedBox(
+                            constraints: const BoxConstraints.expand(),
+                            child: const LoginMahasiswa(),
+                          ),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints.expand(),
+                            child: const LoginDosen(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _buildMenuBar(BuildContext context) {

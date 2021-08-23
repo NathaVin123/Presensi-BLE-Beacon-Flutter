@@ -91,10 +91,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/png/
+    - assets/gif/
     - assets/images/error_icon.png
     - assets/images/background1.jpg
     - assets/images/not_found_icon.png
-    - assets/gif/
 
   fonts:
     - family: WorkSansSemiBold

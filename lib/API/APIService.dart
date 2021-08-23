@@ -8,7 +8,7 @@ import '../MODEL/Login/LoginDosenModel.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String BASE_URL = 'https://192.168.100.251:5000';
+  String BASE_URL = 'https://192.168.1.8:5000';
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
