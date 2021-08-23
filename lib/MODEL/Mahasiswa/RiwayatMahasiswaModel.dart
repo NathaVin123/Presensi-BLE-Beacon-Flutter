@@ -24,9 +24,6 @@ class RiwayatMahasiswaResponseModel {
       };
 }
 
-// Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-// String dataToJson(Data data) => json.encode(data.toJson());
-
 class Data {
   // final int idkelas;
   final String namamk;
