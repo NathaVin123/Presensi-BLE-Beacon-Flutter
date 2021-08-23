@@ -23,9 +23,6 @@ class JadwalMahasiswaResponseModel {
       };
 }
 
-// Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-// String dataToJson(Data data) => json.encode(data.toJson());
-
 class Data {
   final String kodemk;
   final String namamk;

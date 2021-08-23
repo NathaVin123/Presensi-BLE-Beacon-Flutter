@@ -114,99 +114,6 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //       left: 14, right: 14, top: 14, bottom: 14),
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         color: Colors.grey[200],
-                    //         borderRadius: BorderRadius.circular(25)),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       children: <Widget>[
-                    //         Padding(
-                    //           padding: EdgeInsets.all(20),
-                    //           child: Row(
-                    //             children: [
-                    //               Icon(
-                    //                 Icons.notifications_active,
-                    //                 color: Colors.black,
-                    //               ),
-                    //               SizedBox(
-                    //                 width: 10,
-                    //               ),
-                    //               Text(
-                    //                 'Notifikasi Kelas',
-                    //                 style: TextStyle(
-                    //                     fontSize: 20,
-                    //                     fontFamily: 'WorkSansMedium',
-                    //                     fontWeight: FontWeight.bold),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //         Align(
-                    //           alignment: Alignment.bottomRight,
-                    //           child: Switch(
-                    //               value: notifSwitch,
-                    //               onChanged: (value) {
-                    //                 setState(() {
-                    //                   notifSwitch = value;
-                    //                   print(notifSwitch);
-                    //                 });
-                    //               }),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //       left: 14, right: 14, top: 14, bottom: 14),
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         color: Colors.grey[200],
-                    //         borderRadius: BorderRadius.circular(25)),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       children: <Widget>[
-                    //         Padding(
-                    //           padding: EdgeInsets.only(
-                    //               left: 24, right: 20, top: 20, bottom: 20),
-                    //           child: Row(
-                    //             children: [
-                    //               Icon(
-                    //                 FontAwesomeIcons.solidMoon,
-                    //                 color: Colors.black,
-                    //                 size: 20,
-                    //               ),
-                    //               SizedBox(
-                    //                 width: 11,
-                    //               ),
-                    //               Text(
-                    //                 'Dark Mode',
-                    //                 style: TextStyle(
-                    //                     fontSize: 20,
-                    //                     fontFamily: 'WorkSansMedium',
-                    //                     fontWeight: FontWeight.bold),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //         Align(
-                    //           alignment: Alignment.bottomRight,
-                    //           child: Switch(
-                    //               value: lightSwitch,
-                    //               onChanged: (toggle) {
-                    //                 setState(() {
-                    //                   lightSwitch = toggle;
-                    //                 });
-                    //               }),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                     Padding(
                         padding:
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
@@ -401,19 +308,6 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                               },
                               onCancelBtnTap: (value) {},
                             );
-                            // SharedPreferences autoLogin =
-                            //     await SharedPreferences.getInstance();
-                            // autoLogin.clear();
-                            // Get.offAllNamed('/');
-
-                            // Fluttertoast.showToast(
-                            //     msg: 'Anda telah keluar',
-                            //     toastLength: Toast.LENGTH_SHORT,
-                            //     gravity: ToastGravity.BOTTOM,
-                            //     timeInSecForIosWeb: 1,
-                            //     backgroundColor: Colors.red,
-                            //     textColor: Colors.white,
-                            //     fontSize: 14.0);
                           },
                           child: Container(
                             decoration: BoxDecoration(

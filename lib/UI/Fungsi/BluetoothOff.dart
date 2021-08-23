@@ -56,13 +56,6 @@ class BluetoothOffScreen extends StatelessWidget {
                   size: 150.0,
                   color: Colors.red,
                 ),
-                // Text(
-                //     'Bluetooth dalam keadaan ${state.toString().substring(15)}.',
-
-                //     style: TextStyle(
-                //         fontFamily: 'WorkSansSemiBold',
-                //         fontSize: 16.0,
-                //         color: Colors.grey)),
                 Text('Bluetooth dalam keadaan mati,',
                     style: TextStyle(
                         decoration: TextDecoration.none,

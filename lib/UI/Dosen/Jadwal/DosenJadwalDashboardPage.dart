@@ -142,9 +142,6 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                           width: 1),
                     ),
                     child: DropdownButton(
-                      // style: TextStyle(
-                      //   fontFamily: Font,
-                      // ),
                       onTap: () => {},
                       items: generateSemester(semesters),
                       value: selectedSemester,
