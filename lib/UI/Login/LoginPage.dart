@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
@@ -41,6 +42,12 @@ class _LoginPageState extends State<LoginPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         appBar: AppBar(
+          title: Text(
+            'LOGIN',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
+          ),
+          centerTitle: true,
           elevation: 0,
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           actions: <Widget>[
@@ -49,7 +56,7 @@ class _LoginPageState extends State<LoginPage>
                 IconButton(
                   iconSize: 35,
                   onPressed: () => Get.toNamed('/login/admin'),
-                  icon: Icon(Icons.settings_accessibility_rounded),
+                  icon: Icon(Icons.admin_panel_settings_rounded),
                   color: Colors.white,
                 ),
               ],
@@ -166,7 +173,6 @@ class _LoginPageState extends State<LoginPage>
       width: 300.0,
       height: 50.0,
       decoration: BoxDecoration(
-        // color: Color(0x552B2B2B),
         color: Color.fromRGBO(247, 180, 7, 1),
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
         boxShadow: [

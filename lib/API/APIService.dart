@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
+import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 
@@ -47,6 +48,28 @@ class APIService {
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
       return LoginDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future<LoginAdminResponseModel> loginAdmin(
+      LoginAdminRequestModel requestModel) async {
+    String url = BASE_URL + "/api/auth/loginadm";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return LoginAdminResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return LoginAdminResponseModel.fromJson(
         json.decode(response.body),
       );
     } else {

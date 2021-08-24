@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -231,16 +232,24 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
+          elevation: 0,
         ),
         body: Container(
+            color: Colors.white,
             child: _beacons == null || _beacons.isEmpty
                 ? Stack(
                     fit: StackFit.expand,
                     children: [
                       Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            SpinKitRipple(
+                              color: Colors.blue,
+                              size: 100,
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Text(
                               'Mohon Tunggu...',
                               style: TextStyle(
@@ -252,7 +261,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                               height: 25,
                             ),
                             Text(
-                              'Sistem sedang menghubungkan ke\nperangkat beacon kelas yang dipilih.',
+                              'Sistem sedang menghubungkan\nke perangkat beacon kelas.',
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
@@ -261,15 +270,12 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                             SizedBox(
                               height: 25,
                             ),
-                            CircularProgressIndicator(),
-                            SizedBox(
-                              height: 100,
-                            ),
                             Text(
                               'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
@@ -277,7 +283,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                       ),
                     ],
                   )
-                : SingleChildScrollView(
+                : Container(
                     child: Column(
                         children: ListTile.divideTiles(
                             context: context,
@@ -286,9 +292,16 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                 return Container(
                                   child: Center(
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        SizedBox(
-                                          height: 250,
+                                        Padding(
+                                          padding: const EdgeInsets.all(15),
+                                          child: Icon(
+                                            Icons.check_circle_outline_rounded,
+                                            size: 100,
+                                            color: Colors.green,
+                                          ),
                                         ),
                                         Text(
                                           'Ruangan kelas sudah ditemukan',
@@ -301,12 +314,16 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                           height: 25,
                                         ),
                                         MaterialButton(
-                                          child: Text(
-                                            'Masuk',
-                                            style: const TextStyle(
-                                                fontFamily: 'WorkSansSemiBold',
-                                                fontSize: 18.0,
-                                                color: Colors.white),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(20),
+                                            child: Text(
+                                              'MASUK',
+                                              style: const TextStyle(
+                                                  fontFamily:
+                                                      'WorkSansSemiBold',
+                                                  fontSize: 18.0,
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                           onPressed: () => {
                                             Get.offAllNamed(
@@ -320,31 +337,38 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                   ),
                                 );
                               } else {
-                                return Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 250,
-                                      ),
-                                      Text(
-                                        'Anda berada di luar jangkauan\nminimal kelas',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 25,
-                                      ),
-                                      Text(
-                                        'Jarak Anda : ${beacon.accuracy} m',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                return Container(
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        SpinKitPulse(
+                                          color: Colors.red,
+                                          size: 100,
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        Text(
+                                          'Anda berada di luar jangkauan\nminimal kelas',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        Text(
+                                          'Jarak Anda : ${beacon.accuracy} m',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               }

@@ -24,14 +24,18 @@ class _SplashPageState extends State<SplashPage> {
 
     var statusMahasiswa = autoLogin.getBool('isLoggedMahasiswa') ?? false;
     var statusDosen = autoLogin.getBool('isLoggedDosen') ?? false;
+    var statusAdmin = autoLogin.getBool('isLoggedAdmin') ?? false;
 
     print(statusMahasiswa);
     print(statusDosen);
+    print(statusAdmin);
 
     if (statusMahasiswa) {
       return Get.offNamed('/mahasiswa/dashboard');
     } else if (statusDosen) {
       return Get.offNamed('/dosen/dashboard');
+    } else if (statusAdmin) {
+      return Get.offNamed('/admin/dashboard');
     } else {
       return Get.offNamed('/bluetooth');
     }

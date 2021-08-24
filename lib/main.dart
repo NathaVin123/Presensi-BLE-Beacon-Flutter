@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:presensiblebeacon/UI/Admin/AdminDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Login/LoginAdmin.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
@@ -256,6 +257,7 @@ class _MyAppState extends State<MyApp> {
             page: () => DosenGantiPasswordPage()),
 
         GetPage(name: '/login/admin', page: () => LoginAdmin()),
+        GetPage(name: '/admin/dashboard', page: () => AdminDashboardPage()),
 
         GetPage(
             name: '/statistik/dosen',

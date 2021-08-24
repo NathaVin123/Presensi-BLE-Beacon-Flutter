@@ -3,20 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginAdmin extends StatefulWidget {
+  const LoginAdmin({Key key}) : super(key: key);
+
   @override
   _LoginAdminState createState() => _LoginAdminState();
 }
 
 class _LoginAdminState extends State<LoginAdmin> {
-  var _nppFieldController = TextEditingController();
-  var _passwordFieldController = TextEditingController();
+  var _nppAdminFieldController = TextEditingController();
+  var _passwordAdminFieldController = TextEditingController();
 
-  final FocusNode _nppFieldFocus = FocusNode();
-  final FocusNode _passwordFieldFocus = FocusNode();
+  final FocusNode _nppAdminFieldFocus = FocusNode();
+  final FocusNode _passwordAdminFieldFocus = FocusNode();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -25,12 +28,12 @@ class _LoginAdminState extends State<LoginAdmin> {
 
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
-  // LoginDosenRequestModel loginDosenRequestModel;
+  LoginAdminRequestModel loginAdminRequestModel;
 
   @override
   void initState() {
     super.initState();
-    // loginDosenRequestModel = new LoginDosenRequestModel();
+    loginAdminRequestModel = new LoginAdminRequestModel();
   }
 
   @override
@@ -43,7 +46,6 @@ class _LoginAdminState extends State<LoginAdmin> {
   }
 
   Widget buildLoginAdmin(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -117,13 +119,13 @@ class _LoginAdminState extends State<LoginAdmin> {
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: TextFormField(
-                                        controller: _nppFieldController,
-                                        focusNode: _nppFieldFocus,
+                                        controller: _nppAdminFieldController,
+                                        focusNode: _nppAdminFieldFocus,
                                         onFieldSubmitted: (term) {
                                           _fieldFocusChange(
                                               context,
-                                              _nppFieldFocus,
-                                              _passwordFieldFocus);
+                                              _nppAdminFieldFocus,
+                                              _passwordAdminFieldFocus);
                                         },
                                         textInputAction: TextInputAction.next,
                                         style: const TextStyle(
@@ -156,11 +158,12 @@ class _LoginAdminState extends State<LoginAdmin> {
                                       padding: const EdgeInsets.only(
                                           left: 10, right: 10),
                                       child: TextFormField(
-                                        controller: _passwordFieldController,
-                                        focusNode: _passwordFieldFocus,
+                                        controller:
+                                            _passwordAdminFieldController,
+                                        focusNode: _passwordAdminFieldFocus,
                                         textInputAction: TextInputAction.done,
                                         onFieldSubmitted: (value) {
-                                          _passwordFieldFocus.unfocus();
+                                          _passwordAdminFieldFocus.unfocus();
                                         },
                                         style: const TextStyle(
                                             fontFamily: 'WorkSansSemiBold',
@@ -217,7 +220,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                                         FocusScope.of(context).unfocus();
                                         try {
                                           if (validateAndSave()) {
-                                            // print(loginDosenRequestModel.toJson());
+                                            print(loginAdminRequestModel
+                                                .toJson());
 
                                             setState(() {
                                               isApiCallProcess = true;
@@ -225,55 +229,64 @@ class _LoginAdminState extends State<LoginAdmin> {
 
                                             APIService apiService =
                                                 new APIService();
-                                            // apiService
-                                            //     .loginDosen(loginDosenRequestModel)
-                                            //     .then((value) async {
-                                            //   if (value != null) {
-                                            //     setState(() {
-                                            //       isApiCallProcess = false;
-                                            //     });
+                                            apiService
+                                                .loginAdmin(
+                                                    loginAdminRequestModel)
+                                                .then((value) async {
+                                              if (value != null) {
+                                                setState(() {
+                                                  isApiCallProcess = false;
+                                                });
 
-                                            //     if (value?.data?.token?.isNotEmpty ?? false) {
-                                            //       Get.offNamed('/dosen/dashboard');
+                                                if (value?.data?.token
+                                                        ?.isNotEmpty ??
+                                                    false) {
+                                                  Get.offNamed(
+                                                      '/admin/dashboard');
 
-                                            //       Fluttertoast.showToast(
-                                            //           msg:
-                                            //               'Selamat datang,\n${value.data.namadsn}',
-                                            //           toastLength: Toast.LENGTH_SHORT,
-                                            //           gravity: ToastGravity.BOTTOM,
-                                            //           timeInSecForIosWeb: 1,
-                                            //           backgroundColor: Colors.green,
-                                            //           textColor: Colors.white,
-                                            //           fontSize: 14.0);
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          'Selamat datang,\n${value.data.namaadm}',
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          Colors.green,
+                                                      textColor: Colors.white,
+                                                      fontSize: 14.0);
 
-                                            //       SharedPreferences loginDosen =
-                                            //           await SharedPreferences.getInstance();
-                                            //       await loginDosen.setString(
-                                            //           'npp', value.data.npp);
-                                            //       await loginDosen.setString(
-                                            //           'namadsn', value.data.namadsn);
-                                            //       await loginDosen.setString(
-                                            //           'prodi', value.data.prodi);
-                                            //       await loginDosen.setString(
-                                            //           'fakultas', value.data.fakultas);
+                                                  SharedPreferences loginAdmin =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  await loginAdmin.setString(
+                                                      'npp', value.data.npp);
+                                                  await loginAdmin.setString(
+                                                      'namaadm',
+                                                      value.data.namaadm);
 
-                                            //       SharedPreferences autoLogin =
-                                            //           await SharedPreferences.getInstance();
-                                            //       autoLogin?.setBool("isLoggedDosen", true);
-                                            //     } else {
-                                            //       Fluttertoast.showToast(
-                                            //           msg:
-                                            //               'Silahkan Masukan NPP/Password dengan benar',
-                                            //           toastLength: Toast.LENGTH_SHORT,
-                                            //           gravity: ToastGravity.BOTTOM,
-                                            //           timeInSecForIosWeb: 1,
-                                            //           backgroundColor: Colors.red,
-                                            //           textColor: Colors.white,
-                                            //           fontSize: 14.0);
-                                            //     }
-                                            //   }
-                                            // }
-                                            // );
+                                                  SharedPreferences autoLogin =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  autoLogin?.setBool(
+                                                      "isLoggedAdmin", true);
+                                                } else {
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          'Silahkan Masukan NPP/Password dengan benar',
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      textColor: Colors.white,
+                                                      fontSize: 14.0);
+                                                }
+                                              }
+                                            });
                                           }
                                         } catch (error) {
                                           Fluttertoast.showToast(
@@ -293,17 +306,17 @@ class _LoginAdminState extends State<LoginAdmin> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Center(
-                                  child: Text(
-                                'Silahkan login dengan akun simka.',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontFamily: 'WorkSansMedium'),
-                              )),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(20),
+                            //   child: Center(
+                            //       child: Text(
+                            //     'Silahkan login dengan akun simka.',
+                            //     style: TextStyle(
+                            //         fontSize: 16,
+                            //         color: Colors.white,
+                            //         fontFamily: 'WorkSansMedium'),
+                            //   )),
+                            // ),
                           ],
                         ),
                       ))
