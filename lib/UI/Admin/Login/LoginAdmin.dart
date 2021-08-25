@@ -133,7 +133,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                                             fontSize: 18.0,
                                             color: Colors.black),
                                         keyboardType: TextInputType.number,
-                                        // onSaved: (input) => loginDosenRequestModel.npp = input,
+                                        onSaved: (input) =>
+                                            loginAdminRequestModel.npp = input,
                                         validator: (input) => input.length < 8
                                             ? "NPP minimal 9 karakter"
                                             : null,
@@ -170,8 +171,9 @@ class _LoginAdminState extends State<LoginAdmin> {
                                             fontSize: 18.0,
                                             color: Colors.black),
                                         keyboardType: TextInputType.text,
-                                        // onSaved: (input) =>
-                                        //     loginDosenRequestModel.password = input,
+                                        onSaved: (input) =>
+                                            loginAdminRequestModel.password =
+                                                input,
                                         validator: (input) => input.length < 5
                                             ? "PASSWORD minimal 5 karakter"
                                             : null,
