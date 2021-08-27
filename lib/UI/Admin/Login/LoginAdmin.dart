@@ -243,7 +243,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                                 if (value?.data?.token
                                                         ?.isNotEmpty ??
                                                     false) {
-                                                  Get.offNamed(
+                                                  Get.offAllNamed(
                                                       '/admin/dashboard');
 
                                                   Fluttertoast.showToast(
