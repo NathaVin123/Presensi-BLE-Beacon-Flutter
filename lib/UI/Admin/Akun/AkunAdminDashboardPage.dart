@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,22 @@ class AkunAdminDashboardPage extends StatefulWidget {
 }
 
 class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
+  String npp = "";
+  String namaadm = "";
+
+  getDataAdmin() async {
+    SharedPreferences loginAdmin = await SharedPreferences.getInstance();
+
+    npp = loginAdmin.getString('npp');
+    namaadm = loginAdmin.getString('namaadm');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataAdmin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +47,55 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
           decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
           child: Column(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 14),
+                child: InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () => {},
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(25)),
+                        // decoration: BoxDecoration(),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(22),
+                              child: Initicon(
+                                text: namaadm,
+                                backgroundColor: Colors.grey[400],
+                                size: 80,
+                              ),
+                            ),
+                            Center(
+                                child: Column(
+                              children: [
+                                Text(namaadm,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontSize: 18)),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  npp,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                              ],
+                            ))
+                          ],
+                        ))),
+              ),
+              SizedBox(
+                height: 8,
+              ),
               Padding(
                   padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                   child: InkWell(
@@ -68,7 +134,7 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
                       decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(25)),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(

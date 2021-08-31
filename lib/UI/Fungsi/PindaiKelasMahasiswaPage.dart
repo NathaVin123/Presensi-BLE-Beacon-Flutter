@@ -230,12 +230,12 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           elevation: 0,
         ),
         body: Container(
-            color: Colors.white,
+            color: Color.fromRGBO(23, 75, 137, 1),
             child: _beacons == null || _beacons.isEmpty
                 ? Stack(
                     fit: StackFit.expand,
@@ -244,7 +244,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                         child: Column(
                           children: <Widget>[
                             SpinKitRipple(
-                              color: Colors.blue,
+                              color: Colors.white,
                               size: 100,
                             ),
                             SizedBox(
@@ -255,7 +255,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             SizedBox(
                               height: 25,
@@ -265,7 +266,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             SizedBox(
                               height: 25,
@@ -273,10 +275,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                             Text(
                               'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
                               style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 16,
+                                  fontFamily: 'WorkSansMedium',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             )
                           ],
                         ),
@@ -308,7 +310,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         SizedBox(
                                           height: 25,
@@ -330,7 +333,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                 '/mahasiswa/dashboard/presensi/detail')
                                           },
                                           shape: StadiumBorder(),
-                                          color: Colors.blue,
+                                          color: Color.fromRGBO(247, 180, 7, 1),
                                         )
                                       ],
                                     ),

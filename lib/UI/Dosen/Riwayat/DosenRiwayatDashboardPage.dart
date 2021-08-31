@@ -57,14 +57,14 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
           icon: Icon(Icons.refresh_rounded),
           onPressed: () => {},
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               automaticallyImplyLeading: false,
               elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.white),
+              backgroundColor: Color.fromRGBO(23, 75, 137, 1),
               pinned: true,
               floating: false,
               snap: false,
@@ -74,7 +74,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                 title: Text(
                   'Riwayat Presensi',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontFamily: 'WorkSansMedium',
                       fontWeight: FontWeight.bold),
                 ),
@@ -88,9 +88,11 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                         child: Text(
                       'Pilih Semester',
                       style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'WorkSansMedium',
-                          fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     )),
                     SizedBox(
                       height: 8,
@@ -101,11 +103,15 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(
-                              color: Colors.grey,
+                              color: Colors.white,
                               style: BorderStyle.solid,
                               width: 1),
                         ),
                         child: DropdownButton(
+                          iconEnabledColor: Colors.white,
+                          style: TextStyle(color: Colors.white),
+                          dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                          underline: Text(''),
                           // style: TextStyle(
                           //   fontFamily: 'WorkSansMedium',
                           // ),

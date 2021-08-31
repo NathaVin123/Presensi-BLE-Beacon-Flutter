@@ -72,20 +72,6 @@ class _LoginAdminState extends State<LoginAdmin> {
                         image: const AssetImage(
                             'assets/png/SplashPage_LogoAtmaJaya.png')),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(bottom: 5),
-                  //   child: Center(
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.only(bottom: 5),
-                  //       child: Text('ADMIN',
-                  //           style: const TextStyle(
-                  //               fontFamily: 'WorkSansMedium',
-                  //               fontSize: 30.0,
-                  //               fontWeight: FontWeight.bold,
-                  //               color: Colors.white)),
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                       key: scaffoldKey,
                       child: SingleChildScrollView(

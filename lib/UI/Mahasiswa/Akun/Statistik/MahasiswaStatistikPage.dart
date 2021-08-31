@@ -12,12 +12,12 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -27,7 +27,7 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
               title: Text(
                 'Statistik',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),
@@ -37,80 +37,37 @@ class _MahasiswaStatistikPageState extends State<MahasiswaStatistikPage> {
               child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: Center(
-                  child: Column(
-                children: <Widget>[
-                  Text(
-                    'Nama Matakuliah',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: 80,
-                    displayText: '%',
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Nama Matakuliah',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: 40,
-                    displayText: '%',
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Nama Matakuliah',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: 50,
-                    displayText: '%',
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Nama Matakuliah',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: 20,
-                    displayText: '%',
-                  ),
-                ],
-              )),
+              decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(25)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Center(
+                      child: Column(
+                    children: <Widget>[
+                      Text(
+                        '-',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FAProgressBar(
+                        progressColor: Color.fromRGBO(247, 180, 7, 1),
+                        currentValue: 80,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )),
+                ),
+              ),
             ),
           ))
         ],

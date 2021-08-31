@@ -60,21 +60,3 @@ class Data {
         "PROXIMITY_UUID": uuid
       };
 }
-
-// class RuangBeaconRequestModel {
-//   String npm;
-//   String semester;
-
-//   RuangBeaconRequestModel({this.npm, this.semester});
-
-//   factory RuangBeaconRequestModel.fromJson(Map<String, dynamic> json) =>
-//       RuangBeaconRequestModel(
-//         npm: json["NPM"] as String,
-//         semester: json["SEMESTER"] as String,
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "NPM": npm,
-//         "SEMESTER": semester,
-//       };
-// }

@@ -80,13 +80,13 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
             label: Text('Segarkan'),
             icon: Icon(Icons.refresh_rounded),
             onPressed: () {}),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         body: CustomScrollView(slivers: <Widget>[
           SliverAppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -96,7 +96,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
               title: Text(
                 'Jadwal Kelas',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'WorkSansMedium'),
               ),
@@ -115,7 +115,9 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                           child: Text(
                             _dateString,
                             style: TextStyle(
-                                fontSize: 22, fontFamily: 'WorkSansMedium'),
+                                fontSize: 22,
+                                fontFamily: 'WorkSansMedium',
+                                color: Colors.white),
                           ),
                         ),
                       ],
@@ -126,7 +128,8 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                   style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'WorkSansMedium',
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 )),
                 SizedBox(
                   height: 8,
@@ -137,11 +140,15 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(
-                          color: Colors.grey,
+                          color: Colors.white,
                           style: BorderStyle.solid,
                           width: 1),
                     ),
                     child: DropdownButton(
+                      iconEnabledColor: Colors.white,
+                      style: TextStyle(color: Colors.white),
+                      dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                      underline: Text(''),
                       onTap: () => {},
                       items: generateSemester(semesters),
                       value: selectedSemester,

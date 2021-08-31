@@ -33,7 +33,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                   padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(25),
-                    onTap: () => Get.toNamed('/dosen/dashboard/akun/beacon'),
+                    onTap: () => Get.toNamed('/admin/menu/beacon'),
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.grey[200],
@@ -55,7 +55,85 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                   width: 11,
                                 ),
                                 Text(
-                                  'Konfigurasi Beacon',
+                                  'Pengaturan Beacon',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () => {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 24, right: 20, top: 20, bottom: 20),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.room_preferences_outlined,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 11,
+                                ),
+                                Text(
+                                  'Pengaturan Ruangan ',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () => {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 24, right: 20, top: 20, bottom: 20),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.edit,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 11,
+                                ),
+                                Text(
+                                  'Ubah Jadwal Kelas',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'WorkSansMedium',

@@ -111,7 +111,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           floatingActionButton: FloatingActionButton.extended(
             // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
             onPressed: () => getDataRuangBeacon(),
@@ -125,11 +125,11 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             leading: IconButton(
                 icon: Icon(
                   Icons.notifications,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 onPressed: () =>
                     Get.toNamed('/dosen/dashboard/presensi/notifikasi')),
@@ -151,7 +151,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                       child: Text(
                         _dateString,
                         style: TextStyle(
-                            fontSize: 22, fontFamily: 'WorkSansMedium'),
+                            fontSize: 22,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
                       ),
                     ),
                     Center(
@@ -159,7 +161,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                       child: Text(
                         _timeString,
                         style: TextStyle(
-                            fontSize: 40, fontFamily: 'WorkSansMedium'),
+                            fontSize: 40,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
                       ),
                     ),
                   ],
@@ -177,14 +181,17 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                           Text(
                             'Halo, ',
                             style: TextStyle(
-                                fontSize: 20, fontFamily: 'WorkSansMedium'),
+                                fontSize: 20,
+                                fontFamily: 'WorkSansMedium',
+                                color: Colors.white),
                           ),
                           Text(
                             '${namadsn ?? "-"}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -195,6 +202,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
               Divider(
                 height: 20,
                 thickness: 5,
+                color: Colors.white,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -207,7 +215,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'WorkSansMedium'),
+                          fontFamily: 'WorkSansMedium',
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -222,7 +231,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                             style: TextStyle(
                                 fontSize: 15,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
                       ),

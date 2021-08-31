@@ -12,12 +12,12 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -27,7 +27,7 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
               title: Text(
                 'Konfigurasi Beacon',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),
@@ -44,8 +44,7 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.toNamed(
-                              '/dosen/dashboard/akun/beacon/pindai'),
+                          onTap: () => Get.toNamed('/admin/menu/beacon/pindai'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -85,8 +84,7 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.toNamed(
-                              '/dosen/dashboard/akun/beacon/tambah'),
+                          onTap: () => Get.toNamed('/admin/menu/beacon/tambah'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -126,8 +124,7 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () =>
-                              Get.toNamed('/dosen/dashboard/akun/beacon/ubah'),
+                          onTap: () => Get.toNamed('/admin/menu/beacon/ubah'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -167,8 +164,7 @@ class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () =>
-                              Get.toNamed('/dosen/dashboard/akun/beacon/hapus'),
+                          onTap: () => Get.toNamed('/admin/menu/beacon/hapus'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],

@@ -9,6 +9,11 @@ import 'package:presensiblebeacon/UI/Admin/Login/LoginAdmin.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 
+import 'UI/Admin/Menu/Beacon/CRUDPage/DosenHapusBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/DosenPindaiBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/DosenTambahBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/DosenUbahBeacon.dart';
+import 'UI/Admin/Menu/Beacon/DosenMenuBeaconPage.dart';
 import 'UI/Login/SplashPage.dart';
 
 import 'UI/Fungsi/BluetoothOff.dart';
@@ -53,12 +58,6 @@ import 'UI/Dosen/Riwayat/Detail/DosenDetailRiwayatPage.dart';
 import 'UI/Dosen/Akun/DosenAkunDashboardPage.dart';
 
 import 'UI/Dosen/Akun/InformasiAkun/DosenInformasiAkunPage.dart';
-
-import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/DosenMenuBeaconPage.dart';
-import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenHapusBeacon.dart';
-import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenPindaiBeacon.dart';
-import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenTambahBeacon.dart';
-import 'package:presensiblebeacon/UI/Dosen/Akun/Beacon/CRUDPage/DosenUbahBeacon.dart';
 
 import 'package:presensiblebeacon/UI/Dosen/Akun/GantiPassword/DosenGantiPasswordPage.dart';
 
@@ -237,21 +236,14 @@ class _MyAppState extends State<MyApp> {
             name: '/dosen/dashboard/akun/informasi',
             page: () => DosenInformasiAkunPage()),
 
+        GetPage(name: '/admin/menu/beacon', page: () => DosenMenuBeaconPage()),
         GetPage(
-            name: '/dosen/dashboard/akun/beacon',
-            page: () => DosenMenuBeaconPage()),
+            name: '/admin/menu/beacon/pindai', page: () => DosenPindaiBeacon()),
         GetPage(
-            name: '/dosen/dashboard/akun/beacon/pindai',
-            page: () => DosenPindaiBeacon()),
+            name: '/admin/menu/beacon/tambah', page: () => DosenTambahBeacon()),
+        GetPage(name: '/admin/menu/beacon/ubah', page: () => DosenUbahBeacon()),
         GetPage(
-            name: '/dosen/dashboard/akun/beacon/tambah',
-            page: () => DosenTambahBeacon()),
-        GetPage(
-            name: '/dosen/dashboard/akun/beacon/ubah',
-            page: () => DosenUbahBeacon()),
-        GetPage(
-            name: '/dosen/dashboard/akun/beacon/hapus',
-            page: () => DosenHapusBeacon()),
+            name: '/admin/menu/beacon/hapus', page: () => DosenHapusBeacon()),
         GetPage(
             name: '/dosen/dashboard/akun/gantipassword',
             page: () => DosenGantiPasswordPage()),

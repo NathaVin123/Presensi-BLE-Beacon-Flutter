@@ -13,13 +13,13 @@ class _DosenNotifikasiPresensiPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.white),
+              backgroundColor: Color.fromRGBO(23, 75, 137, 1),
               pinned: true,
               floating: false,
               snap: false,
@@ -29,16 +29,21 @@ class _DosenNotifikasiPresensiPageState
                 title: Text(
                   'Notifikasi',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontFamily: 'WorkSansMedium',
                       fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             SliverToBoxAdapter(
-                child: Center(
-                    child: Text(
-                        'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...')))
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                  child: Text(
+                'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...',
+                style: TextStyle(color: Colors.white),
+              )),
+            ))
           ],
         ));
   }

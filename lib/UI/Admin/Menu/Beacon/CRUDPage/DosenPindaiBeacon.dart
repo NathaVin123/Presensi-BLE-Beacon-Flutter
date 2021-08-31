@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -213,7 +214,7 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -284,8 +285,8 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                 initialData: BluetoothState.stateUnknown,
               ),
             ],
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -295,20 +296,27 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
               title: Text(
                 'Pindai Beacon',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),
             ),
           ),
           SliverFillRemaining(
-              child: Platform.isIOS == null
+              child: Column(
+            children: <Widget>[
+              Platform.isIOS == null
                   ? Center(
                       child: Text('Mohon maaf, iOS belum mendukung fitur ini'),
                     )
                   : Container(
                       child: _beacons == null || _beacons.isEmpty
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(
+                              child: SpinKitRipple(
+                                color: Colors.white,
+                                size: 100,
+                              ),
+                            )
                           : SingleChildScrollView(
                               child: Column(
                                 children: ListTile.divideTiles(
@@ -430,7 +438,21 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                                     })).toList(),
                               ),
                             ),
-                    ))
+                    ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    'Silahkan pilih beacon untuk menyalin UUID',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )
+            ],
+          ))
         ],
       ),
     );

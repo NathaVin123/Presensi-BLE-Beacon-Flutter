@@ -42,13 +42,13 @@ class _MahasiswaAkunDashboardPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -58,7 +58,7 @@ class _MahasiswaAkunDashboardPageState
               title: Text(
                 'Akun Saya',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),

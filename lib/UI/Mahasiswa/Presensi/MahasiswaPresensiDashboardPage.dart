@@ -21,8 +21,6 @@ class MahasiswaPresensiDashboardPage extends StatefulWidget {
 
 class _MahasiswaPresensiDashboardPageState
     extends State<MahasiswaPresensiDashboardPage> with WidgetsBindingObserver {
-  final StreamController<BluetoothState> streamController = StreamController();
-
   RuangBeaconResponseModel ruangBeaconResponseModel;
 
   bool authorizationStatusOk = false;
@@ -101,7 +99,7 @@ class _MahasiswaPresensiDashboardPageState
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           floatingActionButton: FloatingActionButton.extended(
             // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
             onPressed: () => getDataRuangBeacon(),
@@ -117,11 +115,11 @@ class _MahasiswaPresensiDashboardPageState
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             leading: IconButton(
               icon: Icon(
                 Icons.notifications,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () =>
                   Get.toNamed('/mahasiswa/dashboard/presensi/notifikasi'),
@@ -144,7 +142,9 @@ class _MahasiswaPresensiDashboardPageState
                       child: Text(
                         _dateString,
                         style: TextStyle(
-                            fontSize: 22, fontFamily: 'WorkSansMedium'),
+                            fontSize: 22,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
                       ),
                     ),
                     Center(
@@ -152,7 +152,9 @@ class _MahasiswaPresensiDashboardPageState
                       child: Text(
                         _timeString,
                         style: TextStyle(
-                            fontSize: 40, fontFamily: 'WorkSansMedium'),
+                            fontSize: 40,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
                       ),
                     ),
                   ],
@@ -170,14 +172,17 @@ class _MahasiswaPresensiDashboardPageState
                           new Text(
                             'Halo, ',
                             style: TextStyle(
-                                fontSize: 20, fontFamily: 'WorkSansMedium'),
+                                fontSize: 20,
+                                fontFamily: 'WorkSansMedium',
+                                color: Colors.white),
                           ),
                           new Text(
                             '${namamhs ?? "-"}',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -188,6 +193,7 @@ class _MahasiswaPresensiDashboardPageState
               Divider(
                 height: 20,
                 thickness: 5,
+                color: Colors.white,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -200,7 +206,8 @@ class _MahasiswaPresensiDashboardPageState
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'WorkSansMedium'),
+                          fontFamily: 'WorkSansMedium',
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -215,7 +222,8 @@ class _MahasiswaPresensiDashboardPageState
                             style: TextStyle(
                                 fontSize: 15,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
                       ),

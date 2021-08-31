@@ -37,13 +37,13 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -53,7 +53,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
               title: Text(
                 'Akun',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),
@@ -119,7 +119,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                          onTap: () => Get.toNamed('/statistik/mahasiswa'),
+                          onTap: () => Get.toNamed('/statistik/dosen'),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -154,47 +154,47 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                             ),
                           ),
                         )),
-                    Padding(
-                        padding:
-                            EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(25),
-                          onTap: () =>
-                              Get.toNamed('/dosen/dashboard/akun/beacon'),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 24, right: 20, top: 20, bottom: 20),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.bluetooth,
-                                        color: Colors.black,
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 11,
-                                      ),
-                                      Text(
-                                        'Konfigurasi Beacon',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
+                    // Padding(
+                    //     padding:
+                    //         EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                    //     child: InkWell(
+                    //       borderRadius: BorderRadius.circular(25),
+                    //       onTap: () =>
+                    //           Get.toNamed('/dosen/dashboard/akun/beacon'),
+                    //       child: Container(
+                    //         decoration: BoxDecoration(
+                    //             color: Colors.grey[200],
+                    //             borderRadius: BorderRadius.circular(25)),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: <Widget>[
+                    //             Padding(
+                    //               padding: EdgeInsets.only(
+                    //                   left: 24, right: 20, top: 20, bottom: 20),
+                    //               child: Row(
+                    //                 children: [
+                    //                   Icon(
+                    //                     FontAwesomeIcons.bluetooth,
+                    //                     color: Colors.black,
+                    //                     size: 20,
+                    //                   ),
+                    //                   SizedBox(
+                    //                     width: 11,
+                    //                   ),
+                    //                   Text(
+                    //                     'Konfigurasi Beacon',
+                    //                     style: TextStyle(
+                    //                         fontSize: 20,
+                    //                         fontFamily: 'WorkSansMedium',
+                    //                         fontWeight: FontWeight.bold),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     )),
                     Padding(
                         padding:
                             EdgeInsets.only(left: 14, right: 14, bottom: 14),

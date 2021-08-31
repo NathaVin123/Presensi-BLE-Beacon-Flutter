@@ -39,14 +39,14 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -56,7 +56,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
               title: Text(
                 'Presensi',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),

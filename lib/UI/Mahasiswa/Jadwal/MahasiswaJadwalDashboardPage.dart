@@ -121,13 +121,13 @@ class _MahasiswaJadwalDashboardPageState
             label: Text('Segarkan'),
             icon: Icon(Icons.refresh_rounded),
             onPressed: () => getDataJadwalMahasiswa()),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         body: CustomScrollView(slivers: <Widget>[
           SliverAppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -137,7 +137,7 @@ class _MahasiswaJadwalDashboardPageState
               title: Text(
                 'Jadwal Kelas',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'WorkSansMedium'),
               ),
@@ -156,91 +156,11 @@ class _MahasiswaJadwalDashboardPageState
                             child: Text(
                               _dateString,
                               style: TextStyle(
-                                  fontSize: 22, fontFamily: 'WorkSansMedium'),
+                                  fontSize: 22,
+                                  fontFamily: 'WorkSansMedium',
+                                  color: Colors.white),
                             ),
                           ),
-                          // Text(
-                          //   'Kuliah Hari Ini',
-                          //   style: TextStyle(
-                          //       color: Colors.black,
-                          //       fontWeight: FontWeight.bold,
-                          //       fontFamily: 'WorkSansMedium',
-                          //       fontSize: 20),
-                          // ),
-                          // Padding(
-                          //   padding:
-                          //       const EdgeInsets.only(top: 10, bottom: 10),
-                          //   child: CarouselSlider(
-                          //     items: [
-                          //       Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: Container(
-                          //           decoration: BoxDecoration(
-                          //               color: Colors.grey[200],
-                          //               borderRadius:
-                          //                   BorderRadius.circular(25)),
-                          //           child: Padding(
-                          //             padding: EdgeInsets.all(10),
-                          //             child: Column(
-                          //               children: [
-                          //                 Align(
-                          //                   alignment: Alignment.centerLeft,
-                          //                   child: Padding(
-                          //                     padding:
-                          //                         const EdgeInsets.all(5.0),
-                          //                     child: Text('Mata Kuliah : -',
-                          //                         style: TextStyle(
-                          //                             fontSize: 14,
-                          //                             fontWeight:
-                          //                                 FontWeight.bold,
-                          //                             fontFamily:
-                          //                                 'WorkSansMedium')),
-                          //                   ),
-                          //                 ),
-                          //                 Align(
-                          //                   alignment: Alignment.centerLeft,
-                          //                   child: Padding(
-                          //                     padding:
-                          //                         const EdgeInsets.all(5.0),
-                          //                     child: Text('Ruangan : -',
-                          //                         style: TextStyle(
-                          //                             fontSize: 14,
-                          //                             fontWeight:
-                          //                                 FontWeight.bold,
-                          //                             fontFamily:
-                          //                                 'WorkSansMedium')),
-                          //                   ),
-                          //                 ),
-                          //                 Align(
-                          //                   alignment: Alignment.centerLeft,
-                          //                   child: Padding(
-                          //                     padding:
-                          //                         const EdgeInsets.all(5.0),
-                          //                     child: Text('Sesi : -',
-                          //                         style: TextStyle(
-                          //                             fontSize: 14,
-                          //                             fontWeight:
-                          //                                 FontWeight.bold,
-                          //                             fontFamily:
-                          //                                 'WorkSansMedium')),
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //     options: CarouselOptions(
-                          //         initialPage: 0,
-                          //         enlargeCenterPage: false,
-                          //         height: 125,
-                          //         scrollDirection: Axis.horizontal,
-                          //         autoPlay: true,
-                          //         autoPlayAnimationDuration:
-                          //             Duration(seconds: 1)),
-                          //   ),
-                          // ),
                         ],
                       )),
                   Center(
@@ -249,7 +169,8 @@ class _MahasiswaJadwalDashboardPageState
                     style: TextStyle(
                         fontSize: 20,
                         fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   )),
                   SizedBox(
                     height: 8,
@@ -260,11 +181,15 @@ class _MahasiswaJadwalDashboardPageState
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         border: Border.all(
-                            color: Colors.grey,
+                            color: Colors.white,
                             style: BorderStyle.solid,
                             width: 1),
                       ),
                       child: DropdownButton(
+                        iconEnabledColor: Colors.white,
+                        style: TextStyle(color: Colors.white),
+                        dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                        underline: Text(''),
                         // style: TextStyle(
                         //   fontFamily: Font,
                         // ),
@@ -298,7 +223,8 @@ class _MahasiswaJadwalDashboardPageState
                             style: TextStyle(
                                 fontSize: 15,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
                       ),
@@ -390,44 +316,6 @@ class _MahasiswaJadwalDashboardPageState
                               onTap: () async {
                                 await Get.toNamed(
                                     '/mahasiswa/dashboard/jadwal/detail');
-                                // Tampilan Modal Kelas
-                                // showModalBottomSheet(
-                                //     isScrollControlled: true,
-                                //     context: context,
-                                //     shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.only(
-                                //             topLeft: Radius.circular(25),
-                                //             topRight: Radius.circular(25))),
-                                //     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                //     builder: (builder) {
-                                //       return new Container(
-                                //         height: 650,
-                                //         color: Colors.white,
-                                //         child: new Column(
-                                //           children: [
-                                //             new Center(
-                                //               child: Padding(
-                                //                 padding: EdgeInsets.only(
-                                //                     top: 25, bottom: 10),
-                                //                 child: new Text(
-                                //                   'Detail Kelas',
-                                //                   style: TextStyle(
-                                //                       fontFamily:
-                                //                           'WorkSansMedium',
-                                //                       fontWeight:
-                                //                           FontWeight.bold,
-                                //                       fontSize: 24),
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //             Divider(
-                                //               height: 20,
-                                //               thickness: 5,
-                                //             ),
-                                //           ],
-                                //         ),
-                                //       );
-                                //     });
                               },
                             ),
                           ),

@@ -43,13 +43,14 @@ class _MahasiswaDetailPresensiPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
             pinned: true,
             floating: false,
             snap: false,
@@ -59,7 +60,7 @@ class _MahasiswaDetailPresensiPageState
               title: Text(
                 'Presensi',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'WorkSansMedium',
                     fontWeight: FontWeight.bold),
               ),
@@ -256,10 +257,11 @@ class _MahasiswaDetailPresensiPageState
                         ],
                       )),
                 ),
-                Divider(
-                  height: 20,
-                  thickness: 10,
-                ),
+                // Divider(
+                //   height: 20,
+                //   thickness: 10,
+                //   color: Colors.white,
+                // ),
                 new Align(
                   child: new Padding(
                     padding: EdgeInsets.all(10),

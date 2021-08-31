@@ -15,7 +15,9 @@ class JadwalMahasiswaResponseModel {
   factory JadwalMahasiswaResponseModel.fromJson(Map<String, dynamic> json) =>
       JadwalMahasiswaResponseModel(
         error: json["error"],
-        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+        // Ngebug
+        // data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+        data: json["data"], // Biar Insert Bisa
       );
   Map<String, dynamic> toJson() => {
         "error": error,

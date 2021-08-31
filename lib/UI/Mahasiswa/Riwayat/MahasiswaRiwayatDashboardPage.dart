@@ -100,14 +100,14 @@ class _MahasiswaRiwayatDashboardPageState
           icon: Icon(Icons.refresh_rounded),
           onPressed: () => getDataRiwayatMahasiswa(),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               automaticallyImplyLeading: false,
               elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.white),
+              backgroundColor: Color.fromRGBO(23, 75, 137, 1),
               pinned: true,
               floating: false,
               snap: false,
@@ -115,9 +115,9 @@ class _MahasiswaRiwayatDashboardPageState
               flexibleSpace: const FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
-                  'Riwayat Kelas',
+                  'Riwayat Presensi',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontFamily: 'WorkSansMedium',
                       fontWeight: FontWeight.bold),
                 ),
@@ -133,7 +133,8 @@ class _MahasiswaRiwayatDashboardPageState
                       style: TextStyle(
                           fontSize: 20,
                           fontFamily: 'WorkSansMedium',
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     )),
                     SizedBox(
                       height: 8,
@@ -144,11 +145,15 @@ class _MahasiswaRiwayatDashboardPageState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(
-                              color: Colors.grey,
+                              color: Colors.white,
                               style: BorderStyle.solid,
                               width: 1),
                         ),
                         child: DropdownButton(
+                          iconEnabledColor: Colors.white,
+                          style: TextStyle(color: Colors.white),
+                          dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                          underline: Text(''),
                           // style: TextStyle(
                           //   fontFamily: 'WorkSansMedium',
                           // ),
@@ -182,7 +187,8 @@ class _MahasiswaRiwayatDashboardPageState
                               style: TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                         ),
