@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:presensiblebeacon/MODEL/Beacon/HapusBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
@@ -173,6 +174,27 @@ class APIService {
     String url = BASE_URL + "ruangbeacon/tampil";
     print(url);
     http.Response response = await http.get(url);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return ListBeaconResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return ListBeaconResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future hapusBeacon(HapusBeaconRequestModel requestModel) async {
+    String url = BASE_URL + "ruangbeacon/hapus";
+    print(url);
+    http.Response response = await http.delete(url);
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(response.body);

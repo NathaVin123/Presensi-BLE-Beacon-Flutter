@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -182,7 +183,9 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
                                   ],
                                 ),
                               ),
-                              onTap: () async {},
+                              onTap: () async {
+                                Get.toNamed('/admin/menu/beacon/detail/Ubah');
+                              },
                             ),
                           ),
                         );

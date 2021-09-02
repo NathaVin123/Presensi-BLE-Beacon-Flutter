@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -182,7 +183,21 @@ class _DosenHapusBeaconState extends State<DosenHapusBeacon>
                                   ],
                                 ),
                               ),
-                              onTap: () async {},
+                              onTap: () async {
+                                SharedPreferences adminHapusBeacon =
+                                    await SharedPreferences.getInstance();
+
+                                await adminHapusBeacon.setString('uuid',
+                                    listBeaconResponseModel.data[index].uuid);
+
+                                await adminHapusBeacon.setString(
+                                    'namadevice',
+                                    listBeaconResponseModel
+                                        .data[index].namadevice);
+
+                                await Get.toNamed(
+                                    '/admin/menu/beacon/detail/hapus');
+                              },
                             ),
                           ),
                         );
