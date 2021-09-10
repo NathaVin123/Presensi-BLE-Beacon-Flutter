@@ -358,7 +358,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         SizedBox(
                                           height: 25,
@@ -368,7 +369,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),

@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:presensiblebeacon/UI/Admin/AdminDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Login/LoginAdmin.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Beacon/CRUDPage/Detail/AdminDetailHapusBeacon.dart';
+import 'package:presensiblebeacon/UI/Admin/Menu/Beacon/CRUDPage/DosenTampilListBeacon.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 
@@ -242,12 +243,15 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/admin/menu/beacon/pindai', page: () => DosenPindaiBeacon()),
         GetPage(
+            name: '/admin/menu/beacon/tampil',
+            page: () => DosenTampilListBeacon()),
+        GetPage(
             name: '/admin/menu/beacon/tambah', page: () => DosenTambahBeacon()),
         GetPage(name: '/admin/menu/beacon/ubah', page: () => DosenUbahBeacon()),
         GetPage(
             name: '/admin/menu/beacon/hapus', page: () => DosenHapusBeacon()),
         GetPage(
-            name: '/admin/menu/beacon/detail/Ubah',
+            name: '/admin/menu/beacon/detail/ubah',
             page: () => AdminDetailUpdateBeacon()),
         GetPage(
             name: '/admin/menu/beacon/detail/hapus',

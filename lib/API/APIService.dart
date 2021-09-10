@@ -3,6 +3,7 @@ import 'package:presensiblebeacon/MODEL/Beacon/HapusBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
+import 'package:presensiblebeacon/MODEL/Beacon/UbahBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
@@ -12,7 +13,7 @@ import '../MODEL/Login/LoginDosenModel.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String BASE_URL = 'https://192.168.232.207:5000/api/';
+  String BASE_URL = 'https://192.168.100.111:5000/api/';
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
@@ -156,14 +157,14 @@ class APIService {
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(response.body);
-      return JadwalMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
-      return JadwalMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
     } else {
       print(response);
       throw Exception('Failed to load data!');
@@ -191,6 +192,27 @@ class APIService {
     }
   }
 
+  Future putUbahBeacon(UbahBeaconRequestModel requestModel) async {
+    String url = BASE_URL + "ruangbeacon/ubah";
+    print(url);
+    http.Response response = await http.put(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
   Future hapusBeacon(HapusBeaconRequestModel requestModel) async {
     String url = BASE_URL + "ruangbeacon/hapus";
     print(url);
@@ -211,47 +233,4 @@ class APIService {
       throw Exception('Failed to load data!');
     }
   }
-
-  // Future<> getKelasBeaconMahasiswa(requestModel) async {
-  //   String url = BASE_URL + "/api/mahasiswaruangkelas/postgetall";
-  //   print(url);
-  //   http.Response response = await http.post(url, body: requestModel.toJson());
-  //   print(response.statusCode);
-  //   if (response.statusCode == 200) {
-  //     print(response.body);
-  //     return RuangBeaconResponseModel.fromJson(
-  //       json.decode(response.body),
-  //     );
-  //   } else if (response.statusCode == 400 || response.statusCode == 422) {
-  //     print(response.body);
-  //     return RuangBeaconResponseModel.fromJson(
-  //       json.decode(response.body),
-  //     );
-  //   } else {
-  //     print(response);
-  //     throw Exception('Failed to load data!');
-  //   }
-  // }
-
-  // Future<> getKelasBeaconDosen(requestModel) async {
-  //   String url = BASE_URL + "/api/dosenruangkelas/postgetall";
-  //   print(url);
-  //   http.Response response = await http.post(url, body: requestModel.toJson());
-  //   print(response.statusCode);
-  //   if (response.statusCode == 200) {
-  //     print(response.body);
-  //     return RuangBeaconResponseModel.fromJson(
-  //       json.decode(response.body),
-  //     );
-  //   } else if (response.statusCode == 400 || response.statusCode == 422) {
-  //     print(response.body);
-  //     return RuangBeaconResponseModel.fromJson(
-  //       json.decode(response.body),
-  //     );
-  //   } else {
-  //     print(response);
-  //     throw Exception('Failed to load data!');
-  //   }
-  // }
-
 }

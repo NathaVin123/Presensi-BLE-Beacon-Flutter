@@ -231,7 +231,6 @@ class _LoginAdminState extends State<LoginAdmin> {
                                                     false) {
                                                   Get.offAllNamed(
                                                       '/admin/dashboard');
-
                                                   Fluttertoast.showToast(
                                                       msg:
                                                           'Selamat datang,\n${value.data.namaadm}',
@@ -294,17 +293,17 @@ class _LoginAdminState extends State<LoginAdmin> {
                                 ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.all(20),
-                            //   child: Center(
-                            //       child: Text(
-                            //     'Silahkan login dengan akun simka.',
-                            //     style: TextStyle(
-                            //         fontSize: 16,
-                            //         color: Colors.white,
-                            //         fontFamily: 'WorkSansMedium'),
-                            //   )),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Center(
+                                  child: Text(
+                                'Silahkan login dengan akun simka.',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontFamily: 'WorkSansMedium'),
+                              )),
+                            ),
                           ],
                         ),
                       ))

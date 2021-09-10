@@ -425,7 +425,7 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                                                         height: 10,
                                                       ),
                                                       Text(
-                                                          'Jarak : ${beacon.accuracy}',
+                                                          'Jarak : ${beacon.accuracy} m',
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             fontFamily:

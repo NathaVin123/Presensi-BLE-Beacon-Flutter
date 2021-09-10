@@ -17,7 +17,7 @@ class JadwalMahasiswaResponseModel {
         error: json["error"],
         // Ngebug
         // data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-        data: json["data"], // Biar Insert Bisa
+        data: json["data"], // Biar Insert Bisa, jadwal kelas error
       );
   Map<String, dynamic> toJson() => {
         "error": error,

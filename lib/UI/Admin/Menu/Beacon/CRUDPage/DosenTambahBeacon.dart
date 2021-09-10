@@ -235,18 +235,17 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                                         setState(() {
                                           isApiCallProcess = false;
                                         });
-
-                                        Get.back();
-
-                                        Fluttertoast.showToast(
-                                            msg: 'Berhasil Menambahkan Beacon',
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.green,
-                                            textColor: Colors.white,
-                                            fontSize: 14.0);
                                       }
+                                      Get.back();
+
+                                      await Fluttertoast.showToast(
+                                          msg: 'Berhasil Menambahkan Beacon',
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 14.0);
                                     });
                                   }
                                 } catch (error) {
@@ -268,8 +267,7 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                 ),
               ),
             ),
-          )
-          )
+          ))
         ],
       ),
     );

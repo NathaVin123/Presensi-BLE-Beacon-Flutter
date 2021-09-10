@@ -4,12 +4,12 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DosenUbahBeacon extends StatefulWidget {
+class DosenTampilListBeacon extends StatefulWidget {
   @override
-  _DosenUbahBeaconState createState() => _DosenUbahBeaconState();
+  _DosenTampilListBeaconState createState() => _DosenTampilListBeaconState();
 }
 
-class _DosenUbahBeaconState extends State<DosenUbahBeacon>
+class _DosenTampilListBeaconState extends State<DosenTampilListBeacon>
     with WidgetsBindingObserver {
   ListBeaconResponseModel listBeaconResponseModel;
 
@@ -19,16 +19,13 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
     super.initState();
 
     listBeaconResponseModel = ListBeaconResponseModel();
-
     getListBeacon();
   }
 
   void getListBeacon() async {
     setState(() {
       print(listBeaconResponseModel.toJson());
-
       APIService apiService = new APIService();
-
       apiService.getListBeacon().then((value) async {
         listBeaconResponseModel = value;
       });
@@ -42,7 +39,7 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Ubah Beacon',
+          'Tampil Beacon',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -183,24 +180,6 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
                                   ],
                                 ),
                               ),
-                              onTap: () async {
-                                Get.toNamed('/admin/menu/beacon/detail/ubah');
-
-                                SharedPreferences ubahBeacon =
-                                    await SharedPreferences.getInstance();
-
-                                await ubahBeacon.setString('uuid',
-                                    listBeaconResponseModel.data[index].uuid);
-                                await ubahBeacon.setString(
-                                  'namadevice',
-                                  listBeaconResponseModel
-                                      .data[index].namadevice,
-                                );
-                                await ubahBeacon.setDouble(
-                                    'jarakmin',
-                                    listBeaconResponseModel
-                                        .data[index].jarakmin);
-                              },
                             ),
                           ),
                         );
