@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AdminRuanganPage extends StatefulWidget {
+class AdminTampilRuanganPage extends StatefulWidget {
+  AdminTampilRuanganPage({Key key}) : super(key: key);
+
   @override
-  _AdminRuanganPageState createState() => _AdminRuanganPageState();
+  _AdminTampilRuanganPageState createState() => _AdminTampilRuanganPageState();
 }
 
-class _AdminRuanganPageState extends State<AdminRuanganPage>
-    with WidgetsBindingObserver {
-  ListRuanganResponseModel listRuanganResponseModel;
+class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
+  ListDetailRuanganResponseModel listDetailRuanganResponseModel;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
 
-    listRuanganResponseModel = ListRuanganResponseModel();
+    listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
 
-    getListRuangan();
+    getListDetailRuangan();
   }
 
-  void getListRuangan() async {
+  void getListDetailRuangan() async {
     setState(() {
-      print(listRuanganResponseModel.toJson());
+      print(listDetailRuanganResponseModel.toJson());
 
       APIService apiService = new APIService();
 
-      apiService.getListRuangan().then((value) async {
-        listRuanganResponseModel = value;
+      apiService.getListDetailRuangan().then((value) async {
+        listDetailRuanganResponseModel = value;
       });
     });
   }
@@ -42,7 +41,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Pengaturan Ruang',
+          'Tampil Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -51,7 +50,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
       ),
       floatingActionButton: FloatingActionButton.extended(
         // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
-        onPressed: () => getListRuangan(),
+        onPressed: () => getListDetailRuangan(),
         label: Text(
           'Segarkan',
           style: TextStyle(
@@ -92,20 +91,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
       // )
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'Pilih Ruang',
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'WorkSansMedium',
-                    color: Colors.white),
-              ),
-            ),
-          ),
-          listRuanganResponseModel.data == null
+          listDetailRuanganResponseModel.data == null
               ? Container(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -123,7 +109,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                 )
               : Expanded(
                   child: ListView.builder(
-                      itemCount: listRuanganResponseModel.data?.length,
+                      itemCount: listDetailRuanganResponseModel.data?.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(
@@ -139,44 +125,44 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     new Text(
-                                      'Ruang ${listRuanganResponseModel.data[index].ruang}',
+                                      'Ruang ${listDetailRuanganResponseModel.data[index].ruang}',
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
                                     ),
                                     new Text(
-                                      'Fakultas ${listRuanganResponseModel.data[index].fakultas}',
+                                      'Fakultas ${listDetailRuanganResponseModel.data[index].fakultas}',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'WorkSansMedium',
                                       ),
                                     ),
                                     new Text(
-                                      'Prodi ${listRuanganResponseModel.data[index].prodi}',
+                                      'Prodi ${listDetailRuanganResponseModel.data[index].prodi}',
                                       style: TextStyle(
                                         fontSize: 16,
+                                        fontFamily: 'WorkSansMedium',
+                                      ),
+                                    ),
+                                    new Text(
+                                      'Nama Device : ${listDetailRuanganResponseModel.data[index].namadevice}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'WorkSansMedium',
+                                      ),
+                                    ),
+                                    new Text(
+                                      'Jarak :  ${listDetailRuanganResponseModel.data[index].jarak}',
+                                      style: TextStyle(
+                                        fontSize: 14,
                                         fontFamily: 'WorkSansMedium',
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              onTap: () async {
-                                Get.toNamed('/admin/menu/ruangan/detail');
-
-                                SharedPreferences saveRuangan =
-                                    await SharedPreferences.getInstance();
-
-                                await saveRuangan.setString('ruang',
-                                    listRuanganResponseModel.data[index].ruang);
-                                await saveRuangan.setString(
-                                    'fakultas',
-                                    listRuanganResponseModel
-                                        .data[index].fakultas);
-                                await saveRuangan.setString('prodi',
-                                    listRuanganResponseModel.data[index].prodi);
-                              },
+                              onTap: () async {},
                             ),
                           ),
                         );
@@ -184,9 +170,6 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                 )
         ],
       ),
-      //     )
-      //   ],
-      // ),
     );
   }
 }

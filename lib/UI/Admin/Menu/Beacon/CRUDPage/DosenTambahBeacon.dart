@@ -112,7 +112,7 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                               onSaved: (input) =>
                                   tambahBeaconRequestModel.uuid = input,
                               validator: (input) => input.length < 1
-                                  ? "UUID minimal 1 karakter"
+                                  ? "Tidak boleh kosong"
                                   : null,
                             )),
                           ),
@@ -146,8 +146,8 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                               keyboardType: TextInputType.text,
                               onSaved: (input) =>
                                   tambahBeaconRequestModel.namadevice = input,
-                              validator: (input) => input.length < 10
-                                  ? " minimal 10 karakter"
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
                                   : null,
                             )),
                           ),
@@ -180,8 +180,9 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                               keyboardType: TextInputType.number,
                               onSaved: (input) =>
                                   tambahBeaconRequestModel.jarakmin = input,
-                              validator: (input) =>
-                                  input.length < 1 ? " minimal 1 digit" : null,
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
+                                  : null,
                               decoration:
                                   new InputDecoration(hintText: "Dalam Meter"),
                             )),

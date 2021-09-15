@@ -11,8 +11,7 @@ class AdminDetailUbahBeacon extends StatefulWidget {
   AdminDetailUbahBeacon({Key key}) : super(key: key);
 
   @override
-  _AdminDetailUbahBeaconState createState() =>
-      _AdminDetailUbahBeaconState();
+  _AdminDetailUbahBeaconState createState() => _AdminDetailUbahBeaconState();
 }
 
 class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
@@ -156,8 +155,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                               keyboardType: TextInputType.text,
                               onSaved: (input) =>
                                   ubahBeaconRequestModel.namadevice = input,
-                              validator: (input) => input.length < 10
-                                  ? " minimal 10 karakter"
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
                                   : null,
                             )),
                           ),
@@ -192,8 +191,9 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                               keyboardType: TextInputType.number,
                               onSaved: (input) =>
                                   ubahBeaconRequestModel.jarakmin = input,
-                              validator: (input) =>
-                                  input.length < 1 ? " minimal 1 digit" : null,
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
+                                  : null,
                               decoration:
                                   new InputDecoration(hintText: "Meter"),
                             )),

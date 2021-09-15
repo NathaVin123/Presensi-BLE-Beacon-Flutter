@@ -28,16 +28,20 @@ class ListRuanganResponseModel {
 
 class Data {
   final String ruang;
+  final String fakultas;
+  final String prodi;
 
-  Data({
-    this.ruang,
-  });
+  Data({this.ruang, this.fakultas, this.prodi});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         ruang: json["RUANG"],
+        fakultas: json["FAKULTAS"],
+        prodi: json["PRODI"],
       );
 
   Map<String, dynamic> toJson() => {
         "RUANG": ruang,
+        "FAKULTAS": fakultas,
+        "PRODI": prodi,
       };
 }

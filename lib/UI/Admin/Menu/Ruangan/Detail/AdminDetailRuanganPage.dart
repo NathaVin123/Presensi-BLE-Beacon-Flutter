@@ -22,6 +22,8 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   String ruang = "";
+  String fakultas = "";
+  String prodi = "";
 
   String selectedNamaDevice = "";
 
@@ -48,6 +50,8 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
     SharedPreferences saveRuang = await SharedPreferences.getInstance();
     setState(() {
       ruang = saveRuang.getString('ruang');
+      fakultas = saveRuang.getString('fakultas');
+      prodi = saveRuang.getString('prodi');
     });
   }
 
@@ -75,7 +79,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Ubah Kelas Beacon',
+          'Ubah Perangkat Ruang',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -132,15 +136,39 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(25)),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Ruang : ${ruang}',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold),
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'Ruang : ${ruang}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'Fakultas : ${fakultas}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'WorkSansMedium',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'Program Studi : ${prodi}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'WorkSansMedium',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -149,7 +177,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'Pilih Device',
+                'Pilih Perangkat',
                 style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'WorkSansMedium',
@@ -207,6 +235,13 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                                           fontSize: 18,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
+                                    ),
+                                    new Text(
+                                      '${listBeaconResponseModel.data[index].jarakmin} m',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'WorkSansMedium',
+                                      ),
                                     ),
                                   ],
                                 ),
