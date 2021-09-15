@@ -7,15 +7,15 @@ import 'package:presensiblebeacon/MODEL/Beacon/UbahBeaconModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AdminDetailUpdateBeacon extends StatefulWidget {
-  AdminDetailUpdateBeacon({Key key}) : super(key: key);
+class AdminDetailUbahBeacon extends StatefulWidget {
+  AdminDetailUbahBeacon({Key key}) : super(key: key);
 
   @override
-  _AdminDetailUpdateBeaconState createState() =>
-      _AdminDetailUpdateBeaconState();
+  _AdminDetailUbahBeaconState createState() =>
+      _AdminDetailUbahBeaconState();
 }
 
-class _AdminDetailUpdateBeaconState extends State<AdminDetailUpdateBeacon> {
+class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   // var _namaDeviceFieldController = new TextEditingController();
   // var _jarakMinFieldController = new TextEditingController();
 

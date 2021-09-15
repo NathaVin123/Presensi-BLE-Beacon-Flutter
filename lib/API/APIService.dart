@@ -7,6 +7,8 @@ import 'package:presensiblebeacon/MODEL/Beacon/UbahBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/UbahRuangBeaconModel.dart';
 
 import '../MODEL/Login/LoginMahasiswaModel.dart';
 import '../MODEL/Login/LoginDosenModel.dart';
@@ -228,6 +230,48 @@ class APIService {
       return ListBeaconResponseModel.fromJson(
         json.decode(response.body),
       );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future<ListRuanganResponseModel> getListRuangan() async {
+    String url = BASE_URL + "ruangbeacon/tampilruangan";
+    print(url);
+    http.Response response = await http.get(url);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return ListRuanganResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return ListRuanganResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future putUbahRuangBeacon(UbahRuangBeaconRequestModel requestModel) async {
+    String url = BASE_URL + "ruangbeacon/ubahruangbeacon";
+    print(url);
+    http.Response response = await http.put(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
     } else {
       print(response);
       throw Exception('Failed to load data!');

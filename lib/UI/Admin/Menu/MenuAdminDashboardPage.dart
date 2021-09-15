@@ -72,7 +72,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                   padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(25),
-                    onTap: () => {},
+                    onTap: () => Get.toNamed('/admin/menu/ruangan/'),
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.grey[200],
