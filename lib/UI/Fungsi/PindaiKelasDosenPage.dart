@@ -27,6 +27,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   bool bluetoothEnabled = false;
 
   String uuid = "";
+  double jarakmin = 0;
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
     setState(() {
       uuid = dataPresensiDosen.getString('uuid');
+      jarakmin = dataPresensiDosen.getDouble('jarakmin') ?? 0.0;
     });
   }
 
@@ -280,7 +282,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                         children: ListTile.divideTiles(
                             context: context,
                             tiles: _beacons.map((beacon) {
-                              if (beacon.accuracy < 1.0) {
+                              if (beacon.accuracy < jarakmin) {
                                 return Container(
                                   child: Center(
                                     child: Column(
@@ -337,6 +339,13 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                       ),
                                       Text(
                                         'Jarak Anda : ${beacon.accuracy} m',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Jarak Minimal : ${jarakmin} m',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',

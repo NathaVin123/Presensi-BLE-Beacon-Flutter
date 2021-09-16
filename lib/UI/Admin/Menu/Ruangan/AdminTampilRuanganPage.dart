@@ -153,7 +153,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                                       ),
                                     ),
                                     new Text(
-                                      'Jarak :  ${listDetailRuanganResponseModel.data[index].jarak}',
+                                      'Jarak Minimal :  ${listDetailRuanganResponseModel.data[index].jarak} m',
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: 'WorkSansMedium',

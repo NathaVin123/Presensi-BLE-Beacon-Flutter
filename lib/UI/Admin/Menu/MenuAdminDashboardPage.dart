@@ -94,7 +94,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                   width: 11,
                                 ),
                                 Text(
-                                  'Pengaturan Ruangan ',
+                                  'Pengaturan Ruangan',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'WorkSansMedium',

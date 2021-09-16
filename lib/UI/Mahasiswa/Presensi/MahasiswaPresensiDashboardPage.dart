@@ -55,9 +55,9 @@ class _MahasiswaPresensiDashboardPageState
     final DateTime now = DateTime.now();
     final String formattedTime = _formatTime(now);
 
-    setState(() {
-      _timeString = formattedTime;
-    });
+    // setState(() {
+    _timeString = formattedTime;
+    // });
   }
 
   void _getDate() {

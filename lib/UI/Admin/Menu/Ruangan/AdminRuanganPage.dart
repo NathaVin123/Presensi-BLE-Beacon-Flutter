@@ -42,7 +42,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Pengaturan Ruang',
+          'Ubah Perangkat Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',

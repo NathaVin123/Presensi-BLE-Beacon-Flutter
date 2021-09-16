@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,6 +18,11 @@ class DosenPresensiDashboardPage extends StatefulWidget {
   @override
   _DosenPresensiDashboardPageState createState() =>
       _DosenPresensiDashboardPageState();
+}
+
+class Semester {
+  String semester;
+  Semester(this.semester);
 }
 
 class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
@@ -35,7 +41,34 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   String kelas = "";
   String jam = "";
 
+  String npp = "";
   String namadsn = "";
+
+  String semesterShared = "";
+
+  Semester selectedSemester;
+
+  List<Semester> semesters = [
+    Semester("1"),
+    Semester("2"),
+    Semester("3"),
+  ];
+
+  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
+    List<DropdownMenuItem> items = [];
+
+    for (var item in semesters) {
+      items.add(DropdownMenuItem(
+        child: Text((item.semester)),
+        value: item,
+      ));
+    }
+    return items;
+  }
+
+  ListKelasDosenRequestModel listKelasDosenRequestModel;
+
+  ListKelasDosenResponseModel listKelasDosenResponseModel;
 
   @override
   void initState() {
@@ -51,18 +84,23 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    getDataDosen();
+    this.getDataDosen();
 
-    getDataRuangBeacon();
+    // getDataRuangBeacon();
+
+    listKelasDosenRequestModel = ListKelasDosenRequestModel();
+    listKelasDosenResponseModel = ListKelasDosenResponseModel();
+
+    this.getDataListKelasDosen();
   }
 
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedTime = _formatTime(now);
 
-    setState(() {
-      _timeString = formattedTime;
-    });
+    // setState(() {
+    _timeString = formattedTime;
+    // });
   }
 
   void _getDate() {
@@ -92,16 +130,34 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
   getDataDosen() async {
     SharedPreferences loginDosen = await SharedPreferences.getInstance();
-
-    namadsn = loginDosen.getString('namadsn');
+    setState(() {
+      npp = loginDosen.getString('npp');
+      namadsn = loginDosen.getString('namadsn');
+    });
   }
 
-  void getDataRuangBeacon() async {
+  // void getDataRuangBeacon() async {
+  //   setState(() {
+  //     print(ruangBeaconResponseModel.toJson());
+  //     APIService apiService = new APIService();
+  //     apiService.getKelasBeacon().then((value) async {
+  //       ruangBeaconResponseModel = value;
+  //     });
+  //   });
+  // }
+
+  void getDataListKelasDosen() async {
     setState(() {
-      print(ruangBeaconResponseModel.toJson());
+      listKelasDosenRequestModel.npp = npp;
+      listKelasDosenRequestModel.semester = semesterShared;
+
+      print(listKelasDosenRequestModel.toJson());
+
       APIService apiService = new APIService();
-      apiService.getKelasBeacon().then((value) async {
-        ruangBeaconResponseModel = value;
+      apiService
+          .postListKelasDosen(listKelasDosenRequestModel)
+          .then((value) async {
+        listKelasDosenResponseModel = value;
       });
     });
   }
@@ -113,8 +169,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
       home: Scaffold(
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           floatingActionButton: FloatingActionButton.extended(
-            // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
-            onPressed: () => getDataRuangBeacon(),
+            onPressed: () => getDataListKelasDosen(),
             label: Text(
               'Segarkan',
               style: TextStyle(
@@ -211,7 +266,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kuliah Minggu Ini',
+                      'List Kuliah',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -221,7 +276,22 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   ),
                 ),
               ),
-              ruangBeaconResponseModel.data == null
+              DropdownButton(
+                iconEnabledColor: Colors.white,
+                style: TextStyle(color: Colors.white),
+                dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                underline: Text(''),
+                onTap: () => getDataListKelasDosen(),
+                items: generateSemester(semesters),
+                value: selectedSemester,
+                onChanged: (item) {
+                  setState(() {
+                    selectedSemester = item;
+                    semesterShared = selectedSemester.semester;
+                  });
+                },
+              ),
+              listKelasDosenResponseModel.data == null
                   ? Container(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -239,7 +309,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                     )
                   : Expanded(
                       child: ListView.builder(
-                          itemCount: ruangBeaconResponseModel.data?.length,
+                          itemCount: listKelasDosenResponseModel.data?.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(
@@ -256,7 +326,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                           MainAxisAlignment.center,
                                       children: [
                                         new Text(
-                                          ruangBeaconResponseModel
+                                          listKelasDosenResponseModel
                                               .data[index].ruang,
                                           style: TextStyle(
                                               fontSize: 15,
@@ -264,12 +334,26 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                               fontWeight: FontWeight.bold),
                                         ),
                                         new Text(
-                                          'Mata Kuliah : ${ruangBeaconResponseModel.data[index].namamk}',
+                                          'Mata Kuliah : ${listKelasDosenResponseModel.data[index].namamk}',
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontFamily: 'WorkSansMedium',
                                           ),
                                         ),
+                                        new Text(
+                                          'Kelas : ${listKelasDosenResponseModel.data[index].kelas}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
+                                        ),
+                                        // new Text(
+                                        //   'Kelas : ${listKelasDosenResponseModel.data[index].sks}',
+                                        //   style: TextStyle(
+                                        //     fontSize: 15,
+                                        //     fontFamily: 'WorkSansMedium',
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -278,28 +362,19 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                         await SharedPreferences.getInstance();
                                     await dataPresensiDosen.setString(
                                         'ruang',
-                                        ruangBeaconResponseModel
+                                        listKelasDosenResponseModel
                                             .data[index].ruang);
-                                    await dataPresensiDosen.setString(
-                                        'namamk',
-                                        ruangBeaconResponseModel
-                                            .data[index].namamk);
-                                    await dataPresensiDosen.setString(
-                                        'hari',
-                                        ruangBeaconResponseModel
-                                            .data[index].hari);
-                                    await dataPresensiDosen.setString(
-                                        'sesi',
-                                        ruangBeaconResponseModel
-                                            .data[index].sesi);
+
                                     await dataPresensiDosen.setString(
                                         'uuid',
-                                        ruangBeaconResponseModel
+                                        listKelasDosenResponseModel
                                             .data[index].uuid);
-                                    await dataPresensiDosen.setString(
-                                        'jam', _timeString);
-                                    await dataPresensiDosen.setString(
-                                        'tanggal', _dateString);
+
+                                    await dataPresensiDosen.setDouble(
+                                        'jarakmin',
+                                        listKelasDosenResponseModel
+                                            .data[index].jarakmin);
+
                                     await Get.toNamed('/pindaiDosen');
                                   },
                                 ),

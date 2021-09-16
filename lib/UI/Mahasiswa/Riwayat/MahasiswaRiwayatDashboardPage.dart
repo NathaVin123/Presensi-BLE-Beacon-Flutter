@@ -154,9 +154,6 @@ class _MahasiswaRiwayatDashboardPageState
                           style: TextStyle(color: Colors.white),
                           dropdownColor: Color.fromRGBO(23, 75, 137, 1),
                           underline: Text(''),
-                          // style: TextStyle(
-                          //   fontFamily: 'WorkSansMedium',
-                          // ),
                           onTap: () => getDataRiwayatMahasiswa(),
                           items: generateSemester(semesters),
                           value: selectedSemester,
