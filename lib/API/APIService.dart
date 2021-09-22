@@ -8,6 +8,7 @@ import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINDosenBukaPresensiModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
@@ -317,6 +318,28 @@ class APIService {
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
       return ListKelasDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future<ListKelasMahasiswaResponseModel> postListKelasMahasiswa(
+      ListKelasMahasiswaRequestModel requestModel) async {
+    String url = BASE_URL + "presensi/postgetlistkelasmhs";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return ListKelasMahasiswaResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return ListKelasMahasiswaResponseModel.fromJson(
         json.decode(response.body),
       );
     } else {

@@ -29,6 +29,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   bool bluetoothEnabled = false;
 
   String uuid = "";
+  double jarakmin = 0;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
     setState(() {
       uuid = dataPresensiMahasiswa.getString('uuid');
+      jarakmin = dataPresensiMahasiswa.getDouble('jarakmin') ?? 0.0;
     });
   }
 
@@ -239,7 +241,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
             child: _beacons == null || _beacons.isEmpty
                 ? Stack(
                     fit: StackFit.expand,
-                    children: [
+                    children: <Widget>[
                       Center(
                         child: Column(
                           children: <Widget>[
@@ -270,7 +272,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                   color: Colors.white),
                             ),
                             SizedBox(
-                              height: 25,
+                              height: 100,
                             ),
                             Text(
                               'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
@@ -290,7 +292,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                         children: ListTile.divideTiles(
                             context: context,
                             tiles: _beacons.map((beacon) {
-                              if (beacon.accuracy < 0.7) {
+                              if (beacon.accuracy < jarakmin) {
                                 return Container(
                                   child: Center(
                                     child: Column(
@@ -366,6 +368,14 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                         ),
                                         Text(
                                           'Jarak Anda : ${beacon.accuracy} m',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Jarak Minimal : ${jarakmin} m',
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontFamily: 'WorkSansMedium',

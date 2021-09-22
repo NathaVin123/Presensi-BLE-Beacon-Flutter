@@ -155,7 +155,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   void getDataListKelasDosen() async {
     setState(() {
       listKelasDosenRequestModel.npp = npp;
-      listKelasDosenRequestModel.semester = semesterShared;
+      // listKelasDosenRequestModel. = semesterShared;
 
       print(listKelasDosenRequestModel.toJson());
 
@@ -282,41 +282,41 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   ),
                 ),
               ),
-              Center(
-                  child: Text(
-                'Pilih Semester',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'WorkSansMedium',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              )),
-              SizedBox(
-                height: 8,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(
-                      color: Colors.white, style: BorderStyle.solid, width: 1),
-                ),
-                child: DropdownButton(
-                  iconEnabledColor: Colors.white,
-                  style: TextStyle(color: Colors.white),
-                  dropdownColor: Color.fromRGBO(23, 75, 137, 1),
-                  underline: Text(''),
-                  onTap: () => getDataListKelasDosen(),
-                  items: generateSemester(semesters),
-                  value: selectedSemester,
-                  onChanged: (item) {
-                    setState(() {
-                      selectedSemester = item;
-                      semesterShared = selectedSemester.semester;
-                    });
-                  },
-                ),
-              ),
+              // Center(
+              //     child: Text(
+              //   'Pilih Semester',
+              //   style: TextStyle(
+              //       fontSize: 18,
+              //       fontFamily: 'WorkSansMedium',
+              //       fontWeight: FontWeight.bold,
+              //       color: Colors.white),
+              // )),
+              // SizedBox(
+              //   height: 8,
+              // ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 10.0),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(15.0),
+              //     border: Border.all(
+              //         color: Colors.white, style: BorderStyle.solid, width: 1),
+              //   ),
+              //   child: DropdownButton(
+              //     iconEnabledColor: Colors.white,
+              //     style: TextStyle(color: Colors.white),
+              //     dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+              //     underline: Text(''),
+              //     onTap: () => getDataListKelasDosen(),
+              //     items: generateSemester(semesters),
+              //     value: selectedSemester,
+              //     onChanged: (item) {
+              //       setState(() {
+              //         selectedSemester = item;
+              //         semesterShared = selectedSemester.semester;
+              //       });
+              //     },
+              //   ),
+              // ),
               listKelasDosenResponseModel.data == null
                   ? Container(
                       child: Padding(

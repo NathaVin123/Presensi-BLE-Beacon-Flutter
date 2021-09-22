@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -229,55 +230,61 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+          elevation: 0,
         ),
         body: Container(
+            color: Color.fromRGBO(23, 75, 137, 1),
             child: _beacons == null || _beacons.isEmpty
                 ? Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
                       Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: <Widget>[
+                            SpinKitRipple(
+                              color: Colors.white,
+                              size: 100,
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Text(
                               'Mohon Tunggu...',
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             SizedBox(
                               height: 25,
                             ),
                             Text(
-                              'Sistem sedang menghubungkan ke\nperangkat beacon kelas yang dipilih.',
+                              'Sistem sedang menghubungkan ke\nperangkat beacon kelas.',
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            CircularProgressIndicator(),
                             SizedBox(
                               height: 100,
                             ),
                             Text(
                               'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
                               style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'WorkSansMedium',
-                              ),
+                                  fontSize: 16,
+                                  fontFamily: 'WorkSansMedium',
+                                  color: Colors.white),
                             )
                           ],
                         ),
                       ),
                     ],
                   )
-                : SingleChildScrollView(
+                : Container(
                     child: Column(
                         children: ListTile.divideTiles(
                             context: context,
@@ -286,34 +293,46 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                 return Container(
                                   child: Center(
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        SizedBox(
-                                          height: 250,
+                                        Padding(
+                                          padding: const EdgeInsets.all(15),
+                                          child: Icon(
+                                            Icons.check_circle_outline_rounded,
+                                            size: 100,
+                                            color: Colors.green,
+                                          ),
                                         ),
                                         Text(
                                           'Ruangan kelas sudah ditemukan',
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         SizedBox(
                                           height: 25,
                                         ),
                                         MaterialButton(
-                                          child: Text(
-                                            'Masuk',
-                                            style: const TextStyle(
-                                                fontFamily: 'WorkSansSemiBold',
-                                                fontSize: 18.0,
-                                                color: Colors.white),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(20),
+                                            child: Text(
+                                              'MASUK',
+                                              style: const TextStyle(
+                                                  fontFamily:
+                                                      'WorkSansSemiBold',
+                                                  fontSize: 18.0,
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                           onPressed: () => {
                                             Get.offAllNamed(
                                                 '/dosen/dashboard/presensi/detail')
                                           },
                                           shape: StadiumBorder(),
-                                          color: Colors.blue,
+                                          color: Color.fromRGBO(247, 180, 7, 1),
                                         )
                                       ],
                                     ),
@@ -324,15 +343,20 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
+                                      SpinKitPulse(
+                                        color: Colors.red,
+                                        size: 100,
+                                      ),
                                       SizedBox(
-                                        height: 250,
+                                        height: 25,
                                       ),
                                       Text(
                                         'Anda berada di luar jangkauan\nminimal kelas',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       ),
                                       SizedBox(
                                         height: 25,
@@ -342,14 +366,16 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       ),
                                       Text(
                                         'Jarak Minimal : ${jarakmin} m',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       ),
                                     ],
                                   ),

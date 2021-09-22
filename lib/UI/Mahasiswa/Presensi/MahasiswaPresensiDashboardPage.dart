@@ -7,6 +7,7 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,6 +22,7 @@ class MahasiswaPresensiDashboardPage extends StatefulWidget {
 
 class _MahasiswaPresensiDashboardPageState
     extends State<MahasiswaPresensiDashboardPage> with WidgetsBindingObserver {
+  final StreamController<BluetoothState> streamController = StreamController();
   RuangBeaconResponseModel ruangBeaconResponseModel;
 
   bool authorizationStatusOk = false;
@@ -30,7 +32,17 @@ class _MahasiswaPresensiDashboardPageState
   String _timeString;
   String _dateString;
 
+  String kelas = "";
+  String jam = "";
+  String tanggal = "";
+
+  String npm = "";
+
   String namamhs = "";
+
+  ListKelasMahasiswaRequestModel listKelasMahasiswaRequestModel;
+
+  ListKelasMahasiswaResponseModel listKelasMahasiswaResponseModel;
 
   @override
   void initState() {
@@ -48,16 +60,21 @@ class _MahasiswaPresensiDashboardPageState
 
     getDataMahasiswa();
 
-    getDataRuangBeacon();
+    listKelasMahasiswaRequestModel = ListKelasMahasiswaRequestModel();
+    listKelasMahasiswaResponseModel = ListKelasMahasiswaResponseModel();
+
+    getDataListKelasMahasiswa();
+
+    // getDataRuangBeacon();
   }
 
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedTime = _formatTime(now);
 
-    // setState(() {
-    _timeString = formattedTime;
-    // });
+    setState(() {
+      _timeString = formattedTime;
+    });
   }
 
   void _getDate() {
@@ -80,19 +97,35 @@ class _MahasiswaPresensiDashboardPageState
   void getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
     setState(() {
+      npm = loginMahasiswa.getString('npm');
       namamhs = loginMahasiswa.getString('namamhs');
     });
   }
 
-  void getDataRuangBeacon() async {
+  void getDataListKelasMahasiswa() async {
     setState(() {
-      print(ruangBeaconResponseModel.toJson());
+      listKelasMahasiswaRequestModel.npm = npm;
+
+      print(listKelasMahasiswaRequestModel.toJson());
+
       APIService apiService = new APIService();
-      apiService.getKelasBeacon().then((value) async {
-        ruangBeaconResponseModel = value;
+      apiService
+          .postListKelasMahasiswa(listKelasMahasiswaRequestModel)
+          .then((value) async {
+        listKelasMahasiswaResponseModel = value;
       });
     });
   }
+
+  // void getDataRuangBeacon() async {
+  //   setState(() {
+  //     print(ruangBeaconResponseModel.toJson());
+  //     APIService apiService = new APIService();
+  //     apiService.getKelasBeacon().then((value) async {
+  //       ruangBeaconResponseModel = value;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +134,7 @@ class _MahasiswaPresensiDashboardPageState
       home: Scaffold(
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           floatingActionButton: FloatingActionButton.extended(
-            // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
-            onPressed: () => getDataRuangBeacon(),
+            onPressed: () => getDataListKelasMahasiswa(),
             label: Text(
               'Segarkan',
               style: TextStyle(
@@ -212,7 +244,7 @@ class _MahasiswaPresensiDashboardPageState
                   ),
                 ),
               ),
-              ruangBeaconResponseModel.data == null
+              listKelasMahasiswaResponseModel.data == null
                   ? Container(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -229,78 +261,308 @@ class _MahasiswaPresensiDashboardPageState
                       ),
                     )
                   : Expanded(
-                      child: ListView.builder(
-                          itemCount: ruangBeaconResponseModel.data?.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12, right: 12, top: 8, bottom: 8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: new ListTile(
-                                  title: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        new Text(
-                                          ruangBeaconResponseModel
-                                              .data[index].ruang,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
+                      child: Scrollbar(
+                        child: ListView.builder(
+                            itemCount:
+                                listKelasMahasiswaResponseModel.data?.length,
+                            itemBuilder: (context, index) {
+                              if (listKelasMahasiswaResponseModel
+                                      .data[index].bukapresensi ==
+                                  1) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12, top: 8, bottom: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    child: new ListTile(
+                                      title: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            new Text(
+                                              'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            new Text(
+                                              '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            new Text(
+                                              '${listKelasMahasiswaResponseModel.data[index].namadosen1}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            new Text(
+                                              'SKS : ${listKelasMahasiswaResponseModel.data[index].sks}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            new Text(
+                                              'Hari : ${listKelasMahasiswaResponseModel.data[index].hari1}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            new Text(
+                                              'Sesi : ${listKelasMahasiswaResponseModel.data[index].sesi1}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            listKelasMahasiswaResponseModel
+                                                        .data[index]
+                                                        .bukapresensi ==
+                                                    0
+                                                ? Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8.0,
+                                                        horizontal: 14),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Text('Tutup',
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8.0,
+                                                        horizontal: 14),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.green,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Text('Buka',
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                          ],
                                         ),
-                                        new Text(
-                                          'Mata Kuliah : ${ruangBeaconResponseModel.data[index].namamk}',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                          ),
-                                        ),
-                                      ],
+                                      ),
+                                      onTap: () async {
+                                        SharedPreferences
+                                            dataPresensiMahasiswa =
+                                            await SharedPreferences
+                                                .getInstance();
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'jam', _timeString);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'tanggal', _dateString);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'ruang',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].ruang);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'uuid',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].uuid);
+
+                                        await dataPresensiMahasiswa.setDouble(
+                                            'jarakmin',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].jarakmin);
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'idkelas',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].idkelas);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'namamk',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].namamk);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'kelas',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].kelas);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'nppdosen1',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].nppdosen1);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'nppdosen2',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].nppdosen2);
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'nppdosen3',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].nppdosen3);
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'nppdosen4',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].nppdosen4);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'namadosen1',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].namadosen1);
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'namadosen2',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].namadosen2);
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'namadosen3',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].namadosen3);
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'namadosen4',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].namadosen4);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'hari1',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].hari1);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'hari2',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].hari2);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'hari3',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].hari3);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'hari4',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].hari4);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'sesi1',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].sesi1);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'sesi2',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].sesi2);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'sesi3',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].sesi3);
+
+                                        // await dataPresensiMahasiswa.setString(
+                                        //     'sesi4',
+                                        //     listKelasMahasiswaResponseModel
+                                        //         .data[index].sesi4);
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'sks',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].sks);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'namadevice',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].namadevice);
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'kapasitas',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].kapasitas);
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'bukapresensi',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].bukapresensi);
+
+                                        await Get.toNamed('/pindaiMahasiswa');
+                                      },
                                     ),
                                   ),
-                                  onTap: () async {
-                                    SharedPreferences dataPresensiMahasiswa =
-                                        await SharedPreferences.getInstance();
-                                    await dataPresensiMahasiswa.setString(
-                                        'ruang',
-                                        ruangBeaconResponseModel
-                                            .data[index].ruang);
-                                    await dataPresensiMahasiswa.setString(
-                                        'namamk',
-                                        ruangBeaconResponseModel
-                                            .data[index].namamk);
-                                    await dataPresensiMahasiswa.setString(
-                                        'namadosen',
-                                        ruangBeaconResponseModel
-                                            .data[index].namadosen);
-                                    await dataPresensiMahasiswa.setString(
-                                        'hari',
-                                        ruangBeaconResponseModel
-                                            .data[index].hari);
-                                    await dataPresensiMahasiswa.setString(
-                                        'sesi',
-                                        ruangBeaconResponseModel
-                                            .data[index].sesi);
-                                    await dataPresensiMahasiswa.setString(
-                                        'uuid',
-                                        ruangBeaconResponseModel
-                                            .data[index].uuid);
-                                    await dataPresensiMahasiswa.setString(
-                                        'jam', _timeString);
-                                    await dataPresensiMahasiswa.setString(
-                                        'tanggal', _dateString);
-                                    await Get.toNamed('/pindaiMahasiswa');
-                                  },
-                                ),
-                              ),
-                            );
-                          }),
+                                );
+                              } else
+                                return SizedBox(
+                                  height: 0,
+                                );
+                              // return Container(
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(10),
+                              //     child: Center(
+                              //       child: Text(
+                              //         'Tidak ada kuliah hari ini',
+                              //         style: TextStyle(
+                              //             fontSize: 15,
+                              //             fontFamily: 'WorkSansMedium',
+                              //             fontWeight: FontWeight.bold,
+                              //             color: Colors.white),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
+                            }),
+                      ),
                     )
             ],
           )),

@@ -1,18 +1,19 @@
-class ListKelasDosenResponseModel {
+class ListKelasMahasiswaResponseModel {
   final String error;
   List<Data> data;
 
-  ListKelasDosenResponseModel({this.error, this.data});
+  ListKelasMahasiswaResponseModel({this.error, this.data});
 
   String toString() =>
-      'ListKelasDosenResponseModel{error: $error, data: $data}';
+      'ListKelasMahasiswaResponseModel{error: $error, data: $data}';
 
-  factory ListKelasDosenResponseModel.fromJson(Map<String, dynamic> json) {
+  factory ListKelasMahasiswaResponseModel.fromJson(Map<String, dynamic> json) {
     var list = json["data"] as List;
     print(list.runtimeType);
     List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
 
-    return ListKelasDosenResponseModel(error: json["error"], data: dataList);
+    return ListKelasMahasiswaResponseModel(
+        error: json["error"], data: dataList);
   }
   Map<String, dynamic> toJson() => {
         "error": error,
@@ -152,23 +153,18 @@ class Data {
       };
 }
 
-class ListKelasDosenRequestModel {
-  String npp;
-  // String semester;
+class ListKelasMahasiswaRequestModel {
+  String npm;
+  String semester;
 
-  ListKelasDosenRequestModel({
-    this.npp,
-    // this.semester
-  });
+  ListKelasMahasiswaRequestModel({this.npm, this.semester});
 
-  factory ListKelasDosenRequestModel.fromJson(Map<String, dynamic> json) =>
-      ListKelasDosenRequestModel(
-        npp: json["NPP"] as String,
-        // semester: json["SEMESTER"] as String,
+  factory ListKelasMahasiswaRequestModel.fromJson(Map<String, dynamic> json) =>
+      ListKelasMahasiswaRequestModel(
+        npm: json["NPM"] as String,
       );
 
   Map<String, dynamic> toJson() => {
-        "NPP": npp,
-        // "SEMESTER": semester,
+        "NPM": npm,
       };
 }

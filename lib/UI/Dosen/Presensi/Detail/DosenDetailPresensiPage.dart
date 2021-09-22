@@ -353,7 +353,6 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
-
                           bukapresensi == 0
                               ? Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -563,7 +562,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                               isApiCallProcess = false;
                                             });
                                           }
-                                          Get.toNamed('/dosen/dashboard');
+                                          Get.offAllNamed('/dosen/dashboard');
 
                                           await Fluttertoast.showToast(
                                               msg: 'Berhasil Membuka Kelas',
@@ -676,6 +675,14 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       cancelBtnTxtColor: Colors.white,
                                       cancelBtnColor: Colors.grey,
                                       onOkBtnTap: (value) async {
+                                        SharedPreferences
+                                            dataPresensiMahasiswa =
+                                            await SharedPreferences
+                                                .getInstance();
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'statuspresensi', 0);
+
                                         print(
                                             presensiINDosenBukaPresensiRequestModel
                                                 .toJson());
@@ -706,7 +713,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                               isApiCallProcess = false;
                                             });
                                           }
-                                          Get.toNamed('/dosen/dashboard');
+                                          Get.offAllNamed('/dosen/dashboard');
 
                                           await Fluttertoast.showToast(
                                               msg:
