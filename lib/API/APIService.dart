@@ -20,11 +20,11 @@ import '../MODEL/Login/LoginDosenModel.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String BASE_URL = 'https://192.168.100.251:5000/api/';
+  String address = 'https://192.168.100.251:5000/api/';
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
-    String url = BASE_URL + "auth/loginmhs";
+    String url = address + "auth/loginmhs";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -47,7 +47,7 @@ class APIService {
   // Login Dosen API
   Future<LoginDosenResponseModel> loginDosen(
       LoginDosenRequestModel requestModel) async {
-    String url = BASE_URL + "auth/logindsn";
+    String url = address + "auth/logindsn";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -69,7 +69,7 @@ class APIService {
 
   Future<LoginAdminResponseModel> loginAdmin(
       LoginAdminRequestModel requestModel) async {
-    String url = BASE_URL + "auth/loginadm";
+    String url = address + "auth/loginadm";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -92,7 +92,7 @@ class APIService {
   // Post Get Data Jadwal Mahasiswa
   Future<JadwalMahasiswaResponseModel> postJadwalMahasiswa(
       JadwalMahasiswaRequestModel requestModel) async {
-    String url = BASE_URL + "jadwalmhs/postgetall";
+    String url = address + "jadwalmhs/postgetall";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -115,7 +115,7 @@ class APIService {
   // Post Get Data Jadwal Dosen
   Future<RiwayatMahasiswaResponseModel> postRiwayatMahasiswa(
       RiwayatMahasiswaRequestModel requestModel) async {
-    String url = BASE_URL + "riwayatmhs/postgetall/";
+    String url = address + "riwayatmhs/postgetall/";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -137,7 +137,7 @@ class APIService {
 
   // Get Jadwal Beacon
   Future<RuangBeaconResponseModel> getKelasBeacon() async {
-    String url = BASE_URL + "ruangbeacon";
+    String url = address + "ruangbeacon";
     print(url);
     http.Response response = await http.get(url);
     print(response.statusCode);
@@ -158,7 +158,7 @@ class APIService {
   }
 
   Future postTambahBeacon(TambahBeaconRequestModel requestModel) async {
-    String url = BASE_URL + "ruangbeacon/tambah";
+    String url = address + "ruangbeacon/tambah";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -179,7 +179,7 @@ class APIService {
   }
 
   Future<ListBeaconResponseModel> getListBeacon() async {
-    String url = BASE_URL + "ruangbeacon/tampil";
+    String url = address + "ruangbeacon/tampil";
     print(url);
     http.Response response = await http.get(url);
     print(response.statusCode);
@@ -200,7 +200,7 @@ class APIService {
   }
 
   Future putUbahBeacon(UbahBeaconRequestModel requestModel) async {
-    String url = BASE_URL + "ruangbeacon/ubah";
+    String url = address + "ruangbeacon/ubah";
     print(url);
     http.Response response = await http.put(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -221,7 +221,7 @@ class APIService {
   }
 
   Future hapusBeacon(HapusBeaconRequestModel requestModel) async {
-    String url = BASE_URL + "ruangbeacon/softhapus";
+    String url = address + "ruangbeacon/softhapus";
     print(url);
     http.Response response = await http.put(url);
     print(response.statusCode);
@@ -242,7 +242,7 @@ class APIService {
   }
 
   Future<ListRuanganResponseModel> getListRuangan() async {
-    String url = BASE_URL + "ruangbeacon/tampilruangan";
+    String url = address + "ruangbeacon/tampilruangan";
     print(url);
     http.Response response = await http.get(url);
     print(response.statusCode);
@@ -263,7 +263,7 @@ class APIService {
   }
 
   Future<ListDetailRuanganResponseModel> getListDetailRuangan() async {
-    String url = BASE_URL + "ruangbeacon/tampildetailruangan";
+    String url = address + "ruangbeacon/tampildetailruangan";
     print(url);
     http.Response response = await http.get(url);
     print(response.statusCode);
@@ -284,7 +284,7 @@ class APIService {
   }
 
   Future putUbahRuangBeacon(UbahRuangBeaconRequestModel requestModel) async {
-    String url = BASE_URL + "ruangbeacon/ubahruangbeacon";
+    String url = address + "ruangbeacon/ubahruangbeacon";
     print(url);
     http.Response response = await http.put(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -306,7 +306,7 @@ class APIService {
 
   Future<ListKelasDosenResponseModel> postListKelasDosen(
       ListKelasDosenRequestModel requestModel) async {
-    String url = BASE_URL + "presensi/postgetlistkelas";
+    String url = address + "presensi/postgetlistkelas";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -328,7 +328,7 @@ class APIService {
 
   Future<ListKelasMahasiswaResponseModel> postListKelasMahasiswa(
       ListKelasMahasiswaRequestModel requestModel) async {
-    String url = BASE_URL + "presensi/postgetlistkelasmhs";
+    String url = address + "presensi/postgetlistkelasmhs";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -350,7 +350,7 @@ class APIService {
 
   Future putBukaPresensiDosen(
       PresensiINDosenBukaPresensiRequestModel requestModel) async {
-    String url = BASE_URL + "presensi/bukapresensidosen";
+    String url = address + "presensi/bukapresensidosen";
     print(url);
     http.Response response = await http.put(url, body: requestModel.toJson());
     print(response.statusCode);
@@ -372,7 +372,7 @@ class APIService {
 
   Future<TampilPesertaKelasResponseModel> postListPesertaKelas(
       TampilPesertaKelasRequestModel requestModel) async {
-    String url = BASE_URL + "presensi/postgetlistpesertakelas";
+    String url = address + "presensi/postgetlistpesertakelas";
     print(url);
     http.Response response = await http.post(url, body: requestModel.toJson());
     print(response.statusCode);
