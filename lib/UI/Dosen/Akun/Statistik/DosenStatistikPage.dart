@@ -12,66 +12,54 @@ class _DosenStatistikPageState extends State<DosenStatistikPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            pinned: true,
-            floating: false,
-            snap: false,
-            expandedHeight: 85,
-            flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                'Statistik',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'WorkSansMedium',
-                    fontWeight: FontWeight.bold),
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+          centerTitle: true,
+          title: Text(
+            'Statistik',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'WorkSansMedium',
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(25)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: Center(
+                    child: Column(
+                  children: <Widget>[
+                    Text(
+                      '-',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'WorkSansMedium',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FAProgressBar(
+                      progressColor: Color.fromRGBO(247, 180, 7, 1),
+                      currentValue: 80,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                )),
               ),
             ),
           ),
-          SliverFillRemaining(
-              child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(25)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                      child: Column(
-                    children: <Widget>[
-                      Text(
-                        '-',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      FAProgressBar(
-                        progressColor: Color.fromRGBO(247, 180, 7, 1),
-                        currentValue: 80,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  )),
-                ),
-              ),
-            ),
-          ))
-        ],
-      ),
-    );
+        ));
   }
 }

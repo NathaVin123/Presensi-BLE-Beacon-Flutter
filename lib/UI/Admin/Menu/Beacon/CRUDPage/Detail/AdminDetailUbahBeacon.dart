@@ -60,29 +60,21 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
 
   Widget buildUbahBeacon(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            pinned: true,
-            floating: false,
-            snap: false,
-            expandedHeight: 85,
-            flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                'Ubah Beacon',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'WorkSansMedium',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+          centerTitle: true,
+          title: Text(
+            'Ubah Beacon',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'WorkSansMedium',
+                fontWeight: FontWeight.bold),
           ),
-          SliverToBoxAdapter(
-              child: Padding(
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
               decoration: BoxDecoration(
@@ -263,10 +255,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                 ),
               ),
             ),
-          ))
-        ],
-      ),
-    );
+          ),
+        ));
   }
 
   bool validateAndSave() {

@@ -117,119 +117,110 @@ class _MahasiswaJadwalDashboardPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-            label: Text('Segarkan'),
-            icon: Icon(Icons.refresh_rounded),
-            onPressed: () => getDataJadwalMahasiswa()),
+      floatingActionButton: FloatingActionButton.extended(
+          label: Text('Segarkan'),
+          icon: Icon(Icons.refresh_rounded),
+          onPressed: () => getDataJadwalMahasiswa()),
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-        body: CustomScrollView(slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            pinned: true,
-            floating: false,
-            snap: false,
-            expandedHeight: 85,
-            flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                'Jadwal Kelas',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'WorkSansMedium'),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              _dateString,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: 'WorkSansMedium',
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      )),
-                  Center(
-                      child: Text(
-                    'Pilih Semester',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(
-                            color: Colors.white,
-                            style: BorderStyle.solid,
-                            width: 1),
-                      ),
-                      child: DropdownButton(
-                        iconEnabledColor: Colors.white,
-                        style: TextStyle(color: Colors.white),
-                        dropdownColor: Color.fromRGBO(23, 75, 137, 1),
-                        underline: Text(''),
-                        // style: TextStyle(
-                        //   fontFamily: Font,
-                        // ),
-                        onTap: () => getDataJadwalMahasiswa(),
-                        items: generateSemester(semesters),
-                        value: selectedSemester,
-                        onChanged: (item) {
-                          setState(() {
-                            selectedSemester = item;
-                            semesterShared = selectedSemester.semester;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverFillRemaining(
-              child: jadwalMahasiswaResponseModel.data == null
-                  ? Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
+        centerTitle: true,
+        title: Text(
+          'Jadwal Kelas',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'WorkSansMedium',
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
                           child: Text(
-                            'Silakan pilih semester, \n lalu tekan tombol segarkan',
+                            _dateString,
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 22,
                                 fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                         ),
+                      ],
+                    )),
+                Center(
+                    child: Text(
+                  'Pilih Semester',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'WorkSansMedium',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                )),
+                SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all(
+                          color: Colors.white,
+                          style: BorderStyle.solid,
+                          width: 1),
+                    ),
+                    child: DropdownButton(
+                      iconEnabledColor: Colors.white,
+                      style: TextStyle(color: Colors.white),
+                      dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                      underline: Text(''),
+                      // style: TextStyle(
+                      //   fontFamily: Font,
+                      // ),
+                      onTap: () => getDataJadwalMahasiswa(),
+                      items: generateSemester(semesters),
+                      value: selectedSemester,
+                      onChanged: (item) {
+                        setState(() {
+                          selectedSemester = item;
+                          semesterShared = selectedSemester.semester;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+          ),
+          jadwalMahasiswaResponseModel.data == null
+              ? Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        'Silakan pilih semester, \n lalu tekan tombol segarkan',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                    )
-                  : ListView.builder(
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
                       itemCount: jadwalMahasiswaResponseModel.data?.length,
                       itemBuilder: (context, index) {
                         return Padding(
@@ -314,13 +305,16 @@ class _MahasiswaJadwalDashboardPageState
                                 ),
                               ),
                               onTap: () async {
-                                await Get.toNamed(
-                                    '/mahasiswa/dashboard/jadwal/detail');
+                                // await Get.toNamed(
+                                //     '/mahasiswa/dashboard/jadwal/detail');
                               },
                             ),
                           ),
                         );
-                      }))
-        ]));
+                      }),
+                )
+        ],
+      ),
+    );
   }
 }

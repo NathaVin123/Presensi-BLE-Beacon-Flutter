@@ -52,89 +52,74 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text('Segarkan'),
-          icon: Icon(Icons.refresh_rounded),
-          onPressed: () => {},
-        ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Segarkan'),
+        icon: Icon(Icons.refresh_rounded),
+        onPressed: () => {},
+      ),
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-              pinned: true,
-              floating: false,
-              snap: false,
-              expandedHeight: 85,
-              flexibleSpace: const FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text(
-                  'Riwayat Presensi',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'WorkSansMedium',
-                      fontWeight: FontWeight.bold),
+        centerTitle: true,
+        title: Text(
+          'Riwayat Presensi',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'WorkSansMedium',
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Center(
+                child: Text(
+              'Pilih Semester',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'WorkSansMedium',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            )),
+            SizedBox(
+              height: 8,
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  border: Border.all(
+                      color: Colors.white, style: BorderStyle.solid, width: 1),
+                ),
+                child: DropdownButton(
+                  iconEnabledColor: Colors.white,
+                  style: TextStyle(color: Colors.white),
+                  dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                  underline: Text(''),
+                  // style: TextStyle(
+                  //   fontFamily: 'WorkSansMedium',
+                  // ),
+                  onTap: () => {},
+                  items: generateSemester(semesters),
+                  value: selectedSemester,
+                  onChanged: (item) {
+                    setState(() {
+                      selectedSemester = item;
+                      semesterShared = selectedSemester.semester;
+                    });
+                  },
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Center(
-                        child: Text(
-                      'Pilih Semester',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    )),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Center(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(
-                              color: Colors.white,
-                              style: BorderStyle.solid,
-                              width: 1),
-                        ),
-                        child: DropdownButton(
-                          iconEnabledColor: Colors.white,
-                          style: TextStyle(color: Colors.white),
-                          dropdownColor: Color.fromRGBO(23, 75, 137, 1),
-                          underline: Text(''),
-                          // style: TextStyle(
-                          //   fontFamily: 'WorkSansMedium',
-                          // ),
-                          onTap: () => {},
-                          items: generateSemester(semesters),
-                          value: selectedSemester,
-                          onChanged: (item) {
-                            setState(() {
-                              selectedSemester = item;
-                              semesterShared = selectedSemester.semester;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                ),
-              ),
+            SizedBox(
+              height: 8,
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

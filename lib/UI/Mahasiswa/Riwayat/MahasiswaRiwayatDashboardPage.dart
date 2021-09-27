@@ -95,208 +95,154 @@ class _MahasiswaRiwayatDashboardPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text('Segarkan'),
-          icon: Icon(Icons.refresh_rounded),
-          onPressed: () => getDataRiwayatMahasiswa(),
-        ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Segarkan'),
+        icon: Icon(Icons.refresh_rounded),
+        onPressed: () => getDataRiwayatMahasiswa(),
+      ),
+      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-              pinned: true,
-              floating: false,
-              snap: false,
-              expandedHeight: 85,
-              flexibleSpace: const FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text(
-                  'Riwayat Presensi',
+        centerTitle: true,
+        title: Text(
+          'Riwayat Presensi',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'WorkSansMedium',
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                Center(
+                    child: Text(
+                  'Pilih Semester',
                   style: TextStyle(
-                      color: Colors.white,
+                      fontSize: 20,
                       fontFamily: 'WorkSansMedium',
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                )),
+                SizedBox(
+                  height: 8,
                 ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Center(
-                        child: Text(
-                      'Pilih Semester',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'WorkSansMedium',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )),
-                    SizedBox(
-                      height: 8,
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all(
+                          color: Colors.white,
+                          style: BorderStyle.solid,
+                          width: 1),
                     ),
-                    Center(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(
-                              color: Colors.white,
-                              style: BorderStyle.solid,
-                              width: 1),
-                        ),
-                        child: DropdownButton(
-                          iconEnabledColor: Colors.white,
-                          style: TextStyle(color: Colors.white),
-                          dropdownColor: Color.fromRGBO(23, 75, 137, 1),
-                          underline: Text(''),
-                          onTap: () => getDataRiwayatMahasiswa(),
-                          items: generateSemester(semesters),
-                          value: selectedSemester,
-                          onChanged: (item) {
-                            setState(() {
-                              selectedSemester = item;
-                              semesterShared = selectedSemester.semester;
-                            });
-                          },
-                        ),
+                    child: DropdownButton(
+                      iconEnabledColor: Colors.white,
+                      style: TextStyle(color: Colors.white),
+                      dropdownColor: Color.fromRGBO(23, 75, 137, 1),
+                      underline: Text(''),
+                      onTap: () => getDataRiwayatMahasiswa(),
+                      items: generateSemester(semesters),
+                      value: selectedSemester,
+                      onChanged: (item) {
+                        setState(() {
+                          selectedSemester = item;
+                          semesterShared = selectedSemester.semester;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+          ),
+          riwayatMahasiswaResponseModel.data == null
+              ? Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        'Silakan pilih semester, \n lalu tekan tombol segarkan',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SliverFillRemaining(
-                child: riwayatMahasiswaResponseModel.data == null
-                    ? Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Center(
-                            child: Text(
-                              'Silakan pilih semester, \n lalu tekan tombol segarkan',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                      itemCount: riwayatMahasiswaResponseModel.data?.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12, right: 12, top: 8, bottom: 8),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(25)),
+                            child: new ListTile(
+                              title: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Text(
+                                      riwayatMahasiswaResponseModel
+                                          .data[index].namamk,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      riwayatMahasiswaResponseModel
+                                          .data[index].kelas,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Status : ${riwayatMahasiswaResponseModel.data[index].status}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'WorkSansMedium',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () async {
+                                // Get.toNamed(
+                                //     '/mahasiswa/dashboard/riwayat/detail');
+                              },
                             ),
                           ),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: riwayatMahasiswaResponseModel.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 12, top: 8, bottom: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: new ListTile(
-                                title: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      // new Text(
-                                      //   riwayatMahasiswaResponseModel
-                                      //       .data[index].tglin,
-                                      //   style: TextStyle(
-                                      //       fontSize: 15,
-                                      //       fontFamily: 'WorkSansMedium',
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
-                                      new Text(
-                                        riwayatMahasiswaResponseModel
-                                            .data[index].namamk,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        riwayatMahasiswaResponseModel
-                                            .data[index].kelas,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                subtitle: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'Status : ${riwayatMahasiswaResponseModel.data[index].status}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'WorkSansMedium',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () async {
-                                  Get.toNamed(
-                                      '/mahasiswa/dashboard/riwayat/detail');
-                                  // Tampilan Modal Kelas
-                                  // showModalBottomSheet(
-                                  //     isScrollControlled: true,
-                                  //     context: context,
-                                  //     shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.only(
-                                  //             topLeft: Radius.circular(25),
-                                  //             topRight: Radius.circular(25))),
-                                  //     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  //     builder: (builder) {
-                                  //       return new Container(
-                                  //         height: 650,
-                                  //         color: Colors.white,
-                                  //         child: new Column(
-                                  //           children: [
-                                  //             new Center(
-                                  //               child: Padding(
-                                  //                 padding: EdgeInsets.only(
-                                  //                     top: 25, bottom: 10),
-                                  //                 child: new Text(
-                                  //                   'Detail Riwayat',
-                                  //                   style: TextStyle(
-                                  //                       fontFamily:
-                                  //                           'WorkSansMedium',
-                                  //                       fontWeight:
-                                  //                           FontWeight.bold,
-                                  //                       fontSize: 24),
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //             Divider(
-                                  //               height: 20,
-                                  //               thickness: 5,
-                                  //             ),
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     });
-                                },
-                              ),
-                            ),
-                          );
-                        }))
-          ],
-        ));
+                        );
+                      }),
+                )
+        ],
+      ),
+    );
   }
 }

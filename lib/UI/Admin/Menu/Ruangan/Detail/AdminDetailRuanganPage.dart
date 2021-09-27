@@ -114,6 +114,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           centerTitle: true,
           title: Text(
@@ -275,7 +276,8 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                                   title: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         new Text(
                                           listBeaconResponseModel
@@ -299,10 +301,10 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                                     setState(() {
                                       selectedKolomDevice = index;
                                     });
-                    
+
                                     selectedNamaDevice = listBeaconResponseModel
                                         .data[index].namadevice;
-                    
+
                                     print(selectedNamaDevice);
                                   },
                                 ),
