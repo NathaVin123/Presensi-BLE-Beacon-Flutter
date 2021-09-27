@@ -3,12 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DosenMenuBeaconPage extends StatefulWidget {
+class AdminMenuBeaconPage extends StatefulWidget {
   @override
-  _DosenMenuBeaconPageState createState() => _DosenMenuBeaconPageState();
+  _AdminMenuBeaconPageState createState() => _AdminMenuBeaconPageState();
 }
 
-class _DosenMenuBeaconPageState extends State<DosenMenuBeaconPage> {
+class _AdminMenuBeaconPageState extends State<AdminMenuBeaconPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

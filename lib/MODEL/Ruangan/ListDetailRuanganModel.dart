@@ -12,18 +12,18 @@ class ListDetailRuanganResponseModel {
 
   ListDetailRuanganResponseModel({this.error, this.data});
 
-  factory ListDetailRuanganResponseModel.fromJson(Map<String, dynamic> json) =>
-      ListDetailRuanganResponseModel(
-        error: json["error"],
-        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-        // data: json["data"]
-      );
+  String toString() =>
+      'ListDetailRuanganResponseModel{error: $error, data: $data}';
 
-  Map<String, dynamic> toJson() => {
-        "error": error,
-        // "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "data": data == null
-      };
+  factory ListDetailRuanganResponseModel.fromJson(Map<String, dynamic> json) {
+    var list = json["data"] as List;
+    print(list.runtimeType);
+    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+
+    return ListDetailRuanganResponseModel(error: json["error"], data: dataList);
+  }
+
+  Map<String, dynamic> toJson() => {"error": error, "data": data};
 }
 
 class Data {

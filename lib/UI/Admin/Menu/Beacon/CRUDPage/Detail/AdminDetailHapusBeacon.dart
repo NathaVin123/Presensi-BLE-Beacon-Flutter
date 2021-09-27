@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Beacon/HapusBeaconModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
 class AdminDetailHapusBeacon extends StatefulWidget {
   AdminDetailHapusBeacon({Key key}) : super(key: key);
@@ -22,9 +24,13 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
 
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
+  HapusBeaconRequestModel hapusBeaconRequestModel;
+
   @override
   void initState() {
     super.initState();
+
+    hapusBeaconRequestModel = HapusBeaconRequestModel();
 
     getDataHapusBeacon();
   }
@@ -88,7 +94,7 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  'UUID : \n$uuid',
+                                  'UUID',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'WorkSansMedium',
@@ -100,7 +106,31 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  'Nama Perangkat : \n$namadevice',
+                                  uuid,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  'Nama Perangkat',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  namadevice,
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'WorkSansMedium',
@@ -123,16 +153,54 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                                       color: Colors.white),
                                 ),
                                 onPressed: () {
-                                  Get.back();
+                                  SKAlertDialog.show(
+                                    context: context,
+                                    type: SKAlertType.buttons,
+                                    title: 'Hapus ?',
+                                    message:
+                                        'Apakah anda yakin ingin\nmenghapus perangkat ini ?',
+                                    okBtnText: 'Ya',
+                                    okBtnTxtColor: Colors.white,
+                                    okBtnColor: Colors.red,
+                                    cancelBtnText: 'Tidak',
+                                    cancelBtnTxtColor: Colors.white,
+                                    cancelBtnColor: Colors.grey,
+                                    onOkBtnTap: (value) async {
+                                      print(hapusBeaconRequestModel.toJson());
 
-                                  Fluttertoast.showToast(
-                                      msg: 'Berhasil Menghapus Beacon',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
+                                      print(uuid);
+
+                                      setState(() {
+                                        isApiCallProcess = true;
+
+                                        hapusBeaconRequestModel.uuid = uuid;
+                                        // hapusBeaconRequestModel.status = 0;
+                                      });
+
+                                      APIService apiService = new APIService();
+
+                                      apiService
+                                          .hapusBeacon(hapusBeaconRequestModel)
+                                          .then((value) async {
+                                        if (value != null) {
+                                          setState(() {
+                                            isApiCallProcess = false;
+                                          });
+                                        }
+                                        Get.back();
+
+                                        await Fluttertoast.showToast(
+                                            msg: 'Berhasil Menghapus Beacon',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 14.0);
+                                      });
+                                    },
+                                    onCancelBtnTap: (value) {},
+                                  );
 
                                   // try {
                                   //   if (validateAndSave()) {

@@ -4,12 +4,12 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DosenUbahBeacon extends StatefulWidget {
+class AdminHapusBeacon extends StatefulWidget {
   @override
-  _DosenUbahBeaconState createState() => _DosenUbahBeaconState();
+  _AdminHapusBeaconState createState() => _AdminHapusBeaconState();
 }
 
-class _DosenUbahBeaconState extends State<DosenUbahBeacon>
+class _AdminHapusBeaconState extends State<AdminHapusBeacon>
     with WidgetsBindingObserver {
   ListBeaconResponseModel listBeaconResponseModel;
 
@@ -39,10 +39,11 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Ubah Beacon',
+          'Hapus Beacon',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -129,81 +130,86 @@ class _DosenUbahBeaconState extends State<DosenUbahBeacon>
                   child: ListView.builder(
                       itemCount: listBeaconResponseModel.data?.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, right: 12, top: 8, bottom: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: new ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Text(
-                                      listBeaconResponseModel
-                                          .data[index].namadevice,
-                                      style: TextStyle(
-                                          fontSize: 18,
+                        if (listBeaconResponseModel.data[index].status == 1 ||
+                            listBeaconResponseModel.data[index].status ==
+                                null) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: new ListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        listBeaconResponseModel
+                                            .data[index].namadevice,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      new Text(
+                                        'UUID',
+                                        style: TextStyle(
+                                          fontSize: 15,
                                           fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    new Text(
-                                      'UUID',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      listBeaconResponseModel.data[index].uuid,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'WorkSansMedium',
+                                      new Text(
+                                        listBeaconResponseModel
+                                            .data[index].uuid,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      'Jarak Minimal',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
+                                      new Text(
+                                        'Jarak Minimal',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      '${listBeaconResponseModel.data[index].jarakmin} m',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'WorkSansMedium',
+                                      new Text(
+                                        '${listBeaconResponseModel.data[index].jarakmin} m',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
+                                onTap: () async {
+                                  SharedPreferences adminHapusBeacon =
+                                      await SharedPreferences.getInstance();
+
+                                  await adminHapusBeacon.setString('uuid',
+                                      listBeaconResponseModel.data[index].uuid);
+
+                                  await adminHapusBeacon.setString(
+                                      'namadevice',
+                                      listBeaconResponseModel
+                                          .data[index].namadevice);
+
+                                  await Get.toNamed(
+                                      '/admin/menu/beacon/detail/hapus');
+                                },
                               ),
-                              onTap: () async {
-                                Get.toNamed('/admin/menu/beacon/detail/ubah');
-
-                                SharedPreferences ubahBeacon =
-                                    await SharedPreferences.getInstance();
-
-                                await ubahBeacon.setString('uuid',
-                                    listBeaconResponseModel.data[index].uuid);
-                                await ubahBeacon.setString(
-                                  'namadevice',
-                                  listBeaconResponseModel
-                                      .data[index].namadevice,
-                                );
-                                await ubahBeacon.setDouble(
-                                    'jarakmin',
-                                    listBeaconResponseModel
-                                        .data[index].jarakmin);
-                              },
                             ),
-                          ),
-                        );
+                          );
+                        } else
+                          return SizedBox(
+                            height: 0,
+                          );
                       }),
                 )
         ],

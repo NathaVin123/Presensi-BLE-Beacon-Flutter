@@ -12,35 +12,36 @@ class ListBeaconResponseModel {
 
   ListBeaconResponseModel({this.error, this.data});
 
-  factory ListBeaconResponseModel.fromJson(Map<String, dynamic> json) =>
-      ListBeaconResponseModel(
-        error: json["error"],
-        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-        // data: json["data"]
-      );
+  String toString() =>
+      'ListKelasMahasiswaResponseModel{error: $error, data: $data}';
 
-  Map<String, dynamic> toJson() => {
-        "error": error,
-        // "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "data": data == null
-      };
+  factory ListBeaconResponseModel.fromJson(Map<String, dynamic> json) {
+    var list = json["data"] as List;
+    print(list.runtimeType);
+    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+
+    return ListBeaconResponseModel(error: json["error"], data: dataList);
+  }
+
+  Map<String, dynamic> toJson() => {"error": error, "data": data};
 }
 
 class Data {
   final String uuid;
   final String namadevice;
   final double jarakmin;
+  final int status;
 
-  Data({
-    this.uuid,
-    this.namadevice,
-    this.jarakmin,
-  });
+  Data({this.uuid, this.namadevice, this.jarakmin, this.status});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        uuid: json["PROXIMITY_UUID"],
-        namadevice: json["NAMA_DEVICE"],
-        jarakmin: ((json["JARAK_MIN_DEC"] as num ) ?? 0.0).toDouble(),
+        uuid: json["PROXIMITY_UUID"] == null
+            ? null
+            : json['PROXIMITY_UUID'] as String,
+        namadevice:
+            json["NAMA_DEVICE"] == null ? null : json['NAMA_DEVICE'] as String,
+        jarakmin: ((json["JARAK_MIN_DEC"] as num) ?? 0.0).toDouble(),
+        status: json["STATUS"] == null ? null : json['STATUS'] as int,
       );
 
   Map<String, dynamic> toJson() => {

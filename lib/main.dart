@@ -7,20 +7,21 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:presensiblebeacon/UI/Admin/AdminDashboardPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Login/LoginAdmin.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Beacon/CRUDPage/Detail/AdminDetailHapusBeacon.dart';
-import 'package:presensiblebeacon/UI/Admin/Menu/Beacon/CRUDPage/DosenTampilListBeacon.dart';
+import 'package:presensiblebeacon/UI/Admin/Menu/Beacon/CRUDPage/AdminTampilListBeacon.dart';
+import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminHapusRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminMenuRuanganPage.dart';
-import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminRuanganPage.dart';
+import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminUbahRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminTampilRuanganpage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/Detail/AdminDetailRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 
 import 'UI/Admin/Menu/Beacon/CRUDPage/Detail/AdminDetailUbahBeacon.dart';
-import 'UI/Admin/Menu/Beacon/CRUDPage/DosenHapusBeacon.dart';
-import 'UI/Admin/Menu/Beacon/CRUDPage/DosenPindaiBeacon.dart';
-import 'UI/Admin/Menu/Beacon/CRUDPage/DosenTambahBeacon.dart';
-import 'UI/Admin/Menu/Beacon/CRUDPage/DosenUbahBeacon.dart';
-import 'UI/Admin/Menu/Beacon/DosenMenuBeaconPage.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/AdminHapusBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/AdminPindaiBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/AdminTambahBeacon.dart';
+import 'UI/Admin/Menu/Beacon/CRUDPage/AdminUbahBeacon.dart';
+import 'UI/Admin/Menu/Beacon/AdminMenuBeaconPage.dart';
 import 'UI/Login/SplashPage.dart';
 
 import 'UI/Fungsi/BluetoothOff.dart';
@@ -99,18 +100,28 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     requestLocationPermission();
   }
+  // Fungsi Lama
+  // Future<bool> _requestPermission(PermissionGroup permission) async {
+  //   final PermissionHandler _permissionHandler = PermissionHandler();
+  //   var result = await _permissionHandler.requestPermissions([permission]);
+  //   if (result[permission] == PermissionStatus.granted) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
-  Future<bool> _requestPermission(PermissionGroup permission) async {
-    final PermissionHandler _permissionHandler = PermissionHandler();
-    var result = await _permissionHandler.requestPermissions([permission]);
-    if (result[permission] == PermissionStatus.granted) {
+  Future<bool> _requestPermission(Permission permission) async {
+    final status = await permission.request();
+
+    if (status == PermissionStatus.granted) {
       return true;
     }
+
     return false;
   }
 
   Future<bool> requestLocationPermission({Function onPermissionDenied}) async {
-    var granted = await _requestPermission(PermissionGroup.location);
+    var granted = await _requestPermission(Permission.location);
     if (granted != true) {
       requestLocationPermission();
     }
@@ -243,17 +254,17 @@ class _MyAppState extends State<MyApp> {
             name: '/dosen/dashboard/akun/informasi',
             page: () => DosenInformasiAkunPage()),
 
-        GetPage(name: '/admin/menu/beacon', page: () => DosenMenuBeaconPage()),
+        GetPage(name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
         GetPage(
-            name: '/admin/menu/beacon/pindai', page: () => DosenPindaiBeacon()),
+            name: '/admin/menu/beacon/pindai', page: () => AdminPindaiBeacon()),
         GetPage(
             name: '/admin/menu/beacon/tampil',
-            page: () => DosenTampilListBeacon()),
+            page: () => AdminTampilListBeacon()),
         GetPage(
-            name: '/admin/menu/beacon/tambah', page: () => DosenTambahBeacon()),
-        GetPage(name: '/admin/menu/beacon/ubah', page: () => DosenUbahBeacon()),
+            name: '/admin/menu/beacon/tambah', page: () => AdminTambahBeacon()),
+        GetPage(name: '/admin/menu/beacon/ubah', page: () => AdminUbahBeacon()),
         GetPage(
-            name: '/admin/menu/beacon/hapus', page: () => DosenHapusBeacon()),
+            name: '/admin/menu/beacon/hapus', page: () => AdminHapusBeacon()),
         GetPage(
             name: '/admin/menu/beacon/detail/ubah',
             page: () => AdminDetailUbahBeacon()),
@@ -266,6 +277,10 @@ class _MyAppState extends State<MyApp> {
             page: () => AdminMenuRuanganPage()),
 
         GetPage(name: '/admin/menu/ruangan/', page: () => AdminRuanganPage()),
+
+        GetPage(
+            name: '/admin/menu/ruangan/hapus',
+            page: () => AdminHapusRuanganPage()),
 
         GetPage(
             name: '/admin/menu/ruangan/detail',

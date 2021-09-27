@@ -6,12 +6,12 @@ import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DosenTambahBeacon extends StatefulWidget {
+class AdminTambahBeacon extends StatefulWidget {
   @override
-  _DosenTambahBeaconState createState() => _DosenTambahBeaconState();
+  _AdminTambahBeaconState createState() => _AdminTambahBeaconState();
 }
 
-class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
+class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
   var _uuidFieldController = TextEditingController();
   var _namaDeviceFieldController = TextEditingController();
   var _jarakMinFieldController = TextEditingController();
@@ -93,6 +93,19 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                               ),
                             ),
                           ),
+                          MaterialButton(
+                              color: Colors.blue,
+                              shape: StadiumBorder(),
+                              padding: EdgeInsets.all(15),
+                              child: Text(
+                                "Pindai Beacon",
+                                style: const TextStyle(
+                                    fontFamily: 'WorkSansSemiBold',
+                                    fontSize: 18.0,
+                                    color: Colors.white),
+                              ),
+                              onPressed: () =>
+                                  Get.toNamed('/admin/menu/beacon/pindai')),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
@@ -190,77 +203,80 @@ class _DosenTambahBeaconState extends State<DosenTambahBeacon> {
                           SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
-                              color: Colors.blue,
-                              shape: StadiumBorder(),
-                              padding: EdgeInsets.all(15),
-                              child: Text(
-                                "Pindai Beacon",
-                                style: const TextStyle(
-                                    fontFamily: 'WorkSansSemiBold',
-                                    fontSize: 18.0,
-                                    color: Colors.white),
-                              ),
-                              onPressed: () =>
-                                  Get.toNamed('/admin/menu/beacon/pindai')),
+                          // MaterialButton(
+                          //     color: Colors.blue,
+                          //     shape: StadiumBorder(),
+                          //     padding: EdgeInsets.all(15),
+                          //     child: Text(
+                          //       "Pindai Beacon",
+                          //       style: const TextStyle(
+                          //           fontFamily: 'WorkSansSemiBold',
+                          //           fontSize: 18.0,
+                          //           color: Colors.white),
+                          //     ),
+                          //     onPressed: () =>
+                          //         Get.toNamed('/admin/menu/beacon/pindai')),
                           SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
-                              color: Color.fromRGBO(247, 180, 7, 1),
-                              shape: StadiumBorder(),
-                              padding: EdgeInsets.all(15),
-                              child: Text(
-                                "SIMPAN",
-                                style: const TextStyle(
-                                    fontFamily: 'WorkSansSemiBold',
-                                    fontSize: 18.0,
-                                    color: Colors.white),
-                              ),
-                              onPressed: () {
-                                FocusScope.of(context).unfocus();
-                                try {
-                                  if (validateAndSave()) {
-                                    print(tambahBeaconRequestModel.toJson());
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: MaterialButton(
+                                color: Color.fromRGBO(247, 180, 7, 1),
+                                shape: StadiumBorder(),
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                  "SIMPAN",
+                                  style: const TextStyle(
+                                      fontFamily: 'WorkSansSemiBold',
+                                      fontSize: 18.0,
+                                      color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  FocusScope.of(context).unfocus();
+                                  try {
+                                    if (validateAndSave()) {
+                                      print(tambahBeaconRequestModel.toJson());
 
-                                    setState(() {
-                                      isApiCallProcess = true;
-                                    });
+                                      setState(() {
+                                        isApiCallProcess = true;
+                                      });
 
-                                    APIService apiService = new APIService();
-                                    apiService
-                                        .postTambahBeacon(
-                                            tambahBeaconRequestModel)
-                                        .then((value) async {
-                                      if (value != null) {
-                                        setState(() {
-                                          isApiCallProcess = false;
-                                        });
-                                      }
-                                      Get.back();
+                                      APIService apiService = new APIService();
+                                      apiService
+                                          .postTambahBeacon(
+                                              tambahBeaconRequestModel)
+                                          .then((value) async {
+                                        if (value != null) {
+                                          setState(() {
+                                            isApiCallProcess = false;
+                                          });
+                                        }
+                                        Get.back();
 
-                                      await Fluttertoast.showToast(
-                                          msg: 'Berhasil Menambahkan Beacon',
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 14.0);
-                                    });
+                                        await Fluttertoast.showToast(
+                                            msg: 'Berhasil Menambahkan Beacon',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 14.0);
+                                      });
+                                    }
+                                  } catch (error) {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            'Terjadi kesalahan, silahkan coba lagi',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
                                   }
-                                } catch (error) {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Terjadi kesalahan, silahkan coba lagi',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
-                                }
-                              }),
+                                }),
+                          ),
                         ],
                       ),
                     ),

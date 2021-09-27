@@ -100,6 +100,43 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
                   padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(25),
+                    onTap: () => Get.toNamed('/tentang'),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.info_rounded,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Tentang Aplikasi',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(25),
                     onTap: () {
                       SKAlertDialog.show(
                         context: context,

@@ -38,6 +38,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
@@ -108,65 +109,68 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                   ),
                 )
               : Expanded(
-                  child: ListView.builder(
-                      itemCount: listDetailRuanganResponseModel.data?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, right: 12, top: 8, bottom: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: new ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Text(
-                                      'Ruang ${listDetailRuanganResponseModel.data[index].ruang}',
-                                      style: TextStyle(
-                                          fontSize: 18,
+                  child: Scrollbar(
+                    child: ListView.builder(
+                        itemCount: listDetailRuanganResponseModel.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: new ListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        'Ruang ${listDetailRuanganResponseModel.data[index].ruang}',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      new Text(
+                                        'Fakultas ${listDetailRuanganResponseModel.data[index].fakultas}',
+                                        style: TextStyle(
+                                          fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    new Text(
-                                      'Fakultas ${listDetailRuanganResponseModel.data[index].fakultas}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      'Prodi ${listDetailRuanganResponseModel.data[index].prodi}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
+                                      new Text(
+                                        'Prodi ${listDetailRuanganResponseModel.data[index].prodi}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      'Nama Device : ${listDetailRuanganResponseModel.data[index].namadevice}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'WorkSansMedium',
+                                      new Text(
+                                        'Nama Device : ${listDetailRuanganResponseModel.data[index].namadevice}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    new Text(
-                                      'Jarak Minimal :  ${listDetailRuanganResponseModel.data[index].jarak} m',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'WorkSansMedium',
+                                      new Text(
+                                        'Jarak Minimal :  ${listDetailRuanganResponseModel.data[index].jarak} m',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
+                                onTap: () async {},
                               ),
-                              onTap: () async {},
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 )
         ],
       ),

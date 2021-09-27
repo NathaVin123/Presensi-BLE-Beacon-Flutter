@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:presensiblebeacon/UI/Login/LoginPage.dart';
-import 'package:system_setting/system_setting.dart';
+// import 'package:system_settings/system_settings.dart';
 
 class BluetoothOff extends StatelessWidget {
   @override
@@ -70,7 +70,7 @@ class BluetoothOffScreen extends StatelessWidget {
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black)),
-                Text('lalu kembali ke aplikasi,',
+                Text('lalu kembali ke aplikasi.',
                     style: TextStyle(
                         decoration: TextDecoration.none,
                         fontFamily: 'WorkSansMedium',
@@ -80,32 +80,32 @@ class BluetoothOffScreen extends StatelessWidget {
                 SizedBox(
                   height: 25,
                 ),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  onPressed: _jumpToSetting,
-                  color: Colors.blue[600],
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    // Replace with a Row for horizontal icon + text
-                    children: <Widget>[
-                      // Icon(
-                      //   Icons.bluetooth_connected_rounded,
-                      //   color: Colors.white,
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Aktifkan",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'WorkSansSemiBold',
-                            )),
-                      )
-                    ],
-                  ),
-                )
+                // MaterialButton(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(25),
+                //   ),
+                //   onPressed: () => SystemSettings.bluetooth(),
+                //   color: Colors.blue[600],
+                //   padding: EdgeInsets.all(10.0),
+                //   child: Column(
+                //     // Replace with a Row for horizontal icon + text
+                //     children: <Widget>[
+                //       // Icon(
+                //       //   Icons.bluetooth_connected_rounded,
+                //       //   color: Colors.white,
+                //       // ),
+                //       Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Aktifkan",
+                //             style: TextStyle(
+                //               color: Colors.white,
+                //               fontSize: 20,
+                //               fontFamily: 'WorkSansSemiBold',
+                //             )),
+                //       )
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),
@@ -113,8 +113,4 @@ class BluetoothOffScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-_jumpToSetting() {
-  SystemSetting.goto(SettingTarget.BLUETOOTH);
 }

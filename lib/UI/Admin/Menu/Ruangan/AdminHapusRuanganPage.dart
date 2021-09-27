@@ -4,14 +4,16 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AdminRuanganPage extends StatefulWidget {
+class AdminHapusRuanganPage extends StatefulWidget {
   @override
-  _AdminRuanganPageState createState() => _AdminRuanganPageState();
+  _AdminHapusRuanganPageState createState() => _AdminHapusRuanganPageState();
 }
 
-class _AdminRuanganPageState extends State<AdminRuanganPage>
+class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
     with WidgetsBindingObserver {
   ListRuanganResponseModel listRuanganResponseModel;
+
+  List<Data> ruanganListSearch = List<Data>();
 
   @override
   void initState() {
@@ -31,6 +33,8 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
 
       apiService.getListRuangan().then((value) async {
         listRuanganResponseModel = value;
+
+        ruanganListSearch = listRuanganResponseModel.data;
       });
     });
   }
@@ -42,7 +46,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Ubah Perangkat Ruangan',
+          'Hapus Perangkat Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -61,69 +65,63 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      // body: CustomScrollView(
-      //   slivers: <Widget>[
-      //     SliverAppBar(
-      //       iconTheme: IconThemeData(color: Colors.white),
-      //       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      //       pinned: true,
-      //       floating: false,
-      //       snap: false,
-      //       expandedHeight: 85,
-      //       flexibleSpace: const FlexibleSpaceBar(
-      //         centerTitle: true,
-      //         title: Text(
-      //           'Ubah Beacon',
-      //           style: TextStyle(
-      //               color: Colors.white,
-      //               fontFamily: 'WorkSansMedium',
-      //               fontWeight: FontWeight.bold),
-      //         ),
-      //       ),
-      //     ),
-      //     SliverToBoxAdapter(
-      //     child: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Center(
-      //       child: Text(
-      //     'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...',
-      //     style: TextStyle(color: Colors.white),
-      //   )),
-      // )
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'Pilih Ruang',
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'WorkSansMedium',
-                    color: Colors.white),
+      body: listRuanganResponseModel.data == null
+          ? Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'Silakan tekan tombol segarkan',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
               ),
-            ),
-          ),
-          listRuanganResponseModel.data == null
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        'Silakan tekan tombol segarkan',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+            )
+          : Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Cari Ruangan',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                        ),
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        onChanged: (text) {
+                          text = text.toLowerCase();
+                          setState(() {
+                            ruanganListSearch =
+                                listRuanganResponseModel.data.where((ruang) {
+                              var namaRuang = ruang.ruang.toLowerCase();
+                              return namaRuang.contains(text);
+                            }).toList();
+                          });
+                        },
                       ),
                     ),
                   ),
-                )
-              : Expanded(
+                ),
+                Expanded(
                   child: ListView.builder(
-                      itemCount: listRuanganResponseModel.data?.length,
+                      // itemCount: listRuanganResponseModel.data?.length,
+                      itemCount: ruanganListSearch.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(
@@ -139,21 +137,21 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     new Text(
-                                      'Ruang ${listRuanganResponseModel.data[index].ruang}',
+                                      'Ruang ${ruanganListSearch[index].ruang}',
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
                                     ),
                                     new Text(
-                                      'Fakultas ${listRuanganResponseModel.data[index].fakultas}',
+                                      'Fakultas ${ruanganListSearch[index].fakultas}',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'WorkSansMedium',
                                       ),
                                     ),
                                     new Text(
-                                      'Prodi ${listRuanganResponseModel.data[index].prodi}',
+                                      'Prodi ${ruanganListSearch[index].prodi}',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'WorkSansMedium',
@@ -163,27 +161,27 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                                 ),
                               ),
                               onTap: () async {
-                                Get.toNamed('/admin/menu/ruangan/detail');
+                                // Get.toNamed('/admin/menu/ruangan/detail');
 
                                 SharedPreferences saveRuangan =
                                     await SharedPreferences.getInstance();
 
-                                await saveRuangan.setString('ruang',
-                                    listRuanganResponseModel.data[index].ruang);
+                                await saveRuangan.setString(
+                                    'ruang', ruanganListSearch[index].ruang);
                                 await saveRuangan.setString(
                                     'fakultas',
                                     listRuanganResponseModel
                                         .data[index].fakultas);
-                                await saveRuangan.setString('prodi',
-                                    listRuanganResponseModel.data[index].prodi);
+                                await saveRuangan.setString(
+                                    'prodi', ruanganListSearch[index].prodi);
                               },
                             ),
                           ),
                         );
                       }),
-                )
-        ],
-      ),
+                ),
+              ],
+            ),
       //     )
       //   ],
       // ),

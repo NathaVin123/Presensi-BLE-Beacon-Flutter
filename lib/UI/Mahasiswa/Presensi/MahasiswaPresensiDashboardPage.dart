@@ -12,7 +12,6 @@ import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
-import 'package:system_setting/system_setting.dart';
 
 class MahasiswaPresensiDashboardPage extends StatefulWidget {
   @override

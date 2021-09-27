@@ -221,18 +221,18 @@ class APIService {
   }
 
   Future hapusBeacon(HapusBeaconRequestModel requestModel) async {
-    String url = BASE_URL + "ruangbeacon/hapus";
+    String url = BASE_URL + "ruangbeacon/softhapus";
     print(url);
-    http.Response response = await http.delete(url);
+    http.Response response = await http.put(url);
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(response.body);
-      return ListBeaconResponseModel.fromJson(
+      return HapusBeaconRequestModel.fromJson(
         json.decode(response.body),
       );
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
-      return ListBeaconResponseModel.fromJson(
+      return HapusBeaconRequestModel.fromJson(
         json.decode(response.body),
       );
     } else {

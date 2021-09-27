@@ -7,14 +7,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
-import 'package:system_setting/system_setting.dart';
 
-class DosenPindaiBeacon extends StatefulWidget {
+class AdminPindaiBeacon extends StatefulWidget {
   @override
-  _DosenPindaiBeaconState createState() => _DosenPindaiBeaconState();
+  _AdminPindaiBeaconState createState() => _AdminPindaiBeaconState();
 }
 
-class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
+class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
     with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
 
@@ -207,10 +206,6 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
     super.dispose();
   }
 
-  _jumpToSetting() {
-    SystemSetting.goto(SettingTarget.BLUETOOTH);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,7 +229,7 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                       if (Platform.isAndroid) {
                         await flutterBeacon.openLocationSettings;
                       } else if (Platform.isIOS) {
-                        await _jumpToSetting();
+                        // await _jumpToSetting();
                       }
                     }),
               StreamBuilder<BluetoothState>(
@@ -262,7 +257,7 @@ class _DosenPindaiBeaconState extends State<DosenPindaiBeacon>
                             }
                           } else if (Platform.isIOS) {
                             try {
-                              await _jumpToSetting();
+                              // await _jumpToSetting();
                             } on PlatformException catch (e) {
                               print(e);
                             }

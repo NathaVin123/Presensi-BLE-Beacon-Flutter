@@ -135,7 +135,8 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                               EdgeInsets.only(left: 14, right: 14, bottom: 14),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(25),
-                            onTap: () => {},
+                            onTap: () =>
+                                {Get.toNamed('/admin/menu/ruangan/hapus')},
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey[200],
@@ -161,9 +162,9 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                                           width: 11,
                                         ),
                                         Text(
-                                          'Hapus Perangkat Dari Ruangan',
+                                          'Hapus Perangkat Ruangan',
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 20,
                                               fontFamily: 'WorkSansMedium',
                                               fontWeight: FontWeight.bold),
                                         ),
