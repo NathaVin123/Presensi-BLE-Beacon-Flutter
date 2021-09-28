@@ -180,66 +180,68 @@ class _MahasiswaRiwayatDashboardPageState
                   ),
                 )
               : Expanded(
-                  child: ListView.builder(
-                      itemCount: riwayatMahasiswaResponseModel.data?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, right: 12, top: 8, bottom: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: new ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Text(
-                                      riwayatMahasiswaResponseModel
-                                          .data[index].namamk,
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      riwayatMahasiswaResponseModel
-                                          .data[index].kelas,
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      'Status : ${riwayatMahasiswaResponseModel.data[index].status}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'WorkSansMedium',
+                  child: Scrollbar(
+                    child: ListView.builder(
+                        itemCount: riwayatMahasiswaResponseModel.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: new ListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text(
+                                        riwayatMahasiswaResponseModel
+                                            .data[index].namamk,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        riwayatMahasiswaResponseModel
+                                            .data[index].kelas,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        'Status : ${riwayatMahasiswaResponseModel.data[index].status}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () async {
+                                  // Get.toNamed(
+                                  //     '/mahasiswa/dashboard/riwayat/detail');
+                                },
                               ),
-                              onTap: () async {
-                                // Get.toNamed(
-                                //     '/mahasiswa/dashboard/riwayat/detail');
-                              },
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 )
         ],
       ),

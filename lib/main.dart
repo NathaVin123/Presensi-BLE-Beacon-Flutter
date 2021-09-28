@@ -100,6 +100,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     requestLocationPermission();
   }
+
   // Fungsi Lama
   // Future<bool> _requestPermission(PermissionGroup permission) async {
   //   final PermissionHandler _permissionHandler = PermissionHandler();
@@ -142,23 +143,19 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         // Splash Page
         GetPage(name: '/', page: () => SplashPage()),
-
         // BluetoothOff Page
         GetPage(
           name: '/bluetooth',
           page: () => BluetoothOff(),
         ),
-
         GetPage(
           name: '/pindaiMahasiswa',
           page: () => PindaiKelasMahasiswaPage(),
         ),
-
         GetPage(
           name: '/pindaiDosen',
           page: () => PindaiKelasDosenPage(),
         ),
-
         // Login Page
         GetPage(
           name: '/login',
@@ -166,13 +163,11 @@ class _MyAppState extends State<MyApp> {
         ),
         GetPage(name: '/login/mahasiswa', page: () => LoginMahasiswa()),
         GetPage(name: '/login/dosen', page: () => LoginDosen()),
-
         // Mahasiswa Page
         GetPage(
           name: '/mahasiswa/dashboard',
           page: () => MahasiswaDashboardPage(),
         ),
-
         GetPage(
             name: '/mahasiswa/dashboard/presensi',
             page: () => MahasiswaPresensiDashboardPage()),
@@ -182,18 +177,15 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/mahasiswa/dashboard/presensi/detail/tampilpeserta',
             page: () => MahasiswaTampilPesertaKelasPage()),
-
         GetPage(
             name: '/mahasiswa/dashboard/presensi/notifikasi',
             page: () => MahasiswaNotifikasiPresensiPage()),
-
         GetPage(
             name: '/mahasiswa/dashboard/jadwal',
             page: () => MahasiswaJadwalDashboardPage()),
         GetPage(
             name: '/mahasiswa/dashboard/jadwal/detail',
             page: () => MahasiswaDetailJadwalPage()),
-
         GetPage(
             name: '/mahasiswa/dashboard/riwayat',
             page: () => MahasiswaRiwayatDashboardPage()),
@@ -211,13 +203,11 @@ class _MyAppState extends State<MyApp> {
             name: '/statistik/mahasiswa',
             page: () => MahasiswaStatistikPage(),
             transition: Transition.fade),
-
         // Dosen Page
         GetPage(
           name: '/dosen/dashboard',
           page: () => DosenDashboardPage(),
         ),
-
         GetPage(
             name: '/dosen/dashboard/presensi',
             page: () => DosenPresensiDashboardPage()),
@@ -227,33 +217,27 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/dosen/dashboard/presensi/detail/tampilpeserta',
             page: () => DosenTampilPesertaKelasPage()),
-
         GetPage(
             name: '/dosen/dashboard/presensi/notifikasi',
             page: () => DosenNotifikasiPresensiPage()),
-
         GetPage(
             name: '/dosen/dashboard/jadwal',
             page: () => DosenJadwalDashboardPage()),
         GetPage(
             name: '/dosen/dashboard/jadwal/detail',
             page: () => DosenDetailJadwalPage()),
-
         GetPage(
             name: '/dosen/dashboard/riwayat',
             page: () => DosenRiwayatDashboardPage()),
         GetPage(
             name: '/dosen/dashboard/riwayat/detail',
             page: () => DosenDetailRiwayatPage()),
-
         GetPage(
             name: '/dosen/dashboard/akun',
             page: () => DosenAkunDashboardPage()),
-
         GetPage(
             name: '/dosen/dashboard/akun/informasi',
             page: () => DosenInformasiAkunPage()),
-
         GetPage(name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
         GetPage(
             name: '/admin/menu/beacon/pindai', page: () => AdminPindaiBeacon()),
@@ -271,37 +255,28 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/admin/menu/beacon/detail/hapus',
             page: () => AdminDetailHapusBeacon()),
-
         GetPage(
             name: '/admin/menu/ruangan/menu',
             page: () => AdminMenuRuanganPage()),
-
         GetPage(name: '/admin/menu/ruangan/', page: () => AdminRuanganPage()),
-
         GetPage(
             name: '/admin/menu/ruangan/hapus',
             page: () => AdminHapusRuanganPage()),
-
         GetPage(
             name: '/admin/menu/ruangan/detail',
             page: () => AdminDetailRuanganPage()),
-
         GetPage(
             name: '/admin/menu/ruangan/tampil',
             page: () => AdminTampilRuanganPage()),
-
         GetPage(
             name: '/dosen/dashboard/akun/gantipassword',
             page: () => DosenGantiPasswordPage()),
-
         GetPage(name: '/login/admin', page: () => LoginAdmin()),
         GetPage(name: '/admin/dashboard', page: () => AdminDashboardPage()),
-
         GetPage(
             name: '/statistik/dosen',
             page: () => DosenStatistikPage(),
             transition: Transition.fade),
-
         // Tentang Page
         GetPage(
           name: '/tentang',

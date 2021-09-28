@@ -34,10 +34,11 @@ class Data {
   Data({this.ruang, this.fakultas, this.prodi, this.namadevice});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-      ruang: json["RUANG"],
-      fakultas: json["FAKULTAS"],
-      prodi: json["PRODI"],
-      namadevice: json["NAMA_DEVICE"]);
+        ruang: json["RUANG"] == null ? null : json["RUANG"],
+        fakultas: json["FAKULTAS"] == null ? null : json["FAKULTAS"],
+        prodi: json["PRODI"] == null ? null : json["PRODI"],
+        namadevice: json["NAMA_DEVICE"] == null ? null : json["NAMA_DEVICE"],
+      );
 
   Map<String, dynamic> toJson() => {
         "RUANG": ruang,

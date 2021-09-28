@@ -5,19 +5,19 @@ import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminRuanganPage extends StatefulWidget {
+  AdminRuanganPage({Key key}) : super(key: key);
   @override
   _AdminRuanganPageState createState() => _AdminRuanganPageState();
 }
 
 class _AdminRuanganPageState extends State<AdminRuanganPage>
-    with WidgetsBindingObserver {
+     {
   ListRuanganResponseModel listRuanganResponseModel;
 
   List<Data> ruanganListSearch = List<Data>();
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
 
     listRuanganResponseModel = ListRuanganResponseModel();
@@ -34,7 +34,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
       apiService.getListRuangan().then((value) async {
         listRuanganResponseModel = value;
 
-        ruanganListSearch = listRuanganResponseModel.data;
+        ruanganListSearch = value.data;
       });
     });
   }
@@ -55,7 +55,6 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
         onPressed: () => getListRuangan(),
         label: Text(
           'Segarkan',
@@ -122,7 +121,6 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                 Expanded(
                   child: Scrollbar(
                     child: ListView.builder(
-                        // itemCount: listRuanganResponseModel.data?.length,
                         itemCount: ruanganListSearch.length,
                         itemBuilder: (context, index) {
                           return Padding(

@@ -13,6 +13,8 @@ class AdminTampilRuanganPage extends StatefulWidget {
 class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
   ListDetailRuanganResponseModel listDetailRuanganResponseModel;
 
+  List<Data> ruanganListSearch = List<Data>();
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +32,8 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
 
       apiService.getListDetailRuangan().then((value) async {
         listDetailRuanganResponseModel = value;
+
+        ruanganListSearch = value.data;
       });
     });
   }
@@ -42,7 +46,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Tampil Ruangan',
+          'Tampil Perangkat Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -50,7 +54,6 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
         onPressed: () => getListDetailRuangan(),
         label: Text(
           'Segarkan',
@@ -61,57 +64,64 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      // body: CustomScrollView(
-      //   slivers: <Widget>[
-      //     SliverAppBar(
-      //       iconTheme: IconThemeData(color: Colors.white),
-      //       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      //       pinned: true,
-      //       floating: false,
-      //       snap: false,
-      //       expandedHeight: 85,
-      //       flexibleSpace: const FlexibleSpaceBar(
-      //         centerTitle: true,
-      //         title: Text(
-      //           'Ubah Beacon',
-      //           style: TextStyle(
-      //               color: Colors.white,
-      //               fontFamily: 'WorkSansMedium',
-      //               fontWeight: FontWeight.bold),
-      //         ),
-      //       ),
-      //     ),
-      //     SliverToBoxAdapter(
-      //     child: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Center(
-      //       child: Text(
-      //     'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...',
-      //     style: TextStyle(color: Colors.white),
-      //   )),
-      // )
-      body: Column(
-        children: <Widget>[
-          listDetailRuanganResponseModel.data == null
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        'Silakan tekan tombol segarkan',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+      body: listDetailRuanganResponseModel.data == null
+          ? Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'Silakan tekan tombol segarkan',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            )
+          : Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Cari Ruangan',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                        ),
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        onChanged: (text) {
+                          text = text.toLowerCase();
+                          setState(() {
+                            ruanganListSearch = listDetailRuanganResponseModel
+                                .data
+                                .where((ruang) {
+                              var namaRuang = ruang.ruang.toLowerCase();
+                              return namaRuang.contains(text);
+                            }).toList();
+                          });
+                        },
                       ),
                     ),
                   ),
-                )
-              : Expanded(
+                ),
+                Expanded(
                   child: Scrollbar(
                     child: ListView.builder(
-                        itemCount: listDetailRuanganResponseModel.data?.length,
+                        itemCount: ruanganListSearch.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(
@@ -127,28 +137,28 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       new Text(
-                                        'Ruang ${listDetailRuanganResponseModel.data[index].ruang}',
+                                        'Ruang ${ruanganListSearch[index].ruang}',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold),
                                       ),
                                       new Text(
-                                        'Fakultas ${listDetailRuanganResponseModel.data[index].fakultas}',
+                                        'Fakultas ${ruanganListSearch[index].fakultas}',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
                                         ),
                                       ),
                                       new Text(
-                                        'Prodi ${listDetailRuanganResponseModel.data[index].prodi}',
+                                        'Prodi ${ruanganListSearch[index].prodi}',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
                                         ),
                                       ),
                                       new Text(
-                                        'Nama Device : ${listDetailRuanganResponseModel.data[index].namadevice}',
+                                        'Nama Device : ${ruanganListSearch[index].namadevice}',
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'WorkSansMedium',
@@ -156,7 +166,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                                         ),
                                       ),
                                       new Text(
-                                        'Jarak Minimal :  ${listDetailRuanganResponseModel.data[index].jarak} m',
+                                        'Jarak Minimal :  ${ruanganListSearch[index].jarak} m',
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontFamily: 'WorkSansMedium',
@@ -171,9 +181,9 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                           );
                         }),
                   ),
-                )
-        ],
-      ),
+                ),
+              ],
+            ),
     );
   }
 }

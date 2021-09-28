@@ -5,17 +5,19 @@ import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminHapusBeacon extends StatefulWidget {
+  AdminHapusBeacon({Key key}) : super(key: key);
+
   @override
   _AdminHapusBeaconState createState() => _AdminHapusBeaconState();
 }
 
-class _AdminHapusBeaconState extends State<AdminHapusBeacon>
-    with WidgetsBindingObserver {
+class _AdminHapusBeaconState extends State<AdminHapusBeacon> {
   ListBeaconResponseModel listBeaconResponseModel;
+
+  List<Data> beaconListSearch = List<Data>();
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
 
     listBeaconResponseModel = ListBeaconResponseModel();
@@ -31,6 +33,8 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
 
       apiService.getListBeacon().then((value) async {
         listBeaconResponseModel = value;
+
+        beaconListSearch = value.data;
       });
     });
   }
@@ -51,7 +55,6 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
         onPressed: () => getListBeacon(),
         label: Text(
           'Segarkan',
@@ -62,77 +65,65 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      // body: CustomScrollView(
-      //   slivers: <Widget>[
-      //     SliverAppBar(
-      //       iconTheme: IconThemeData(color: Colors.white),
-      //       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      //       pinned: true,
-      //       floating: false,
-      //       snap: false,
-      //       expandedHeight: 85,
-      //       flexibleSpace: const FlexibleSpaceBar(
-      //         centerTitle: true,
-      //         title: Text(
-      //           'Ubah Beacon',
-      //           style: TextStyle(
-      //               color: Colors.white,
-      //               fontFamily: 'WorkSansMedium',
-      //               fontWeight: FontWeight.bold),
-      //         ),
-      //       ),
-      //     ),
-      //     SliverToBoxAdapter(
-      //     child: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Center(
-      //       child: Text(
-      //     'Aplikasi sedang dalam pembangunan, tunggu update selanjutnya ya...',
-      //     style: TextStyle(color: Colors.white),
-      //   )),
-      // )
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 20, right: 25, top: 10, bottom: 5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              // child: Center(
-              //   child: Text(
-              //     'Daftar Beacon',
-              //     style: TextStyle(
-              //         fontSize: 22,
-              //         fontWeight: FontWeight.bold,
-              //         fontFamily: 'WorkSansMedium',
-              //         color: Colors.white),
-              //   ),
-              // ),
-            ),
-          ),
-          listBeaconResponseModel.data == null
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        'Silakan tekan tombol segarkan',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+      body: listBeaconResponseModel.data == null
+          ? Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'Silakan tekan tombol segarkan',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'WorkSansMedium',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            )
+          : Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Cari Beacon',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                        ),
+                        style: const TextStyle(
+                            fontFamily: 'WorkSansSemiBold',
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        onChanged: (text) {
+                          text = text.toLowerCase();
+                          setState(() {
+                            beaconListSearch =
+                                listBeaconResponseModel.data.where((beacon) {
+                              var namabeacon = beacon.namadevice.toLowerCase();
+                              return namabeacon.contains(text);
+                            }).toList();
+                          });
+                        },
                       ),
                     ),
                   ),
-                )
-              : Expanded(
+                ),
+                Expanded(
                   child: ListView.builder(
-                      itemCount: listBeaconResponseModel.data?.length,
+                      itemCount: beaconListSearch?.length,
                       itemBuilder: (context, index) {
-                        if (listBeaconResponseModel.data[index].status == 1 ||
-                            listBeaconResponseModel.data[index].status ==
-                                null) {
+                        if (beaconListSearch[index].status == 1 ||
+                            beaconListSearch[index].status == null) {
                           return Padding(
                             padding: const EdgeInsets.only(
                                 left: 12, right: 12, top: 8, bottom: 8),
@@ -147,8 +138,7 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       new Text(
-                                        listBeaconResponseModel
-                                            .data[index].namadevice,
+                                        beaconListSearch[index].namadevice,
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontFamily: 'WorkSansMedium',
@@ -163,8 +153,7 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
                                         ),
                                       ),
                                       new Text(
-                                        listBeaconResponseModel
-                                            .data[index].uuid,
+                                        beaconListSearch[index].uuid,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontFamily: 'WorkSansMedium',
@@ -179,7 +168,7 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
                                         ),
                                       ),
                                       new Text(
-                                        '${listBeaconResponseModel.data[index].jarakmin} m',
+                                        '${beaconListSearch[index].jarakmin} m',
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontFamily: 'WorkSansMedium',
@@ -192,13 +181,11 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
                                   SharedPreferences adminHapusBeacon =
                                       await SharedPreferences.getInstance();
 
-                                  await adminHapusBeacon.setString('uuid',
-                                      listBeaconResponseModel.data[index].uuid);
-
                                   await adminHapusBeacon.setString(
-                                      'namadevice',
-                                      listBeaconResponseModel
-                                          .data[index].namadevice);
+                                      'uuid', beaconListSearch[index].uuid);
+
+                                  await adminHapusBeacon.setString('namadevice',
+                                      beaconListSearch[index].namadevice);
 
                                   await Get.toNamed(
                                       '/admin/menu/beacon/detail/hapus');
@@ -211,9 +198,9 @@ class _AdminHapusBeaconState extends State<AdminHapusBeacon>
                             height: 0,
                           );
                       }),
-                )
-        ],
-      ),
+                ),
+              ],
+            ),
       //     )
       //   ],
       // ),
