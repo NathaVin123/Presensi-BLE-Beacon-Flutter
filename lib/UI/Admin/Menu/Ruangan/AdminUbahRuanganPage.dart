@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -10,8 +12,7 @@ class AdminRuanganPage extends StatefulWidget {
   _AdminRuanganPageState createState() => _AdminRuanganPageState();
 }
 
-class _AdminRuanganPageState extends State<AdminRuanganPage>
-     {
+class _AdminRuanganPageState extends State<AdminRuanganPage> {
   ListRuanganResponseModel listRuanganResponseModel;
 
   List<Data> ruanganListSearch = List<Data>();
@@ -22,7 +23,12 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
 
     listRuanganResponseModel = ListRuanganResponseModel();
 
-    getListRuangan();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getListRuangan();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   void getListRuangan() async {
@@ -70,13 +76,32 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
-                    'Silakan tekan tombol segarkan',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Silakan tekan tombol "Segarkan" jika bermasalah',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -157,14 +182,6 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                                           fontFamily: 'WorkSansMedium',
                                         ),
                                       ),
-                                      new Text(
-                                        'Nama Device : ${ruanganListSearch[index].namadevice ?? "-"}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -175,18 +192,10 @@ class _AdminRuanganPageState extends State<AdminRuanganPage>
                                       await SharedPreferences.getInstance();
                                   await saveRuangan.setString(
                                       'ruang', ruanganListSearch[index].ruang);
-                                  SharedPreferences saveFakultas =
-                                      await SharedPreferences.getInstance();
-                                  await saveFakultas.setString('fakultas',
+                                  await saveRuangan.setString('fakultas',
                                       ruanganListSearch[index].fakultas);
-                                  SharedPreferences saveProdi =
-                                      await SharedPreferences.getInstance();
-                                  await saveProdi.setString(
+                                  await saveRuangan.setString(
                                       'prodi', ruanganListSearch[index].prodi);
-                                  SharedPreferences saveDevice =
-                                      await SharedPreferences.getInstance();
-                                  await saveDevice.setString('namadevice',
-                                      ruanganListSearch[index].namadevice);
                                 },
                               ),
                             ),

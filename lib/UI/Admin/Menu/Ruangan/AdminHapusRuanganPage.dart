@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/UbahRuangBeaconModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
 class AdminHapusRuanganPage extends StatefulWidget {
   @override
@@ -11,30 +16,41 @@ class AdminHapusRuanganPage extends StatefulWidget {
 
 class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
     with WidgetsBindingObserver {
-  ListRuanganResponseModel listRuanganResponseModel;
+  ListDetailRuanganResponseModel listDetailRuanganResponseModel;
+
+  UbahRuangBeaconRequestModel ubahRuangBeaconRequestModel;
 
   List<Data> ruanganListSearch = List<Data>();
+
+  bool isApiCallProcess = false;
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
-    listRuanganResponseModel = ListRuanganResponseModel();
+    ubahRuangBeaconRequestModel = UbahRuangBeaconRequestModel();
 
-    getListRuangan();
+    listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getListRuangan();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   void getListRuangan() async {
     setState(() {
-      print(listRuanganResponseModel.toJson());
+      print(listDetailRuanganResponseModel.toJson());
 
       APIService apiService = new APIService();
 
-      apiService.getListRuangan().then((value) async {
-        listRuanganResponseModel = value;
+      apiService.getListDetailRuangan().then((value) async {
+        listDetailRuanganResponseModel = value;
 
-        ruanganListSearch = listRuanganResponseModel.data;
+        ruanganListSearch = listDetailRuanganResponseModel.data;
       });
     });
   }
@@ -66,18 +82,37 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      body: listRuanganResponseModel.data == null
+      body: listDetailRuanganResponseModel.data == null
           ? Container(
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
-                    'Silakan tekan tombol segarkan',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Silakan tekan tombol "Segarkan" jika bermasalah',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -108,8 +143,9 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                         onChanged: (text) {
                           text = text.toLowerCase();
                           setState(() {
-                            ruanganListSearch =
-                                listRuanganResponseModel.data.where((ruang) {
+                            ruanganListSearch = listDetailRuanganResponseModel
+                                .data
+                                .where((ruang) {
                               var namaRuang = ruang.ruang.toLowerCase();
                               return namaRuang.contains(text);
                             }).toList();
@@ -121,7 +157,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                 ),
                 Expanded(
                   child: ListView.builder(
-                      // itemCount: listRuanganResponseModel.data?.length,
+                      // itemCount: listDetailRuanganResponseModel.data?.length,
                       itemCount: ruanganListSearch.length,
                       itemBuilder: (context, index) {
                         return Padding(
@@ -164,17 +200,69 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                               onTap: () async {
                                 // Get.toNamed('/admin/menu/ruangan/detail');
 
-                                SharedPreferences saveRuangan =
-                                    await SharedPreferences.getInstance();
+                                SKAlertDialog.show(
+                                  context: context,
+                                  type: SKAlertType.buttons,
+                                  title: 'Keluar ?',
+                                  message:
+                                      'Apakah anda yakin\ningin melepas perangkat ini ?',
+                                  okBtnText: 'Ya',
+                                  okBtnTxtColor: Colors.white,
+                                  okBtnColor: Colors.red,
+                                  cancelBtnText: 'Tidak',
+                                  cancelBtnTxtColor: Colors.white,
+                                  cancelBtnColor: Colors.grey,
+                                  onOkBtnTap: (value) async {
+                                    print(ubahRuangBeaconRequestModel.toJson());
 
-                                await saveRuangan.setString(
-                                    'ruang', ruanganListSearch[index].ruang);
-                                await saveRuangan.setString(
-                                    'fakultas',
-                                    listRuanganResponseModel
-                                        .data[index].fakultas);
-                                await saveRuangan.setString(
-                                    'prodi', ruanganListSearch[index].prodi);
+                                    setState(() {
+                                      isApiCallProcess = true;
+
+                                      ubahRuangBeaconRequestModel.ruang =
+                                          ruanganListSearch[index].ruang;
+
+                                      ubahRuangBeaconRequestModel.namadevice =
+                                          "";
+                                    });
+
+                                    APIService apiService = new APIService();
+
+                                    apiService
+                                        .putUbahRuangBeacon(
+                                            ubahRuangBeaconRequestModel)
+                                        .then((value) async {
+                                      if (value != null) {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
+                                      }
+                                      // Get.back();
+
+                                      await Fluttertoast.showToast(
+                                          msg:
+                                              'Berhasil Melepas Perangkat Beacon di Ruangan',
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 14.0);
+                                    });
+                                  },
+                                  onCancelBtnTap: (value) {},
+                                );
+
+                                // SharedPreferences saveRuangan =
+                                //     await SharedPreferences.getInstance();
+
+                                // await saveRuangan.setString(
+                                //     'ruang', ruanganListSearch[index].ruang);
+                                // await saveRuangan.setString(
+                                //     'fakultas',
+                                //     listDetailRuanganResponseModel
+                                //         .data[index].fakultas);
+                                // await saveRuangan.setString(
+                                //     'prodi', ruanganListSearch[index].prodi);
                               },
                             ),
                           ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
@@ -21,7 +23,12 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
 
     listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
 
-    getListDetailRuangan();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getListDetailRuangan();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   void getListDetailRuangan() async {
@@ -69,13 +76,32 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
-                    'Silakan tekan tombol segarkan',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Silakan tekan tombol "Segarkan" jika bermasalah',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),

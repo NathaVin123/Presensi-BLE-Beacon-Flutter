@@ -59,7 +59,7 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                                     Text(
                                       'Tampil Perangkat Ruangan',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -98,7 +98,7 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                                     Text(
                                       'Ubah Perangkat Ruangan',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -135,9 +135,9 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                                       width: 11,
                                     ),
                                     Text(
-                                      'Hapus Perangkat Ruangan',
+                                      'Lepas Perangkat Ruangan',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
                                           fontWeight: FontWeight.bold),
                                     ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -36,7 +38,13 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   @override
   void initState() {
     super.initState();
-    getDataUbahBeacon();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataUbahBeacon();
+      Future.delayed(Duration(seconds: 1), () {
+        t.cancel();
+      });
+    });
+
     ubahBeaconRequestModel = new UbahBeaconRequestModel();
   }
 

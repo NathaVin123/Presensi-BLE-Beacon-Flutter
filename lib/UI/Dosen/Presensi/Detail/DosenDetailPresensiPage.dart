@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
   String namamk = "";
   String kelas = "";
   int sks = 0;
+  int pertemuan = 0;
   String hari = "";
   String sesi = "";
   int kapasitas = 0;
@@ -43,7 +46,12 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
     presensiINDosenBukaPresensiRequestModel =
         PresensiINDosenBukaPresensiRequestModel();
 
-    getDetailKelas();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDetailKelas();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDetailKelas() async {
@@ -55,6 +63,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
       namamk = dataPresensiDosen.getString('namamk');
       kelas = dataPresensiDosen.getString('kelas');
       sks = dataPresensiDosen.getInt('sks');
+      pertemuan = dataPresensiDosen.getInt('pertemuan');
       hari = dataPresensiDosen.getString('hari1');
       sesi = dataPresensiDosen.getString('sesi1');
       kapasitas = dataPresensiDosen.getInt('kapasitas');
@@ -240,11 +249,39 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
+
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
                               child: new Text(
                                 '${sks ?? "-"}',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    // fontWeight:
+                                    //     FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                'Pertemuan Ke',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                '${pertemuan ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:

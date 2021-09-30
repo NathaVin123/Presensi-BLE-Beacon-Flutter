@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -16,27 +18,36 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
 
   List<Data> beaconListSearch = List<Data>();
 
+  bool condition = false;
+
   @override
   void initState() {
     super.initState();
 
     listBeaconResponseModel = ListBeaconResponseModel();
 
-    getListBeacon();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getListBeacon();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
-  void getListBeacon() async {
+  Future<List<Data>> getListBeacon() async {
     setState(() {
       print(listBeaconResponseModel.toJson());
 
       APIService apiService = new APIService();
-      
+
       apiService.getListBeacon().then((value) async {
         listBeaconResponseModel = value;
 
         beaconListSearch = value.data;
       });
     });
+
+    return beaconListSearch;
   }
 
   @override
@@ -70,13 +81,32 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
-                    'Silakan tekan tombol segarkan',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Silakan tekan tombol "Segarkan" jika bermasalah',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -118,6 +148,17 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                     ),
                   ),
                 ),
+                // FutureBuilder(
+                //   future: getListBeacon(),
+                //   initialData: beaconListSearch,
+                //   builder:
+                //       (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                //     if (snapshot.connectionState == ConnectionState.none ||
+                //         snapshot.connectionState == ConnectionState.waiting &&
+                //             !snapshot.hasData) {
+                //       return Center(child: CircularProgressIndicator());
+                //     } else {
+                // return
                 Expanded(
                   child: Scrollbar(
                     child: ListView.builder(
@@ -189,7 +230,8 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                           }
                         }),
                   ),
-                ),
+                )
+                // ),
               ],
             ),
       //     )

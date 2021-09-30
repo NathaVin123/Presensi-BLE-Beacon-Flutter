@@ -57,12 +57,16 @@ class _MahasiswaPresensiDashboardPageState
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    getDataMahasiswa();
-
     listKelasMahasiswaRequestModel = ListKelasMahasiswaRequestModel();
     listKelasMahasiswaResponseModel = ListKelasMahasiswaResponseModel();
 
-    getDataListKelasMahasiswa();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataMahasiswa();
+      getDataListKelasMahasiswa();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
 
     // getDataRuangBeacon();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -21,7 +23,12 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
 
     listBeaconResponseModel = ListBeaconResponseModel();
 
-    getListBeacon();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getListBeacon();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   void getListBeacon() async {
@@ -69,13 +76,32 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
-                    'Silakan tekan tombol segarkan',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Silakan tekan tombol "Segarkan" jika bermasalah',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -12,7 +12,7 @@ import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminHapusRuanganPage.da
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminMenuRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminUbahRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminTampilRuanganpage.dart';
-import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/Detail/AdminDetailRuanganPage.dart';
+import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/Detail/AdminUbahDetailRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 

@@ -29,21 +29,22 @@ class Data {
   final String ruang;
   final String fakultas;
   final String prodi;
-  final String namadevice;
 
-  Data({this.ruang, this.fakultas, this.prodi, this.namadevice});
+  Data({
+    this.ruang,
+    this.fakultas,
+    this.prodi,
+  });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         ruang: json["RUANG"] == null ? null : json["RUANG"],
         fakultas: json["FAKULTAS"] == null ? null : json["FAKULTAS"],
         prodi: json["PRODI"] == null ? null : json["PRODI"],
-        namadevice: json["NAMA_DEVICE"] == null ? null : json["NAMA_DEVICE"],
       );
 
   Map<String, dynamic> toJson() => {
         "RUANG": ruang,
         "FAKULTAS": fakultas,
         "PRODI": prodi,
-        "NAMA_DEVICE": namadevice,
       };
 }

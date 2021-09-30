@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -22,8 +24,13 @@ class _DosenTampilPesertaKelasPageState
 
     tampilPesertaKelasRequestModel = TampilPesertaKelasRequestModel();
     tampilPesertaKelasResponseModel = TampilPesertaKelasResponseModel();
-
-    this.getDataIDKelas();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      this.getDataIDKelas();
+      getDataPesertaKelas();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDataIDKelas() async {
