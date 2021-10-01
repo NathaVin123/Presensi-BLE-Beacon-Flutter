@@ -124,7 +124,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   }
 
   String _formatDate(DateTime dateTime) {
-    return DateFormat('dd/MM/yyyy').format(dateTime);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 
   String _formatTime(DateTime dateTime) {
@@ -257,7 +257,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                           Text(
                             '${namadsn ?? "-"}',
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontFamily: 'WorkSansMedium',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),

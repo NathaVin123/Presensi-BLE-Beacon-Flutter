@@ -10,6 +10,9 @@ import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINDosenBukaPresensiModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganNamaDeviceModel.dart';
@@ -21,7 +24,7 @@ import '../MODEL/Login/LoginDosenModel.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String address = 'https://192.168.100.152:5000/api/';
+  String address = 'https://192.168.137.27:5000/api/';
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
@@ -393,6 +396,50 @@ class APIService {
     }
   }
 
+  Future putPresensiINDosen(
+      PresensiINOUTDosenBukaPresensiRequestModel requestModel) async {
+    String url = address + "presensi/putinpresensidosen";
+    print(url);
+    http.Response response = await http.put(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future putPresensiOUTDosen(
+      PresensiINOUTOUTDosenBukaPresensiRequestModel requestModel) async {
+    String url = address + "presensi/putoutpresensidosen";
+    print(url);
+    http.Response response = await http.put(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
   Future<TampilPesertaKelasResponseModel> postListPesertaKelas(
       TampilPesertaKelasRequestModel requestModel) async {
     String url = address + "presensi/postgetlistpesertakelas";
@@ -409,6 +456,28 @@ class APIService {
       return TampilPesertaKelasResponseModel.fromJson(
         json.decode(response.body),
       );
+    } else {
+      print(response);
+      throw Exception('Failed to load data!');
+    }
+  }
+
+  Future postInsertPresensiMhsToKSI(
+      PresensiINMahasiswaToKSIRequestModel requestModel) async {
+    String url = address + "presensi/postinmhstoksi";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      // return JadwalMahasiswaResponseModel.fromJson(
+      //   json.decode(response.body),
+      // );
     } else {
       print(response);
       throw Exception('Failed to load data!');

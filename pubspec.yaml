@@ -31,7 +31,7 @@ dependencies:
   shimmer: ^2.0.0
 
   # Bluetooth On / Off.
-  flutter_blue: ^0.8.0
+  # flutter_blue: ^0.8.0
 
   # Memanggil sistem untuk menghidupkan bluetooth.
   # system_setting: ^0.1.3

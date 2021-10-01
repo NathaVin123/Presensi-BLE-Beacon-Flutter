@@ -144,10 +144,10 @@ class _MyAppState extends State<MyApp> {
         // Splash Page
         GetPage(name: '/', page: () => SplashPage()),
         // BluetoothOff Page
-        GetPage(
-          name: '/bluetooth',
-          page: () => BluetoothOff(),
-        ),
+        // GetPage(
+        //   name: '/bluetooth',
+        //   page: () => BluetoothOff(),
+        // ),
         GetPage(
           name: '/pindaiMahasiswa',
           page: () => PindaiKelasMahasiswaPage(),

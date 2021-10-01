@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,12 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
 
     hapusBeaconRequestModel = HapusBeaconRequestModel();
 
-    getDataHapusBeacon();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataHapusBeacon();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   void getDataHapusBeacon() async {
@@ -100,9 +107,10 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                               child: Text(
                                 uuid,
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
                               ),
                             ),
                           ),
@@ -126,7 +134,8 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
                               ),
                             ),
                           ),

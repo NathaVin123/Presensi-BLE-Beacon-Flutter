@@ -119,7 +119,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                               fontFamily: 'WorkSansSemiBold',
                                               fontSize: 18.0,
                                               color: Colors.black),
-                                          keyboardType: TextInputType.number,
+                                          keyboardType: TextInputType.phone,
                                           onSaved: (input) =>
                                               loginAdminRequestModel.npp =
                                                   input,

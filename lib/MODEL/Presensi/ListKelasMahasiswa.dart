@@ -42,6 +42,7 @@ class Data {
   final String sesi3;
   final String sesi4;
   final int sks;
+  final int pertemuan;
   final String ruang;
   final String uuid;
   final String namadevice;
@@ -70,6 +71,7 @@ class Data {
       this.sesi3,
       this.sesi4,
       this.sks,
+      this.pertemuan,
       this.ruang,
       this.uuid,
       this.namadevice,
@@ -106,6 +108,8 @@ class Data {
         sesi3: json["SESI3"] == null ? null : json['SESI3'] as String,
         sesi4: json["SESI4"] == null ? null : json['SESI4'] as String,
         sks: json["SKS"] == null ? null : json['SKS'] as int,
+        pertemuan:
+            json["PERTEMUAN_KE"] == null ? null : json['PERTEMUAN_KE'] as int,
         ruang: json["RUANG"] == null ? null : json['RUANG'] as String,
         uuid: json["PROXIMITY_UUID"] == null
             ? null
@@ -144,6 +148,7 @@ class Data {
         "SESI3": sesi3,
         "SESI4": sesi4,
         "SKS": sks,
+        "PERTEMUAN_KE": pertemuan,
         "RUANG": ruang,
         "PROXIMITY_UUID": uuid,
         "NAMA_DEVICE": namadevice,

@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINDosenBukaPresensiModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTPresensiDosen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -30,6 +32,8 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
 
   var _materiFieldController = TextEditingController();
 
+  var _keteranganFieldController = TextEditingController();
+
   bool isApiCallProcess = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,6 +43,12 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
   PresensiINDosenBukaPresensiRequestModel
       presensiINDosenBukaPresensiRequestModel;
 
+  PresensiINOUTDosenBukaPresensiRequestModel
+      presensiINOUTDosenBukaPresensiRequestModel;
+
+  PresensiINOUTOUTDosenBukaPresensiRequestModel
+      presensiINOUTOUTDosenBukaPresensiRequestModel;
+
   @override
   void initState() {
     super.initState();
@@ -46,12 +56,20 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
     presensiINDosenBukaPresensiRequestModel =
         PresensiINDosenBukaPresensiRequestModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDetailKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    presensiINOUTDosenBukaPresensiRequestModel =
+        PresensiINOUTDosenBukaPresensiRequestModel();
+
+    presensiINOUTOUTDosenBukaPresensiRequestModel =
+        PresensiINOUTOUTDosenBukaPresensiRequestModel();
+
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
+
+    getDetailKelas();
   }
 
   getDetailKelas() async {
@@ -475,6 +493,38 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Center(
                                         child: Text(
+                                          'Keterangan',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                          child: TextFormField(
+                                        controller: _keteranganFieldController,
+                                        style: const TextStyle(
+                                            fontFamily: 'WorkSansSemiBold',
+                                            fontSize: 16.0,
+                                            color: Colors.black),
+                                        keyboardType: TextInputType.text,
+                                        decoration: new InputDecoration(
+                                            hintText:
+                                                'Silahkan Isi Materi Anda'),
+                                        // validator: (input) => input.length < 1
+                                        //     ? "Materi tidak boleh kosong"
+                                        //     : null,
+                                        // onSaved: (input) =>
+                                        //     ubahBeaconRequestModel.uuid = input,
+                                      )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: Text(
                                           'Materi',
                                           style: TextStyle(
                                               fontSize: 20,
@@ -496,9 +546,9 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         decoration: new InputDecoration(
                                             hintText:
                                                 'Silahkan Isi Materi Anda'),
-                                        validator: (input) => input.length < 1
-                                            ? "Materi tidak boleh kosong"
-                                            : null,
+                                        // validator: (input) => input.length < 1
+                                        //     ? "Materi tidak boleh kosong"
+                                        //     : null,
                                         // onSaved: (input) =>
                                         //     ubahBeaconRequestModel.uuid = input,
                                       )),
@@ -569,28 +619,58 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       cancelBtnTxtColor: Colors.white,
                                       cancelBtnColor: Colors.grey,
                                       onOkBtnTap: (value) async {
-                                        print(
-                                            presensiINDosenBukaPresensiRequestModel
-                                                .toJson());
-
                                         print(idkelas);
 
                                         print(bukapresensi);
 
+                                        print(pertemuan);
+
+                                        print(jam + ' ' + tanggal);
+
                                         setState(() {
                                           isApiCallProcess = true;
+                                          presensiINOUTDosenBukaPresensiRequestModel
+                                              .idkelas = idkelas;
+
+                                          presensiINOUTDosenBukaPresensiRequestModel
+                                              .pertemuan = pertemuan;
+
+                                          presensiINOUTDosenBukaPresensiRequestModel
+                                              .jammasuk = jam + ' ' + tanggal;
 
                                           presensiINDosenBukaPresensiRequestModel
                                               .idkelas = idkelas;
 
                                           presensiINDosenBukaPresensiRequestModel
                                               .bukapresensi = 1;
+
+                                          presensiINDosenBukaPresensiRequestModel
+                                              .pertemuan = pertemuan;
                                         });
+
+                                        print(
+                                            presensiINOUTDosenBukaPresensiRequestModel
+                                                .toJson());
+
+                                        print(
+                                            presensiINDosenBukaPresensiRequestModel
+                                                .toJson());
 
                                         APIService apiService =
                                             new APIService();
 
-                                        apiService
+                                        await apiService
+                                            .putPresensiINDosen(
+                                                presensiINOUTDosenBukaPresensiRequestModel)
+                                            .then((value) async {
+                                          if (value != null) {
+                                            setState(() {
+                                              isApiCallProcess = false;
+                                            });
+                                          }
+                                        });
+
+                                        await apiService
                                             .putBukaPresensiDosen(
                                                 presensiINDosenBukaPresensiRequestModel)
                                             .then((value) async {
@@ -635,68 +715,13 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                     ],
                                   ),
                                 )
-                              :
-                              // MaterialButton(
-                              //     color: Colors.grey,
-                              //     shape: StadiumBorder(),
-                              //     padding: EdgeInsets.only(
-                              //         left: 50, right: 50, top: 25, bottom: 25),
-                              //     onPressed: () {},
-                              //     child: Row(
-                              //       mainAxisAlignment: MainAxisAlignment.center,
-                              //       children: <Widget>[
-                              //         Icon(
-                              //           Icons.arrow_upward_rounded,
-                              //           color: Colors.white,
-                              //         ),
-                              //         SizedBox(
-                              //           width: 25,
-                              //         ),
-                              //         Text(
-                              //           'Masuk',
-                              //           style: TextStyle(
-                              //               fontFamily: 'WorkSansMedium',
-                              //               fontWeight: FontWeight.bold,
-                              //               color: Colors.white,
-                              //               fontSize: 18),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              SizedBox(
+                              : SizedBox(
                                   height: 0,
                                 ),
                           bukapresensi == 0
                               ? SizedBox(
                                   height: 0,
                                 )
-                              // MaterialButton(
-                              //     color: Colors.grey,
-                              //     shape: StadiumBorder(),
-                              //     padding: EdgeInsets.only(
-                              //         left: 50, right: 50, top: 25, bottom: 25),
-                              //     onPressed: () {},
-                              //     child: Row(
-                              //       mainAxisAlignment: MainAxisAlignment.center,
-                              //       children: <Widget>[
-                              //         Icon(
-                              //           Icons.arrow_downward_rounded,
-                              //           color: Colors.white,
-                              //         ),
-                              //         SizedBox(
-                              //           width: 25,
-                              //         ),
-                              //         Text(
-                              //           'Keluar',
-                              //           style: TextStyle(
-                              //               fontFamily: 'WorkSansMedium',
-                              //               fontWeight: FontWeight.bold,
-                              //               color: Colors.white,
-                              //               fontSize: 18),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   )
                               : MaterialButton(
                                   color: Colors.red,
                                   shape: StadiumBorder(),
@@ -725,6 +750,10 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                             'statuspresensi', 0);
 
                                         print(
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                .toJson());
+
+                                        print(
                                             presensiINDosenBukaPresensiRequestModel
                                                 .toJson());
 
@@ -735,17 +764,46 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         setState(() {
                                           isApiCallProcess = true;
 
+                                          presensiINOUTOUTDosenBukaPresensiRequestModel
+                                              .idkelas = idkelas;
+
+                                          presensiINOUTOUTDosenBukaPresensiRequestModel
+                                              .pertemuan = pertemuan;
+
+                                          presensiINOUTOUTDosenBukaPresensiRequestModel
+                                              .jamkeluar = jam + ' ' + tanggal;
+
+                                          presensiINOUTOUTDosenBukaPresensiRequestModel
+                                              .keterangan = 'Test Flutter';
+
+                                          presensiINOUTOUTDosenBukaPresensiRequestModel
+                                              .materi = 'Test Flutter';
+
                                           presensiINDosenBukaPresensiRequestModel
                                               .idkelas = idkelas;
 
                                           presensiINDosenBukaPresensiRequestModel
                                               .bukapresensi = 0;
+
+                                          presensiINDosenBukaPresensiRequestModel
+                                              .pertemuan = pertemuan;
                                         });
 
                                         APIService apiService =
                                             new APIService();
 
-                                        apiService
+                                        await apiService
+                                            .putPresensiOUTDosen(
+                                                presensiINOUTOUTDosenBukaPresensiRequestModel)
+                                            .then((value) async {
+                                          if (value != null) {
+                                            setState(() {
+                                              isApiCallProcess = false;
+                                            });
+                                          }
+                                        });
+
+                                        await apiService
                                             .putBukaPresensiDosen(
                                                 presensiINDosenBukaPresensiRequestModel)
                                             .then((value) async {

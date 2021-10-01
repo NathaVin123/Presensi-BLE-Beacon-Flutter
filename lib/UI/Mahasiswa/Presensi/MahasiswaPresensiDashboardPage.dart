@@ -90,7 +90,7 @@ class _MahasiswaPresensiDashboardPageState
   }
 
   String _formatDate(DateTime dateTime) {
-    return DateFormat('dd/MM/yyyy').format(dateTime);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 
   String _formatTime(DateTime dateTime) {
@@ -334,6 +334,14 @@ class _MahasiswaPresensiDashboardPageState
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
+                                            new Text(
+                                              'Pertemuan Ke : ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                             listKelasMahasiswaResponseModel
                                                         .data[index]
                                                         .bukapresensi ==
@@ -524,6 +532,11 @@ class _MahasiswaPresensiDashboardPageState
                                             'sks',
                                             listKelasMahasiswaResponseModel
                                                 .data[index].sks);
+
+                                        await dataPresensiMahasiswa.setInt(
+                                            'pertemuan',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].pertemuan);
 
                                         await dataPresensiMahasiswa.setString(
                                             'namadevice',

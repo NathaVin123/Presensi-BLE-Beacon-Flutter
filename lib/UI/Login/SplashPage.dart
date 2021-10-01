@@ -37,7 +37,8 @@ class _SplashPageState extends State<SplashPage> {
     } else if (statusAdmin) {
       return Get.offNamed('/admin/dashboard');
     } else {
-      return Get.offNamed('/bluetooth');
+      // return Get.offNamed('/bluetooth');
+      return Get.offNamed('/login');
     }
   }
 

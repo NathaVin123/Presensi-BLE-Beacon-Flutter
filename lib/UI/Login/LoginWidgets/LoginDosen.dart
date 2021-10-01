@@ -84,7 +84,7 @@ class _LoginDosenState extends State<LoginDosen> {
                             fontFamily: 'WorkSansSemiBold',
                             fontSize: 18.0,
                             color: Colors.black),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         onSaved: (input) => loginDosenRequestModel.npp = input,
                         validator: (input) =>
                             input.length < 8 ? "NPP minimal 9 karakter" : null,

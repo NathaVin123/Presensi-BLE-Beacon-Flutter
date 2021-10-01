@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToKSIModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -12,11 +16,13 @@ class MahasiswaDetailPresensiPage extends StatefulWidget {
 
 class _MahasiswaDetailPresensiPageState
     extends State<MahasiswaDetailPresensiPage> {
+  String npm = "";
   int idkelas = 0;
   String ruang = "";
   String namamk = "";
   String kelas = "";
   int sks = 0;
+  int pertemuan = 0;
   String hari = "";
   String sesi = "";
   int kapasitas = 0;
@@ -26,11 +32,35 @@ class _MahasiswaDetailPresensiPageState
 
   int statusPresensi = 0;
 
+  bool isApiCallProcess = false;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+
+  PresensiINMahasiswaToKSIRequestModel presensiINMahasiswaToKSIRequestModel;
+
   @override
   void initState() {
     super.initState();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDetailKelas();
+      getDetailMahasiswa();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
 
-    getDetailKelas();
+    presensiINMahasiswaToKSIRequestModel =
+        PresensiINMahasiswaToKSIRequestModel();
+  }
+
+  getDetailMahasiswa() async {
+    SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
+
+    setState(() {
+      npm = loginMahasiswa.getString('npm');
+    });
   }
 
   getDetailKelas() async {
@@ -43,6 +73,7 @@ class _MahasiswaDetailPresensiPageState
       namamk = dataPresensiMahasiswa.getString('namamk');
       kelas = dataPresensiMahasiswa.getString('kelas');
       sks = dataPresensiMahasiswa.getInt('sks');
+      pertemuan = dataPresensiMahasiswa.getInt('pertemuan');
       hari = dataPresensiMahasiswa.getString('hari1');
       sesi = dataPresensiMahasiswa.getString('sesi1');
       kapasitas = dataPresensiMahasiswa.getInt('kapasitas');
@@ -110,6 +141,31 @@ class _MahasiswaDetailPresensiPageState
                             child: new Center(
                               child: new Text(
                                 '${tanggal ?? "-"}',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    // fontWeight:
+                                    //     FontWeight.bold,
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                'NPM',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                '${npm ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
@@ -235,6 +291,31 @@ class _MahasiswaDetailPresensiPageState
                             child: new Center(
                               child: new Text(
                                 '${sks ?? "-"}',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    // fontWeight:
+                                    //     FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                'Pertemuan Ke',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                '${pertemuan ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
@@ -469,16 +550,51 @@ class _MahasiswaDetailPresensiPageState
                                         await dataPresensiMahasiswa.setInt(
                                             'statuspresensi', 1);
 
-                                        Get.offAllNamed('/mahasiswa/dashboard');
+                                        setState(() {
+                                          isApiCallProcess = true;
 
-                                        await Fluttertoast.showToast(
-                                            msg: 'Berhasil masuk ke kelas',
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.green,
-                                            textColor: Colors.white,
-                                            fontSize: 14.0);
+                                          presensiINMahasiswaToKSIRequestModel
+                                              .idkelas = idkelas;
+
+                                          presensiINMahasiswaToKSIRequestModel
+                                              .npm = npm;
+
+                                          presensiINMahasiswaToKSIRequestModel
+                                              .pertemuan = pertemuan;
+
+                                          presensiINMahasiswaToKSIRequestModel
+                                              .tglin = jam + ' ' + tanggal;
+                                        });
+
+                                        print(
+                                            PresensiINMahasiswaToKSIRequestModel()
+                                                .toJson());
+
+                                        APIService apiService =
+                                            new APIService();
+
+                                        await apiService
+                                            .postInsertPresensiMhsToKSI(
+                                                presensiINMahasiswaToKSIRequestModel)
+                                            .then((value) async {
+                                          if (value != null) {
+                                            setState(() {
+                                              isApiCallProcess = false;
+                                            });
+                                          }
+
+                                          Get.offAllNamed(
+                                              '/mahasiswa/dashboard');
+
+                                          await Fluttertoast.showToast(
+                                              msg: 'Berhasil masuk ke kelas',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.green,
+                                              textColor: Colors.white,
+                                              fontSize: 14.0);
+                                        });
                                       },
                                       onCancelBtnTap: (value) {},
                                     );
