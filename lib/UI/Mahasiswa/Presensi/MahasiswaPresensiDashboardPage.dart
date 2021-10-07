@@ -1,8 +1,5 @@
-import 'dart:io';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -10,7 +7,6 @@ import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
 
 class MahasiswaPresensiDashboardPage extends StatefulWidget {
@@ -48,8 +44,6 @@ class _MahasiswaPresensiDashboardPageState
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
-
-    ruangBeaconResponseModel = RuangBeaconResponseModel();
 
     _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
@@ -109,6 +103,8 @@ class _MahasiswaPresensiDashboardPageState
     setState(() {
       listKelasMahasiswaRequestModel.npm = npm;
 
+      listKelasMahasiswaRequestModel.tglnow = _dateString + ' ' + _timeString;
+
       print(listKelasMahasiswaRequestModel.toJson());
 
       APIService apiService = new APIService();
@@ -119,16 +115,6 @@ class _MahasiswaPresensiDashboardPageState
       });
     });
   }
-
-  // void getDataRuangBeacon() async {
-  //   setState(() {
-  //     print(ruangBeaconResponseModel.toJson());
-  //     APIService apiService = new APIService();
-  //     apiService.getKelasBeacon().then((value) async {
-  //       ruangBeaconResponseModel = value;
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,14 +137,6 @@ class _MahasiswaPresensiDashboardPageState
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            leading: IconButton(
-              icon: Icon(
-                Icons.notifications,
-                color: Colors.white,
-              ),
-              onPressed: () =>
-                  Get.toNamed('/mahasiswa/dashboard/presensi/notifikasi'),
-            ),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -252,13 +230,35 @@ class _MahasiswaPresensiDashboardPageState
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Center(
-                          child: Text(
-                            'Silakan tekan tombol segarkan',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Tidak ada kuliah hari ini',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              Text(
+                                'Silakan tekan tombol "Segarkan" jika bermasalah',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -336,6 +336,15 @@ class _MahasiswaPresensiDashboardPageState
                                             ),
                                             new Text(
                                               'Pertemuan Ke : ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            new Text(
+                                              listKelasMahasiswaResponseModel
+                                                  .data[index].tglmasuk,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontFamily: 'WorkSansMedium',
@@ -548,6 +557,16 @@ class _MahasiswaPresensiDashboardPageState
                                             listKelasMahasiswaResponseModel
                                                 .data[index].kapasitas);
 
+                                        await dataPresensiMahasiswa.setString(
+                                            'tglmasuk',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].tglmasuk);
+
+                                        await dataPresensiMahasiswa.setString(
+                                            'tglkeluar',
+                                            listKelasMahasiswaResponseModel
+                                                .data[index].tglkeluar);
+
                                         await dataPresensiMahasiswa.setInt(
                                             'bukapresensi',
                                             listKelasMahasiswaResponseModel
@@ -562,21 +581,6 @@ class _MahasiswaPresensiDashboardPageState
                                 return SizedBox(
                                   height: 0,
                                 );
-                              // return Container(
-                              //   child: Padding(
-                              //     padding: const EdgeInsets.all(10),
-                              //     child: Center(
-                              //       child: Text(
-                              //         'Tidak ada kuliah hari ini',
-                              //         style: TextStyle(
-                              //             fontSize: 15,
-                              //             fontFamily: 'WorkSansMedium',
-                              //             fontWeight: FontWeight.bold,
-                              //             color: Colors.white),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
                             }),
                       ),
                     )

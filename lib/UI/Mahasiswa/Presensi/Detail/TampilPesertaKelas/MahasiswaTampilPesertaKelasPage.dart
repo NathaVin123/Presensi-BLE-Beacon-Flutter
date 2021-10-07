@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,15 @@ class _MahasiswaTampilPesertaKelasPageState
     tampilPesertaKelasRequestModel = TampilPesertaKelasRequestModel();
     tampilPesertaKelasResponseModel = TampilPesertaKelasResponseModel();
 
-    this.getDataIDKelas();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataIDKelas();
+      getDataPesertaKelas();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
+    getDataIDKelas();
+    getDataPesertaKelas();
   }
 
   getDataIDKelas() async {

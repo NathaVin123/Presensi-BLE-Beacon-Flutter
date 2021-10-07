@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:presensiblebeacon/Utils/extension_image.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
 class MahasiswaAkunDashboardPage extends StatefulWidget {
@@ -243,45 +243,45 @@ class _MahasiswaAkunDashboardPageState
                 //     ),
                 //   ),
                 // ),
-                Padding(
-                    padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(25),
-                      onTap: () => Get.toNamed('/statistik/mahasiswa'),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 24, right: 20, top: 20, bottom: 20),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    FontAwesomeIcons.chartBar,
-                                    color: Colors.black,
-                                    size: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 11,
-                                  ),
-                                  Text(
-                                    'Statistik',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )),
+                // Padding(
+                //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                //     child: InkWell(
+                //       borderRadius: BorderRadius.circular(25),
+                //       onTap: () => Get.toNamed('/statistik/mahasiswa'),
+                //       child: Container(
+                //         decoration: BoxDecoration(
+                //             color: Colors.grey[200],
+                //             borderRadius: BorderRadius.circular(25)),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: <Widget>[
+                //             Padding(
+                //               padding: EdgeInsets.only(
+                //                   left: 24, right: 20, top: 20, bottom: 20),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     FontAwesomeIcons.chartBar,
+                //                     color: Colors.black,
+                //                     size: 20,
+                //                   ),
+                //                   SizedBox(
+                //                     width: 11,
+                //                   ),
+                //                   Text(
+                //                     'Statistik',
+                //                     style: TextStyle(
+                //                         fontSize: 20,
+                //                         fontFamily: 'WorkSansMedium',
+                //                         fontWeight: FontWeight.bold),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     )),
                 Padding(
                     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                     child: InkWell(

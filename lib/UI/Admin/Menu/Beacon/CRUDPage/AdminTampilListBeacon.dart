@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminTampilListBeacon extends StatefulWidget {
   AdminTampilListBeacon({Key key}) : super(key: key);

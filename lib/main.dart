@@ -24,8 +24,6 @@ import 'UI/Admin/Menu/Beacon/CRUDPage/AdminUbahBeacon.dart';
 import 'UI/Admin/Menu/Beacon/AdminMenuBeaconPage.dart';
 import 'UI/Login/SplashPage.dart';
 
-import 'UI/Fungsi/BluetoothOff.dart';
-
 import 'UI/Fungsi/PindaiKelasMahasiswaPage.dart';
 
 import 'UI/Login/LoginPage.dart';

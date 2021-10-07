@@ -4,7 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToKSIModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -17,9 +30,11 @@ class MahasiswaDetailPresensiPage extends StatefulWidget {
 class _MahasiswaDetailPresensiPageState
     extends State<MahasiswaDetailPresensiPage> {
   String npm = "";
+  String fakultas = "";
   int idkelas = 0;
   String ruang = "";
   String namamk = "";
+  String dosen = "";
   String kelas = "";
   int sks = 0;
   int pertemuan = 0;
@@ -27,8 +42,13 @@ class _MahasiswaDetailPresensiPageState
   String sesi = "";
   int kapasitas = 0;
   String jam = "";
-  String tanggal = "";
+  String tanggalnow = "";
+  String tglmasuk = "";
+  String tglkeluar = "";
   int bukapresensi = 0;
+
+  String idkelasString;
+  String idkelasFakultas;
 
   int statusPresensi = 0;
 
@@ -40,19 +60,93 @@ class _MahasiswaDetailPresensiPageState
 
   PresensiINMahasiswaToKSIRequestModel presensiINMahasiswaToKSIRequestModel;
 
+  PresensiOUTMahasiswaToKSIRequestModel presensiOUTMahasiswaToKSIRequestModel;
+
+  // PresensiINMahasiswaToFBERequestModel presensiINMahasiswaToFBERequestModel;
+
+  // PresensiOUTMahasiswaToFBERequestModel presensiOUTMahasiswaToFBERequestModel;
+
+  // PresensiINMahasiswaToFHRequestModel presensiINMahasiswaToFHRequestModel;
+
+  // PresensiOUTMahasiswaToFHRequestModel presensiOUTMahasiswaToFHRequestModel;
+
+  // PresensiINMahasiswaToFISIPRequestModel presensiINMahasiswaToFISIPRequestModel;
+
+  // PresensiOUTMahasiswaToFISIPRequestModel
+  //     presensiOUTMahasiswaToFISIPRequestModel;
+
+  // PresensiINMahasiswaToFTRequestModel presensiINMahasiswaToFTRequestModel;
+
+  // PresensiOUTMahasiswaToFTRequestModel presensiOUTMahasiswaToFTRequestModel;
+
+  // PresensiINMahasiswaToFTBRequestModel presensiINMahasiswaToFTBRequestModel;
+
+  // PresensiOUTMahasiswaToFTBRequestModel presensiOUTMahasiswaToFTBRequestModel;
+
+  // PresensiINMahasiswaToFTIRequestModel presensiINMahasiswaToFTIRequestModel;
+
+  // PresensiOUTMahasiswaToFTIRequestModel presensiOUTMahasiswaToFTIRequestModel;
+
   @override
   void initState() {
     super.initState();
+
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDetailKelas();
       getDetailMahasiswa();
-      Future.delayed(Duration(seconds: 5), () {
+
+      Future.delayed(Duration(seconds: 10), () {
         t.cancel();
       });
     });
 
     presensiINMahasiswaToKSIRequestModel =
         PresensiINMahasiswaToKSIRequestModel();
+
+    presensiOUTMahasiswaToKSIRequestModel =
+        PresensiOUTMahasiswaToKSIRequestModel();
+
+    // presensiINMahasiswaToFBERequestModel =
+    //     PresensiINMahasiswaToFBERequestModel();
+
+    // presensiOUTMahasiswaToFBERequestModel =
+    //     PresensiOUTMahasiswaToFBERequestModel();
+
+    // presensiINMahasiswaToFHRequestModel = PresensiINMahasiswaToFHRequestModel();
+
+    // presensiOUTMahasiswaToFHRequestModel =
+    //     PresensiOUTMahasiswaToFHRequestModel();
+
+    // presensiINMahasiswaToFISIPRequestModel =
+    //     PresensiINMahasiswaToFISIPRequestModel();
+
+    // presensiOUTMahasiswaToFISIPRequestModel =
+    //     PresensiOUTMahasiswaToFISIPRequestModel();
+
+    // presensiINMahasiswaToFTRequestModel = PresensiINMahasiswaToFTRequestModel();
+
+    // presensiOUTMahasiswaToFTRequestModel =
+    //     PresensiOUTMahasiswaToFTRequestModel();
+
+    // presensiINMahasiswaToFTBRequestModel =
+    //     PresensiINMahasiswaToFTBRequestModel();
+
+    // presensiOUTMahasiswaToFTBRequestModel =
+    //     PresensiOUTMahasiswaToFTBRequestModel();
+
+    // presensiINMahasiswaToFTIRequestModel =
+    //     PresensiINMahasiswaToFTIRequestModel();
+
+    // presensiOUTMahasiswaToFTIRequestModel =
+    //     PresensiOUTMahasiswaToFTIRequestModel();
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getIDKelasFakultas();
+
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDetailMahasiswa() async {
@@ -60,6 +154,7 @@ class _MahasiswaDetailPresensiPageState
 
     setState(() {
       npm = loginMahasiswa.getString('npm');
+      fakultas = loginMahasiswa.getString('fakultas');
     });
   }
 
@@ -71,6 +166,7 @@ class _MahasiswaDetailPresensiPageState
       idkelas = dataPresensiMahasiswa.getInt('idkelas');
       ruang = dataPresensiMahasiswa.getString('ruang');
       namamk = dataPresensiMahasiswa.getString('namamk');
+      dosen = dataPresensiMahasiswa.getString('namadosen1');
       kelas = dataPresensiMahasiswa.getString('kelas');
       sks = dataPresensiMahasiswa.getInt('sks');
       pertemuan = dataPresensiMahasiswa.getInt('pertemuan');
@@ -78,11 +174,18 @@ class _MahasiswaDetailPresensiPageState
       sesi = dataPresensiMahasiswa.getString('sesi1');
       kapasitas = dataPresensiMahasiswa.getInt('kapasitas');
       jam = dataPresensiMahasiswa.getString('jam');
-      tanggal = dataPresensiMahasiswa.getString('tanggal');
+      tanggalnow = dataPresensiMahasiswa.getString('tanggal');
+      tglmasuk = dataPresensiMahasiswa.getString('tglmasuk');
+      tglkeluar = dataPresensiMahasiswa.getString('tglkeluar');
       bukapresensi = dataPresensiMahasiswa.getInt('bukapresensi');
-
       statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
     });
+  }
+
+  getIDKelasFakultas() async {
+    idkelasString = idkelas.toString();
+
+    idkelasFakultas = idkelasString.substring(2);
   }
 
   @override
@@ -136,19 +239,33 @@ class _MahasiswaDetailPresensiPageState
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '${tanggal ?? "-"}',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
+                          statusPresensi == 0 || statusPresensi == null
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      '${tglmasuk ?? "-"}',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          // fontWeight:
+                                          //     FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      '${tglkeluar ?? "-"}',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          // fontWeight:
+                                          //     FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
@@ -174,31 +291,19 @@ class _MahasiswaDetailPresensiPageState
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                'ID Kelas',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '${idkelas ?? "-"}',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: new Center(
+                          //     child: new Text(
+                          //       '${idkelasFakultas ?? "-"}',
+                          //       style: TextStyle(
+                          //           fontFamily: 'WorkSansMedium',
+                          //           // fontWeight:
+                          //           //     FontWeight.bold,
+                          //           fontSize: 16),
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
@@ -241,6 +346,31 @@ class _MahasiswaDetailPresensiPageState
                             child: new Center(
                               child: new Text(
                                 '${namamk ?? "-"}',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    // fontWeight:
+                                    //     FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                'Dosen',
+                                style: TextStyle(
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new Center(
+                              child: new Text(
+                                '${dosen ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
@@ -399,48 +529,50 @@ class _MahasiswaDetailPresensiPageState
                               ),
                             ),
                           ),
+                        ],
+                      )),
+                ),
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Column(
+                        children: <Widget>[
+                          statusPresensi == 0 || statusPresensi == null
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      'Tanggal Masuk',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      'Tanggal Keluar',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
                               child: new Text(
-                                'Buka Presensi',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '${bukapresensi ?? "-"}',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                'Status',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '${statusPresensi ?? "-"}',
+                                '${tanggalnow ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
@@ -488,7 +620,9 @@ class _MahasiswaDetailPresensiPageState
                             ),
                           )
                         ],
-                      )),
+                      ),
+                    ),
+                  ],
                 ),
                 new Align(
                   child: new Padding(
@@ -563,15 +697,146 @@ class _MahasiswaDetailPresensiPageState
                                               .pertemuan = pertemuan;
 
                                           presensiINMahasiswaToKSIRequestModel
-                                              .tglin = jam + ' ' + tanggal;
+                                              .tglin = jam + ' ' + tanggalnow;
+
+                                          // if (fakultas ==
+                                          //     'Bisnis dan Ekonomika') {
+                                          //   presensiINMahasiswaToFBERequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFBERequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFBERequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFBERequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // } else if (fakultas == 'Hukum') {
+                                          //   presensiINMahasiswaToFHRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFHRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFHRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFHRequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // } else if (fakultas ==
+                                          //     'Teknobiologi') {
+                                          //   presensiINMahasiswaToFTBRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFTBRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFTBRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFTBRequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // } else if (fakultas ==
+                                          //     'Ilmu Sosial dan Politik') {
+                                          //   presensiINMahasiswaToFISIPRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFISIPRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFISIPRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFISIPRequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // } else if (fakultas == 'Teknik') {
+                                          //   presensiINMahasiswaToFTRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFTRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFTRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFTRequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // } else if (fakultas ==
+                                          //     'Teknologi Industri') {
+                                          //   presensiINMahasiswaToFTIRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiINMahasiswaToFTIRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiINMahasiswaToFTIRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiINMahasiswaToFTIRequestModel
+                                          //       .tglin = jam + ' ' + tanggalnow;
+                                          // }
                                         });
 
                                         print(
                                             PresensiINMahasiswaToKSIRequestModel()
                                                 .toJson());
 
+                                        // print(
+                                        //     PresensiINMahasiswaToFBERequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiINMahasiswaToFHRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiINMahasiswaToFISIPRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiINMahasiswaToFTRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiINMahasiswaToFTBRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiINMahasiswaToFTIRequestModel()
+                                        //         .toJson());
+
                                         APIService apiService =
                                             new APIService();
+
+                                        // if (fakultas ==
+                                        //     'Bisnis dan Ekonomika') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFBE(
+                                        //           presensiINMahasiswaToFBERequestModel);
+                                        // } else if (fakultas == 'Hukum') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFH(
+                                        //           presensiINMahasiswaToFHRequestModel);
+                                        // } else if (fakultas == 'Teknobiologi') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFH(
+                                        //           presensiINMahasiswaToFHRequestModel);
+                                        // } else if (fakultas ==
+                                        //     'Ilmu Sosial dan Politik') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFISIP(
+                                        //           presensiINMahasiswaToFISIPRequestModel);
+                                        // } else if (fakultas == 'Teknik') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFT(
+                                        //           presensiINMahasiswaToFTRequestModel);
+                                        // } else if (fakultas ==
+                                        //     'Teknologi Industri') {
+                                        //   await apiService
+                                        //       .postInsertPresensiMhsToFTI(
+                                        //           presensiINMahasiswaToFTIRequestModel);
+                                        // }
 
                                         await apiService
                                             .postInsertPresensiMhsToKSI(
@@ -647,17 +912,207 @@ class _MahasiswaDetailPresensiPageState
                                         await dataPresensiMahasiswa.setInt(
                                             'statuspresensi', 0);
 
-                                        Get.offAllNamed('/mahasiswa/dashboard');
+                                        setState(() {
+                                          isApiCallProcess = true;
 
-                                        await Fluttertoast.showToast(
-                                            msg:
-                                                'Berhasil keluar dari kelas, data presensi telah tersimpan',
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.green,
-                                            textColor: Colors.white,
-                                            fontSize: 14.0);
+                                          presensiOUTMahasiswaToKSIRequestModel
+                                              .idkelas = idkelas;
+
+                                          presensiOUTMahasiswaToKSIRequestModel
+                                              .npm = npm;
+
+                                          presensiOUTMahasiswaToKSIRequestModel
+                                              .pertemuan = pertemuan;
+
+                                          presensiOUTMahasiswaToKSIRequestModel
+                                              .tglout = jam + ' ' + tanggalnow;
+
+                                          presensiOUTMahasiswaToKSIRequestModel
+                                              .status = 'H';
+                                          // if (fakultas ==
+                                          //     'Bisnis dan Ekonomika') {
+                                          //   presensiOUTMahasiswaToFBERequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFBERequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFBERequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFBERequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFBERequestModel
+                                          //       .status = 'H';
+                                          // } else if (fakultas == 'Hukum') {
+                                          //   presensiOUTMahasiswaToFHRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFHRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFHRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFHRequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFHRequestModel
+                                          //       .status = 'H';
+                                          // } else if (fakultas ==
+                                          //     'Teknobiologi') {
+                                          //   presensiOUTMahasiswaToFTBRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFTBRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFTBRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFTBRequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFTBRequestModel
+                                          //       .status = 'H';
+                                          // } else if (fakultas ==
+                                          //     'Ilmu Sosial dan Politik') {
+                                          //   presensiOUTMahasiswaToFISIPRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFISIPRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFISIPRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFISIPRequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFISIPRequestModel
+                                          //       .status = 'H';
+                                          // } else if (fakultas == 'Teknik') {
+                                          //   presensiOUTMahasiswaToFTRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFTRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFTRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFTRequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFTRequestModel
+                                          //       .status = 'H';
+                                          // } else if (fakultas ==
+                                          //     'Teknologi Industri') {
+                                          //   presensiOUTMahasiswaToFTIRequestModel
+                                          //       .idkelas = idkelasFakultas;
+
+                                          //   presensiOUTMahasiswaToFTIRequestModel
+                                          //       .npm = npm;
+
+                                          //   presensiOUTMahasiswaToFTIRequestModel
+                                          //       .pertemuan = pertemuan;
+
+                                          //   presensiOUTMahasiswaToFTIRequestModel
+                                          //           .tglout =
+                                          //       jam + ' ' + tanggalnow;
+
+                                          //   presensiOUTMahasiswaToFTIRequestModel
+                                          //       .status = 'H';
+                                          // }
+                                        });
+
+                                        print(
+                                            PresensiOUTMahasiswaToKSIRequestModel()
+                                                .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFBERequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFHRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFISIPRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFTRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFTBRequestModel()
+                                        //         .toJson());
+
+                                        // print(
+                                        //     PresensiOUTMahasiswaToFTIRequestModel()
+                                        //         .toJson());
+
+                                        APIService apiService =
+                                            new APIService();
+
+                                        // if (fakultas ==
+                                        //     'Bisnis dan Ekonomika') {
+                                        //   await apiService
+                                        //       .putUpdatePresensiMhsToFBE(
+                                        //           presensiOUTMahasiswaToFBERequestModel);
+                                        // } else if (fakultas == 'Hukum') {
+                                        //   await apiService.putUpdatePresensiMhsToFH(
+                                        //       presensiOUTMahasiswaToFHRequestModel);
+                                        // } else if (fakultas == 'Teknobiologi') {
+                                        //   await apiService
+                                        //       .putUpdatePresensiMhsToFTB(
+                                        //           presensiOUTMahasiswaToFTBRequestModel);
+                                        // } else if (fakultas ==
+                                        //     'Ilmu Sosial dan Politik') {
+                                        //   await apiService
+                                        //       .putUpdatePresensiMhsToFISIP(
+                                        //           presensiOUTMahasiswaToFISIPRequestModel);
+                                        // } else if (fakultas == 'Teknik') {
+                                        //   await apiService.putUpdatePresensiMhsToFT(
+                                        //       presensiOUTMahasiswaToFTRequestModel);
+                                        // } else if (fakultas ==
+                                        //     'Teknologi Industri') {
+                                        //   await apiService
+                                        //       .putUpdatePresensiMhsToFTI(
+                                        //           presensiOUTMahasiswaToFTIRequestModel);
+                                        // }
+
+                                        await apiService
+                                            .putUpdatePresensiMhsToKSI(
+                                                presensiOUTMahasiswaToKSIRequestModel)
+                                            .then((value) async {
+                                          if (value != null) {
+                                            setState(() {
+                                              isApiCallProcess = false;
+                                            });
+                                          }
+
+                                          Get.offAllNamed(
+                                              '/mahasiswa/dashboard');
+
+                                          await Fluttertoast.showToast(
+                                              msg:
+                                                  'Berhasil keluar dari kelas, data presensi telah tersimpan',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.green,
+                                              textColor: Colors.white,
+                                              fontSize: 14.0);
+                                        });
                                       },
                                       onCancelBtnTap: (value) {},
                                     );

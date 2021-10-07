@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminTampilRuanganPage extends StatefulWidget {
   AdminTampilRuanganPage({Key key}) : super(key: key);

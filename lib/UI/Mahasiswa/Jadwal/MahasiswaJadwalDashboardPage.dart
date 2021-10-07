@@ -1,16 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 
 class MahasiswaJadwalDashboardPage extends StatefulWidget {
   MahasiswaJadwalDashboardPage({Key key}) : super(key: key);
@@ -70,13 +63,16 @@ class _MahasiswaJadwalDashboardPageState
     jadwalMahasiswaRequestModel = JadwalMahasiswaRequestModel();
     jadwalMahasiswaResponseModel = JadwalMahasiswaResponseModel();
 
-    this.getDataMahasiswa();
-
     _dateString = _formatDate(DateTime.now());
 
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
-
-    // getDataJadwalMahasiswa();
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataMahasiswa();
+      getDataJadwalMahasiswa();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDataMahasiswa() async {
@@ -182,10 +178,14 @@ class _MahasiswaJadwalDashboardPageState
                       style: TextStyle(color: Colors.white),
                       dropdownColor: Color.fromRGBO(23, 75, 137, 1),
                       underline: Text(''),
-                      // style: TextStyle(
-                      //   fontFamily: Font,
-                      // ),
-                      onTap: () => getDataJadwalMahasiswa(),
+                      onTap: () => {
+                        Timer.periodic(Duration(seconds: 1), (Timer t) {
+                          getDataJadwalMahasiswa();
+                          Future.delayed(Duration(seconds: 5), () {
+                            t.cancel();
+                          });
+                        })
+                      },
                       items: generateSemester(semesters),
                       value: selectedSemester,
                       onChanged: (item) {

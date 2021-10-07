@@ -1,15 +1,15 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
+
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
 import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
+
 import 'package:intl/intl.dart';
 // import 'package:system_settings/system_settings.dart';
 
@@ -39,6 +39,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   String _timeString;
   String _dateString;
 
+  // String _timeStringFilter;
+  // String _dateStringFilter;
+
   String kelas = "";
   String jam = "";
   String tanggal = "";
@@ -49,6 +52,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   String semesterShared = "";
 
   Semester selectedSemester;
+
+  DateTime timeNow = DateTime.now();
 
   List<Semester> semesters = [
     Semester("1"),
@@ -79,6 +84,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
   @override
   void initState() {
+    print(timeNow);
+
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
@@ -87,6 +94,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
     _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
+
+    // _timeStringFilter = _formatTime(DateTime.now());
+    // _dateStringFilter = _formatDate(DateTime.now());
 
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
@@ -160,6 +170,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   void getDataListKelasDosen() async {
     setState(() {
       listKelasDosenRequestModel.npp = npp;
+      listKelasDosenRequestModel.tglnow = _dateString + ' ' + _timeString;
       // listKelasDosenRequestModel. = semesterShared;
 
       print(listKelasDosenRequestModel.toJson());
@@ -195,13 +206,13 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            leading: IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                    Get.toNamed('/dosen/dashboard/presensi/notifikasi')),
+            // leading: IconButton(
+            //     icon: Icon(
+            //       Icons.notifications,
+            //       color: Colors.white,
+            //     ),
+            //     onPressed: () =>
+            //         Get.toNamed('/dosen/dashboard/presensi/notifikasi')),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -280,7 +291,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'List Kuliah',
+                      'Kuliah Hari Ini',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -290,44 +301,45 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(25)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Cari Mata Kuliah',
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                      ),
-                      style: const TextStyle(
-                          fontFamily: 'WorkSansSemiBold',
-                          fontSize: 16.0,
-                          color: Colors.black),
-                      onChanged: (text) {
-                        text = text.toLowerCase();
-                        setState(() {
-                          matakuliahListSearch = listKelasDosenResponseModel
-                              .data
-                              .where((matakuliah) {
-                            var namaMataKuliah =
-                                matakuliah.namamk.toLowerCase();
-                            return namaMataKuliah.contains(text);
-                          }).toList();
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ),
-              listKelasDosenResponseModel.data == null
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //         color: Colors.grey[200],
+              //         borderRadius: BorderRadius.circular(25)),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: TextFormField(
+              //         decoration: InputDecoration(
+              //           hintText: 'Cari Mata Kuliah',
+              //           border: InputBorder.none,
+              //           focusedBorder: InputBorder.none,
+              //           enabledBorder: InputBorder.none,
+              //           errorBorder: InputBorder.none,
+              //           disabledBorder: InputBorder.none,
+              //         ),
+              //         style: const TextStyle(
+              //             fontFamily: 'WorkSansSemiBold',
+              //             fontSize: 16.0,
+              //             color: Colors.black),
+              //         onChanged: (text) {
+              //           text = text.toLowerCase();
+              //           setState(() {
+              //             matakuliahListSearch = listKelasDosenResponseModel
+              //                 .data
+              //                 .where((matakuliah) {
+              //               var namaMataKuliah =
+              //                   matakuliah.namamk.toLowerCase();
+              //               return namaMataKuliah.contains(text);
+              //             }).toList();
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              listKelasDosenResponseModel.data == null ||
+                      listKelasDosenResponseModel.data.isEmpty
                   ? Container(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -335,19 +347,22 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              CircularProgressIndicator(
-                                color: Colors.white,
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                'Mohon Tunggu..',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Tidak ada kuliah hari ini',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
                               ),
                               Text(
                                 'Silakan tekan tombol "Segarkan" jika bermasalah',
@@ -365,7 +380,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   : Expanded(
                       child: Scrollbar(
                         child: ListView.builder(
-                            itemCount: matakuliahListSearch.length,
+                            itemCount: listKelasDosenResponseModel.data.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(
@@ -382,14 +397,14 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             MainAxisAlignment.center,
                                         children: [
                                           new Text(
-                                            'Ruang ${matakuliahListSearch[index].ruang}',
+                                            'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontFamily: 'WorkSansMedium',
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           new Text(
-                                            '${matakuliahListSearch[index].namamk} ${matakuliahListSearch[index].kelas}',
+                                            '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
@@ -397,7 +412,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                           ),
                                           new Text(
-                                            'SKS : ${matakuliahListSearch[index].sks}',
+                                            'SKS : ${listKelasDosenResponseModel.data[index].sks}',
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
@@ -405,7 +420,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                           ),
                                           new Text(
-                                            'Hari : ${matakuliahListSearch[index].hari1}',
+                                            'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
@@ -413,7 +428,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                           ),
                                           new Text(
-                                            'Sesi : ${matakuliahListSearch[index].sesi1}',
+                                            'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
@@ -421,14 +436,24 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                           ),
                                           new Text(
-                                            'Pertemuan : ${matakuliahListSearch[index].pertemuan}',
+                                            'Pertemuan : ${listKelasDosenResponseModel.data[index].pertemuan}',
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          matakuliahListSearch[index]
+                                          new Text(
+                                            listKelasDosenResponseModel
+                                                .data[index].tglmasuk,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          listKelasDosenResponseModel
+                                                      .data[index]
                                                       .bukapresensi ==
                                                   0
                                               ? Padding(
@@ -502,7 +527,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                           'jam', _timeString);
 
                                       await dataPresensiDosen.setString(
-                                          'tanggal', _dateString);
+                                          'tanggalnow', _dateString);
 
                                       await dataPresensiDosen.setString(
                                           'ruang',
@@ -628,6 +653,16 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                           'kapasitas',
                                           listKelasDosenResponseModel
                                               .data[index].kapasitas);
+
+                                      await dataPresensiDosen.setString(
+                                          'tglmasuk',
+                                          listKelasDosenResponseModel
+                                              .data[index].tglmasuk);
+
+                                      await dataPresensiDosen.setString(
+                                          'tglkeluar',
+                                          listKelasDosenResponseModel
+                                              .data[index].tglkeluar);
 
                                       await dataPresensiDosen.setInt(
                                           'bukapresensi',

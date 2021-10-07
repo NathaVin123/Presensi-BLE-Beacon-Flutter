@@ -48,6 +48,8 @@ class Data {
   final String namadevice;
   final double jarakmin;
   final int kapasitas;
+  final String tglmasuk;
+  final String tglkeluar;
   final int bukapresensi;
 
   Data(
@@ -77,6 +79,8 @@ class Data {
       this.namadevice,
       this.jarakmin,
       this.kapasitas,
+      this.tglmasuk,
+      this.tglkeluar,
       this.bukapresensi});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -122,6 +126,12 @@ class Data {
         kapasitas: json["KAPASITAS_KELAS"] == null
             ? null
             : json['KAPASITAS_KELAS'] as int,
+        tglmasuk: json["JAM_MASUK_SEHARUSNYA"] == null
+            ? null
+            : json['JAM_MASUK_SEHARUSNYA'] as String,
+        tglkeluar: json["JAM_KELUAR_SEHARUSNYA"] == null
+            ? null
+            : json['JAM_KELUAR_SEHARUSNYA'] as String,
         bukapresensi: json["IS_BUKA_PRESENSI"] == null
             ? null
             : json['IS_BUKA_PRESENSI'] as int,
@@ -154,22 +164,26 @@ class Data {
         "NAMA_DEVICE": namadevice,
         "JARAK_MIN_DEC": jarakmin,
         "KAPASITAS_KELAS": kapasitas,
+        "JAM_MASUK_SEHARUSNYA": tglmasuk,
+        "JAM_KELUAR_SEHARUSNYA": tglkeluar,
         "IS_BUKA_PRESENSI": bukapresensi,
       };
 }
 
 class ListKelasMahasiswaRequestModel {
   String npm;
-  String semester;
+  String tglnow;
 
-  ListKelasMahasiswaRequestModel({this.npm, this.semester});
+  ListKelasMahasiswaRequestModel({this.npm, this.tglnow});
 
   factory ListKelasMahasiswaRequestModel.fromJson(Map<String, dynamic> json) =>
       ListKelasMahasiswaRequestModel(
         npm: json["NPM"] as String,
+        tglnow: json["TGLNOW"] as String,
       );
 
   Map<String, dynamic> toJson() => {
         "NPM": npm,
+        "TGLNOW": tglnow,
       };
 }

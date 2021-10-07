@@ -17,6 +17,7 @@ class DosenDetailPresensiPage extends StatefulWidget {
 }
 
 class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
+  String npp = "";
   int idkelas = 0;
   String ruang = "";
   String namamk = "";
@@ -27,12 +28,18 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
   String sesi = "";
   int kapasitas = 0;
   String jam = "";
-  String tanggal = "";
+  String tanggalnow = "";
+  String tanggalmasuk = "";
+  String tanggalkeluar = "";
   int bukapresensi = 0;
 
   var _materiFieldController = TextEditingController();
 
   var _keteranganFieldController = TextEditingController();
+
+  var _materiFieldFocus = FocusNode();
+
+  var _keteranganFieldFocus = FocusNode();
 
   bool isApiCallProcess = false;
 
@@ -62,14 +69,21 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
     presensiINOUTOUTDosenBukaPresensiRequestModel =
         PresensiINOUTOUTDosenBukaPresensiRequestModel();
 
-    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDetailKelas();
+      getDetailDosen();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
+  }
 
-    //   Future.delayed(Duration(seconds: 5), () {
-    //     t.cancel();
-    //   });
-    // });
+  getDetailDosen() async {
+    SharedPreferences loginDosen = await SharedPreferences.getInstance();
 
-    getDetailKelas();
+    setState(() {
+      npp = loginDosen.getString('npp');
+    });
   }
 
   getDetailKelas() async {
@@ -86,7 +100,9 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
       sesi = dataPresensiDosen.getString('sesi1');
       kapasitas = dataPresensiDosen.getInt('kapasitas');
       jam = dataPresensiDosen.getString('jam');
-      tanggal = dataPresensiDosen.getString('tanggal');
+      tanggalnow = dataPresensiDosen.getString('tanggalnow');
+      tanggalmasuk = dataPresensiDosen.getString('tglmasuk');
+      tanggalkeluar = dataPresensiDosen.getString('tglkeluar');
       bukapresensi = dataPresensiDosen.getInt('bukapresensi');
     });
   }
@@ -142,24 +158,38 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
+                          bukapresensi == 0
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      '${tanggalmasuk ?? "-"}',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          // fontWeight:
+                                          //     FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      '${tanggalkeluar ?? "-"}',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          // fontWeight:
+                                          //     FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
                               child: new Text(
-                                '${tanggal ?? "-"}',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                'ID Kelas',
+                                'NPP',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     fontWeight: FontWeight.bold,
@@ -171,7 +201,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
                               child: new Text(
-                                '${idkelas ?? "-"}',
+                                '${npp ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
@@ -267,7 +297,6 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
@@ -281,7 +310,6 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
@@ -294,7 +322,6 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
@@ -383,28 +410,55 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               ),
                             ),
                           ),
+                        ],
+                      )),
+                ),
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Column(
+                        children: <Widget>[
+                          bukapresensi == 0
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      'Tanggal Masuk',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Center(
+                                    child: new Text(
+                                      'Tanggal Keluar',
+                                      style: TextStyle(
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: new Center(
                               child: new Text(
-                                'Buka Presensi',
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Center(
-                              child: new Text(
-                                '${bukapresensi ?? "-"}',
+                                '${tanggalnow ?? "-"}',
                                 style: TextStyle(
                                     fontFamily: 'WorkSansMedium',
                                     // fontWeight:
                                     //     FontWeight.bold,
-                                    fontSize: 18),
+                                    fontSize: 16),
                               ),
                             ),
                           ),
@@ -438,40 +492,14 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                               child: new Text(
                                 '${jam ?? "-"}',
                                 style: TextStyle(
-                                    fontFamily: 'WorkSansMedium',
-                                    // fontWeight:
-                                    //     FontWeight.bold,
-                                    fontSize: 18),
+                                    fontFamily: 'WorkSansMedium', fontSize: 18),
                               ),
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: new Center(
-                          //     child: new Text(
-                          //       'Jam Keluar',
-                          //       style: TextStyle(
-                          //           fontFamily: 'WorkSansMedium',
-                          //           fontWeight: FontWeight.bold,
-                          //           fontSize: 20),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: new Center(
-                          //     child: new Text(
-                          //       '-',
-                          //       style: TextStyle(
-                          //           fontFamily: 'WorkSansMedium',
-                          //           // fontWeight:
-                          //           //     FontWeight.bold,
-                          //           fontSize: 18),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
-                      )),
+                      ),
+                    ),
+                  ],
                 ),
                 bukapresensi == 1
                     ? Column(
@@ -506,6 +534,14 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       child: Center(
                                           child: TextFormField(
                                         controller: _keteranganFieldController,
+                                        focusNode: _keteranganFieldFocus,
+                                        onFieldSubmitted: (term) {
+                                          _fieldFocusChange(
+                                              context,
+                                              _keteranganFieldFocus,
+                                              _materiFieldFocus);
+                                        },
+                                        textInputAction: TextInputAction.next,
                                         style: const TextStyle(
                                             fontFamily: 'WorkSansSemiBold',
                                             fontSize: 16.0,
@@ -513,12 +549,13 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         keyboardType: TextInputType.text,
                                         decoration: new InputDecoration(
                                             hintText:
-                                                'Silahkan Isi Materi Anda'),
-                                        // validator: (input) => input.length < 1
-                                        //     ? "Materi tidak boleh kosong"
-                                        //     : null,
-                                        // onSaved: (input) =>
-                                        //     ubahBeaconRequestModel.uuid = input,
+                                                'Silahkan Isi Keterangan Anda'),
+                                        validator: (input) => input.length < 1
+                                            ? "Materi tidak boleh kosong"
+                                            : null,
+                                        onSaved: (input) =>
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                .keterangan = input,
                                       )),
                                     ),
                                     Padding(
@@ -538,6 +575,11 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       child: Center(
                                           child: TextFormField(
                                         controller: _materiFieldController,
+                                        focusNode: _materiFieldFocus,
+                                        onFieldSubmitted: (value) {
+                                          _materiFieldFocus.unfocus();
+                                        },
+                                        textInputAction: TextInputAction.done,
                                         style: const TextStyle(
                                             fontFamily: 'WorkSansSemiBold',
                                             fontSize: 16.0,
@@ -546,11 +588,12 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         decoration: new InputDecoration(
                                             hintText:
                                                 'Silahkan Isi Materi Anda'),
-                                        // validator: (input) => input.length < 1
-                                        //     ? "Materi tidak boleh kosong"
-                                        //     : null,
-                                        // onSaved: (input) =>
-                                        //     ubahBeaconRequestModel.uuid = input,
+                                        validator: (input) => input.length < 1
+                                            ? "Materi tidak boleh kosong"
+                                            : null,
+                                        onSaved: (input) =>
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                .materi = input,
                                       )),
                                     ),
                                   ],
@@ -625,7 +668,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
 
                                         print(pertemuan);
 
-                                        print(jam + ' ' + tanggal);
+                                        print(jam + ' ' + tanggalnow);
 
                                         setState(() {
                                           isApiCallProcess = true;
@@ -636,7 +679,8 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                               .pertemuan = pertemuan;
 
                                           presensiINOUTDosenBukaPresensiRequestModel
-                                              .jammasuk = jam + ' ' + tanggal;
+                                                  .jammasuk =
+                                              jam + ' ' + tanggalnow;
 
                                           presensiINDosenBukaPresensiRequestModel
                                               .idkelas = idkelas;
@@ -741,6 +785,7 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                       cancelBtnTxtColor: Colors.white,
                                       cancelBtnColor: Colors.grey,
                                       onOkBtnTap: (value) async {
+                                        FocusScope.of(context).unfocus();
                                         SharedPreferences
                                             dataPresensiMahasiswa =
                                             await SharedPreferences
@@ -761,69 +806,66 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
 
                                         print(bukapresensi);
 
-                                        setState(() {
-                                          isApiCallProcess = true;
+                                        if (validateAndSave()) {
+                                          setState(() {
+                                            isApiCallProcess = true;
 
-                                          presensiINOUTOUTDosenBukaPresensiRequestModel
-                                              .idkelas = idkelas;
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                .idkelas = idkelas;
 
-                                          presensiINOUTOUTDosenBukaPresensiRequestModel
-                                              .pertemuan = pertemuan;
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                .pertemuan = pertemuan;
 
-                                          presensiINOUTOUTDosenBukaPresensiRequestModel
-                                              .jamkeluar = jam + ' ' + tanggal;
+                                            presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                    .jamkeluar =
+                                                jam + ' ' + tanggalnow;
 
-                                          presensiINOUTOUTDosenBukaPresensiRequestModel
-                                              .keterangan = 'Test Flutter';
+                                            presensiINDosenBukaPresensiRequestModel
+                                                .idkelas = idkelas;
 
-                                          presensiINOUTOUTDosenBukaPresensiRequestModel
-                                              .materi = 'Test Flutter';
+                                            presensiINDosenBukaPresensiRequestModel
+                                                .bukapresensi = 0;
 
-                                          presensiINDosenBukaPresensiRequestModel
-                                              .idkelas = idkelas;
+                                            presensiINDosenBukaPresensiRequestModel
+                                                .pertemuan = pertemuan;
+                                          });
 
-                                          presensiINDosenBukaPresensiRequestModel
-                                              .bukapresensi = 0;
+                                          APIService apiService =
+                                              new APIService();
 
-                                          presensiINDosenBukaPresensiRequestModel
-                                              .pertemuan = pertemuan;
-                                        });
+                                          await apiService
+                                              .putPresensiOUTDosen(
+                                                  presensiINOUTOUTDosenBukaPresensiRequestModel)
+                                              .then((value) async {
+                                            if (value != null) {
+                                              setState(() {
+                                                isApiCallProcess = false;
+                                              });
+                                            }
+                                          });
 
-                                        APIService apiService =
-                                            new APIService();
+                                          await apiService
+                                              .putBukaPresensiDosen(
+                                                  presensiINDosenBukaPresensiRequestModel)
+                                              .then((value) async {
+                                            if (value != null) {
+                                              setState(() {
+                                                isApiCallProcess = false;
+                                              });
+                                            }
+                                            Get.offAllNamed('/dosen/dashboard');
 
-                                        await apiService
-                                            .putPresensiOUTDosen(
-                                                presensiINOUTOUTDosenBukaPresensiRequestModel)
-                                            .then((value) async {
-                                          if (value != null) {
-                                            setState(() {
-                                              isApiCallProcess = false;
-                                            });
-                                          }
-                                        });
-
-                                        await apiService
-                                            .putBukaPresensiDosen(
-                                                presensiINDosenBukaPresensiRequestModel)
-                                            .then((value) async {
-                                          if (value != null) {
-                                            setState(() {
-                                              isApiCallProcess = false;
-                                            });
-                                          }
-                                          Get.offAllNamed('/dosen/dashboard');
-
-                                          await Fluttertoast.showToast(
-                                              msg:
-                                                  'Berhasil Mengakhiri Kelas, data presensi sudah tersimpan',
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.BOTTOM,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.green,
-                                              textColor: Colors.white,
-                                              fontSize: 14.0);
-                                        });
+                                            await Fluttertoast.showToast(
+                                                msg:
+                                                    'Berhasil Mengakhiri Kelas, data presensi sudah tersimpan',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.green,
+                                                textColor: Colors.white,
+                                                fontSize: 14.0);
+                                          });
+                                        }
                                       },
                                       onCancelBtnTap: (value) {},
                                     );
@@ -882,5 +924,20 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
         ],
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = globalFormKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

@@ -1,10 +1,7 @@
-import 'dart:async';
 
-import 'package:connectivity/connectivity.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginDosen.dart';
 import 'package:presensiblebeacon/UI/Login/LoginWidgets/LoginMahasiswa.dart';

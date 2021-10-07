@@ -1,13 +1,11 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:http/http.dart' as http;
+
 
 class MahasiswaRiwayatDashboardPage extends StatefulWidget {
   MahasiswaRiwayatDashboardPage({Key key}) : super(key: key);
@@ -24,6 +22,8 @@ class Semester {
 
 class _MahasiswaRiwayatDashboardPageState
     extends State<MahasiswaRiwayatDashboardPage> {
+  String _dateString;
+
   String npm = "";
   String semesterShared = "";
 
@@ -62,12 +62,19 @@ class _MahasiswaRiwayatDashboardPageState
   void initState() {
     super.initState();
 
-    this.getDataMahasiswa();
-
     riwayatMahasiswaRequestModel = RiwayatMahasiswaRequestModel();
     riwayatMahasiswaResponseModel = RiwayatMahasiswaResponseModel();
 
-    this.getDataRiwayatMahasiswa();
+    _dateString = _formatDate(DateTime.now());
+
+    Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataMahasiswa();
+      getDataRiwayatMahasiswa();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDataMahasiswa() async {
@@ -90,6 +97,19 @@ class _MahasiswaRiwayatDashboardPageState
         riwayatMahasiswaResponseModel = value;
       });
     });
+  }
+
+  void _getDate() {
+    final DateTime now = DateTime.now();
+    final String formattedDate = _formatDate(now);
+
+    setState(() {
+      _dateString = formattedDate;
+    });
+  }
+
+  String _formatDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
   @override
@@ -118,6 +138,22 @@ class _MahasiswaRiwayatDashboardPageState
           Center(
             child: Column(
               children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            _dateString,
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontFamily: 'WorkSansMedium',
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    )),
                 Center(
                     child: Text(
                   'Pilih Semester',
@@ -145,7 +181,14 @@ class _MahasiswaRiwayatDashboardPageState
                       style: TextStyle(color: Colors.white),
                       dropdownColor: Color.fromRGBO(23, 75, 137, 1),
                       underline: Text(''),
-                      onTap: () => getDataRiwayatMahasiswa(),
+                      onTap: () => {
+                        Timer.periodic(Duration(seconds: 1), (Timer t) {
+                          getDataRiwayatMahasiswa();
+                          Future.delayed(Duration(seconds: 5), () {
+                            t.cancel();
+                          });
+                        })
+                      },
                       items: generateSemester(semesters),
                       value: selectedSemester,
                       onChanged: (item) {

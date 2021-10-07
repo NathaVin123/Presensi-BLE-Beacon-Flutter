@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DosenGantiPasswordPage extends StatefulWidget {
   @override

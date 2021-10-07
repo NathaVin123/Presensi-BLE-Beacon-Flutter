@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminTambahBeacon extends StatefulWidget {
   @override
