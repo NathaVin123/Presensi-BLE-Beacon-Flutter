@@ -18,6 +18,7 @@ import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTBModel.
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -62,30 +63,30 @@ class _MahasiswaDetailPresensiPageState
 
   PresensiOUTMahasiswaToKSIRequestModel presensiOUTMahasiswaToKSIRequestModel;
 
-  // PresensiINMahasiswaToFBERequestModel presensiINMahasiswaToFBERequestModel;
+  PresensiINMahasiswaToFBERequestModel presensiINMahasiswaToFBERequestModel;
 
-  // PresensiOUTMahasiswaToFBERequestModel presensiOUTMahasiswaToFBERequestModel;
+  PresensiOUTMahasiswaToFBERequestModel presensiOUTMahasiswaToFBERequestModel;
 
-  // PresensiINMahasiswaToFHRequestModel presensiINMahasiswaToFHRequestModel;
+  PresensiINMahasiswaToFHRequestModel presensiINMahasiswaToFHRequestModel;
 
-  // PresensiOUTMahasiswaToFHRequestModel presensiOUTMahasiswaToFHRequestModel;
+  PresensiOUTMahasiswaToFHRequestModel presensiOUTMahasiswaToFHRequestModel;
 
-  // PresensiINMahasiswaToFISIPRequestModel presensiINMahasiswaToFISIPRequestModel;
+  PresensiINMahasiswaToFISIPRequestModel presensiINMahasiswaToFISIPRequestModel;
 
-  // PresensiOUTMahasiswaToFISIPRequestModel
-  //     presensiOUTMahasiswaToFISIPRequestModel;
+  PresensiOUTMahasiswaToFISIPRequestModel
+      presensiOUTMahasiswaToFISIPRequestModel;
 
-  // PresensiINMahasiswaToFTRequestModel presensiINMahasiswaToFTRequestModel;
+  PresensiINMahasiswaToFTRequestModel presensiINMahasiswaToFTRequestModel;
 
-  // PresensiOUTMahasiswaToFTRequestModel presensiOUTMahasiswaToFTRequestModel;
+  PresensiOUTMahasiswaToFTRequestModel presensiOUTMahasiswaToFTRequestModel;
 
-  // PresensiINMahasiswaToFTBRequestModel presensiINMahasiswaToFTBRequestModel;
+  PresensiINMahasiswaToFTBRequestModel presensiINMahasiswaToFTBRequestModel;
 
-  // PresensiOUTMahasiswaToFTBRequestModel presensiOUTMahasiswaToFTBRequestModel;
+  PresensiOUTMahasiswaToFTBRequestModel presensiOUTMahasiswaToFTBRequestModel;
 
-  // PresensiINMahasiswaToFTIRequestModel presensiINMahasiswaToFTIRequestModel;
+  PresensiINMahasiswaToFTIRequestModel presensiINMahasiswaToFTIRequestModel;
 
-  // PresensiOUTMahasiswaToFTIRequestModel presensiOUTMahasiswaToFTIRequestModel;
+  PresensiOUTMahasiswaToFTIRequestModel presensiOUTMahasiswaToFTIRequestModel;
 
   @override
   void initState() {
@@ -95,7 +96,7 @@ class _MahasiswaDetailPresensiPageState
       getDetailKelas();
       getDetailMahasiswa();
 
-      Future.delayed(Duration(seconds: 10), () {
+      Future.delayed(Duration(seconds: 5), () {
         t.cancel();
       });
     });
@@ -106,39 +107,39 @@ class _MahasiswaDetailPresensiPageState
     presensiOUTMahasiswaToKSIRequestModel =
         PresensiOUTMahasiswaToKSIRequestModel();
 
-    // presensiINMahasiswaToFBERequestModel =
-    //     PresensiINMahasiswaToFBERequestModel();
+    presensiINMahasiswaToFBERequestModel =
+        PresensiINMahasiswaToFBERequestModel();
 
-    // presensiOUTMahasiswaToFBERequestModel =
-    //     PresensiOUTMahasiswaToFBERequestModel();
+    presensiOUTMahasiswaToFBERequestModel =
+        PresensiOUTMahasiswaToFBERequestModel();
 
-    // presensiINMahasiswaToFHRequestModel = PresensiINMahasiswaToFHRequestModel();
+    presensiINMahasiswaToFHRequestModel = PresensiINMahasiswaToFHRequestModel();
 
-    // presensiOUTMahasiswaToFHRequestModel =
-    //     PresensiOUTMahasiswaToFHRequestModel();
+    presensiOUTMahasiswaToFHRequestModel =
+        PresensiOUTMahasiswaToFHRequestModel();
 
-    // presensiINMahasiswaToFISIPRequestModel =
-    //     PresensiINMahasiswaToFISIPRequestModel();
+    presensiINMahasiswaToFISIPRequestModel =
+        PresensiINMahasiswaToFISIPRequestModel();
 
-    // presensiOUTMahasiswaToFISIPRequestModel =
-    //     PresensiOUTMahasiswaToFISIPRequestModel();
+    presensiOUTMahasiswaToFISIPRequestModel =
+        PresensiOUTMahasiswaToFISIPRequestModel();
 
-    // presensiINMahasiswaToFTRequestModel = PresensiINMahasiswaToFTRequestModel();
+    presensiINMahasiswaToFTRequestModel = PresensiINMahasiswaToFTRequestModel();
 
-    // presensiOUTMahasiswaToFTRequestModel =
-    //     PresensiOUTMahasiswaToFTRequestModel();
+    presensiOUTMahasiswaToFTRequestModel =
+        PresensiOUTMahasiswaToFTRequestModel();
 
-    // presensiINMahasiswaToFTBRequestModel =
-    //     PresensiINMahasiswaToFTBRequestModel();
+    presensiINMahasiswaToFTBRequestModel =
+        PresensiINMahasiswaToFTBRequestModel();
 
-    // presensiOUTMahasiswaToFTBRequestModel =
-    //     PresensiOUTMahasiswaToFTBRequestModel();
+    presensiOUTMahasiswaToFTBRequestModel =
+        PresensiOUTMahasiswaToFTBRequestModel();
 
-    // presensiINMahasiswaToFTIRequestModel =
-    //     PresensiINMahasiswaToFTIRequestModel();
+    presensiINMahasiswaToFTIRequestModel =
+        PresensiINMahasiswaToFTIRequestModel();
 
-    // presensiOUTMahasiswaToFTIRequestModel =
-    //     PresensiOUTMahasiswaToFTIRequestModel();
+    presensiOUTMahasiswaToFTIRequestModel =
+        PresensiOUTMahasiswaToFTIRequestModel();
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getIDKelasFakultas();
@@ -190,6 +191,14 @@ class _MahasiswaDetailPresensiPageState
 
   @override
   Widget build(BuildContext context) {
+    return LoginProgressHUD(
+      child: buildDetailPresensiMahasiswa(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0,
+    );
+  }
+
+  Widget buildDetailPresensiMahasiswa(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(

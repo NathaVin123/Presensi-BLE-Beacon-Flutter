@@ -7,6 +7,7 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINDosenBukaPresensiModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -109,6 +110,14 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
 
   @override
   Widget build(BuildContext context) {
+    return LoginProgressHUD(
+      child: buildDetailPresensiDosen(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0,
+    );
+  }
+
+  Widget buildDetailPresensiDosen(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(

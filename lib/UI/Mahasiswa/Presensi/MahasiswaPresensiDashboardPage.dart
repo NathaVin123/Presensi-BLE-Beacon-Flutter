@@ -57,7 +57,7 @@ class _MahasiswaPresensiDashboardPageState
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDataMahasiswa();
       getDataListKelasMahasiswa();
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(Duration(seconds: 10), () {
         t.cancel();
       });
     });
