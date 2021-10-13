@@ -1,4 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/HapusBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
@@ -38,26 +42,80 @@ import 'package:http/http.dart' as http;
 
 class APIService {
   String address = 'https://192.168.100.249:5000/api/';
+
+  // String address = 'https://api-presensi.uajy.ac.id/api/';
+
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
       LoginMahasiswaRequestModel requestModel) async {
     String url = address + "auth/loginmhs";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return LoginMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return LoginMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return LoginMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return LoginMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -66,21 +124,72 @@ class APIService {
       LoginDosenRequestModel requestModel) async {
     String url = address + "auth/logindsn";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return LoginDosenResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return LoginDosenResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return LoginDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return LoginDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -88,21 +197,72 @@ class APIService {
       LoginAdminRequestModel requestModel) async {
     String url = address + "auth/loginadm";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return LoginAdminResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return LoginAdminResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return LoginAdminResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return LoginAdminResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -125,7 +285,15 @@ class APIService {
       );
     } else {
       print(response);
-      throw Exception('Failed to load data!');
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -148,7 +316,15 @@ class APIService {
       );
     } else {
       print(response);
-      throw Exception('Failed to load data!');
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -156,72 +332,281 @@ class APIService {
   Future<RuangBeaconResponseModel> getKelasBeacon() async {
     String url = address + "ruangbeacon";
     print(url);
-    http.Response response = await http.get(url);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return RuangBeaconResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return RuangBeaconResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.get(url);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return RuangBeaconResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return RuangBeaconResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future postTambahBeacon(TambahBeaconRequestModel requestModel) async {
     String url = address + "ruangbeacon/tambah";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        print(response.body);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future<ListBeaconResponseModel> getListBeacon() async {
     String url = address + "ruangbeacon/tampil";
     print(url);
-    http.Response response = await http.get(url);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListBeaconResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListBeaconResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.get(url);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListBeaconResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListBeaconResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future putUbahBeacon(UbahBeaconRequestModel requestModel) async {
     String url = address + "ruangbeacon/ubah";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -242,7 +627,15 @@ class APIService {
       );
     } else {
       print(response);
-      throw Exception('Failed to load data!');
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -250,78 +643,280 @@ class APIService {
       ListDetailRuanganNamaDeviceRequestModel requestModel) async {
     String url = address + "ruangbeacon/namadevice";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListDetailRuanganNamaDeviceResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListDetailRuanganNamaDeviceResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListDetailRuanganNamaDeviceResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListDetailRuanganNamaDeviceResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future<ListRuanganResponseModel> getListRuangan() async {
     String url = address + "ruangbeacon/tampilruangan";
     print(url);
-    http.Response response = await http.get(url);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListRuanganResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListRuanganResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.get(url);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListRuanganResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListRuanganResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future<ListDetailRuanganResponseModel> getListDetailRuangan() async {
     String url = address + "ruangbeacon/tampildetailruangan";
     print(url);
-    http.Response response = await http.get(url);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListDetailRuanganResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListDetailRuanganResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.get(url);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+
+        return ListDetailRuanganResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListDetailRuanganResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
   Future putUbahRuangBeacon(UbahRuangBeaconRequestModel requestModel) async {
     String url = address + "ruangbeacon/ubahruangbeacon";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -329,21 +924,145 @@ class APIService {
       ListKelasDosenRequestModel requestModel) async {
     String url = address + "presensi/postgetlistkelas";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListKelasDosenResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListKelasDosenResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListKelasDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListKelasDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
+    }
+  }
+
+  Future<ListKelasDosenResponseModel> postListAllKelasDosen(
+      ListKelasDosenRequestModel requestModel) async {
+    String url = address + "presensi/postgetalllistkelas";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListKelasDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListKelasDosenResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -351,21 +1070,145 @@ class APIService {
       ListKelasMahasiswaRequestModel requestModel) async {
     String url = address + "presensi/postgetlistkelasmhs";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return ListKelasMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return ListKelasMahasiswaResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListKelasMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListKelasMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
+    }
+  }
+
+  Future<ListKelasMahasiswaResponseModel> postListAllKelasMahasiswa(
+      ListKelasMahasiswaRequestModel requestModel) async {
+    String url = address + "presensi/postgetalllistkelasmhs";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ListKelasMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return ListKelasMahasiswaResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -373,15 +1216,65 @@ class APIService {
       PresensiINDosenBukaPresensiRequestModel requestModel) async {
     String url = address + "presensi/bukapresensidosen";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -389,15 +1282,65 @@ class APIService {
       PresensiINOUTDosenBukaPresensiRequestModel requestModel) async {
     String url = address + "presensi/putinpresensidosen";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -405,15 +1348,65 @@ class APIService {
       PresensiINOUTOUTDosenBukaPresensiRequestModel requestModel) async {
     String url = address + "presensi/putoutpresensidosen";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -421,21 +1414,72 @@ class APIService {
       TampilPesertaKelasRequestModel requestModel) async {
     String url = address + "presensi/postgetlistpesertakelas";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return TampilPesertaKelasResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-      return TampilPesertaKelasResponseModel.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return TampilPesertaKelasResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        return TampilPesertaKelasResponseModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -443,15 +1487,66 @@ class APIService {
       PresensiINMahasiswaToKSIRequestModel requestModel) async {
     String url = address + "presensi/postinmhstoksi";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -459,15 +1554,65 @@ class APIService {
       PresensiOUTMahasiswaToKSIRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstoksi";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -475,15 +1620,66 @@ class APIService {
       PresensiINMahasiswaToFBERequestModel requestModel) async {
     String url = address + "presensi/postinmhstofbe";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -491,15 +1687,65 @@ class APIService {
       PresensiOUTMahasiswaToFBERequestModel requestModel) async {
     String url = address + "presensi/putoutmhstofbe";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -507,15 +1753,66 @@ class APIService {
       PresensiINMahasiswaToFHRequestModel requestModel) async {
     String url = address + "presensi/postinmhstofh";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -523,15 +1820,65 @@ class APIService {
       PresensiOUTMahasiswaToFHRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstofh";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -539,15 +1886,66 @@ class APIService {
       PresensiINMahasiswaToFISIPRequestModel requestModel) async {
     String url = address + "presensi/postinmhstofisip";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -555,15 +1953,65 @@ class APIService {
       PresensiOUTMahasiswaToFISIPRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstofisip";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -571,15 +2019,66 @@ class APIService {
       PresensiINMahasiswaToFTRequestModel requestModel) async {
     String url = address + "presensi/postinmhstoft";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        print(response.body);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -587,15 +2086,65 @@ class APIService {
       PresensiOUTMahasiswaToFTRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstoft";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -611,7 +2160,15 @@ class APIService {
       print(response.body);
     } else {
       print(response);
-      throw Exception('Failed to load data!');
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -619,15 +2176,65 @@ class APIService {
       PresensiOUTMahasiswaToFTBRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstoftb";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -635,15 +2242,58 @@ class APIService {
       PresensiINMahasiswaToFTIRequestModel requestModel) async {
     String url = address + "presensi/postinmhstofti";
     print(url);
-    http.Response response = await http.post(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 
@@ -651,15 +2301,65 @@ class APIService {
       PresensiOUTMahasiswaToFTIRequestModel requestModel) async {
     String url = address + "presensi/putoutmhstokfti";
     print(url);
-    http.Response response = await http.put(url, body: requestModel.toJson());
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else if (response.statusCode == 400 || response.statusCode == 422) {
-      print(response.body);
-    } else {
-      print(response);
-      throw Exception('Failed to load data!');
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+      } else {
+        print(response);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Tidak terhubung dengan jaringan');
+      } else if (e is TimeoutException) {
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Request Timeout');
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 14.0);
+        throw Exception('Sistem sedang dalam masalah');
+      }
     }
   }
 }

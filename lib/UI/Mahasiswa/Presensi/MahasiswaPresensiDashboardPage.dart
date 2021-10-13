@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
@@ -17,7 +16,6 @@ class MahasiswaPresensiDashboardPage extends StatefulWidget {
 
 class _MahasiswaPresensiDashboardPageState
     extends State<MahasiswaPresensiDashboardPage> with WidgetsBindingObserver {
-  final StreamController<BluetoothState> streamController = StreamController();
   RuangBeaconResponseModel ruangBeaconResponseModel;
 
   bool authorizationStatusOk = false;
@@ -103,7 +101,7 @@ class _MahasiswaPresensiDashboardPageState
     setState(() {
       listKelasMahasiswaRequestModel.npm = npm;
 
-      listKelasMahasiswaRequestModel.tglnow = _dateString + ' ' + _timeString;
+      // listKelasMahasiswaRequestModel.tglnow = _dateString + ' ' + _timeString;
 
       print(listKelasMahasiswaRequestModel.toJson());
 

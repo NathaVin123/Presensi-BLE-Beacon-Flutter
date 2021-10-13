@@ -236,6 +236,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/dosen/dashboard/akun/informasi',
             page: () => DosenInformasiAkunPage()),
+
+      // Admin Page
         GetPage(name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
         GetPage(
             name: '/admin/menu/beacon/pindai', page: () => AdminPindaiBeacon()),

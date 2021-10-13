@@ -165,7 +165,7 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
                                       new Text(
                                         beaconListSearch[index].namadevice,
                                         style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 22,
                                             fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -199,6 +199,36 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
                                           fontFamily: 'WorkSansMedium',
                                         ),
                                       ),
+                                      new Text(
+                                        'MAJOR',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      new Text(
+                                        '${beaconListSearch[index].major}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
+                                      ),
+                                      new Text(
+                                        'Minor',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      new Text(
+                                        '${beaconListSearch[index].minor}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -216,6 +246,11 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
                                   );
                                   await ubahBeacon.setDouble('jarakmin',
                                       beaconListSearch[index].jarakmin);
+
+                                  await ubahBeacon.setInt(
+                                      'major', beaconListSearch[index].major);
+                                  await ubahBeacon.setInt(
+                                      'minor', beaconListSearch[index].minor);
                                 },
                               ),
                             ),

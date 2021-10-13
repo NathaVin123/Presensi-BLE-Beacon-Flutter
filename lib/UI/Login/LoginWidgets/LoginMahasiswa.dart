@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -163,7 +162,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                       ),
                       color: Color.fromRGBO(247, 180, 7, 1),
                       shape: StadiumBorder(),
-                      onPressed: () {
+                      onPressed: () async {
                         FocusScope.of(context).unfocus();
                         // try {
                         if (validateAndSave()) {
@@ -171,6 +170,10 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
 
                           setState(() {
                             isApiCallProcess = true;
+                          });
+
+                          setState(() {
+                            isApiCallProcess = false;
                           });
 
                           APIService apiService = new APIService();
@@ -217,6 +220,9 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
 
                                 print(isApiCallProcess);
                               } else {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
                                 Fluttertoast.showToast(
                                     msg:
                                         'Silahkan Masukan NPM/Password dengan benar',

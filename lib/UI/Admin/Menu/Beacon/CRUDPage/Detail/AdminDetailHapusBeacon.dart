@@ -175,7 +175,7 @@ class _AdminDetailHapusBeaconState extends State<AdminDetailHapusBeacon> {
                                       isApiCallProcess = true;
 
                                       hapusBeaconRequestModel.uuid = uuid;
-                                      // hapusBeaconRequestModel.status = 0;
+                                      hapusBeaconRequestModel.status = '0';
                                     });
 
                                     APIService apiService = new APIService();

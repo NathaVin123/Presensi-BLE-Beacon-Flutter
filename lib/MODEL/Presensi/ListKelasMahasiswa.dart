@@ -172,18 +172,20 @@ class Data {
 
 class ListKelasMahasiswaRequestModel {
   String npm;
-  String tglnow;
+  // String tglnow;
 
-  ListKelasMahasiswaRequestModel({this.npm, this.tglnow});
+  ListKelasMahasiswaRequestModel({this.npm
+      // , this.tglnow
+      });
 
   factory ListKelasMahasiswaRequestModel.fromJson(Map<String, dynamic> json) =>
       ListKelasMahasiswaRequestModel(
         npm: json["NPM"] as String,
-        tglnow: json["TGLNOW"] as String,
+        // tglnow: json["TGLNOW"] as String,
       );
 
   Map<String, dynamic> toJson() => {
         "NPM": npm,
-        "TGLNOW": tglnow,
+        // "TGLNOW": tglnow,
       };
 }

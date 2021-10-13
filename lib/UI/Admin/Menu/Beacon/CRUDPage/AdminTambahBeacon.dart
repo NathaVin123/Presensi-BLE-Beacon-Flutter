@@ -14,10 +14,14 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
   var _uuidFieldController = TextEditingController();
   var _namaDeviceFieldController = TextEditingController();
   var _jarakMinFieldController = TextEditingController();
+  var _majorFieldController = TextEditingController();
+  var _minorFieldController = TextEditingController();
 
   final FocusNode _uuidFieldFocus = FocusNode();
   final FocusNode _namaDeviceFieldFocus = FocusNode();
   final FocusNode _jarakMinFieldFocus = FocusNode();
+  final FocusNode _majorFieldFocus = FocusNode();
+  final FocusNode _minorMinFieldFocus = FocusNode();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -118,6 +122,9 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               validator: (input) => input.length < 1
                                   ? "Tidak boleh kosong"
                                   : null,
+                              decoration: new InputDecoration(
+                                  hintText:
+                                      "ffffffff-1234-aaaa-1a2b-a1b2c3d4e5f6"),
                             )),
                           ),
                           Padding(
@@ -173,10 +180,11 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                                 child: TextFormField(
                               controller: _jarakMinFieldController,
                               focusNode: _jarakMinFieldFocus,
-                              onFieldSubmitted: (value) {
-                                _jarakMinFieldFocus.unfocus();
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(context, _jarakMinFieldFocus,
+                                    _majorFieldFocus);
                               },
-                              textInputAction: TextInputAction.done,
+                              textInputAction: TextInputAction.next,
                               style: const TextStyle(
                                   fontFamily: 'WorkSansSemiBold',
                                   fontSize: 16.0,
@@ -191,11 +199,81 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                                   new InputDecoration(hintText: "Dalam Meter"),
                             )),
                           ),
-                          SizedBox(
-                            height: 10,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Major',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: TextFormField(
+                              controller: _majorFieldController,
+                              focusNode: _majorFieldFocus,
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(context, _majorFieldFocus,
+                                    _minorMinFieldFocus);
+                              },
+                              textInputAction: TextInputAction.next,
+                              style: const TextStyle(
+                                  fontFamily: 'WorkSansSemiBold',
+                                  fontSize: 16.0,
+                                  color: Colors.black),
+                              keyboardType: TextInputType.number,
+                              onSaved: (input) =>
+                                  tambahBeaconRequestModel.major = input,
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
+                                  : null,
+                              decoration:
+                                  new InputDecoration(hintText: "0 - 65535"),
+                            )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Minor',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: TextFormField(
+                              controller: _minorFieldController,
+                              focusNode: _minorMinFieldFocus,
+                              onFieldSubmitted: (value) {
+                                _jarakMinFieldFocus.unfocus();
+                              },
+                              textInputAction: TextInputAction.done,
+                              style: const TextStyle(
+                                  fontFamily: 'WorkSansSemiBold',
+                                  fontSize: 16.0,
+                                  color: Colors.black),
+                              keyboardType: TextInputType.number,
+                              onSaved: (input) =>
+                                  tambahBeaconRequestModel.minor = input,
+                              validator: (input) => input.length < 1
+                                  ? "Tidak boleh kosong"
+                                  : null,
+                              decoration:
+                                  new InputDecoration(hintText: "0 - 65535"),
+                            )),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -218,6 +296,10 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
 
                                       setState(() {
                                         isApiCallProcess = true;
+                                      });
+
+                                      setState(() {
+                                        isApiCallProcess = false;
                                       });
 
                                       APIService apiService = new APIService();

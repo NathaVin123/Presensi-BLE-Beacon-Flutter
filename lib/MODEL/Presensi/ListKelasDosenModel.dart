@@ -46,10 +46,15 @@ class Data {
   final String uuid;
   final String namadevice;
   final double jarakmin;
+  final int major;
+  final int minor;
   final int kapasitas;
   final String tglmasuk;
   final String tglkeluar;
+  final String jammasuk;
+  final String jamkeluar;
   final int bukapresensi;
+  final String tgljamsekarang;
 
   Data(
       {this.idkelas,
@@ -77,10 +82,15 @@ class Data {
       this.uuid,
       this.namadevice,
       this.jarakmin,
+      this.major,
+      this.minor,
       this.kapasitas,
       this.tglmasuk,
       this.tglkeluar,
-      this.bukapresensi});
+      this.jammasuk,
+      this.jamkeluar,
+      this.bukapresensi,
+      this.tgljamsekarang});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         idkelas: json["ID_KELAS"] == null ? null : json['ID_KELAS'] as int,
@@ -122,18 +132,29 @@ class Data {
         jarakmin: ((json["JARAK_MIN_DEC"] as num) ?? 0.0).toDouble() == null
             ? null
             : ((json["JARAK_MIN_DEC"] as num) ?? 0.0).toDouble(),
+        major: json["MAJOR"] == null ? null : json['MAJOR'] as int,
+        minor: json["MINOR"] == null ? null : json['MINOR'] as int,
         kapasitas: json["KAPASITAS_KELAS"] == null
             ? null
             : json['KAPASITAS_KELAS'] as int,
-        tglmasuk: json["JAM_MASUK_SEHARUSNYA"] == null
+        tglmasuk: json["TGL_MASUK_SEHARUSNYA"] == null
+            ? null
+            : json['TGL_MASUK_SEHARUSNYA'] as String,
+        tglkeluar: json["TGL_KELUAR_SEHARUSNYA"] == null
+            ? null
+            : json['TGL_KELUAR_SEHARUSNYA'] as String,
+        jammasuk: json["JAM_MASUK_SEHARUSNYA"] == null
             ? null
             : json['JAM_MASUK_SEHARUSNYA'] as String,
-        tglkeluar: json["JAM_KELUAR_SEHARUSNYA"] == null
+        jamkeluar: json["JAM_KELUAR_SEHARUSNYA"] == null
             ? null
             : json['JAM_KELUAR_SEHARUSNYA'] as String,
         bukapresensi: json["IS_BUKA_PRESENSI"] == null
             ? null
             : json['IS_BUKA_PRESENSI'] as int,
+        tgljamsekarang: json["TGL_JAM_SEKARANG"] == null
+            ? null
+            : json['TGL_JAM_SEKARANG'] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -162,32 +183,39 @@ class Data {
         "PROXIMITY_UUID": uuid,
         "NAMA_DEVICE": namadevice,
         "JARAK_MIN_DEC": jarakmin,
+        "MAJOR": major,
+        "MINOR": minor,
         "KAPASITAS_KELAS": kapasitas,
-        "JAM_MASUK_SEHARUSNYA": tglmasuk,
-        "JAM_KELUAR_SEHARUSNYA": tglkeluar,
+        "TGL_MASUK_SEHARUSNYA": tglmasuk,
+        "TGL_KELUAR_SEHARUSNYA": tglkeluar,
+        "JAM_MASUK_SEHARUSNYA": jammasuk,
+        "JAM_KELUAR_SEHARUSNYA": jamkeluar,
         "IS_BUKA_PRESENSI": bukapresensi,
+        "TGL_JAM_SEKARANG": tgljamsekarang,
       };
 }
 
 class ListKelasDosenRequestModel {
   String npp;
-  String tglnow;
+  // String tglnow;
   // String semester;
 
-  ListKelasDosenRequestModel({this.npp, this.tglnow
-      // this.semester
-      });
+  ListKelasDosenRequestModel({
+    this.npp,
+    // this.tglnow
+    // this.semester
+  });
 
   factory ListKelasDosenRequestModel.fromJson(Map<String, dynamic> json) =>
       ListKelasDosenRequestModel(
         npp: json["NPP"] as String,
-        tglnow: json["TGLNOW"] as String,
+        // tglnow: json["TGLNOW"] as String,
         // semester: json["SEMESTER"] as String,
       );
 
   Map<String, dynamic> toJson() => {
         "NPP": npp,
-        "TGLNOW": tglnow,
+        // "TGLNOW": tglnow,
         // "SEMESTER": semester,
       };
 }

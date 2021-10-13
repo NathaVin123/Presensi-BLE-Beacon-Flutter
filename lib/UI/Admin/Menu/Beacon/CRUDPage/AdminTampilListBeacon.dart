@@ -181,7 +181,7 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                                         new Text(
                                           beaconListSearch[index].namadevice,
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 22,
                                               fontFamily: 'WorkSansMedium',
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -210,6 +210,36 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                                         ),
                                         new Text(
                                           '${beaconListSearch[index].jarakmin} m',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
+                                        ),
+                                        new Text(
+                                          'MAJOR',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        new Text(
+                                          '${beaconListSearch[index].major}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
+                                        ),
+                                        new Text(
+                                          'Minor',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        new Text(
+                                          '${beaconListSearch[index].minor}',
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontFamily: 'WorkSansMedium',

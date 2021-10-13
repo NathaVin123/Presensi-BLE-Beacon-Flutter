@@ -61,7 +61,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Hapus Perangkat Ruangan',
+          'Lepas Perangkat Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
@@ -191,6 +191,20 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                         fontSize: 16,
                                         fontFamily: 'WorkSansMedium',
                                       ),
+                                    ),
+                                    new Text(
+                                      'Nama Device : ${ruanganListSearch[index].namadevice}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    new Text(
+                                      'Jarak : ${ruanganListSearch[index].jarak}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),

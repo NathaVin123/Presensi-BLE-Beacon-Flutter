@@ -22,6 +22,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
 
   final FocusNode _namaDeviceFieldFocus = FocusNode();
   final FocusNode _jarakMinFieldFocus = FocusNode();
+  final FocusNode _majorFieldFocus = FocusNode();
+  final FocusNode _minorFieldFocus = FocusNode();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,6 +36,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   String uuid = "";
   String namadevice = "";
   double jarakmin = 0;
+  int major = 0;
+  int minor = 0;
 
   @override
   void initState() {
@@ -54,6 +58,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
       uuid = ubahBeacon.getString('uuid');
       namadevice = ubahBeacon.getString('namadevice');
       jarakmin = ubahBeacon.getDouble('jarakmin');
+      major = ubahBeacon.getInt('major');
+      minor = ubahBeacon.getInt('minor');
     });
   }
 
@@ -180,8 +186,9 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                                   text: jarakmin.toString()),
                               // controller: _jarakMinFieldController,
                               focusNode: _jarakMinFieldFocus,
-                              onFieldSubmitted: (value) {
-                                _jarakMinFieldFocus.unfocus();
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(context, _jarakMinFieldFocus,
+                                    _majorFieldFocus);
                               },
                               textInputAction: TextInputAction.done,
                               style: const TextStyle(
@@ -197,6 +204,81 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                               decoration:
                                   new InputDecoration(hintText: "Meter"),
                             )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Major',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: TextFormField(
+                                    controller: TextEditingController(
+                                        text: major.toString()),
+                                    // controller: _jarakMinFieldController,
+                                    focusNode: _majorFieldFocus,
+                                    onFieldSubmitted: (term) {
+                                      _fieldFocusChange(context,
+                                          _majorFieldFocus, _minorFieldFocus);
+                                    },
+                                    textInputAction: TextInputAction.done,
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 16.0,
+                                        color: Colors.black),
+                                    keyboardType: TextInputType.number,
+                                    onSaved: (input) =>
+                                        ubahBeaconRequestModel.major = input,
+                                    validator: (input) => input.length < 1
+                                        ? "Tidak boleh kosong"
+                                        : null,
+                                    decoration: new InputDecoration(
+                                        hintText: "0 - 65535"))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Minor',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'WorkSansMedium',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: TextFormField(
+                                    controller: TextEditingController(
+                                        text: minor.toString()),
+                                    // controller: _jarakMinFieldController,
+                                    focusNode: _minorFieldFocus,
+                                    onFieldSubmitted: (value) {
+                                      _jarakMinFieldFocus.unfocus();
+                                    },
+                                    textInputAction: TextInputAction.done,
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 16.0,
+                                        color: Colors.black),
+                                    keyboardType: TextInputType.number,
+                                    onSaved: (input) =>
+                                        ubahBeaconRequestModel.minor = input,
+                                    validator: (input) => input.length < 1
+                                        ? "Tidak boleh kosong"
+                                        : null,
+                                    decoration: new InputDecoration(
+                                        hintText: "0 - 65535"))),
                           ),
                           SizedBox(
                             height: 10,
@@ -222,6 +304,10 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                                       isApiCallProcess = true;
                                     });
 
+                                    setState(() {
+                                      isApiCallProcess = false;
+                                    });
+
                                     APIService apiService = new APIService();
 
                                     apiService
@@ -232,6 +318,8 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                                           isApiCallProcess = false;
                                         });
                                       }
+
+                                      Get.offNamed('/admin/menu/beacon/ubah');
                                       Get.back();
 
                                       await Fluttertoast.showToast(

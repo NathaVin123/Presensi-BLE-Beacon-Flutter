@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -134,11 +133,11 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   }
 
   String _formatDate(DateTime dateTime) {
-    return DateFormat('yyyy-MM-dd').format(dateTime);
+    return DateFormat('d MMMM y').format(dateTime);
   }
 
   String _formatTime(DateTime dateTime) {
-    return DateFormat('hh:mm:ss').format(dateTime);
+    return DateFormat('HH:mm:ss').format(dateTime);
   }
 
   // void getModalKelas() async {
@@ -170,7 +169,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   void getDataListKelasDosen() async {
     setState(() {
       listKelasDosenRequestModel.npp = npp;
-      listKelasDosenRequestModel.tglnow = _dateString + ' ' + _timeString;
+      // listKelasDosenRequestModel.tglnow = _dateString + ' ' + _timeString;
       // listKelasDosenRequestModel. = semesterShared;
 
       print(listKelasDosenRequestModel.toJson());
@@ -213,6 +212,14 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
             //     ),
             //     onPressed: () =>
             //         Get.toNamed('/dosen/dashboard/presensi/notifikasi')),
+            leading: IconButton(
+                icon: Icon(
+                  Icons.list_rounded,
+                  color: Colors.white,
+                ),
+                // onPressed: () =>
+                //     Get.toNamed('')
+                onPressed: () => {}),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -226,22 +233,22 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                     left: 20, right: 20, top: 10, bottom: 10),
                 child: Column(
                   children: [
-                    Center(
-                      // alignment: Alignment.centerRight,
-                      child: Text(
-                        _dateString,
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'WorkSansMedium',
-                            color: Colors.white),
-                      ),
-                    ),
+                    // Center(
+                    //   // alignment: Alignment.centerRight,
+                    //   child: Text(
+                    //     _dateString,
+                    //     style: TextStyle(
+                    //         fontSize: 22,
+                    //         fontFamily: 'WorkSansMedium',
+                    //         color: Colors.white),
+                    //   ),
+                    // ),
                     Center(
                       // alignment: Alignment.centerLeft,
                       child: Text(
                         _timeString,
                         style: TextStyle(
-                            fontSize: 40,
+                            fontSize: 30,
                             fontFamily: 'WorkSansMedium',
                             color: Colors.white),
                       ),
@@ -256,16 +263,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Halo, ',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'WorkSansMedium',
-                                color: Colors.white),
-                          ),
-                          Text(
+                      child: Center(
+                        child: Container(
+                          child: Text(
                             '${namadsn ?? "-"}',
                             style: TextStyle(
                                 fontSize: 14,
@@ -273,7 +273,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ],
@@ -347,12 +347,12 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(16),
+                              //   child: CircularProgressIndicator(
+                              //     color: Colors.white,
+                              //   ),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
@@ -367,7 +367,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                               Text(
                                 'Silakan tekan tombol "Segarkan" jika bermasalah',
                                 style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     fontFamily: 'WorkSansMedium',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -395,7 +395,35 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: [
+                                        children: <Widget>[
+                                          Center(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.blue[900],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: Center(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: new Text(
+                                                    '${listKelasDosenResponseModel.data[index].hari1}'
+                                                    ','
+                                                    ' '
+                                                    '${listKelasDosenResponseModel.data[index].tglmasuk}',
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                           new Text(
                                             'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
                                             style: TextStyle(
@@ -403,53 +431,90 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                 fontFamily: 'WorkSansMedium',
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          new Text(
-                                            '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8),
+                                            child: new Text(
+                                              '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                          new Text(
-                                            'SKS : ${listKelasDosenResponseModel.data[index].sks}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: new Text(
+                                              'Pertemuan : ${listKelasDosenResponseModel.data[index].pertemuan}',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                          new Text(
-                                            'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          new Text(
-                                            'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          new Text(
-                                            'Pertemuan : ${listKelasDosenResponseModel.data[index].pertemuan}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          new Text(
-                                            listKelasDosenResponseModel
-                                                .data[index].tglmasuk,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
+                                          // Padding(
+                                          //   padding:
+                                          //       const EdgeInsets.only(top: 8),
+                                          //   child: new Text(
+                                          //     'SKS : ${listKelasDosenResponseModel.data[index].sks}',
+                                          //     style: TextStyle(
+                                          //       fontSize: 15,
+                                          //       fontFamily: 'WorkSansMedium',
+                                          //       fontWeight: FontWeight.bold,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          // Padding(
+                                          //   padding:
+                                          //       const EdgeInsets.only(top: 8),
+                                          //   child: new Text(
+                                          //     'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
+                                          //     style: TextStyle(
+                                          //       fontSize: 15,
+                                          //       fontFamily: 'WorkSansMedium',
+                                          //       fontWeight: FontWeight.bold,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          // Padding(
+                                          //   padding:
+                                          //       const EdgeInsets.only(top: 8),
+                                          //   child: new Text(
+                                          //     'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
+                                          //     style: TextStyle(
+                                          //       fontSize: 15,
+                                          //       fontFamily: 'WorkSansMedium',
+                                          //       fontWeight: FontWeight.bold,
+                                          //     ),
+                                          //   ),
+                                          // ),
+
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: new Text(
+                                                  '${listKelasDosenResponseModel.data[index].jammasuk}'
+                                                  ' '
+                                                  '-'
+                                                  ' '
+                                                  '${listKelasDosenResponseModel.data[index].jamkeluar}',
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           listKelasDosenResponseModel
@@ -458,9 +523,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                   0
                                               ? Padding(
                                                   padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 8.0,
-                                                      horizontal: 14),
+                                                      .symmetric(vertical: 8),
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                         color: Colors.red,
@@ -474,7 +537,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                 .all(8.0),
                                                         child: Text('Tutup',
                                                             style: TextStyle(
-                                                                fontSize: 12,
+                                                                fontSize: 14,
                                                                 fontFamily:
                                                                     'WorkSansMedium',
                                                                 fontWeight:
@@ -487,10 +550,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                   ),
                                                 )
                                               : Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 8.0,
-                                                      horizontal: 14),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                         color: Colors.green,
@@ -504,7 +565,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                 .all(8.0),
                                                         child: Text('Buka',
                                                             style: TextStyle(
-                                                                fontSize: 12,
+                                                                fontSize: 14,
                                                                 fontFamily:
                                                                     'WorkSansMedium',
                                                                 fontWeight:
@@ -534,15 +595,85 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                           listKelasDosenResponseModel
                                               .data[index].ruang);
 
-                                      await dataPresensiDosen.setString(
-                                          'uuid',
-                                          listKelasDosenResponseModel
-                                              .data[index].uuid);
+                                      // if (listKelasDosenResponseModel
+                                      //             .data[index].uuid !=
+                                      //         null ||
+                                      //     listKelasDosenResponseModel
+                                      //
+                                      //        .data[index].uuid.isNotEmpty) {
 
-                                      await dataPresensiDosen.setDouble(
-                                          'jarakmin',
-                                          listKelasDosenResponseModel
-                                              .data[index].jarakmin);
+                                      if (listKelasDosenResponseModel
+                                              .data[index].uuid !=
+                                          null) {
+                                        await dataPresensiDosen.setString(
+                                            'uuid',
+                                            listKelasDosenResponseModel
+                                                .data[index].uuid);
+                                      } else {
+                                        await dataPresensiDosen.setString(
+                                            'uuid', '-');
+                                      }
+
+                                      if (listKelasDosenResponseModel
+                                              .data[index].namadevice !=
+                                          null) {
+                                        await dataPresensiDosen.setString(
+                                            'namadevice',
+                                            listKelasDosenResponseModel
+                                                .data[index].namadevice);
+                                      } else {
+                                        await dataPresensiDosen.setString(
+                                            'namadevice', '-');
+                                      }
+                                      if (listKelasDosenResponseModel
+                                              .data[index].jarakmin !=
+                                          null) {
+                                        await dataPresensiDosen.setDouble(
+                                            'jarakmin',
+                                            listKelasDosenResponseModel
+                                                .data[index].jarakmin);
+                                      } else {
+                                        await dataPresensiDosen.setDouble(
+                                            'jarakmin', 0);
+                                      }
+
+                                      if (listKelasDosenResponseModel
+                                              .data[index].major !=
+                                          null) {
+                                        await dataPresensiDosen.setInt(
+                                            'major',
+                                            listKelasDosenResponseModel
+                                                .data[index].major);
+                                      } else {
+                                        await dataPresensiDosen.setInt(
+                                            'major', 0);
+                                      }
+
+                                      if (listKelasDosenResponseModel
+                                              .data[index].minor !=
+                                          null) {
+                                        await dataPresensiDosen.setInt(
+                                            'minor',
+                                            listKelasDosenResponseModel
+                                                .data[index].minor);
+                                      } else {
+                                        await dataPresensiDosen.setInt(
+                                            'minor', 0);
+                                      }
+
+                                      if (listKelasDosenResponseModel
+                                              .data[index].jarakmin !=
+                                          null) {
+                                        await dataPresensiDosen.setDouble(
+                                            'jarakmin',
+                                            listKelasDosenResponseModel
+                                                .data[index].jarakmin);
+                                      } else {
+                                        await dataPresensiDosen.setDouble(
+                                            'jarakmin', 0);
+                                      }
+
+                                      // }
 
                                       await dataPresensiDosen.setInt(
                                           'idkelas',
@@ -643,11 +774,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                           'pertemuan',
                                           listKelasDosenResponseModel
                                               .data[index].pertemuan);
-
-                                      await dataPresensiDosen.setString(
-                                          'namadevice',
-                                          listKelasDosenResponseModel
-                                              .data[index].namadevice);
 
                                       await dataPresensiDosen.setInt(
                                           'kapasitas',

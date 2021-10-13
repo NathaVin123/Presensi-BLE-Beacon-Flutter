@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 
 class DosenGantiPasswordPage extends StatefulWidget {
@@ -33,7 +32,6 @@ class _DosenGantiPasswordPageState extends State<DosenGantiPasswordPage> {
     );
   }
 
-  @override
   Widget buildGantiPassword(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
@@ -125,7 +123,7 @@ class _DosenGantiPasswordPageState extends State<DosenGantiPasswordPage> {
                                       isApiCallProcess = true;
                                     });
 
-                                    APIService apiService = new APIService();
+                                    // APIService apiService = new APIService();
                                   }
                                 } catch (error) {
                                   Fluttertoast.showToast(
@@ -157,11 +155,5 @@ class _DosenGantiPasswordPageState extends State<DosenGantiPasswordPage> {
       return true;
     }
     return false;
-  }
-
-  _fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
-    currentFocus.unfocus();
-    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

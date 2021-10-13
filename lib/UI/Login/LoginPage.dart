@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -69,9 +67,8 @@ class _LoginPageState extends State<LoginPage>
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: Image(
-                      height: MediaQuery.of(context).size.height > 800
-                          ? 150.0
-                          : 110,
+                      height:
+                          MediaQuery.of(context).size.height > 800 ? 150.0 : 75,
                       fit: BoxFit.fill,
                       image: const AssetImage(
                           'assets/png/SplashPage_LogoAtmaJaya.png')),

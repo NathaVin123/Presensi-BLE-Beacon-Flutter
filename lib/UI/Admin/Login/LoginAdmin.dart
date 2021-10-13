@@ -219,6 +219,10 @@ class _LoginAdminState extends State<LoginAdmin> {
                                                 isApiCallProcess = true;
                                               });
 
+                                              setState(() {
+                                                isApiCallProcess = false;
+                                              });
+
                                               APIService apiService =
                                                   new APIService();
                                               apiService
