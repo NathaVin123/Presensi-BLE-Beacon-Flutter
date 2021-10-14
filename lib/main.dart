@@ -13,8 +13,10 @@ import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminMenuRuanganPage.dar
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminUbahRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminTampilRuanganpage.dart';
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/Detail/AdminUbahDetailRuanganPage.dart';
+import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailListKelas.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
+import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/Detail/MahasiswaDetailListKelas.dart';
 
 import 'UI/Admin/Menu/Beacon/CRUDPage/Detail/AdminDetailUbahBeacon.dart';
 import 'UI/Admin/Menu/Beacon/CRUDPage/AdminHapusBeacon.dart';
@@ -173,6 +175,9 @@ class _MyAppState extends State<MyApp> {
             name: '/mahasiswa/dashboard/presensi/detail',
             page: () => MahasiswaDetailPresensiPage()),
         GetPage(
+            name: '/mahasiswa/dashboard/presensi/detail/list',
+            page: () => MahasiswaDetailListKelas()),
+        GetPage(
             name: '/mahasiswa/dashboard/presensi/detail/tampilpeserta',
             page: () => MahasiswaTampilPesertaKelasPage()),
         GetPage(
@@ -213,6 +218,9 @@ class _MyAppState extends State<MyApp> {
             name: '/dosen/dashboard/presensi/detail',
             page: () => DosenDetailPresensiPage()),
         GetPage(
+            name: '/dosen/dashboard/presensi/detail/list',
+            page: () => DosenDetailListKelas()),
+        GetPage(
             name: '/dosen/dashboard/presensi/detail/tampilpeserta',
             page: () => DosenTampilPesertaKelasPage()),
         GetPage(
@@ -237,7 +245,7 @@ class _MyAppState extends State<MyApp> {
             name: '/dosen/dashboard/akun/informasi',
             page: () => DosenInformasiAkunPage()),
 
-      // Admin Page
+        // Admin Page
         GetPage(name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
         GetPage(
             name: '/admin/menu/beacon/pindai', page: () => AdminPindaiBeacon()),

@@ -30,6 +30,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
   String uuid = "";
   double jarakmin = 0;
+  int major = 0;
+  int minor = 0;
 
   @override
   void initState() {
@@ -47,6 +49,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     setState(() {
       uuid = dataPresensiMahasiswa.getString('uuid');
       jarakmin = dataPresensiMahasiswa.getDouble('jarakmin') ?? 0.0;
+      major = dataPresensiMahasiswa.getInt('major');
+      minor = dataPresensiMahasiswa.getInt('minor');
     });
   }
 
@@ -108,6 +112,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
         new Region(
           identifier: '',
           proximityUUID: uuid,
+          major: major,
+          minor: minor,
         )
       ]).listen((RangingResult result) {
         print(result);
@@ -127,6 +133,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
         new Region(
           identifier: '',
           proximityUUID: uuid,
+          major: major,
+          minor: minor,
         )
       ]).listen((RangingResult result) {
         print(result);
@@ -312,26 +320,37 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                       Center(
                         child: Column(
                           children: <Widget>[
-                            SpinKitRipple(
-                              color: Colors.white,
-                              size: 100,
-                            ),
+                            uuid != "-"
+                                ? SpinKitRipple(
+                                    color: Colors.white,
+                                    size: 100,
+                                  )
+                                : Container(),
                             SizedBox(
                               height: 50,
                             ),
-                            Text(
-                              'Mohon Tunggu...',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
+                            uuid != '-'
+                                ? Text(
+                                    'Mohon Tunggu...',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )
+                                : Text(
+                                    'Tidak ada perangkat beacon di ruangan',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
                             SizedBox(
                               height: 25,
                             ),
                             Text(
-                              'Sistem sedang menghubungkan\nke perangkat beacon kelas.',
+                              'Silahkan menghubungkan perangkat beacon ke kelas',
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'WorkSansMedium',
@@ -341,14 +360,15 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                             SizedBox(
                               height: 100,
                             ),
-                            Text(
-                              'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )
+                            uuid != '-'
+                                ? Text(
+                                    'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'WorkSansMedium',
+                                        color: Colors.white),
+                                  )
+                                : Container(),
                           ],
                         ),
                       ),

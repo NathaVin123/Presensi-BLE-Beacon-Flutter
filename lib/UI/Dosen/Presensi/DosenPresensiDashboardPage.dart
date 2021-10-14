@@ -219,7 +219,8 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                 ),
                 // onPressed: () =>
                 //     Get.toNamed('')
-                onPressed: () => {}),
+                onPressed: () =>
+                    Get.toNamed('/dosen/dashboard/presensi/detail/list')),
             title: Image.asset(
               'SplashPage_LogoAtmaJaya'.png,
               height: 30,
@@ -260,7 +261,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Center(
@@ -268,7 +269,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                           child: Text(
                             '${namadsn ?? "-"}',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontFamily: 'WorkSansMedium',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
@@ -659,18 +660,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                       } else {
                                         await dataPresensiDosen.setInt(
                                             'minor', 0);
-                                      }
-
-                                      if (listKelasDosenResponseModel
-                                              .data[index].jarakmin !=
-                                          null) {
-                                        await dataPresensiDosen.setDouble(
-                                            'jarakmin',
-                                            listKelasDosenResponseModel
-                                                .data[index].jarakmin);
-                                      } else {
-                                        await dataPresensiDosen.setDouble(
-                                            'jarakmin', 0);
                                       }
 
                                       // }
