@@ -558,10 +558,10 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         keyboardType: TextInputType.text,
                                         decoration: new InputDecoration(
                                             hintText:
-                                                'Silahkan Isi Keterangan Anda'),
-                                        validator: (input) => input.length < 1
-                                            ? "Materi tidak boleh kosong"
-                                            : null,
+                                                'Silahkan Isi Keterangan Mata Kuliah Anda'),
+                                        // validator: (input) => input.length < 1
+                                        //     ? "Materi tidak boleh kosong"
+                                        //     : null,
                                         onSaved: (input) =>
                                             presensiINOUTOUTDosenBukaPresensiRequestModel
                                                 .keterangan = input,
@@ -596,10 +596,10 @@ class _DosenDetailPresensiPageState extends State<DosenDetailPresensiPage> {
                                         keyboardType: TextInputType.text,
                                         decoration: new InputDecoration(
                                             hintText:
-                                                'Silahkan Isi Materi Anda'),
-                                        validator: (input) => input.length < 1
-                                            ? "Materi tidak boleh kosong"
-                                            : null,
+                                                'Silahkan Isi Materi Mata Kuliah Anda'),
+                                        // validator: (input) => input.length < 1
+                                        //     ? "Materi tidak boleh kosong"
+                                        //     : null,
                                         onSaved: (input) =>
                                             presensiINOUTOUTDosenBukaPresensiRequestModel
                                                 .materi = input,
