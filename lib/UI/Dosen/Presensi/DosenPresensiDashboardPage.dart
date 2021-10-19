@@ -536,7 +536,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: Text('Tutup',
+                                                        child: Text('Kelas Tertutup',
                                                             style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontFamily:
@@ -564,7 +564,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: Text('Buka',
+                                                        child: Text('Kelas Terbuka',
                                                             style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontFamily:
