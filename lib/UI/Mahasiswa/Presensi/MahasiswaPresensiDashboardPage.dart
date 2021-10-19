@@ -440,7 +440,8 @@ class _MahasiswaPresensiDashboardPageState
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child: Text('Buka',
+                                                          child: Text(
+                                                              'Kelas Terbuka',
                                                               style: TextStyle(
                                                                   fontSize: 14,
                                                                   fontFamily:

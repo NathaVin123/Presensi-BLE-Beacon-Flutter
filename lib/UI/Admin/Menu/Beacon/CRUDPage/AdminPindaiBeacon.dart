@@ -212,7 +212,7 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-          centerTitle: true,
+          centerTitle: false,
           title: Text(
             'Pindai Beacon',
             style: TextStyle(
@@ -410,13 +410,22 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
                                                       SizedBox(
                                                         height: 10,
                                                       ),
-                                                      Text(
-                                                          'Jarak : ${beacon.accuracy} m',
-                                                          style: TextStyle(
-                                                            fontSize: 12.0,
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                          )),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                            'Jarak : ${beacon.accuracy} m',
+                                                            style: TextStyle(
+                                                                fontSize: 20.0,
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .blue)),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),

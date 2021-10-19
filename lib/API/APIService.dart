@@ -41,9 +41,9 @@ import '../MODEL/Login/LoginDosenModel.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String address = 'https://192.168.100.249:5000/api/';
+  // String address = 'https://192.168.100.249:5000/api/';
 
-  // String address = 'https://api-presensi.uajy.ac.id/api/';
+  String address = 'https://api-presensi.uajy.ac.id/api/';
 
   // Login Mahasiswa API
   Future<LoginMahasiswaResponseModel> loginMahasiswa(
