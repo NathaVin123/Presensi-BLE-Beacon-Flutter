@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -34,6 +35,9 @@ class PindaiKelasMahasiswaPage extends StatefulWidget {
 
 class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     with WidgetsBindingObserver {
+  bool showFab = true;
+  ScrollController _scrollController;
+
   final StreamController<BluetoothState> streamController = StreamController();
 
   StreamSubscription<BluetoothState> _streamBluetooth;
@@ -51,8 +55,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   int major = 0;
   int minor = 0;
 
+  String namamhs = "";
   String npm = "";
   String fakultas = "";
+
   int idkelas = 0;
   String ruang = "";
   String namamk = "";
@@ -64,6 +70,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   String sesi = "";
   int kapasitas = 0;
   String jam = "";
+  String jammasuk = "";
+  String jamkeluar = "";
   String tanggalnow = "";
   String tglmasuk = "";
   String tglkeluar = "";
@@ -113,12 +121,23 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   void initState() {
     super.initState();
 
+    _scrollController = ScrollController();
+
     getProximityUUID();
 
     listeningState();
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDetailKelas();
+      // getDetailMahasiswa();
+
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      // getDetailKelas();
       getDetailMahasiswa();
 
       Future.delayed(Duration(seconds: 5), () {
@@ -179,6 +198,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
 
     setState(() {
+      namamhs = loginMahasiswa.getString('namamhs');
       npm = loginMahasiswa.getString('npm');
       fakultas = loginMahasiswa.getString('fakultas');
     });
@@ -200,6 +220,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
       sesi = dataPresensiMahasiswa.getString('sesi1');
       kapasitas = dataPresensiMahasiswa.getInt('kapasitas');
       jam = dataPresensiMahasiswa.getString('jam');
+      jammasuk = dataPresensiMahasiswa.getString('jammasuk');
+      jamkeluar = dataPresensiMahasiswa.getString('jamkeluar');
       tanggalnow = dataPresensiMahasiswa.getString('tanggal');
       tglmasuk = dataPresensiMahasiswa.getString('tglmasuk');
       tglkeluar = dataPresensiMahasiswa.getString('tglkeluar');
@@ -419,7 +441,32 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   Widget buildDetailPresensiMahasiswa(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
+        floatingActionButton: showFab
+            ? FloatingActionButton.extended(
+                backgroundColor: Colors.blue,
+                onPressed: () => {
+                  _scrollController
+                      .jumpTo(_scrollController.position.maxScrollExtent)
+                },
+                label: Text(
+                  'Presensi',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'WorkSansMedium'),
+                ),
+                icon: Icon(Icons.arrow_downward_rounded),
+              )
+            : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         appBar: AppBar(
+          centerTitle: false,
+          title: Text(
+            'Detail Presensi',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'WorkSansMedium',
+                fontWeight: FontWeight.bold),
+          ),
           actions: <Widget>[
             if (!authorizationStatusOk)
               IconButton(
@@ -445,39 +492,84 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                   final state = snapshot.data;
 
                   if (state == BluetoothState.stateOn) {
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth_connected),
-                      onPressed: () {},
-                      color: Colors.blue,
+                    return Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Bluetooth Hidup',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.bluetooth_connected),
+                          onPressed: () {},
+                          color: Colors.blue,
+                        ),
+                      ],
                     );
                   }
 
                   if (state == BluetoothState.stateOff) {
-                    return IconButton(
-                      icon: Icon(Icons.bluetooth),
-                      onPressed: () async {
-                        if (Platform.isAndroid) {
-                          try {
-                            await flutterBeacon.openBluetoothSettings;
-                          } on PlatformException catch (e) {
-                            print(e);
-                          }
-                        } else if (Platform.isIOS) {
-                          try {
-                            // await _jumpToSetting();
-                          } on PlatformException catch (e) {
-                            print(e);
-                          }
-                        }
-                      },
-                      color: Colors.red,
+                    return Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Bluetooth Mati',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.bluetooth),
+                          onPressed: () async {
+                            if (Platform.isAndroid) {
+                              try {
+                                await flutterBeacon.openBluetoothSettings;
+                              } on PlatformException catch (e) {
+                                print(e);
+                              }
+                            } else if (Platform.isIOS) {
+                              try {
+                                // await _jumpToSetting();
+                              } on PlatformException catch (e) {
+                                print(e);
+                              }
+                            }
+                          },
+                          color: Colors.red,
+                        ),
+                      ],
                     );
                   }
 
-                  return IconButton(
-                    icon: Icon(Icons.bluetooth_disabled),
-                    onPressed: () {},
-                    color: Colors.grey,
+                  return Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Bluetooth Tidak Aktif',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'WorkSansMedium',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.bluetooth_disabled_rounded),
+                        onPressed: () {},
+                        color: Colors.grey,
+                      ),
+                    ],
                   );
                 }
 
@@ -497,1167 +589,1613 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                 ? Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      Center(
-                        child: Column(
-                          children: <Widget>[
-                            uuid != "-"
-                                ? SpinKitRipple(
-                                    color: Colors.white,
-                                    size: 100,
-                                  )
-                                : Container(),
-                            SizedBox(
-                              height: 50,
+                      SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(25)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    uuid != "-"
+                                        ? SpinKitRipple(
+                                            color: Colors.black,
+                                            size: 100,
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Icons.warning_rounded,
+                                              color: Colors.red,
+                                              size: 100,
+                                            ),
+                                          ),
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    uuid != '-'
+                                        ? Text(
+                                            'Mohon Tunggu...',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          )
+                                        : Text(
+                                            'Tidak ada perangkat beacon di ruangan',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                    SizedBox(
+                                      height: 25,
+                                    ),
+                                    uuid != '-'
+                                        ? Text(
+                                            'Aplikasi sedang melakukan pemindaian',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Silahkan menghubungi admin',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    uuid != '-'
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Pastikan anda dekat dengan beacon ruangan',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
                             ),
-                            uuid != '-'
-                                ? Text(
-                                    'Mohon Tunggu...',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )
-                                : Text(
-                                    'Tidak ada perangkat beacon di ruangan',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Text(
-                              'Silahkan menghubungkan perangkat beacon ke kelas',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 100,
-                            ),
-                            uuid != '-'
-                                ? Text(
-                                    'Pastikan anda dekat dengan\nperangkat beacon kelas yang dipilih.',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
-                                        color: Colors.white),
-                                  )
-                                : Container(),
-                          ],
+                          ),
                         ),
                       ),
                     ],
                   )
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: new Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Tanggal',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    statusPresensi == 0 ||
-                                            statusPresensi == null
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                '${tglmasuk ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    // fontWeight:
-                                                    //     FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
+                : NotificationListener<UserScrollNotification>(
+                    onNotification: (notification) {
+                      setState(() {
+                        if (notification.direction == ScrollDirection.reverse) {
+                          showFab = true;
+                        } else if (notification.direction ==
+                            ScrollDirection.forward) {
+                          showFab = true;
+                        }
+                      });
+                      return true;
+                    },
+                    child: Scrollbar(
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                            children: ListTile.divideTiles(
+                                context: context,
+                                tiles: _beacons.map((beacon) {
+                                  if (beacon.accuracy < jarakmin) {
+                                    return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Column(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: new Padding(
+                                                  padding: EdgeInsets.all(10),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        25)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Icon(
+                                                                    Icons.book,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              new Text(
+                                                                'Detail Kelas',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        20,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            '${namamk ?? "-"} '
+                                                            '${kelas ?? "-"}',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                // fontWeight:
+                                                                //     FontWeight.bold,
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Icon(
+                                                                  Icons.person),
+                                                            ),
+                                                            new Text(
+                                                              '${dosen ?? "-"}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  // fontWeight:
+                                                                  //     FontWeight.bold,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Divider(
+                                                          height: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Column(
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Icon(Icons
+                                                                      .meeting_room_rounded),
+                                                                ),
+                                                                new Container(
+                                                                  child:
+                                                                      new Text(
+                                                                    'Pertemuan ${pertemuan ?? "-"}',
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child: Icon(
+                                                                            Icons.credit_card_rounded),
+                                                                      ),
+                                                                      new Text(
+                                                                        '${sks ?? "-"} SKS',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Divider(
+                                                          height: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Column(
+                                                          children: [
+                                                            Column(
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Icon(Icons
+                                                                      .door_sliding_rounded),
+                                                                ),
+                                                                Column(
+                                                                  children: [
+                                                                    new Text(
+                                                                      'Ruangan',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  '${ruang ?? "-"}',
+                                                                  style: TextStyle(
+                                                                      fontFamily: 'WorkSansMedium',
+                                                                      // fontWeight:
+                                                                      //     FontWeight.bold,
+                                                                      fontSize: 16),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Divider(
+                                                          height: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child: Icon(
+                                                                            Icons.date_range_rounded),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Tanggal',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child:
+                                                                      new Text(
+                                                                    '${hari ?? "-"}, ${tanggalnow ?? "-"}',
+                                                                    style: TextStyle(
+                                                                        fontFamily: 'WorkSansMedium',
+                                                                        // fontWeight:
+                                                                        //     FontWeight.bold,
+                                                                        fontSize: 14),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child: Icon(
+                                                                            Icons.timer),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Jam',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child:
+                                                                      new Text(
+                                                                    '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
+                                                                    style: TextStyle(
+                                                                        fontFamily: 'WorkSansMedium',
+                                                                        // fontWeight:
+                                                                        //     FontWeight.bold,
+                                                                        fontSize: 14),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )),
                                             ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                '${tglkeluar ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    // fontWeight:
-                                                    //     FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ),
-                                          ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'NPM',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${npm ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.all(8.0),
-                                    //   child: new Center(
-                                    //     child: new Text(
-                                    //       '${idkelasFakultas ?? "-"}',
-                                    //       style: TextStyle(
-                                    //           fontFamily: 'WorkSansMedium',
-                                    //           // fontWeight:
-                                    //           //     FontWeight.bold,
-                                    //           fontSize: 16),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Ruangan',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${ruang ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Mata Kuliah',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${namamk ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Dosen',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${dosen ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Kelas',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${kelas ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'SKS',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${sks ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Pertemuan Ke',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${pertemuan ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Hari',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${hari ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Sesi',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${sesi ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          'Kapasitas',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${kapasitas ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Column(
-                                  children: <Widget>[
-                                    statusPresensi == 0 ||
-                                            statusPresensi == null
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                'Tanggal Masuk',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                'Tanggal Keluar',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                          ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${tanggalnow ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                    statusPresensi == 0 ||
-                                            statusPresensi == null
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                'Jam Masuk',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: new Center(
-                                              child: new Text(
-                                                'Jam Keluar',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                          ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: new Center(
-                                        child: new Text(
-                                          '${jam ?? "-"}',
-                                          style: TextStyle(
-                                              fontFamily: 'WorkSansMedium',
-                                              // fontWeight:
-                                              //     FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          new Align(
-                            child: new Padding(
-                              padding: EdgeInsets.all(10),
-                              child: new Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    MaterialButton(
-                                      color: Colors.blue,
-                                      shape: StadiumBorder(),
-                                      padding: EdgeInsets.only(
-                                          left: 50,
-                                          right: 50,
-                                          top: 25,
-                                          bottom: 25),
-                                      onPressed: () => {
-                                        Get.toNamed(
-                                            '/mahasiswa/dashboard/presensi/detail/tampilpeserta')
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: <Widget>[
-                                          Text(
-                                            'Lihat Peserta Kelas',
-                                            style: TextStyle(
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontSize: 18),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    statusPresensi == 0 ||
-                                            statusPresensi == null
-                                        ? MaterialButton(
-                                            color: Colors.green,
-                                            shape: StadiumBorder(),
-                                            padding: EdgeInsets.only(
-                                                left: 50,
-                                                right: 50,
-                                                top: 25,
-                                                bottom: 25),
-                                            onPressed: () {
-                                              SKAlertDialog.show(
-                                                context: context,
-                                                type: SKAlertType.buttons,
-                                                title: 'Masuk ?',
-                                                message:
-                                                    'Apakah anda yakin ingin\nmasuk ke kelas ini ?',
-                                                okBtnText: 'Ya',
-                                                okBtnTxtColor: Colors.white,
-                                                okBtnColor: Colors.green,
-                                                cancelBtnText: 'Tidak',
-                                                cancelBtnTxtColor: Colors.white,
-                                                cancelBtnColor: Colors.grey,
-                                                onOkBtnTap: (value) async {
-                                                  SharedPreferences
-                                                      dataPresensiMahasiswa =
-                                                      await SharedPreferences
-                                                          .getInstance();
-
-                                                  await dataPresensiMahasiswa
-                                                      .setInt(
-                                                          'statuspresensi', 1);
-
-                                                  setState(() {
-                                                    isApiCallProcess = true;
-
-                                                    presensiINMahasiswaToKSIRequestModel
-                                                        .idkelas = idkelas;
-
-                                                    presensiINMahasiswaToKSIRequestModel
-                                                        .npm = npm;
-
-                                                    presensiINMahasiswaToKSIRequestModel
-                                                        .pertemuan = pertemuan;
-
-                                                    presensiINMahasiswaToKSIRequestModel
-                                                            .tglin =
-                                                        jam + ' ' + tanggalnow;
-
-                                                    // if (fakultas ==
-                                                    //     'Bisnis dan Ekonomika') {
-                                                    //   presensiINMahasiswaToFBERequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFBERequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFBERequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFBERequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // } else if (fakultas == 'Hukum') {
-                                                    //   presensiINMahasiswaToFHRequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFHRequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFHRequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFHRequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // } else if (fakultas ==
-                                                    //     'Teknobiologi') {
-                                                    //   presensiINMahasiswaToFTBRequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFTBRequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFTBRequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFTBRequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // } else if (fakultas ==
-                                                    //     'Ilmu Sosial dan Politik') {
-                                                    //   presensiINMahasiswaToFISIPRequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFISIPRequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFISIPRequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFISIPRequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // } else if (fakultas == 'Teknik') {
-                                                    //   presensiINMahasiswaToFTRequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFTRequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFTRequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFTRequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // } else if (fakultas ==
-                                                    //     'Teknologi Industri') {
-                                                    //   presensiINMahasiswaToFTIRequestModel
-                                                    //       .idkelas = idkelasFakultas;
-
-                                                    //   presensiINMahasiswaToFTIRequestModel
-                                                    //       .npm = npm;
-
-                                                    //   presensiINMahasiswaToFTIRequestModel
-                                                    //       .pertemuan = pertemuan;
-
-                                                    //   presensiINMahasiswaToFTIRequestModel
-                                                    //       .tglin = jam + ' ' + tanggalnow;
-                                                    // }
-                                                  });
-
-                                                  print(
-                                                      PresensiINMahasiswaToKSIRequestModel()
-                                                          .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFBERequestModel()
-                                                  //         .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFHRequestModel()
-                                                  //         .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFISIPRequestModel()
-                                                  //         .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFTRequestModel()
-                                                  //         .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFTBRequestModel()
-                                                  //         .toJson());
-
-                                                  // print(
-                                                  //     PresensiINMahasiswaToFTIRequestModel()
-                                                  //         .toJson());
-
-                                                  APIService apiService =
-                                                      new APIService();
-
-                                                  // if (fakultas ==
-                                                  //     'Bisnis dan Ekonomika') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFBE(
-                                                  //           presensiINMahasiswaToFBERequestModel);
-                                                  // } else if (fakultas == 'Hukum') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFH(
-                                                  //           presensiINMahasiswaToFHRequestModel);
-                                                  // } else if (fakultas == 'Teknobiologi') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFH(
-                                                  //           presensiINMahasiswaToFHRequestModel);
-                                                  // } else if (fakultas ==
-                                                  //     'Ilmu Sosial dan Politik') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFISIP(
-                                                  //           presensiINMahasiswaToFISIPRequestModel);
-                                                  // } else if (fakultas == 'Teknik') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFT(
-                                                  //           presensiINMahasiswaToFTRequestModel);
-                                                  // } else if (fakultas ==
-                                                  //     'Teknologi Industri') {
-                                                  //   await apiService
-                                                  //       .postInsertPresensiMhsToFTI(
-                                                  //           presensiINMahasiswaToFTIRequestModel);
-                                                  // }
-
-                                                  await apiService
-                                                      .postInsertPresensiMhsToKSI(
-                                                          presensiINMahasiswaToKSIRequestModel)
-                                                      .then((value) async {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        isApiCallProcess =
-                                                            false;
-                                                      });
-                                                    }
-
-                                                    Get.offAllNamed(
-                                                        '/mahasiswa/dashboard');
-
-                                                    await Fluttertoast.showToast(
-                                                        msg:
-                                                            'Berhasil masuk ke kelas',
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity:
-                                                            ToastGravity.BOTTOM,
-                                                        timeInSecForIosWeb: 1,
-                                                        backgroundColor:
-                                                            Colors.green,
-                                                        textColor: Colors.white,
-                                                        fontSize: 14.0);
-                                                  });
-                                                },
-                                                onCancelBtnTap: (value) {},
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                            Column(
                                               children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_upward_rounded,
-                                                  color: Colors.white,
-                                                ),
                                                 SizedBox(
-                                                  width: 25,
+                                                  height: 8,
                                                 ),
-                                                Text(
-                                                  'Masuk',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
-                                                      fontSize: 18),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey[200],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      statusPresensi == 0 ||
+                                                              statusPresensi ==
+                                                                  null
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Column(
+                                                                children: [
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .green,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(25)),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.person,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                          new Text(
+                                                                            'Data Presensi Masuk',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 20,
+                                                                                color: Colors.white),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  // Padding(
+                                                                  //   padding:
+                                                                  //       const EdgeInsets
+                                                                  //               .all(
+                                                                  //           8.0),
+                                                                  //   child:
+                                                                  //       new Center(
+                                                                  //     child:
+                                                                  //         new Text(
+                                                                  //       'Tanggal Masuk',
+                                                                  //       style: TextStyle(
+                                                                  //           fontFamily:
+                                                                  //               'WorkSansMedium',
+                                                                  //           fontWeight: FontWeight
+                                                                  //               .bold,
+                                                                  //           fontSize:
+                                                                  //               20),
+                                                                  //     ),
+                                                                  //   ),
+                                                                  // ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          : Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Column(
+                                                                children: [
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(25)),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.person,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                          new Text(
+                                                                            'Data Presensi Keluar',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 20,
+                                                                                color: Colors.white),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  // Padding(
+                                                                  //   padding:
+                                                                  //       const EdgeInsets.all(
+                                                                  //           8.0),
+                                                                  //   child:
+                                                                  //       new Center(
+                                                                  //     child:
+                                                                  //         new Text(
+                                                                  //       'Tanggal Keluar',
+                                                                  //       style: TextStyle(
+                                                                  //           fontFamily:
+                                                                  //               'WorkSansMedium',
+                                                                  //           fontWeight:
+                                                                  //               FontWeight.bold,
+                                                                  //           fontSize: 20),
+                                                                  //     ),
+                                                                  //   ),
+                                                                  // ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            'Nama Mahasiswa',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            '${namamhs ?? "-"}',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                // fontWeight:
+                                                                //     FontWeight.bold,
+                                                                fontSize: 18),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Divider(
+                                                          height: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            'NPM',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            '${npm ?? "-"}',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                // fontWeight:
+                                                                //     FontWeight.bold,
+                                                                fontSize: 18),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Divider(
+                                                          height: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      statusPresensi == 0 ||
+                                                              statusPresensi ==
+                                                                  null
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  'Jam Masuk',
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  'Jam Keluar',
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Center(
+                                                          child: new Text(
+                                                            '${jam ?? "-"}',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                // fontWeight:
+                                                                //     FontWeight.bold,
+                                                                fontSize: 18),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
-                                          )
-                                        : MaterialButton(
-                                            color: Colors.red,
-                                            shape: StadiumBorder(),
-                                            padding: EdgeInsets.only(
-                                                left: 50,
-                                                right: 50,
-                                                top: 25,
-                                                bottom: 25),
-                                            onPressed: () {
-                                              SKAlertDialog.show(
-                                                context: context,
-                                                type: SKAlertType.buttons,
-                                                title: 'Keluar ?',
-                                                message:
-                                                    'Apakah anda yakin ingin\nkeluar dari kelas ini ?',
-                                                okBtnText: 'Ya',
-                                                okBtnTxtColor: Colors.white,
-                                                okBtnColor: Colors.red,
-                                                cancelBtnText: 'Tidak',
-                                                cancelBtnTxtColor: Colors.white,
-                                                cancelBtnColor: Colors.grey,
-                                                onOkBtnTap: (value) async {
-                                                  SharedPreferences
-                                                      dataPresensiMahasiswa =
-                                                      await SharedPreferences
-                                                          .getInstance();
+                                            new Align(
+                                              child: new Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: new Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: MaterialButton(
+                                                          color: Colors.blue,
+                                                          shape:
+                                                              StadiumBorder(),
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 50,
+                                                                  right: 50,
+                                                                  top: 25,
+                                                                  bottom: 25),
+                                                          onPressed: () => {
+                                                            Get.toNamed(
+                                                                '/mahasiswa/dashboard/presensi/detail/tampilpeserta')
+                                                          },
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons
+                                                                    .people_alt_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                'Tampil Peserta Kelas',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        18),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      statusPresensi == 0 ||
+                                                              statusPresensi ==
+                                                                  null
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  MaterialButton(
+                                                                color: Colors
+                                                                    .green,
+                                                                shape:
+                                                                    StadiumBorder(),
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        left:
+                                                                            50,
+                                                                        right:
+                                                                            50,
+                                                                        top: 25,
+                                                                        bottom:
+                                                                            25),
+                                                                onPressed: () {
+                                                                  SKAlertDialog
+                                                                      .show(
+                                                                    context:
+                                                                        context,
+                                                                    type: SKAlertType
+                                                                        .buttons,
+                                                                    title:
+                                                                        'Presensi Masuk ?',
+                                                                    message:
+                                                                        'Apakah anda yakin ingin\npresensi masuk ke kelas ini ?',
+                                                                    okBtnText:
+                                                                        'Ya',
+                                                                    okBtnTxtColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    okBtnColor:
+                                                                        Colors
+                                                                            .green,
+                                                                    cancelBtnText:
+                                                                        'Tidak',
+                                                                    cancelBtnTxtColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    cancelBtnColor:
+                                                                        Colors
+                                                                            .grey,
+                                                                    onOkBtnTap:
+                                                                        (value) async {
+                                                                      SharedPreferences
+                                                                          dataPresensiMahasiswa =
+                                                                          await SharedPreferences
+                                                                              .getInstance();
 
-                                                  await dataPresensiMahasiswa
-                                                      .setInt(
-                                                          'statuspresensi', 0);
+                                                                      await dataPresensiMahasiswa
+                                                                          .setInt(
+                                                                              'statuspresensi',
+                                                                              1);
 
-                                                  setState(() {
-                                                    isApiCallProcess = true;
+                                                                      setState(
+                                                                          () {
+                                                                        isApiCallProcess =
+                                                                            true;
 
-                                                    presensiOUTMahasiswaToKSIRequestModel
-                                                        .idkelas = idkelas;
+                                                                        presensiINMahasiswaToKSIRequestModel.idkelas =
+                                                                            idkelas;
 
-                                                    presensiOUTMahasiswaToKSIRequestModel
-                                                        .npm = npm;
+                                                                        presensiINMahasiswaToKSIRequestModel.npm =
+                                                                            npm;
 
-                                                    presensiOUTMahasiswaToKSIRequestModel
-                                                        .pertemuan = pertemuan;
+                                                                        presensiINMahasiswaToKSIRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                    presensiOUTMahasiswaToKSIRequestModel
-                                                            .tglout =
-                                                        jam + ' ' + tanggalnow;
+                                                                        presensiINMahasiswaToKSIRequestModel.tglin = jam +
+                                                                            ' ' +
+                                                                            tanggalnow;
 
-                                                    presensiOUTMahasiswaToKSIRequestModel
-                                                        .status = 'H';
-                                                    // if (fakultas ==
-                                                    //     'Bisnis dan Ekonomika') {
-                                                    //   presensiOUTMahasiswaToFBERequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                        // if (fakultas ==
+                                                                        //     'Bisnis dan Ekonomika') {
+                                                                        //   presensiINMahasiswaToFBERequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFBERequestModel
-                                                    //       .npm = npm;
+                                                                        //   presensiINMahasiswaToFBERequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFBERequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                        //   presensiINMahasiswaToFBERequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFBERequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                        //   presensiINMahasiswaToFBERequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // } else if (fakultas == 'Hukum') {
+                                                                        //   presensiINMahasiswaToFHRequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFBERequestModel
-                                                    //       .status = 'H';
-                                                    // } else if (fakultas == 'Hukum') {
-                                                    //   presensiOUTMahasiswaToFHRequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                        //   presensiINMahasiswaToFHRequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFHRequestModel
-                                                    //       .npm = npm;
+                                                                        //   presensiINMahasiswaToFHRequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFHRequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                        //   presensiINMahasiswaToFHRequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // } else if (fakultas ==
+                                                                        //     'Teknobiologi') {
+                                                                        //   presensiINMahasiswaToFTBRequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFHRequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                        //   presensiINMahasiswaToFTBRequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFHRequestModel
-                                                    //       .status = 'H';
-                                                    // } else if (fakultas ==
-                                                    //     'Teknobiologi') {
-                                                    //   presensiOUTMahasiswaToFTBRequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                        //   presensiINMahasiswaToFTBRequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFTBRequestModel
-                                                    //       .npm = npm;
+                                                                        //   presensiINMahasiswaToFTBRequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // } else if (fakultas ==
+                                                                        //     'Ilmu Sosial dan Politik') {
+                                                                        //   presensiINMahasiswaToFISIPRequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFTBRequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                        //   presensiINMahasiswaToFISIPRequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFTBRequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                        //   presensiINMahasiswaToFISIPRequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFTBRequestModel
-                                                    //       .status = 'H';
-                                                    // } else if (fakultas ==
-                                                    //     'Ilmu Sosial dan Politik') {
-                                                    //   presensiOUTMahasiswaToFISIPRequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                        //   presensiINMahasiswaToFISIPRequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // } else if (fakultas == 'Teknik') {
+                                                                        //   presensiINMahasiswaToFTRequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFISIPRequestModel
-                                                    //       .npm = npm;
+                                                                        //   presensiINMahasiswaToFTRequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFISIPRequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                        //   presensiINMahasiswaToFTRequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFISIPRequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                        //   presensiINMahasiswaToFTRequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // } else if (fakultas ==
+                                                                        //     'Teknologi Industri') {
+                                                                        //   presensiINMahasiswaToFTIRequestModel
+                                                                        //       .idkelas = idkelasFakultas;
 
-                                                    //   presensiOUTMahasiswaToFISIPRequestModel
-                                                    //       .status = 'H';
-                                                    // } else if (fakultas == 'Teknik') {
-                                                    //   presensiOUTMahasiswaToFTRequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                        //   presensiINMahasiswaToFTIRequestModel
+                                                                        //       .npm = npm;
 
-                                                    //   presensiOUTMahasiswaToFTRequestModel
-                                                    //       .npm = npm;
+                                                                        //   presensiINMahasiswaToFTIRequestModel
+                                                                        //       .pertemuan = pertemuan;
 
-                                                    //   presensiOUTMahasiswaToFTRequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                        //   presensiINMahasiswaToFTIRequestModel
+                                                                        //       .tglin = jam + ' ' + tanggalnow;
+                                                                        // }
+                                                                      });
 
-                                                    //   presensiOUTMahasiswaToFTRequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                      print(PresensiINMahasiswaToKSIRequestModel()
+                                                                          .toJson());
 
-                                                    //   presensiOUTMahasiswaToFTRequestModel
-                                                    //       .status = 'H';
-                                                    // } else if (fakultas ==
-                                                    //     'Teknologi Industri') {
-                                                    //   presensiOUTMahasiswaToFTIRequestModel
-                                                    //       .idkelas = idkelasFakultas;
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFBERequestModel()
+                                                                      //         .toJson());
 
-                                                    //   presensiOUTMahasiswaToFTIRequestModel
-                                                    //       .npm = npm;
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFHRequestModel()
+                                                                      //         .toJson());
 
-                                                    //   presensiOUTMahasiswaToFTIRequestModel
-                                                    //       .pertemuan = pertemuan;
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFISIPRequestModel()
+                                                                      //         .toJson());
 
-                                                    //   presensiOUTMahasiswaToFTIRequestModel
-                                                    //           .tglout =
-                                                    //       jam + ' ' + tanggalnow;
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFTRequestModel()
+                                                                      //         .toJson());
 
-                                                    //   presensiOUTMahasiswaToFTIRequestModel
-                                                    //       .status = 'H';
-                                                    // }
-                                                  });
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFTBRequestModel()
+                                                                      //         .toJson());
 
-                                                  print(
-                                                      PresensiOUTMahasiswaToKSIRequestModel()
-                                                          .toJson());
+                                                                      // print(
+                                                                      //     PresensiINMahasiswaToFTIRequestModel()
+                                                                      //         .toJson());
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFBERequestModel()
-                                                  //         .toJson());
+                                                                      APIService
+                                                                          apiService =
+                                                                          new APIService();
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFHRequestModel()
-                                                  //         .toJson());
+                                                                      // if (fakultas ==
+                                                                      //     'Bisnis dan Ekonomika') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFBE(
+                                                                      //           presensiINMahasiswaToFBERequestModel);
+                                                                      // } else if (fakultas == 'Hukum') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFH(
+                                                                      //           presensiINMahasiswaToFHRequestModel);
+                                                                      // } else if (fakultas == 'Teknobiologi') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFH(
+                                                                      //           presensiINMahasiswaToFHRequestModel);
+                                                                      // } else if (fakultas ==
+                                                                      //     'Ilmu Sosial dan Politik') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFISIP(
+                                                                      //           presensiINMahasiswaToFISIPRequestModel);
+                                                                      // } else if (fakultas == 'Teknik') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFT(
+                                                                      //           presensiINMahasiswaToFTRequestModel);
+                                                                      // } else if (fakultas ==
+                                                                      //     'Teknologi Industri') {
+                                                                      //   await apiService
+                                                                      //       .postInsertPresensiMhsToFTI(
+                                                                      //           presensiINMahasiswaToFTIRequestModel);
+                                                                      // }
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFISIPRequestModel()
-                                                  //         .toJson());
+                                                                      await apiService
+                                                                          .postInsertPresensiMhsToKSI(
+                                                                              presensiINMahasiswaToKSIRequestModel)
+                                                                          .then(
+                                                                              (value) async {
+                                                                        if (value !=
+                                                                            null) {
+                                                                          setState(
+                                                                              () {
+                                                                            isApiCallProcess =
+                                                                                false;
+                                                                          });
+                                                                        }
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFTRequestModel()
-                                                  //         .toJson());
+                                                                        Get.offAllNamed(
+                                                                            '/mahasiswa/dashboard');
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFTBRequestModel()
-                                                  //         .toJson());
+                                                                        await Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Berhasil masuk ke kelas',
+                                                                            toastLength: Toast
+                                                                                .LENGTH_SHORT,
+                                                                            gravity: ToastGravity
+                                                                                .BOTTOM,
+                                                                            timeInSecForIosWeb:
+                                                                                1,
+                                                                            backgroundColor:
+                                                                                Colors.green,
+                                                                            textColor: Colors.white,
+                                                                            fontSize: 14.0);
+                                                                      });
+                                                                    },
+                                                                    onCancelBtnTap:
+                                                                        (value) {},
+                                                                  );
+                                                                },
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Icon(
+                                                                      Icons
+                                                                          .arrow_upward_rounded,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 20,
+                                                                    ),
+                                                                    Text(
+                                                                      'Presensi Masuk',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              18),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : MaterialButton(
+                                                              color: Colors.red,
+                                                              shape:
+                                                                  StadiumBorder(),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left: 50,
+                                                                      right: 50,
+                                                                      top: 25,
+                                                                      bottom:
+                                                                          25),
+                                                              onPressed: () {
+                                                                SKAlertDialog
+                                                                    .show(
+                                                                  context:
+                                                                      context,
+                                                                  type: SKAlertType
+                                                                      .buttons,
+                                                                  title:
+                                                                      'Keluar ?',
+                                                                  message:
+                                                                      'Apakah anda yakin ingin\nkeluar dari kelas ini ?',
+                                                                  okBtnText:
+                                                                      'Ya',
+                                                                  okBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  okBtnColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  cancelBtnText:
+                                                                      'Tidak',
+                                                                  cancelBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  cancelBtnColor:
+                                                                      Colors
+                                                                          .grey,
+                                                                  onOkBtnTap:
+                                                                      (value) async {
+                                                                    SharedPreferences
+                                                                        dataPresensiMahasiswa =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
 
-                                                  // print(
-                                                  //     PresensiOUTMahasiswaToFTIRequestModel()
-                                                  //         .toJson());
+                                                                    await dataPresensiMahasiswa
+                                                                        .setInt(
+                                                                            'statuspresensi',
+                                                                            0);
 
-                                                  APIService apiService =
-                                                      new APIService();
+                                                                    setState(
+                                                                        () {
+                                                                      isApiCallProcess =
+                                                                          true;
 
-                                                  // if (fakultas ==
-                                                  //     'Bisnis dan Ekonomika') {
-                                                  //   await apiService
-                                                  //       .putUpdatePresensiMhsToFBE(
-                                                  //           presensiOUTMahasiswaToFBERequestModel);
-                                                  // } else if (fakultas == 'Hukum') {
-                                                  //   await apiService.putUpdatePresensiMhsToFH(
-                                                  //       presensiOUTMahasiswaToFHRequestModel);
-                                                  // } else if (fakultas == 'Teknobiologi') {
-                                                  //   await apiService
-                                                  //       .putUpdatePresensiMhsToFTB(
-                                                  //           presensiOUTMahasiswaToFTBRequestModel);
-                                                  // } else if (fakultas ==
-                                                  //     'Ilmu Sosial dan Politik') {
-                                                  //   await apiService
-                                                  //       .putUpdatePresensiMhsToFISIP(
-                                                  //           presensiOUTMahasiswaToFISIPRequestModel);
-                                                  // } else if (fakultas == 'Teknik') {
-                                                  //   await apiService.putUpdatePresensiMhsToFT(
-                                                  //       presensiOUTMahasiswaToFTRequestModel);
-                                                  // } else if (fakultas ==
-                                                  //     'Teknologi Industri') {
-                                                  //   await apiService
-                                                  //       .putUpdatePresensiMhsToFTI(
-                                                  //           presensiOUTMahasiswaToFTIRequestModel);
-                                                  // }
+                                                                      presensiOUTMahasiswaToKSIRequestModel
+                                                                              .idkelas =
+                                                                          idkelas;
 
-                                                  await apiService
-                                                      .putUpdatePresensiMhsToKSI(
-                                                          presensiOUTMahasiswaToKSIRequestModel)
-                                                      .then((value) async {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        isApiCallProcess =
-                                                            false;
-                                                      });
-                                                    }
+                                                                      presensiOUTMahasiswaToKSIRequestModel
+                                                                              .npm =
+                                                                          npm;
 
-                                                    Get.offAllNamed(
-                                                        '/mahasiswa/dashboard');
+                                                                      presensiOUTMahasiswaToKSIRequestModel
+                                                                              .pertemuan =
+                                                                          pertemuan;
 
-                                                    await Fluttertoast.showToast(
-                                                        msg:
-                                                            'Berhasil keluar dari kelas, data presensi telah tersimpan',
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity:
-                                                            ToastGravity.BOTTOM,
-                                                        timeInSecForIosWeb: 1,
-                                                        backgroundColor:
-                                                            Colors.green,
-                                                        textColor: Colors.white,
-                                                        fontSize: 14.0);
-                                                  });
-                                                },
-                                                onCancelBtnTap: (value) {},
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_downward_rounded,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Text(
-                                                  'Keluar',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                              ],
+                                                                      presensiOUTMahasiswaToKSIRequestModel
+                                                                              .tglout =
+                                                                          jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+
+                                                                      presensiOUTMahasiswaToKSIRequestModel
+                                                                              .status =
+                                                                          'H';
+                                                                      // if (fakultas ==
+                                                                      //     'Bisnis dan Ekonomika') {
+                                                                      //   presensiOUTMahasiswaToFBERequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFBERequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFBERequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFBERequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFBERequestModel
+                                                                      //       .status = 'H';
+                                                                      // } else if (fakultas == 'Hukum') {
+                                                                      //   presensiOUTMahasiswaToFHRequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFHRequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFHRequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFHRequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFHRequestModel
+                                                                      //       .status = 'H';
+                                                                      // } else if (fakultas ==
+                                                                      //     'Teknobiologi') {
+                                                                      //   presensiOUTMahasiswaToFTBRequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFTBRequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFTBRequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFTBRequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFTBRequestModel
+                                                                      //       .status = 'H';
+                                                                      // } else if (fakultas ==
+                                                                      //     'Ilmu Sosial dan Politik') {
+                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
+                                                                      //       .status = 'H';
+                                                                      // } else if (fakultas == 'Teknik') {
+                                                                      //   presensiOUTMahasiswaToFTRequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFTRequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFTRequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFTRequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFTRequestModel
+                                                                      //       .status = 'H';
+                                                                      // } else if (fakultas ==
+                                                                      //     'Teknologi Industri') {
+                                                                      //   presensiOUTMahasiswaToFTIRequestModel
+                                                                      //       .idkelas = idkelasFakultas;
+
+                                                                      //   presensiOUTMahasiswaToFTIRequestModel
+                                                                      //       .npm = npm;
+
+                                                                      //   presensiOUTMahasiswaToFTIRequestModel
+                                                                      //       .pertemuan = pertemuan;
+
+                                                                      //   presensiOUTMahasiswaToFTIRequestModel
+                                                                      //           .tglout =
+                                                                      //       jam + ' ' + tanggalnow;
+
+                                                                      //   presensiOUTMahasiswaToFTIRequestModel
+                                                                      //       .status = 'H';
+                                                                      // }
+                                                                    });
+
+                                                                    print(PresensiOUTMahasiswaToKSIRequestModel()
+                                                                        .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFBERequestModel()
+                                                                    //         .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFHRequestModel()
+                                                                    //         .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFISIPRequestModel()
+                                                                    //         .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFTRequestModel()
+                                                                    //         .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFTBRequestModel()
+                                                                    //         .toJson());
+
+                                                                    // print(
+                                                                    //     PresensiOUTMahasiswaToFTIRequestModel()
+                                                                    //         .toJson());
+
+                                                                    APIService
+                                                                        apiService =
+                                                                        new APIService();
+
+                                                                    // if (fakultas ==
+                                                                    //     'Bisnis dan Ekonomika') {
+                                                                    //   await apiService
+                                                                    //       .putUpdatePresensiMhsToFBE(
+                                                                    //           presensiOUTMahasiswaToFBERequestModel);
+                                                                    // } else if (fakultas == 'Hukum') {
+                                                                    //   await apiService.putUpdatePresensiMhsToFH(
+                                                                    //       presensiOUTMahasiswaToFHRequestModel);
+                                                                    // } else if (fakultas == 'Teknobiologi') {
+                                                                    //   await apiService
+                                                                    //       .putUpdatePresensiMhsToFTB(
+                                                                    //           presensiOUTMahasiswaToFTBRequestModel);
+                                                                    // } else if (fakultas ==
+                                                                    //     'Ilmu Sosial dan Politik') {
+                                                                    //   await apiService
+                                                                    //       .putUpdatePresensiMhsToFISIP(
+                                                                    //           presensiOUTMahasiswaToFISIPRequestModel);
+                                                                    // } else if (fakultas == 'Teknik') {
+                                                                    //   await apiService.putUpdatePresensiMhsToFT(
+                                                                    //       presensiOUTMahasiswaToFTRequestModel);
+                                                                    // } else if (fakultas ==
+                                                                    //     'Teknologi Industri') {
+                                                                    //   await apiService
+                                                                    //       .putUpdatePresensiMhsToFTI(
+                                                                    //           presensiOUTMahasiswaToFTIRequestModel);
+                                                                    // }
+
+                                                                    await apiService
+                                                                        .putUpdatePresensiMhsToKSI(
+                                                                            presensiOUTMahasiswaToKSIRequestModel)
+                                                                        .then(
+                                                                            (value) async {
+                                                                      if (value !=
+                                                                          null) {
+                                                                        setState(
+                                                                            () {
+                                                                          isApiCallProcess =
+                                                                              false;
+                                                                        });
+                                                                      }
+
+                                                                      Get.offAllNamed(
+                                                                          '/mahasiswa/dashboard');
+
+                                                                      await Fluttertoast.showToast(
+                                                                          msg:
+                                                                              'Berhasil keluar dari kelas, data presensi telah tersimpan',
+                                                                          toastLength: Toast
+                                                                              .LENGTH_SHORT,
+                                                                          gravity: ToastGravity
+                                                                              .BOTTOM,
+                                                                          timeInSecForIosWeb:
+                                                                              1,
+                                                                          backgroundColor: Colors
+                                                                              .green,
+                                                                          textColor: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              14.0);
+                                                                    });
+                                                                  },
+                                                                  onCancelBtnTap:
+                                                                      (value) {},
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_downward_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 25,
+                                                                  ),
+                                                                  Text(
+                                                                    'Keluar',
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: MaterialButton(
+                                                          color: Colors.blue,
+                                                          shape:
+                                                              StadiumBorder(),
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 50,
+                                                                  right: 50,
+                                                                  top: 25,
+                                                                  bottom: 25),
+                                                          onPressed: () => {
+                                                            Get.offAllNamed(
+                                                                '/mahasiswa/dashboard')
+                                                          },
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                  Icons
+                                                                      .arrow_back_rounded,
+                                                                  color: Colors
+                                                                      .white),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                'Kembali',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        18),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ]),
+                                              ),
+                                            ),
+                                          ],
+                                        ));
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: SpinKitDoubleBounce(
+                                                      color: Colors.red,
+                                                      size: 100,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Anda berada di luar jarak minimal kelas',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.green,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          'Jarak Anda : ${beacon.accuracy} m',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          'Jarak Minimal : ${jarakmin.toStringAsFixed(2)} m',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    MaterialButton(
-                                      color: Colors.blue,
-                                      shape: StadiumBorder(),
-                                      padding: EdgeInsets.only(
-                                          left: 50,
-                                          right: 50,
-                                          top: 25,
-                                          bottom: 25),
-                                      onPressed: () => {
-                                        Get.offAllNamed('/mahasiswa/dashboard')
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: <Widget>[
-                                          Text(
-                                            'Kembali ke Menu',
-                                            style: TextStyle(
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontSize: 18),
-                                          ),
+                                          SizedBox(
+                                            height: 500,
+                                          )
                                         ],
                                       ),
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                        ],
+                                    );
+                                  }
+                                })).toList()),
                       ),
                     ),
-                  )
-            // Get.offAllNamed('/mahasiswa/dashboard/presensi/detail')
-            // Container(
-            //     child: Column(
-            //         children: ListTile.divideTiles(
-            //             context: context,
-            //             tiles: _beacons.map((beacon) {
-            //               if (beacon.accuracy < jarakmin) {
-            //                 return Container(
-            //                   child: Center(
-            //                     child: Column(
-            //                       mainAxisAlignment:
-            //                           MainAxisAlignment.center,
-            //                       children: <Widget>[
-            //                         Padding(
-            //                           padding: const EdgeInsets.all(15),
-            //                           child: Icon(
-            //                             Icons.check_circle_outline_rounded,
-            //                             size: 100,
-            //                             color: Colors.green,
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           'Ruangan kelas sudah ditemukan',
-            //                           style: TextStyle(
-            //                               fontSize: 18,
-            //                               fontFamily: 'WorkSansMedium',
-            //                               fontWeight: FontWeight.bold,
-            //                               color: Colors.white),
-            //                         ),
-            //                         SizedBox(
-            //                           height: 25,
-            //                         ),
-            //                         MaterialButton(
-            //                           child: Padding(
-            //                             padding: const EdgeInsets.all(20),
-            //                             child: Text(
-            //                               'MASUK',
-            //                               style: const TextStyle(
-            //                                   fontFamily:
-            //                                       'WorkSansSemiBold',
-            //                                   fontSize: 18.0,
-            //                                   color: Colors.white),
-            //                             ),
-            //                           ),
-            //                           onPressed: () => {
-            // Get.offAllNamed(
-            //     '/mahasiswa/dashboard/presensi/detail')
-            //                           },
-            //                           shape: StadiumBorder(),
-            //                           color: Color.fromRGBO(247, 180, 7, 1),
-            //                         )
-            //                       ],
-            //                     ),
-            //                   ),
-            //                 );
-            //               } else {
-            //                 return Container(
-            //                   child: Center(
-            //                     child: Column(
-            //                       mainAxisAlignment:
-            //                           MainAxisAlignment.center,
-            //                       children: <Widget>[
-            //                         SpinKitPulse(
-            //                           color: Colors.red,
-            //                           size: 100,
-            //                         ),
-            //                         SizedBox(
-            //                           height: 25,
-            //                         ),
-            //                         Text(
-            //                           'Anda berada di luar jangkauan\nminimal kelas',
-            //                           style: TextStyle(
-            //                               fontSize: 18,
-            //                               fontFamily: 'WorkSansMedium',
-            //                               fontWeight: FontWeight.bold,
-            //                               color: Colors.white),
-            //                         ),
-            //                         SizedBox(
-            //                           height: 25,
-            //                         ),
-            //                         Text(
-            //                           'Jarak Anda : ${beacon.accuracy} m',
-            //                           style: TextStyle(
-            //                               fontSize: 18,
-            //                               fontFamily: 'WorkSansMedium',
-            //                               fontWeight: FontWeight.bold,
-            //                               color: Colors.white),
-            //                         ),
-            //                         Text(
-            //                           'Jarak Minimal : ${jarakmin} m',
-            //                           style: TextStyle(
-            //                               fontSize: 18,
-            //                               fontFamily: 'WorkSansMedium',
-            //                               fontWeight: FontWeight.bold,
-            //                               color: Colors.white),
-            //                         ),
-            //                       ],
-            //                     ),
-            //                   ),
-            //                 );
-            //               }
-            //             })).toList()),
-            //   )
-
-            ));
+                  )));
   }
 }

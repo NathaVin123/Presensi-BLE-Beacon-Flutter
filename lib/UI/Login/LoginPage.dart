@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage>
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Center(
-                    child: Text('Sistem Presensi UAJY',
+                    child: Text('Presensi UAJY',
                         style: const TextStyle(
                             fontFamily: 'WorkSansMedium',
                             fontSize: 30.0,

@@ -68,10 +68,21 @@ class _LoginAdminState extends State<LoginAdmin> {
                       child: Image(
                           height: MediaQuery.of(context).size.height > 800
                               ? 150.0
-                              : 110,
+                              : 75,
                           fit: BoxFit.fill,
                           image: const AssetImage(
                               'assets/png/SplashPage_LogoAtmaJaya.png')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Center(
+                        child: Text('Presensi UAJY',
+                            style: const TextStyle(
+                                fontFamily: 'WorkSansMedium',
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      ),
                     ),
                     Container(
                         key: scaffoldKey,

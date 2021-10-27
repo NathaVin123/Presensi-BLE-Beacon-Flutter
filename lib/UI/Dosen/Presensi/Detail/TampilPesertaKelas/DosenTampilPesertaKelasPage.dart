@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +26,15 @@ class _DosenTampilPesertaKelasPageState
     tampilPesertaKelasRequestModel = TampilPesertaKelasRequestModel();
     tampilPesertaKelasResponseModel = TampilPesertaKelasResponseModel();
     Timer.periodic(Duration(seconds: 1), (Timer t) {
-      this.getDataIDKelas();
+      getDataIDKelas();
+      // getDataPesertaKelas();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      // getDataIDKelas();
       getDataPesertaKelas();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();
@@ -40,7 +50,7 @@ class _DosenTampilPesertaKelasPageState
     });
   }
 
-  void getDataPesertaKelas() async {
+  getDataPesertaKelas() async {
     setState(() {
       tampilPesertaKelasRequestModel.idkelas = idkelas;
 
@@ -59,93 +69,95 @@ class _DosenTampilPesertaKelasPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text('Segarkan'),
-          icon: Icon(Icons.refresh_rounded),
-          onPressed: () => getDataPesertaKelas()),
-      backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-            pinned: true,
-            floating: false,
-            snap: false,
-            expandedHeight: 85,
-            flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                'Tampil Peserta Kelas',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'WorkSansMedium',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+        floatingActionButton: FloatingActionButton.extended(
+            label: Text('Segarkan'),
+            icon: Icon(Icons.refresh_rounded),
+            onPressed: () => getDataPesertaKelas()),
+        backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
+          elevation: 0,
+          backgroundColor: Color.fromRGBO(23, 75, 137, 1),
+          title: Text(
+            'Tampil Peserta Kelas',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'WorkSansMedium',
+                fontWeight: FontWeight.bold),
           ),
-          SliverFillRemaining(
-              child: tampilPesertaKelasResponseModel.data == null
-                  ? Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            'Silahkan klik tombol segarkan...',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: tampilPesertaKelasResponseModel.data?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, right: 12, top: 8, bottom: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: new ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    new Text(
-                                      tampilPesertaKelasResponseModel
-                                          .data[index].namamhs,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
+          centerTitle: true,
+        ),
+        body: tampilPesertaKelasResponseModel.data == null
+            ? Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    backgroundColor: Colors.transparent,
+                    color: Colors.white,
+                  )),
+                ),
+              )
+            : ListView.builder(
+                itemCount: tampilPesertaKelasResponseModel.data?.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12, right: 12, top: 8, bottom: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(25)),
+                      child: new ListTile(
+                        title: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Initicon(
+                                text: tampilPesertaKelasResponseModel
+                                    .data[index].namamhs,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new AutoSizeText(
+                                        tampilPesertaKelasResponseModel
+                                            .data[index].namamhs,
+                                        style: TextStyle(
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    new Text(
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: new Text(
                                       tampilPesertaKelasResponseModel
                                           .data[index].npm,
                                       style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 16,
                                         fontFamily: 'WorkSansMedium',
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              onTap: () async {},
                             ),
-                          ),
-                        );
-                      }))
-        ],
-      ),
-    );
+                          ],
+                        ),
+                        onTap: () async {},
+                      ),
+                    ),
+                  );
+                }));
   }
 }

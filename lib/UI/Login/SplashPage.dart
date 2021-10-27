@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () => navigateUser());
+    Timer(Duration(milliseconds: 2000), () => navigateUser());
   }
 
   void navigateUser() async {
@@ -50,33 +50,21 @@ class _SplashPageState extends State<SplashPage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          // Container(
+          //   decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
+          // ),
           Container(
-            decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('SplashPage_LogoAtmaJaya'.png, height: 150.0),
-              SizedBox(
-                height: 50,
-              ),
-              Center(
-                child: Text('Universitas Atma Jaya Yogyakarta',
-                    style: const TextStyle(
-                        fontFamily: 'WorkSansSemiBold',
-                        fontSize: 20.0,
-                        color: Colors.white)),
-              ),
-              SizedBox(
-                height: 150,
-              ),
-              Text('Version Pre-Alpha',
-                  style: const TextStyle(
-                      fontFamily: 'WorkSansSemiBold',
-                      fontSize: 18.0,
-                      color: Colors.white))
-            ],
-          )
+              decoration: BoxDecoration(color: Colors.grey[300]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Image.asset(
+                    'Logo_Splash_UAJY'.png,
+                    height: 175,
+                    fit: BoxFit.fill,
+                  ),
+                ],
+              )),
         ],
       ),
     );

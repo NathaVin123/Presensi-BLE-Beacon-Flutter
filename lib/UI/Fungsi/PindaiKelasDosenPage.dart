@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,6 +23,9 @@ class PindaiKelasDosenPage extends StatefulWidget {
 
 class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
     with WidgetsBindingObserver {
+  bool showFab = true;
+  ScrollController _scrollController;
+
   final StreamController<BluetoothState> streamController = StreamController();
 
   StreamSubscription<BluetoothState> _streamBluetooth;
@@ -39,7 +43,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   int major = 0;
   int minor = 0;
 
+  String namadsn = "";
   String npp = "";
+
   int idkelas = 0;
   String ruang = "";
   String namamk = "";
@@ -50,6 +56,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   String sesi = "";
   int kapasitas = 0;
   String jam = "";
+  String jammasuk = "";
+  String jamkeluar = "";
   String tanggalnow = "";
   String tanggalmasuk = "";
   String tanggalkeluar = "";
@@ -82,6 +90,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   void initState() {
     super.initState();
 
+    _scrollController = ScrollController();
+
     getProximityUUID();
 
     listeningState();
@@ -97,9 +107,19 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDetailKelas();
-      getDetailDosen();
+      // getDetailDosen();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();
+      });
+    });
+
+    Future.delayed(Duration(minutes: 15), () {
+      Timer.periodic(Duration(seconds: 1), (Timer t) {
+        // getDetailKelas();
+        getDetailDosen();
+        Future.delayed(Duration(seconds: 5), () {
+          t.cancel();
+        });
       });
     });
   }
@@ -109,6 +129,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
     setState(() {
       npp = loginDosen.getString('npp');
+      namadsn = loginDosen.getString('namadsn');
     });
   }
 
@@ -126,6 +147,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
       sesi = dataPresensiDosen.getString('sesi1');
       kapasitas = dataPresensiDosen.getInt('kapasitas');
       jam = dataPresensiDosen.getString('jam');
+      jammasuk = dataPresensiDosen.getString('jammasuk');
+      jamkeluar = dataPresensiDosen.getString('jamkeluar');
       tanggalnow = dataPresensiDosen.getString('tanggalnow');
       tanggalmasuk = dataPresensiDosen.getString('tglmasuk');
       tanggalkeluar = dataPresensiDosen.getString('tglkeluar');
@@ -316,6 +339,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
   @override
   void dispose() {
+    _scrollController.dispose();
     WidgetsBinding.instance.removeObserver(this);
     streamController?.close();
     _streamRanging?.cancel();
@@ -338,10 +362,27 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   Widget buildDetailPresensiDosen(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
+        floatingActionButton: showFab
+            ? FloatingActionButton.extended(
+                backgroundColor: Colors.blue,
+                onPressed: () => {
+                  _scrollController
+                      .jumpTo(_scrollController.position.maxScrollExtent)
+                },
+                label: Text(
+                  'Presensi',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'WorkSansMedium'),
+                ),
+                icon: Icon(Icons.arrow_downward_rounded),
+              )
+            : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         appBar: AppBar(
           centerTitle: false,
           title: Text(
-            'Presensi',
+            'Detail Presensi',
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'WorkSansMedium',
@@ -588,1121 +629,1542 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                       ),
                     ],
                   )
-                : SingleChildScrollView(
-                    child: Column(
-                        children: ListTile.divideTiles(
-                            context: context,
-                            tiles: _beacons.map((beacon) {
-                              if (beacon.accuracy < jarakmin) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: new Column(
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: new Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Tanggal',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                bukapresensi == 0
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            '${tanggalmasuk ?? "-"}',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                // fontWeight:
-                                                                //     FontWeight.bold,
-                                                                fontSize: 16),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            '${tanggalkeluar ?? "-"}',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                // fontWeight:
-                                                                //     FontWeight.bold,
-                                                                fontSize: 16),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'NPP',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${npp ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Ruangan',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${ruang ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Mata Kuliah',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${namamk ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Kelas',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${kelas ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'SKS',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${sks ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Pertemuan Ke',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${pertemuan ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Hari',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${hari ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Sesi',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${sesi ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      'Kapasitas',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${kapasitas ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                                      ),
-                                      Column(
+                : NotificationListener<UserScrollNotification>(
+                    onNotification: (notification) {
+                      setState(() {
+                        if (notification.direction == ScrollDirection.reverse) {
+                          showFab = true;
+                        } else if (notification.direction ==
+                            ScrollDirection.forward) {
+                          showFab = true;
+                        }
+                      });
+                      return true;
+                    },
+                    child: Scrollbar(
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                            children: ListTile.divideTiles(
+                                context: context,
+                                tiles: _beacons.map((beacon) {
+                                  if (beacon.accuracy < jarakmin) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Column(
                                         children: <Widget>[
-                                          SizedBox(
-                                            height: 8,
-                                          ),
                                           Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.grey[200],
                                                 borderRadius:
                                                     BorderRadius.circular(25)),
-                                            child: Column(
-                                              children: <Widget>[
-                                                bukapresensi == 0
-                                                    ? Padding(
+                                            child: new Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.blue,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            'Tanggal Masuk',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            'Tanggal Keluar',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${tanggalnow ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                bukapresensi == 0
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            'Jam Masuk',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            'Jam Keluar',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20),
-                                                          ),
-                                                        )),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: new Center(
-                                                    child: new Text(
-                                                      '${jam ?? "-"}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      bukapresensi == 1
-                                          ? Column(
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey[200],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Form(
-                                                      key: globalFormKey,
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                'Keterangan',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        20,
-                                                                    fontFamily:
-                                                                        'WorkSansMedium',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Center(
-                                                                child:
-                                                                    TextFormField(
-                                                              controller:
-                                                                  _keteranganFieldController,
-                                                              focusNode:
-                                                                  _keteranganFieldFocus,
-                                                              onFieldSubmitted:
-                                                                  (term) {
-                                                                _fieldFocusChange(
-                                                                    context,
-                                                                    _keteranganFieldFocus,
-                                                                    _materiFieldFocus);
-                                                              },
-                                                              textInputAction:
-                                                                  TextInputAction
-                                                                      .next,
-                                                              style: const TextStyle(
-                                                                  fontFamily:
-                                                                      'WorkSansSemiBold',
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  color: Colors
-                                                                      .black),
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .text,
-                                                              decoration:
-                                                                  new InputDecoration(
-                                                                      hintText:
-                                                                          'Silahkan Isi Keterangan Mata Kuliah Anda'),
-                                                              // validator: (input) => input.length < 1
-                                                              //     ? "Materi tidak boleh kosong"
-                                                              //     : null,
-                                                              onSaved: (input) =>
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                          .keterangan =
-                                                                      input,
-                                                            )),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                'Materi',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        20,
-                                                                    fontFamily:
-                                                                        'WorkSansMedium',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Center(
-                                                                child:
-                                                                    TextFormField(
-                                                              controller:
-                                                                  _materiFieldController,
-                                                              focusNode:
-                                                                  _materiFieldFocus,
-                                                              onFieldSubmitted:
-                                                                  (value) {
-                                                                _materiFieldFocus
-                                                                    .unfocus();
-                                                              },
-                                                              textInputAction:
-                                                                  TextInputAction
-                                                                      .done,
-                                                              style: const TextStyle(
-                                                                  fontFamily:
-                                                                      'WorkSansSemiBold',
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  color: Colors
-                                                                      .black),
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .text,
-                                                              decoration:
-                                                                  new InputDecoration(
-                                                                      hintText:
-                                                                          'Silahkan Isi Materi Mata Kuliah Anda'),
-                                                              // validator: (input) => input.length < 1
-                                                              //     ? "Materi tidak boleh kosong"
-                                                              //     : null,
-                                                              onSaved: (input) =>
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                          .materi =
-                                                                      input,
-                                                            )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : SizedBox(
-                                              height: 0,
-                                            ),
-                                      Divider(
-                                        height: 20,
-                                        thickness: 10,
-                                      ),
-                                      new Align(
-                                        child: new Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: new Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: <Widget>[
-                                                MaterialButton(
-                                                  color: Colors.blue,
-                                                  shape: StadiumBorder(),
-                                                  padding: EdgeInsets.only(
-                                                      left: 50,
-                                                      right: 50,
-                                                      top: 25,
-                                                      bottom: 25),
-                                                  onPressed: () => {
-                                                    Get.toNamed(
-                                                        '/dosen/dashboard/presensi/detail/tampilpeserta')
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Lihat Peserta Kelas',
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 18),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                bukapresensi == 0
-                                                    ? MaterialButton(
-                                                        color: Colors.green,
-                                                        shape: StadiumBorder(),
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 50,
-                                                                right: 50,
-                                                                top: 25,
-                                                                bottom: 25),
-                                                        onPressed: () {
-                                                          SKAlertDialog.show(
-                                                            context: context,
-                                                            type: SKAlertType
-                                                                .buttons,
-                                                            title: 'Masuk ?',
-                                                            message:
-                                                                'Apakah anda yakin ingin\nmembuka kelas ini ?',
-                                                            okBtnText: 'Ya',
-                                                            okBtnTxtColor:
-                                                                Colors.white,
-                                                            okBtnColor:
-                                                                Colors.green,
-                                                            cancelBtnText:
-                                                                'Tidak',
-                                                            cancelBtnTxtColor:
-                                                                Colors.white,
-                                                            cancelBtnColor:
-                                                                Colors.grey,
-                                                            onOkBtnTap:
-                                                                (value) async {
-                                                              print(idkelas);
-
-                                                              print(
-                                                                  bukapresensi);
-
-                                                              print(pertemuan);
-
-                                                              print(jam +
-                                                                  ' ' +
-                                                                  tanggalnow);
-
-                                                              setState(() {
-                                                                isApiCallProcess =
-                                                                    true;
-                                                                presensiINOUTDosenBukaPresensiRequestModel
-                                                                        .idkelas =
-                                                                    idkelas;
-
-                                                                presensiINOUTDosenBukaPresensiRequestModel
-                                                                        .pertemuan =
-                                                                    pertemuan;
-
-                                                                presensiINOUTDosenBukaPresensiRequestModel
-                                                                        .jammasuk =
-                                                                    jam +
-                                                                        ' ' +
-                                                                        tanggalnow;
-
-                                                                presensiINDosenBukaPresensiRequestModel
-                                                                        .idkelas =
-                                                                    idkelas;
-
-                                                                presensiINDosenBukaPresensiRequestModel
-                                                                    .bukapresensi = 1;
-
-                                                                presensiINDosenBukaPresensiRequestModel
-                                                                        .pertemuan =
-                                                                    pertemuan;
-                                                              });
-
-                                                              print(
-                                                                  presensiINOUTDosenBukaPresensiRequestModel
-                                                                      .toJson());
-
-                                                              print(
-                                                                  presensiINDosenBukaPresensiRequestModel
-                                                                      .toJson());
-
-                                                              APIService
-                                                                  apiService =
-                                                                  new APIService();
-
-                                                              await apiService
-                                                                  .putPresensiINDosen(
-                                                                      presensiINOUTDosenBukaPresensiRequestModel)
-                                                                  .then(
-                                                                      (value) async {
-                                                                if (value !=
-                                                                    null) {
-                                                                  setState(() {
-                                                                    isApiCallProcess =
-                                                                        false;
-                                                                  });
-                                                                }
-                                                              });
-
-                                                              await apiService
-                                                                  .putBukaPresensiDosen(
-                                                                      presensiINDosenBukaPresensiRequestModel)
-                                                                  .then(
-                                                                      (value) async {
-                                                                if (value !=
-                                                                    null) {
-                                                                  setState(() {
-                                                                    isApiCallProcess =
-                                                                        false;
-                                                                  });
-                                                                }
-                                                                Get.offAllNamed(
-                                                                    '/dosen/dashboard');
-
-                                                                await Fluttertoast.showToast(
-                                                                    msg:
-                                                                        'Berhasil Membuka Kelas',
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_SHORT,
-                                                                    gravity: ToastGravity
-                                                                        .BOTTOM,
-                                                                    timeInSecForIosWeb:
-                                                                        1,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .green,
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        14.0);
-                                                              });
-                                                            },
-                                                            onCancelBtnTap:
-                                                                (value) {},
-                                                          );
-                                                        },
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .center,
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              Icons
-                                                                  .arrow_upward_rounded,
-                                                              color:
-                                                                  Colors.white,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Icon(
+                                                                  Icons.book,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
-                                                            SizedBox(
-                                                              width: 25,
-                                                            ),
-                                                            Text(
-                                                              'Masuk',
+                                                            new Text(
+                                                              'Detail Kelas',
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       'WorkSansMedium',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
+                                                                  fontSize: 20,
                                                                   color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
+                                                                      .white),
                                                             ),
                                                           ],
                                                         ),
-                                                      )
-                                                    : SizedBox(
-                                                        height: 0,
                                                       ),
-                                                bukapresensi == 0
-                                                    ? SizedBox(
-                                                        height: 0,
-                                                      )
-                                                    : MaterialButton(
-                                                        color: Colors.red,
-                                                        shape: StadiumBorder(),
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 50,
-                                                                right: 50,
-                                                                top: 25,
-                                                                bottom: 25),
-                                                        onPressed: () {
-                                                          SKAlertDialog.show(
-                                                            context: context,
-                                                            type: SKAlertType
-                                                                .buttons,
-                                                            title: 'Keluar ?',
-                                                            message:
-                                                                'Apakah anda yakin\ningin mengakhiri kelas ?',
-                                                            okBtnText: 'Ya',
-                                                            okBtnTxtColor:
-                                                                Colors.white,
-                                                            okBtnColor:
-                                                                Colors.red,
-                                                            cancelBtnText:
-                                                                'Tidak',
-                                                            cancelBtnTxtColor:
-                                                                Colors.white,
-                                                            cancelBtnColor:
-                                                                Colors.grey,
-                                                            onOkBtnTap:
-                                                                (value) async {
-                                                              FocusScope.of(
-                                                                      context)
-                                                                  .unfocus();
-                                                              SharedPreferences
-                                                                  dataPresensiMahasiswa =
-                                                                  await SharedPreferences
-                                                                      .getInstance();
-
-                                                              await dataPresensiMahasiswa
-                                                                  .setInt(
-                                                                      'statuspresensi',
-                                                                      0);
-
-                                                              print(
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                      .toJson());
-
-                                                              print(
-                                                                  presensiINDosenBukaPresensiRequestModel
-                                                                      .toJson());
-
-                                                              print(idkelas);
-
-                                                              print(
-                                                                  bukapresensi);
-
-                                                              if (validateAndSave()) {
-                                                                setState(() {
-                                                                  isApiCallProcess =
-                                                                      true;
-
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                          .idkelas =
-                                                                      idkelas;
-
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                          .pertemuan =
-                                                                      pertemuan;
-
-                                                                  presensiINOUTOUTDosenBukaPresensiRequestModel
-                                                                          .jamkeluar =
-                                                                      jam +
-                                                                          ' ' +
-                                                                          tanggalnow;
-
-                                                                  presensiINDosenBukaPresensiRequestModel
-                                                                          .idkelas =
-                                                                      idkelas;
-
-                                                                  presensiINDosenBukaPresensiRequestModel
-                                                                      .bukapresensi = 0;
-
-                                                                  presensiINDosenBukaPresensiRequestModel
-                                                                          .pertemuan =
-                                                                      pertemuan;
-                                                                });
-
-                                                                APIService
-                                                                    apiService =
-                                                                    new APIService();
-
-                                                                await apiService
-                                                                    .putPresensiOUTDosen(
-                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel)
-                                                                    .then(
-                                                                        (value) async {
-                                                                  if (value !=
-                                                                      null) {
-                                                                    setState(
-                                                                        () {
-                                                                      isApiCallProcess =
-                                                                          false;
-                                                                    });
-                                                                  }
-                                                                });
-
-                                                                await apiService
-                                                                    .putBukaPresensiDosen(
-                                                                        presensiINDosenBukaPresensiRequestModel)
-                                                                    .then(
-                                                                        (value) async {
-                                                                  if (value !=
-                                                                      null) {
-                                                                    setState(
-                                                                        () {
-                                                                      isApiCallProcess =
-                                                                          false;
-                                                                    });
-                                                                  }
-                                                                  Get.offAllNamed(
-                                                                      '/dosen/dashboard');
-
-                                                                  await Fluttertoast.showToast(
-                                                                      msg:
-                                                                          'Berhasil Mengakhiri Kelas, data presensi sudah tersimpan',
-                                                                      toastLength:
-                                                                          Toast
-                                                                              .LENGTH_SHORT,
-                                                                      gravity: ToastGravity
-                                                                          .BOTTOM,
-                                                                      timeInSecForIosWeb:
-                                                                          1,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .green,
-                                                                      textColor:
-                                                                          Colors
-                                                                              .white,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          '${namamk ?? "-"} '
+                                                          '${kelas ?? "-"}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              // fontWeight:
+                                                              //     FontWeight.bold,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Icon(Icons
+                                                                    .meeting_room_rounded),
+                                                              ),
+                                                              new Container(
+                                                                child: new Text(
+                                                                  'Pertemuan ${pertemuan ?? "-"}',
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
                                                                       fontSize:
-                                                                          14.0);
-                                                                });
-                                                              }
-                                                            },
-                                                            onCancelBtnTap:
-                                                                (value) {},
-                                                          );
-                                                        },
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              Icons
-                                                                  .arrow_downward_rounded,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 25,
-                                                            ),
-                                                            Text(
-                                                              'Keluar',
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
+                                                                          18),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: Column(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .credit_card_rounded),
+                                                                    ),
+                                                                    new Text(
+                                                                      '${sks ?? "-"} SKS',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              18),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
                                                       ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                MaterialButton(
-                                                  color: Colors.blue,
-                                                  shape: StadiumBorder(),
-                                                  padding: EdgeInsets.only(
-                                                      left: 50,
-                                                      right: 50,
-                                                      top: 25,
-                                                      bottom: 25),
-                                                  onPressed: () => {
-                                                    Get.offAllNamed(
-                                                        '/dosen/dashboard')
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Kembali ke Menu',
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 18),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .door_sliding_rounded),
+                                                                  ),
+                                                                  Column(
+                                                                    children: [
+                                                                      new Text(
+                                                                        'Ruangan',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new Center(
+                                                                  child:
+                                                                      new Text(
+                                                                    '${ruang ?? "-"}',
+                                                                    style: TextStyle(
+                                                                        fontFamily: 'WorkSansMedium',
+                                                                        // fontWeight:
+                                                                        //     FontWeight.bold,
+                                                                        fontSize: 16),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Column(
+                                                                children: [
+                                                                  Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child: Icon(
+                                                                            Icons.people_rounded),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Kapasitas',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '${kapasitas ?? "-"} Orang',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 16),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: Column(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .date_range_rounded),
+                                                                    ),
+                                                                    new Text(
+                                                                      'Tanggal',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  '${hari ?? "-"}, ${tanggalnow ?? "-"}',
+                                                                  style: TextStyle(
+                                                                      fontFamily: 'WorkSansMedium',
+                                                                      // fontWeight:
+                                                                      //     FontWeight.bold,
+                                                                      fontSize: 14),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: Column(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .timer),
+                                                                    ),
+                                                                    new Text(
+                                                                      'Jam',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
+                                                                  style: TextStyle(
+                                                                      fontFamily: 'WorkSansMedium',
+                                                                      // fontWeight:
+                                                                      //     FontWeight.bold,
+                                                                      fontSize: 14),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )),
+                                          ),
+                                          bukapresensi == 1
+                                              ? Column(
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Colors.grey[200],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Form(
+                                                          key: globalFormKey,
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .blue,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            25)),
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .note_rounded,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Catatan Pertemuan',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Keterangan',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Center(
+                                                                    child:
+                                                                        TextFormField(
+                                                                  controller:
+                                                                      _keteranganFieldController,
+                                                                  focusNode:
+                                                                      _keteranganFieldFocus,
+                                                                  onFieldSubmitted:
+                                                                      (term) {
+                                                                    _fieldFocusChange(
+                                                                        context,
+                                                                        _keteranganFieldFocus,
+                                                                        _materiFieldFocus);
+                                                                  },
+                                                                  textInputAction:
+                                                                      TextInputAction
+                                                                          .next,
+                                                                  style: const TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansSemiBold',
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      color: Colors
+                                                                          .black),
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .text,
+                                                                  decoration:
+                                                                      new InputDecoration(
+                                                                          hintText:
+                                                                              'Silahkan isi keterangan kelas anda'),
+                                                                  // validator: (input) => input.length < 1
+                                                                  //     ? "Materi tidak boleh kosong"
+                                                                  //     : null,
+                                                                  onSaved: (input) =>
+                                                                      presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                                              .keterangan =
+                                                                          input,
+                                                                )),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Materi',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Center(
+                                                                    child:
+                                                                        TextFormField(
+                                                                  controller:
+                                                                      _materiFieldController,
+                                                                  focusNode:
+                                                                      _materiFieldFocus,
+                                                                  onFieldSubmitted:
+                                                                      (value) {
+                                                                    _materiFieldFocus
+                                                                        .unfocus();
+                                                                  },
+                                                                  textInputAction:
+                                                                      TextInputAction
+                                                                          .done,
+                                                                  style: const TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansSemiBold',
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      color: Colors
+                                                                          .black),
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .text,
+                                                                  decoration:
+                                                                      new InputDecoration(
+                                                                          hintText:
+                                                                              'Silahkan isi materi kelas anda'),
+                                                                  // validator: (input) => input.length < 1
+                                                                  //     ? "Materi tidak boleh kosong"
+                                                                  //     : null,
+                                                                  onSaved: (input) =>
+                                                                      presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                                              .materi =
+                                                                          input,
+                                                                )),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    Container(
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              25)),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        new Text(
+                                                                      'Catatan ini bersifat opsional',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : SizedBox(
+                                                  height: 0,
                                                 ),
-                                              ]),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                          Column(
                                             children: <Widget>[
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: SpinKitDoubleBounce(
-                                                  color: Colors.red,
-                                                  size: 100,
-                                                ),
+                                              SizedBox(
+                                                height: 8,
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Anda berada di luar jarak minimal kelas',
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Jarak Anda : ${beacon.accuracy} m',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Jarak Minimal : ${jarakmin.toStringAsFixed(2)} m',
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: bukapresensi == 0
+                                                            ? Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .green,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            25)),
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .person,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Data Presensi Masuk',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .red,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            25)),
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .person,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                      new Text(
+                                                                        'Data Presensi Keluar',
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansMedium',
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              )),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          'Nama Dosen',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          namadsn,
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontSize: 16),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          'NPP',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          '${npp ?? "-"}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              // fontWeight:
+                                                              //     FontWeight.bold,
+                                                              fontSize: 16),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    // bukapresensi == 0
+                                                    //     ? Padding(
+                                                    //         padding:
+                                                    //             const EdgeInsets
+                                                    //                 .all(8.0),
+                                                    //         child: new Center(
+                                                    //           child: new Text(
+                                                    //             'Tanggal Masuk',
+                                                    //             style: TextStyle(
+                                                    //                 fontFamily:
+                                                    //                     'WorkSansMedium',
+                                                    //                 fontWeight:
+                                                    //                     FontWeight
+                                                    //                         .bold,
+                                                    //                 fontSize: 20),
+                                                    //           ),
+                                                    //         ),
+                                                    //       )
+                                                    //     : Padding(
+                                                    //         padding:
+                                                    //             const EdgeInsets
+                                                    //                 .all(8.0),
+                                                    //         child: new Center(
+                                                    //           child: new Text(
+                                                    //             'Tanggal Keluar',
+                                                    //             style: TextStyle(
+                                                    //                 fontFamily:
+                                                    //                     'WorkSansMedium',
+                                                    //                 fontWeight:
+                                                    //                     FontWeight
+                                                    //                         .bold,
+                                                    //                 fontSize: 20),
+                                                    //           ),
+                                                    //         ),
+                                                    //       ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets.all(8.0),
+                                                    //   child: new Center(
+                                                    //     child: new Text(
+                                                    //       '${tanggalnow ?? "-"}',
+                                                    //       style: TextStyle(
+                                                    //           fontFamily:
+                                                    //               'WorkSansMedium',
+                                                    //           // fontWeight:
+                                                    //           //     FontWeight.bold,
+                                                    //           fontSize: 16),
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
+                                                    bukapresensi == 0
+                                                        ? Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                'Jam Masuk',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        20),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                'Jam Keluar',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        20),
+                                                              ),
+                                                            )),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Center(
+                                                        child: new Text(
+                                                          '${jam ?? "-"}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
+
+                                          // Divider(
+                                          //   height: 20,
+                                          //   thickness: 10,
+                                          // ),
+                                          new Align(
+                                            child: new Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: new Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: MaterialButton(
+                                                        color: Colors.blue,
+                                                        shape: StadiumBorder(),
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 50,
+                                                                right: 50,
+                                                                top: 25,
+                                                                bottom: 25),
+                                                        onPressed: () => {
+                                                          Get.toNamed(
+                                                              '/dosen/dashboard/presensi/detail/tampilpeserta')
+                                                        },
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Icon(
+                                                              Icons
+                                                                  .people_alt_rounded,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 20,
+                                                            ),
+                                                            Text(
+                                                              'Tampil Peserta Kelas',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    bukapresensi == 0
+                                                        ? Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                MaterialButton(
+                                                              color:
+                                                                  Colors.green,
+                                                              shape:
+                                                                  StadiumBorder(),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left: 50,
+                                                                      right: 50,
+                                                                      top: 25,
+                                                                      bottom:
+                                                                          25),
+                                                              onPressed: () {
+                                                                SKAlertDialog
+                                                                    .show(
+                                                                  context:
+                                                                      context,
+                                                                  type: SKAlertType
+                                                                      .buttons,
+                                                                  title:
+                                                                      'Presensi Masuk &\nBuka Kelas ?',
+                                                                  message:
+                                                                      'Apakah anda yakin ingin\npresensi masuk dan buka kelas ini ?',
+                                                                  okBtnText:
+                                                                      'Ya',
+                                                                  okBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  okBtnColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  cancelBtnText:
+                                                                      'Tidak',
+                                                                  cancelBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  cancelBtnColor:
+                                                                      Colors
+                                                                          .grey,
+                                                                  onOkBtnTap:
+                                                                      (value) async {
+                                                                    print(
+                                                                        idkelas);
+
+                                                                    print(
+                                                                        bukapresensi);
+
+                                                                    print(
+                                                                        pertemuan);
+
+                                                                    print(jam +
+                                                                        ' ' +
+                                                                        tanggalnow);
+
+                                                                    setState(
+                                                                        () {
+                                                                      isApiCallProcess =
+                                                                          true;
+                                                                      presensiINOUTDosenBukaPresensiRequestModel
+                                                                              .idkelas =
+                                                                          idkelas;
+
+                                                                      presensiINOUTDosenBukaPresensiRequestModel
+                                                                              .pertemuan =
+                                                                          pertemuan;
+
+                                                                      presensiINOUTDosenBukaPresensiRequestModel
+                                                                              .jammasuk =
+                                                                          jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+
+                                                                      presensiINDosenBukaPresensiRequestModel
+                                                                              .idkelas =
+                                                                          idkelas;
+
+                                                                      presensiINDosenBukaPresensiRequestModel
+                                                                          .bukapresensi = 1;
+
+                                                                      presensiINDosenBukaPresensiRequestModel
+                                                                              .pertemuan =
+                                                                          pertemuan;
+                                                                    });
+
+                                                                    print(presensiINOUTDosenBukaPresensiRequestModel
+                                                                        .toJson());
+
+                                                                    print(presensiINDosenBukaPresensiRequestModel
+                                                                        .toJson());
+
+                                                                    APIService
+                                                                        apiService =
+                                                                        new APIService();
+
+                                                                    await apiService
+                                                                        .putPresensiINDosen(
+                                                                            presensiINOUTDosenBukaPresensiRequestModel)
+                                                                        .then(
+                                                                            (value) async {
+                                                                      if (value !=
+                                                                          null) {
+                                                                        setState(
+                                                                            () {
+                                                                          isApiCallProcess =
+                                                                              false;
+                                                                        });
+                                                                      }
+                                                                    });
+
+                                                                    await apiService
+                                                                        .putBukaPresensiDosen(
+                                                                            presensiINDosenBukaPresensiRequestModel)
+                                                                        .then(
+                                                                            (value) async {
+                                                                      if (value !=
+                                                                          null) {
+                                                                        setState(
+                                                                            () {
+                                                                          isApiCallProcess =
+                                                                              false;
+                                                                        });
+                                                                      }
+                                                                      Get.offAllNamed(
+                                                                          '/dosen/dashboard');
+
+                                                                      await Fluttertoast.showToast(
+                                                                          msg:
+                                                                              'Berhasil presensi masuk dan membuka kelas',
+                                                                          toastLength: Toast
+                                                                              .LENGTH_SHORT,
+                                                                          gravity: ToastGravity
+                                                                              .BOTTOM,
+                                                                          timeInSecForIosWeb:
+                                                                              1,
+                                                                          backgroundColor: Colors
+                                                                              .green,
+                                                                          textColor: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              14.0);
+                                                                    });
+                                                                  },
+                                                                  onCancelBtnTap:
+                                                                      (value) {},
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_upward_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    'Presensi Masuk &\nBuka Kelas',
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : SizedBox(
+                                                            height: 0,
+                                                          ),
+                                                    bukapresensi == 0
+                                                        ? SizedBox(
+                                                            height: 0,
+                                                          )
+                                                        : Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                MaterialButton(
+                                                              color: Colors.red,
+                                                              shape:
+                                                                  StadiumBorder(),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left: 50,
+                                                                      right: 50,
+                                                                      top: 25,
+                                                                      bottom:
+                                                                          25),
+                                                              onPressed: () {
+                                                                SKAlertDialog
+                                                                    .show(
+                                                                  context:
+                                                                      context,
+                                                                  type: SKAlertType
+                                                                      .buttons,
+                                                                  title:
+                                                                      'Presensi Keluar &\nTutup Kelas ?',
+                                                                  message:
+                                                                      'Apakah anda yakin ingin\npresensi keluar dan\nmenutup kelas ?',
+                                                                  okBtnText:
+                                                                      'Ya',
+                                                                  okBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  okBtnColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  cancelBtnText:
+                                                                      'Tidak',
+                                                                  cancelBtnTxtColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  cancelBtnColor:
+                                                                      Colors
+                                                                          .grey,
+                                                                  onOkBtnTap:
+                                                                      (value) async {
+                                                                    FocusScope.of(
+                                                                            context)
+                                                                        .unfocus();
+                                                                    SharedPreferences
+                                                                        dataPresensiMahasiswa =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
+
+                                                                    await dataPresensiMahasiswa
+                                                                        .setInt(
+                                                                            'statuspresensi',
+                                                                            0);
+
+                                                                    print(presensiINOUTOUTDosenBukaPresensiRequestModel
+                                                                        .toJson());
+
+                                                                    print(presensiINDosenBukaPresensiRequestModel
+                                                                        .toJson());
+
+                                                                    print(
+                                                                        idkelas);
+
+                                                                    print(
+                                                                        bukapresensi);
+
+                                                                    if (validateAndSave()) {
+                                                                      setState(
+                                                                          () {
+                                                                        isApiCallProcess =
+                                                                            true;
+
+                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel.idkelas =
+                                                                            idkelas;
+
+                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel.pertemuan =
+                                                                            pertemuan;
+
+                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel.jamkeluar = jam +
+                                                                            ' ' +
+                                                                            tanggalnow;
+
+                                                                        presensiINDosenBukaPresensiRequestModel.idkelas =
+                                                                            idkelas;
+
+                                                                        presensiINDosenBukaPresensiRequestModel
+                                                                            .bukapresensi = 0;
+
+                                                                        presensiINDosenBukaPresensiRequestModel.pertemuan =
+                                                                            pertemuan;
+                                                                      });
+
+                                                                      APIService
+                                                                          apiService =
+                                                                          new APIService();
+
+                                                                      await apiService
+                                                                          .putPresensiOUTDosen(
+                                                                              presensiINOUTOUTDosenBukaPresensiRequestModel)
+                                                                          .then(
+                                                                              (value) async {
+                                                                        if (value !=
+                                                                            null) {
+                                                                          setState(
+                                                                              () {
+                                                                            isApiCallProcess =
+                                                                                false;
+                                                                          });
+                                                                        }
+                                                                      });
+
+                                                                      await apiService
+                                                                          .putBukaPresensiDosen(
+                                                                              presensiINDosenBukaPresensiRequestModel)
+                                                                          .then(
+                                                                              (value) async {
+                                                                        if (value !=
+                                                                            null) {
+                                                                          setState(
+                                                                              () {
+                                                                            isApiCallProcess =
+                                                                                false;
+                                                                          });
+                                                                        }
+                                                                        Get.offAllNamed(
+                                                                            '/dosen/dashboard');
+
+                                                                        await Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Berhasil presensi keluar dan mengakhiri kelas',
+                                                                            toastLength: Toast
+                                                                                .LENGTH_SHORT,
+                                                                            gravity: ToastGravity
+                                                                                .BOTTOM,
+                                                                            timeInSecForIosWeb:
+                                                                                1,
+                                                                            backgroundColor:
+                                                                                Colors.green,
+                                                                            textColor: Colors.white,
+                                                                            fontSize: 14.0);
+                                                                      });
+                                                                    }
+                                                                  },
+                                                                  onCancelBtnTap:
+                                                                      (value) {},
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_downward_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    'Presensi Keluar &\nTutup Kelas',
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: MaterialButton(
+                                                        color: Colors.blue,
+                                                        shape: StadiumBorder(),
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 50,
+                                                                right: 50,
+                                                                top: 25,
+                                                                bottom: 25),
+                                                        onPressed: () => {
+                                                          Get.offAllNamed(
+                                                              '/dosen/dashboard')
+                                                        },
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Icon(
+                                                              Icons
+                                                                  .arrow_back_rounded,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 20,
+                                                            ),
+                                                            Text(
+                                                              'Kembali',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: 500,
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                            })).toList()),
+                                    );
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: SpinKitDoubleBounce(
+                                                      color: Colors.red,
+                                                      size: 100,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Anda berada di luar jarak minimal kelas',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.green,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          'Jarak Anda : ${beacon.accuracy} m',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          'Jarak Minimal : ${jarakmin.toStringAsFixed(2)} m',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 500,
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                })).toList()),
+                      ),
+                    ),
                   )));
   }
 

@@ -87,14 +87,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -107,14 +109,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -161,14 +164,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -181,14 +186,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -234,14 +240,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -254,14 +262,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -376,14 +385,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -396,14 +407,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -442,14 +454,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -462,14 +476,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -513,14 +528,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -533,14 +550,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -578,14 +596,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -598,14 +618,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -680,14 +701,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -700,14 +723,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -751,14 +775,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -771,14 +797,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -823,14 +850,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -843,14 +872,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -888,14 +918,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -908,14 +940,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -961,14 +994,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -981,14 +1016,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1034,14 +1070,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1054,14 +1092,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1107,14 +1146,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1127,14 +1168,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1180,14 +1222,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1200,14 +1244,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1246,14 +1291,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1266,14 +1313,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1312,14 +1360,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1332,14 +1382,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1378,14 +1429,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1398,14 +1451,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1451,14 +1505,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1471,14 +1527,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1518,14 +1575,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1538,14 +1597,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1584,14 +1644,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1604,14 +1666,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1651,14 +1714,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1671,14 +1736,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1717,14 +1783,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1737,14 +1805,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1784,14 +1853,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1804,14 +1875,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1850,14 +1922,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1870,14 +1944,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1917,14 +1992,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1937,14 +2014,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -1983,14 +2061,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2003,14 +2083,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -2050,14 +2131,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2070,14 +2153,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -2116,14 +2200,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2136,14 +2222,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -2206,14 +2293,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2226,14 +2315,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -2265,14 +2355,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2285,14 +2377,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }
@@ -2331,14 +2424,16 @@ class APIService {
     } catch (e) {
       if (e is SocketException) {
         Fluttertoast.showToast(
-            msg: 'Tidak terhubung dengan jaringan',
+            msg:
+                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Tidak terhubung dengan jaringan');
+        throw Exception(
+            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2351,14 +2446,15 @@ class APIService {
         throw Exception('Request Timeout');
       } else {
         Fluttertoast.showToast(
-            msg: 'Sistem sedang dalam masalah',
+            msg: 'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 14.0);
-        throw Exception('Sistem sedang dalam masalah');
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
     }
   }

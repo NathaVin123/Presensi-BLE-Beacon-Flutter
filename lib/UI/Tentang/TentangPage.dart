@@ -55,7 +55,7 @@ class _TentangPageState extends State<TentangPage> {
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.center,
-                                child: Text('Sistem Presensi UAJY',
+                                child: Text('Presensi UAJY',
                                     style: const TextStyle(
                                         fontFamily: 'WorkSansSemiBold',
                                         fontSize: 22.0,
