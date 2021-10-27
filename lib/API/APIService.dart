@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:presensiblebeacon/MODEL/Beacon/HapusBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
@@ -35,14 +38,14 @@ import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganNamaDeviceModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/UbahRuangBeaconModel.dart';
-
-import '../MODEL/Login/LoginMahasiswaModel.dart';
-import '../MODEL/Login/LoginDosenModel.dart';
-import 'package:http/http.dart' as http;
+import 'package:presensiblebeacon/MODEL/Login/LoginMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Login/LoginDosenModel.dart';
 
 class APIService {
-  // String address = 'https://192.168.100.249:5000/api/';
+  // API Local - Sesuaikan dengan alamat IP (ipconfig)
+  // String address = 'https://0.0.0.0:5000/api/';
 
+  // API Server KSI UAJY
   String address = 'https://api-presensi.uajy.ac.id/api/';
 
   // Login Mahasiswa API

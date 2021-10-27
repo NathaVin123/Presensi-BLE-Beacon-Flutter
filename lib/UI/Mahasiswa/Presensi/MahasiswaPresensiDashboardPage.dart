@@ -831,14 +831,6 @@ class _MahasiswaPresensiDashboardPageState
                                           ),
                                         ),
                                       ),
-                                      // Text(
-                                      //   'Silakan tekan tombol "Segarkan" jika bermasalah',
-                                      //   style: TextStyle(
-                                      //       fontSize: 14,
-                                      //       fontFamily: 'WorkSansMedium',
-                                      //       fontWeight: FontWeight.bold,
-                                      //       color: Colors.white),
-                                      // ),
                                     ],
                                   ),
                                 );
