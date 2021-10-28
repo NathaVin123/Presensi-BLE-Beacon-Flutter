@@ -1631,7 +1631,7 @@ class _MahasiswaPresensiDashboardPageState
                                                   const EdgeInsets.all(8.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: Colors.green,
+                                                    color: Colors.yellow[700],
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             25)),
@@ -1639,7 +1639,7 @@ class _MahasiswaPresensiDashboardPageState
                                                   padding:
                                                       const EdgeInsets.all(8),
                                                   child: new Text(
-                                                    'Mohon tunggu, dosen membuka kelas',
+                                                    'Mohon tunggu dosen membuka kelas',
                                                     style: TextStyle(
                                                       fontSize: 14,
                                                       fontFamily:

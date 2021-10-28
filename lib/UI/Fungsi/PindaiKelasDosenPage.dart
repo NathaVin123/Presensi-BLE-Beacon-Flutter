@@ -1622,7 +1622,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                           const EdgeInsets.all(
                                                               8.0),
                                                       child: MaterialButton(
-                                                        color: Colors.blue,
+                                                        color:
+                                                            Colors.yellow[700],
                                                         shape: StadiumBorder(),
                                                         padding:
                                                             EdgeInsets.only(
