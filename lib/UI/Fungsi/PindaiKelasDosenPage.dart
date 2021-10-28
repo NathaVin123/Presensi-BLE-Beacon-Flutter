@@ -113,13 +113,11 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
       });
     });
 
-    Future.delayed(Duration(minutes: 15), () {
-      Timer.periodic(Duration(seconds: 1), (Timer t) {
-        // getDetailKelas();
-        getDetailDosen();
-        Future.delayed(Duration(seconds: 5), () {
-          t.cancel();
-        });
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      // getDetailKelas();
+      getDetailDosen();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
       });
     });
   }
@@ -513,117 +511,160 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                       SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Column(
-                                  children: <Widget>[
-                                    uuid != "-"
-                                        ? SpinKitRipple(
-                                            color: Colors.black,
-                                            size: 100,
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.warning_rounded,
-                                              color: Colors.red,
-                                              size: 100,
-                                            ),
-                                          ),
-                                    SizedBox(
-                                      height: 50,
-                                    ),
-                                    uuid != '-'
-                                        ? Text(
-                                            'Mohon Tunggu...',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          )
-                                        : Text(
-                                            'Tidak ada perangkat beacon di ruangan',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
-                                    SizedBox(
-                                      height: 25,
-                                    ),
-                                    uuid != '-'
-                                        ? Text(
-                                            'Aplikasi sedang melakukan pemindaian',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.red,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              child: Padding(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Column(
+                                      children: <Widget>[
+                                        uuid != "-"
+                                            ? SpinKitRipple(
+                                                color: Colors.black,
+                                                size: 100,
+                                              )
+                                            : Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Silahkan menghubungi admin',
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
+                                                child: Icon(
+                                                  Icons.warning_rounded,
+                                                  color: Colors.red,
+                                                  size: 100,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                    SizedBox(
-                                      height: 50,
-                                    ),
-                                    uuid != '-'
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.red,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              child: Padding(
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        uuid != '-'
+                                            ? Text(
+                                                'Mohon Tunggu...',
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              )
+                                            : Text(
+                                                'Tidak ada perangkat beacon di ruangan',
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        uuid != '-'
+                                            ? Text(
+                                                'Aplikasi sedang melakukan pemindaian',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              )
+                                            : Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Pastikan anda dekat dengan beacon ruangan',
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Silahkan menghubungi admin',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        : Container(),
-                                  ],
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        uuid != '-'
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Pastikan anda dekat dengan beacon ruangan',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MaterialButton(
+                                  color: Colors.blue,
+                                  shape: StadiumBorder(),
+                                  padding: EdgeInsets.only(
+                                      left: 50, right: 50, top: 25, bottom: 25),
+                                  onPressed: () =>
+                                      {Get.offAllNamed('/dosen/dashboard')},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.arrow_back_rounded,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        'Kembali',
+                                        style: TextStyle(
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -1904,7 +1945,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                             idkelas;
 
                                                                         presensiINDosenBukaPresensiRequestModel
-                                                                            .bukapresensi = 0;
+                                                                            .bukapresensi = 3;
 
                                                                         presensiINDosenBukaPresensiRequestModel.pertemuan =
                                                                             pertemuan;
@@ -2150,6 +2191,45 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                         ),
                                                       ),
                                                     ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: MaterialButton(
+                                              color: Colors.blue,
+                                              shape: StadiumBorder(),
+                                              padding: EdgeInsets.only(
+                                                  left: 50,
+                                                  right: 50,
+                                                  top: 25,
+                                                  bottom: 25),
+                                              onPressed: () => {
+                                                Get.offAllNamed(
+                                                    '/dosen/dashboard')
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.arrow_back_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'Kembali',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 18),
                                                   ),
                                                 ],
                                               ),

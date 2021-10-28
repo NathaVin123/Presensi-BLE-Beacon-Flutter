@@ -699,6 +699,41 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                             ),
                                           )
                                         : Container(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MaterialButton(
+                                        color: Colors.blue,
+                                        shape: StadiumBorder(),
+                                        padding: EdgeInsets.only(
+                                            left: 50,
+                                            right: 50,
+                                            top: 25,
+                                            bottom: 25),
+                                        onPressed: () => {
+                                          Get.offAllNamed(
+                                              '/mahasiswa/dashboard')
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Icon(Icons.arrow_back_rounded,
+                                                color: Colors.white),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              'Kembali',
+                                              style: TextStyle(
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -1469,7 +1504,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     title:
                                                                         'Presensi Masuk ?',
                                                                     message:
-                                                                        'Apakah anda yakin ingin\npresensi masuk ke kelas ini ?',
+                                                                        'Apakah anda yakin ingin\npresensi masuk di kelas ini ?',
                                                                     okBtnText:
                                                                         'Ya',
                                                                     okBtnTxtColor:
@@ -1674,7 +1709,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
                                                                         await Fluttertoast.showToast(
                                                                             msg:
-                                                                                'Berhasil masuk ke kelas',
+                                                                                'Berhasil presnesi masuk',
                                                                             toastLength: Toast
                                                                                 .LENGTH_SHORT,
                                                                             gravity: ToastGravity
@@ -1741,9 +1776,9 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                   type: SKAlertType
                                                                       .buttons,
                                                                   title:
-                                                                      'Keluar ?',
+                                                                      'Presensi Keluar ?',
                                                                   message:
-                                                                      'Apakah anda yakin ingin\nkeluar dari kelas ini ?',
+                                                                      'Apakah anda yakin ingin\npresensi keluar dari kelas ini ?',
                                                                   okBtnText:
                                                                       'Ya',
                                                                   okBtnTxtColor:
@@ -1978,7 +2013,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
                                                                       await Fluttertoast.showToast(
                                                                           msg:
-                                                                              'Berhasil keluar dari kelas, data presensi telah tersimpan',
+                                                                              'Berhasil presensi keluar dari kelas',
                                                                           toastLength: Toast
                                                                               .LENGTH_SHORT,
                                                                           gravity: ToastGravity
@@ -2013,7 +2048,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     width: 25,
                                                                   ),
                                                                   Text(
-                                                                    'Keluar',
+                                                                    'Presensi Keluar',
                                                                     style: TextStyle(
                                                                         fontFamily:
                                                                             'WorkSansMedium',
@@ -2181,6 +2216,43 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                         ),
                                                       ),
                                                     ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: MaterialButton(
+                                              color: Colors.blue,
+                                              shape: StadiumBorder(),
+                                              padding: EdgeInsets.only(
+                                                  left: 50,
+                                                  right: 50,
+                                                  top: 25,
+                                                  bottom: 25),
+                                              onPressed: () => {
+                                                Get.offAllNamed(
+                                                    '/mahasiswa/dashboard')
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(Icons.arrow_back_rounded,
+                                                      color: Colors.white),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'Kembali',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 18),
                                                   ),
                                                 ],
                                               ),
