@@ -142,15 +142,15 @@ class _MahasiswaPresensiDashboardPageState
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => getDataListKelasMahasiswa(),
-            label: Text(
-              'Segarkan',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-            ),
-            icon: Icon(Icons.refresh_rounded),
-          ),
+          // floatingActionButton: FloatingActionButton.extended(
+          //   onPressed: () => getDataListKelasMahasiswa(),
+          //   label: Text(
+          //     'Segarkan',
+          //     style: TextStyle(
+          //         fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
+          //   ),
+          //   icon: Icon(Icons.refresh_rounded),
+          // ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
           appBar: AppBar(
@@ -493,6 +493,34 @@ class _MahasiswaPresensiDashboardPageState
                                                       ','
                                                       ' '
                                                       '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.alarm_on_rounded),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: new Text(
+                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                      ' '
+                                                      '-'
+                                                      ' '
+                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontFamily:
@@ -1368,6 +1396,34 @@ class _MahasiswaPresensiDashboardPageState
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.alarm_on_rounded),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: new Text(
+                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                      ' '
+                                                      '-'
+                                                      ' '
+                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Divider(
                                                 height: 1,
                                                 color: Colors.black,
@@ -1606,6 +1662,34 @@ class _MahasiswaPresensiDashboardPageState
                                                       ','
                                                       ' '
                                                       '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.alarm_on_rounded),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: new Text(
+                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                      ' '
+                                                      '-'
+                                                      ' '
+                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontFamily:
