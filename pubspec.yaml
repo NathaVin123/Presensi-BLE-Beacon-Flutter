@@ -84,6 +84,8 @@ dependencies:
 
   auto_size_text: ^2.1.0
 
+  widget_marquee: ^0.0.5
+
   # Error Handling with Dialog
   # base_api_client: ^0.0.3
   # dio: ^4.0.0

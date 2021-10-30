@@ -11,6 +11,7 @@ import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:intl/intl.dart';
+import 'package:widget_marquee/widget_marquee.dart';
 
 class DosenPresensiDashboardPage extends StatefulWidget {
   @override
@@ -276,13 +277,21 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                       alignment: Alignment.centerLeft,
                       child: Center(
                         child: Container(
-                          child: Text(
-                            '${namadsn ?? "-"}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                          child: Scrollbar(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  '${namadsn ?? "-"}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -524,13 +533,20 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Marquee(
+                                                        child: Text(
+                                                          '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
