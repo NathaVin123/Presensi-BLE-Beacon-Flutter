@@ -1,11 +1,9 @@
-
 import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class MahasiswaInformasiAkunPage extends StatefulWidget {
   MahasiswaInformasiAkunPage({Key key}) : super(key: key);
@@ -112,10 +110,19 @@ class _MahasiswaInformasiAkunPageState
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(namamhs,
-                                  style: TextStyle(
-                                      fontFamily: 'WorkSansMedium',
-                                      fontSize: 18)),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Scrollbar(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Text(namamhs,
+                                        style: TextStyle(
+                                            fontFamily: 'WorkSansMedium',
+                                            fontSize: 18)),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 16,
                               ),

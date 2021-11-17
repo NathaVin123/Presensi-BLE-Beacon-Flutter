@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -95,6 +96,8 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class _MyAppState extends State<MyApp> {
+  DateTime timeBackPressed = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -131,166 +134,185 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Presensi BLE Beacon',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      // home: SplashPage(),
-      initialRoute: '/',
-      getPages: [
-        // Splash Page
-        GetPage(name: '/', page: () => SplashPage()),
-        // BluetoothOff Page
-        // GetPage(
-        //   name: '/bluetooth',
-        //   page: () => BluetoothOff(),
-        // ),
-        GetPage(
-          name: '/pindaiMahasiswa',
-          page: () => PindaiKelasMahasiswaPage(),
-        ),
-        GetPage(
-          name: '/pindaiDosen',
-          page: () => PindaiKelasDosenPage(),
-        ),
-        // Login Page
-        GetPage(
-          name: '/login',
-          page: () => LoginPage(),
-        ),
-        GetPage(name: '/login/mahasiswa', page: () => LoginMahasiswa()),
-        GetPage(name: '/login/dosen', page: () => LoginDosen()),
-        // Mahasiswa Page
-        GetPage(
-          name: '/mahasiswa/dashboard',
-          page: () => MahasiswaDashboardPage(),
-        ),
-        GetPage(
-            name: '/mahasiswa/dashboard/presensi',
-            page: () => MahasiswaPresensiDashboardPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/presensi/detail',
-            page: () => MahasiswaDetailPresensiPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/presensi/detail/list',
-            page: () => MahasiswaDetailListKelas()),
-        GetPage(
-            name: '/mahasiswa/dashboard/presensi/detail/tampilpeserta',
-            page: () => MahasiswaTampilPesertaKelasPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/presensi/notifikasi',
-            page: () => MahasiswaNotifikasiPresensiPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/jadwal',
-            page: () => MahasiswaJadwalDashboardPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/jadwal/detail',
-            page: () => MahasiswaDetailJadwalPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/riwayat',
-            page: () => MahasiswaRiwayatDashboardPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/riwayat/detail',
-            page: () => MahasiswaDetailRiwayatPage()),
+  Widget build(BuildContext context) => WillPopScope(
+      onWillPop: () async {
+        final difference = DateTime.now().difference(timeBackPressed);
+        final isExitWarning = difference >= Duration(seconds: 2);
 
-        GetPage(
-            name: '/mahasiswa/dashboard/akun',
-            page: () => MahasiswaAkunDashboardPage()),
-        GetPage(
-            name: '/mahasiswa/dashboard/akun/informasi',
-            page: () => MahasiswaInformasiAkunPage()),
-        GetPage(
-            name: '/statistik/mahasiswa',
-            page: () => MahasiswaStatistikPage(),
-            transition: Transition.fade),
-        // Dosen Page
-        GetPage(
-          name: '/dosen/dashboard',
-          page: () => DosenDashboardPage(),
-        ),
-        GetPage(
-            name: '/dosen/dashboard/presensi',
-            page: () => DosenPresensiDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/presensi/detail',
-            page: () => DosenDetailPresensiPage()),
-        GetPage(
-            name: '/dosen/dashboard/presensi/detail/list',
-            page: () => DosenDetailListKelas()),
-        GetPage(
-            name: '/dosen/dashboard/presensi/detail/tampilpeserta',
-            page: () => DosenTampilPesertaKelasPage()),
-        GetPage(
-            name: '/dosen/dashboard/presensi/notifikasi',
-            page: () => DosenNotifikasiPresensiPage()),
-        GetPage(
-            name: '/dosen/dashboard/jadwal',
-            page: () => DosenJadwalDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/jadwal/detail',
-            page: () => DosenDetailJadwalPage()),
-        GetPage(
-            name: '/dosen/dashboard/riwayat',
-            page: () => DosenRiwayatDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/riwayat/detail',
-            page: () => DosenDetailRiwayatPage()),
-        GetPage(
-            name: '/dosen/dashboard/akun',
-            page: () => DosenAkunDashboardPage()),
-        GetPage(
-            name: '/dosen/dashboard/akun/informasi',
-            page: () => DosenInformasiAkunPage()),
+        timeBackPressed = DateTime.now();
 
-        // Admin Page
-        GetPage(name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
-        GetPage(
-            name: '/admin/menu/beacon/pindai', page: () => AdminPindaiBeacon()),
-        GetPage(
-            name: '/admin/menu/beacon/tampil',
-            page: () => AdminTampilListBeacon()),
-        GetPage(
-            name: '/admin/menu/beacon/tambah', page: () => AdminTambahBeacon()),
-        GetPage(name: '/admin/menu/beacon/ubah', page: () => AdminUbahBeacon()),
-        GetPage(
-            name: '/admin/menu/beacon/hapus', page: () => AdminHapusBeacon()),
-        GetPage(
-            name: '/admin/menu/beacon/detail/ubah',
-            page: () => AdminDetailUbahBeacon()),
-        GetPage(
-            name: '/admin/menu/beacon/detail/hapus',
-            page: () => AdminDetailHapusBeacon()),
-        GetPage(
-            name: '/admin/menu/ruangan/menu',
-            page: () => AdminMenuRuanganPage()),
-        GetPage(name: '/admin/menu/ruangan/', page: () => AdminRuanganPage()),
-        GetPage(
-            name: '/admin/menu/ruangan/hapus',
-            page: () => AdminHapusRuanganPage()),
-        GetPage(
-            name: '/admin/menu/ruangan/detail',
-            page: () => AdminDetailRuanganPage()),
-        GetPage(
-            name: '/admin/menu/ruangan/tampil',
-            page: () => AdminTampilRuanganPage()),
-        GetPage(
-            name: '/dosen/dashboard/akun/gantipassword',
-            page: () => DosenGantiPasswordPage()),
-        GetPage(name: '/login/admin', page: () => LoginAdmin()),
-        GetPage(name: '/admin/dashboard', page: () => AdminDashboardPage()),
-        GetPage(
-            name: '/statistik/dosen',
-            page: () => DosenStatistikPage(),
-            transition: Transition.fade),
-        // Tentang Page
-        GetPage(
-          name: '/tentang',
-          page: () => TentangPage(),
+        if (isExitWarning) {
+          final message = 'Tekan tombol kembali lagi untuk keluar';
+          Fluttertoast.showToast(msg: message);
+          return false;
+        } else {
+          Fluttertoast.cancel();
+
+          return true;
+        }
+      },
+      child: GetMaterialApp(
+        title: 'Presensi BLE Beacon',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-      ],
-    );
-  }
+        debugShowCheckedModeBanner: false,
+        // home: SplashPage(),
+        initialRoute: '/',
+        getPages: [
+          // Splash Page
+          GetPage(name: '/', page: () => SplashPage()),
+          // BluetoothOff Page
+          // GetPage(
+          //   name: '/bluetooth',
+          //   page: () => BluetoothOff(),
+          // ),
+          GetPage(
+            name: '/pindaiMahasiswa',
+            page: () => PindaiKelasMahasiswaPage(),
+          ),
+          GetPage(
+            name: '/pindaiDosen',
+            page: () => PindaiKelasDosenPage(),
+          ),
+          // Login Page
+          GetPage(
+            name: '/login',
+            page: () => LoginPage(),
+          ),
+          GetPage(name: '/login/mahasiswa', page: () => LoginMahasiswa()),
+          GetPage(name: '/login/dosen', page: () => LoginDosen()),
+          // Mahasiswa Page
+          GetPage(
+            name: '/mahasiswa/dashboard',
+            page: () => MahasiswaDashboardPage(),
+          ),
+          GetPage(
+              name: '/mahasiswa/dashboard/presensi',
+              page: () => MahasiswaPresensiDashboardPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/presensi/detail',
+              page: () => MahasiswaDetailPresensiPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/presensi/detail/list',
+              page: () => MahasiswaDetailListKelas()),
+          GetPage(
+              name: '/mahasiswa/dashboard/presensi/detail/tampilpeserta',
+              page: () => MahasiswaTampilPesertaKelasPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/presensi/notifikasi',
+              page: () => MahasiswaNotifikasiPresensiPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/jadwal',
+              page: () => MahasiswaJadwalDashboardPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/jadwal/detail',
+              page: () => MahasiswaDetailJadwalPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/riwayat',
+              page: () => MahasiswaRiwayatDashboardPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/riwayat/detail',
+              page: () => MahasiswaDetailRiwayatPage()),
+
+          GetPage(
+              name: '/mahasiswa/dashboard/akun',
+              page: () => MahasiswaAkunDashboardPage()),
+          GetPage(
+              name: '/mahasiswa/dashboard/akun/informasi',
+              page: () => MahasiswaInformasiAkunPage()),
+          GetPage(
+              name: '/statistik/mahasiswa',
+              page: () => MahasiswaStatistikPage(),
+              transition: Transition.fade),
+          // Dosen Page
+          GetPage(
+            name: '/dosen/dashboard',
+            page: () => DosenDashboardPage(),
+          ),
+          GetPage(
+              name: '/dosen/dashboard/presensi',
+              page: () => DosenPresensiDashboardPage()),
+          GetPage(
+              name: '/dosen/dashboard/presensi/detail',
+              page: () => DosenDetailPresensiPage()),
+          GetPage(
+              name: '/dosen/dashboard/presensi/detail/list',
+              page: () => DosenDetailListKelas()),
+          GetPage(
+              name: '/dosen/dashboard/presensi/detail/tampilpeserta',
+              page: () => DosenTampilPesertaKelasPage()),
+          GetPage(
+              name: '/dosen/dashboard/presensi/notifikasi',
+              page: () => DosenNotifikasiPresensiPage()),
+          GetPage(
+              name: '/dosen/dashboard/jadwal',
+              page: () => DosenJadwalDashboardPage()),
+          GetPage(
+              name: '/dosen/dashboard/jadwal/detail',
+              page: () => DosenDetailJadwalPage()),
+          GetPage(
+              name: '/dosen/dashboard/riwayat',
+              page: () => DosenRiwayatDashboardPage()),
+          GetPage(
+              name: '/dosen/dashboard/riwayat/detail',
+              page: () => DosenDetailRiwayatPage()),
+          GetPage(
+              name: '/dosen/dashboard/akun',
+              page: () => DosenAkunDashboardPage()),
+          GetPage(
+              name: '/dosen/dashboard/akun/informasi',
+              page: () => DosenInformasiAkunPage()),
+
+          // Admin Page
+          GetPage(
+              name: '/admin/menu/beacon', page: () => AdminMenuBeaconPage()),
+          GetPage(
+              name: '/admin/menu/beacon/pindai',
+              page: () => AdminPindaiBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/tampil',
+              page: () => AdminTampilListBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/tambah',
+              page: () => AdminTambahBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/ubah', page: () => AdminUbahBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/hapus', page: () => AdminHapusBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/detail/ubah',
+              page: () => AdminDetailUbahBeacon()),
+          GetPage(
+              name: '/admin/menu/beacon/detail/hapus',
+              page: () => AdminDetailHapusBeacon()),
+          GetPage(
+              name: '/admin/menu/ruangan/menu',
+              page: () => AdminMenuRuanganPage()),
+          GetPage(name: '/admin/menu/ruangan/', page: () => AdminRuanganPage()),
+          GetPage(
+              name: '/admin/menu/ruangan/hapus',
+              page: () => AdminHapusRuanganPage()),
+          GetPage(
+              name: '/admin/menu/ruangan/detail',
+              page: () => AdminDetailRuanganPage()),
+          GetPage(
+              name: '/admin/menu/ruangan/tampil',
+              page: () => AdminTampilRuanganPage()),
+          GetPage(
+              name: '/dosen/dashboard/akun/gantipassword',
+              page: () => DosenGantiPasswordPage()),
+          GetPage(name: '/login/admin', page: () => LoginAdmin()),
+          GetPage(name: '/admin/dashboard', page: () => AdminDashboardPage()),
+          GetPage(
+              name: '/statistik/dosen',
+              page: () => DosenStatistikPage(),
+              transition: Transition.fade),
+          // Tentang Page
+          GetPage(
+            name: '/tentang',
+            page: () => TentangPage(),
+          ),
+        ],
+      ));
 }

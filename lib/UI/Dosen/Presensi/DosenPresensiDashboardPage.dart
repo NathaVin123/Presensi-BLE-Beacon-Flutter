@@ -245,22 +245,11 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                     left: 20, right: 20, top: 10, bottom: 10),
                 child: Column(
                   children: [
-                    // Center(
-                    //   // alignment: Alignment.centerRight,
-                    //   child: Text(
-                    //     _dateString,
-                    //     style: TextStyle(
-                    //         fontSize: 22,
-                    //         fontFamily: 'WorkSansMedium',
-                    //         color: Colors.white),
-                    //   ),
-                    // ),
                     Center(
-                      // alignment: Alignment.centerLeft,
                       child: Text(
                         _timeString,
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 35,
                             fontFamily: 'WorkSansMedium',
                             color: Colors.white),
                       ),
@@ -285,7 +274,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                 child: Text(
                                   '${namadsn ?? "-"}',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontFamily: 'WorkSansMedium',
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -299,10 +288,12 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   ],
                 ),
               ),
-              Divider(
-                height: 20,
-                thickness: 5,
-                color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -528,14 +519,17 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                       ),
                                                     ),
                                                   ),
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: Center(
-                                                    child: Container(
-                                                      child: Marquee(
+                                            Scrollbar(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
                                                         child: Text(
                                                           '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
                                                           style: TextStyle(
@@ -547,10 +541,10 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                               fontSize: 18),
                                                         ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -700,9 +694,10 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                             Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                               child: Divider(
-                                                height: 1,
+                                                thickness: 2,
                                                 color: Colors.black,
                                               ),
                                             ),
@@ -727,7 +722,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                           child: Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                    .all(8),
+                                                                    .all(12),
                                                             child: new Text(
                                                               'Mahasiswa belum bisa presensi, perlu membuka kelas',
                                                               style: TextStyle(
@@ -1095,7 +1090,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                           child: Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                    .all(8),
+                                                                    .all(12),
                                                             child: new Text(
                                                               'Persilahkan mahasiswa untuk presensi masuk',
                                                               style: TextStyle(
@@ -1515,22 +1510,32 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                               ),
                                             ),
 
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Scrollbar(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: Text(
+                                                          '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -1680,9 +1685,10 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                             ),
                                             Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                               child: Divider(
-                                                height: 1,
+                                                thickness: 2,
                                                 color: Colors.black,
                                               ),
                                             ),

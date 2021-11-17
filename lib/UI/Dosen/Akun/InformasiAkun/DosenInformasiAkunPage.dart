@@ -1,10 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class DosenInformasiAkunPage extends StatefulWidget {
   DosenInformasiAkunPage({Key key}) : super(key: key);
@@ -94,10 +91,19 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text(namadsn,
-                                      style: TextStyle(
-                                          fontFamily: 'WorkSansMedium',
-                                          fontSize: 18)),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Scrollbar(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Text(namadsn,
+                                            style: TextStyle(
+                                                fontFamily: 'WorkSansMedium',
+                                                fontSize: 18)),
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(
                                     height: 16,
                                   ),

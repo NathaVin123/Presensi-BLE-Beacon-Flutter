@@ -101,11 +101,20 @@ class _MahasiswaAkunDashboardPageState
                         Center(
                             child: Column(
                           children: <Widget>[
-                            Text(namamhs,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'WorkSansMedium',
-                                    fontSize: 22)),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Scrollbar(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Text(namamhs,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontSize: 22)),
+                                ),
+                              ),
+                            ),
                             SizedBox(
                               height: 10,
                             ),

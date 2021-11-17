@@ -75,11 +75,20 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                           Center(
                               child: Column(
                             children: [
-                              Text(namadsn,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontSize: 18)),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Scrollbar(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Text(namadsn,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontSize: 22)),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 10,
                               ),

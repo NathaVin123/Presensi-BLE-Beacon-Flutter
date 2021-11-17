@@ -109,50 +109,53 @@ class _DosenTampilPesertaKelasPageState
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(25)),
                       child: new ListTile(
-                        title: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Initicon(
-                                text: tampilPesertaKelasResponseModel
-                                    .data[index].namamhs,
+                        title: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Initicon(
+                                  text: tampilPesertaKelasResponseModel
+                                      .data[index].namamhs,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    child: Padding(
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new AutoSizeText(
+                                          tampilPesertaKelasResponseModel
+                                              .data[index].namamhs,
+                                          style: TextStyle(
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: new AutoSizeText(
+                                      child: new Text(
                                         tampilPesertaKelasResponseModel
-                                            .data[index].namamhs,
+                                            .data[index].npm,
                                         style: TextStyle(
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: new Text(
-                                      tampilPesertaKelasResponseModel
-                                          .data[index].npm,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         onTap: () async {},
                       ),

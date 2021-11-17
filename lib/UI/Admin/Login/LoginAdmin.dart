@@ -208,14 +208,16 @@ class _LoginAdminState extends State<LoginAdmin> {
                                       ),
                                       SizedBox(height: 20),
                                       MaterialButton(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 15, horizontal: 130),
-                                        child: Text(
-                                          "MASUK",
-                                          style: const TextStyle(
-                                              fontFamily: 'WorkSansSemiBold',
-                                              fontSize: 18.0,
-                                              color: Colors.white),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 100),
+                                          child: Text(
+                                            "MASUK",
+                                            style: const TextStyle(
+                                                fontFamily: 'WorkSansSemiBold',
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                         color: Color.fromRGBO(247, 180, 7, 1),
                                         shape: StadiumBorder(),

@@ -513,6 +513,37 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MaterialButton(
+                                  color: Colors.blue,
+                                  shape: StadiumBorder(),
+                                  padding: EdgeInsets.only(
+                                      left: 50, right: 50, top: 25, bottom: 25),
+                                  onPressed: () =>
+                                      {Get.offAllNamed('/dosen/dashboard')},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.arrow_back_rounded,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        'Kembali',
+                                        style: TextStyle(
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                               Container(
                                 decoration: BoxDecoration(
                                     color: Colors.grey[200],
@@ -633,37 +664,6 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MaterialButton(
-                                  color: Colors.blue,
-                                  shape: StadiumBorder(),
-                                  padding: EdgeInsets.only(
-                                      left: 50, right: 50, top: 25, bottom: 25),
-                                  onPressed: () =>
-                                      {Get.offAllNamed('/dosen/dashboard')},
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.arrow_back_rounded,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        'Kembali',
-                                        style: TextStyle(
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -694,6 +694,45 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                       padding: const EdgeInsets.all(8.0),
                                       child: new Column(
                                         children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: MaterialButton(
+                                              color: Colors.blue,
+                                              shape: StadiumBorder(),
+                                              padding: EdgeInsets.only(
+                                                  left: 50,
+                                                  right: 50,
+                                                  top: 25,
+                                                  bottom: 25),
+                                              onPressed: () => {
+                                                Get.offAllNamed(
+                                                    '/dosen/dashboard')
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.arrow_back_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'Kembali',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 18),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                           Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.grey[200],
@@ -764,84 +803,90 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                         ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Divider(
-                                                        height: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Column(
+                                                    Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
-                                                                child: Icon(Icons
-                                                                    .meeting_room_rounded),
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                                child:
+                                                                    Container(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Icon(Icons.meeting_room_rounded),
+                                                                        ),
+                                                                        new Container(
+                                                                          child:
+                                                                              new Text(
+                                                                            'Pertemuan ${pertemuan ?? "-"}',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 18),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                              new Container(
-                                                                child: new Text(
-                                                                  'Pertemuan ${pertemuan ?? "-"}',
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          18),
+                                                              Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                                child:
+                                                                    Container(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Icon(Icons.credit_card_rounded),
+                                                                        ),
+                                                                        new Text(
+                                                                          '${sks ?? "-"} SKS',
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'WorkSansMedium',
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 18),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: Column(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child: Icon(
-                                                                          Icons
-                                                                              .credit_card_rounded),
-                                                                    ),
-                                                                    new Text(
-                                                                      '${sks ?? "-"} SKS',
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansMedium',
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              18),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                      ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -849,19 +894,146 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                               8.0),
                                                       child: Divider(
                                                         height: 1,
+                                                        thickness: 2,
                                                         color: Colors.black,
                                                       ),
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Column(
+                                                    Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                                child:
+                                                                    Container(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Column(
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Icon(Icons.door_sliding_rounded),
+                                                                            ),
+                                                                            Column(
+                                                                              children: [
+                                                                                new Text(
+                                                                                  'Ruangan',
+                                                                                  style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              new Center(
+                                                                            child:
+                                                                                new Text(
+                                                                              '${ruang ?? "-"}',
+                                                                              style: TextStyle(
+                                                                                  fontFamily: 'WorkSansMedium',
+                                                                                  // fontWeight:
+                                                                                  //     FontWeight.bold,
+                                                                                  fontSize: 16),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                        horizontal:
+                                                                            20),
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(8.0),
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            Column(
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: Icon(Icons.people_rounded),
+                                                                                ),
+                                                                                new Text(
+                                                                                  'Kapasitas',
+                                                                                  style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: new Center(
+                                                                                child: new Text(
+                                                                                  '${kapasitas ?? "-"} Orang',
+                                                                                  style: TextStyle(
+                                                                                      fontFamily: 'WorkSansMedium',
+                                                                                      // fontWeight:
+                                                                                      //     FontWeight.bold,
+                                                                                      fontSize: 16),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Divider(
+                                                        height: 1,
+                                                        thickness: 2,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               Column(
                                                                 children: [
@@ -869,72 +1041,27 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                     padding:
                                                                         const EdgeInsets.all(
                                                                             8.0),
-                                                                    child: Icon(
-                                                                        Icons
-                                                                            .door_sliding_rounded),
-                                                                  ),
-                                                                  Column(
-                                                                    children: [
-                                                                      new Text(
-                                                                        'Ruangan',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Icon(Icons.date_range_rounded),
+                                                                          ),
+                                                                          new Text(
+                                                                            'Tanggal',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 20),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
-                                                                child:
-                                                                    new Center(
-                                                                  child:
-                                                                      new Text(
-                                                                    '${ruang ?? "-"}',
-                                                                    style: TextStyle(
-                                                                        fontFamily: 'WorkSansMedium',
-                                                                        // fontWeight:
-                                                                        //     FontWeight.bold,
-                                                                        fontSize: 16),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Column(
-                                                                children: [
-                                                                  Column(
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child: Icon(
-                                                                            Icons.people_rounded),
-                                                                      ),
-                                                                      new Text(
-                                                                        'Kapasitas',
-                                                                        style: TextStyle(
-                                                                            fontFamily:
-                                                                                'WorkSansMedium',
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: 20),
-                                                                      ),
-                                                                    ],
+                                                                    ),
                                                                   ),
                                                                   Padding(
                                                                     padding:
@@ -944,133 +1071,68 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                         new Center(
                                                                       child:
                                                                           new Text(
-                                                                        '${kapasitas ?? "-"} Orang',
+                                                                        '${hari ?? "-"}, ${tanggalnow ?? "-"}',
                                                                         style: TextStyle(
                                                                             fontFamily: 'WorkSansMedium',
                                                                             // fontWeight:
                                                                             //     FontWeight.bold,
-                                                                            fontSize: 16),
+                                                                            fontSize: 14),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Icon(Icons.timer),
+                                                                          ),
+                                                                          new Text(
+                                                                            'Jam',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 20),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          new Text(
+                                                                        '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
+                                                                        style: TextStyle(
+                                                                            fontFamily: 'WorkSansMedium',
+                                                                            // fontWeight:
+                                                                            //     FontWeight.bold,
+                                                                            fontSize: 14),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Divider(
-                                                        height: 1,
-                                                        color: Colors.black,
                                                       ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Column(
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: Column(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child: Icon(
-                                                                          Icons
-                                                                              .date_range_rounded),
-                                                                    ),
-                                                                    new Text(
-                                                                      'Tanggal',
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansMedium',
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              20),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: new Text(
-                                                                  '${hari ?? "-"}, ${tanggalnow ?? "-"}',
-                                                                  style: TextStyle(
-                                                                      fontFamily: 'WorkSansMedium',
-                                                                      // fontWeight:
-                                                                      //     FontWeight.bold,
-                                                                      fontSize: 14),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: Column(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child: Icon(
-                                                                          Icons
-                                                                              .timer),
-                                                                    ),
-                                                                    new Text(
-                                                                      'Jam',
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansMedium',
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              20),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: new Text(
-                                                                  '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
-                                                                  style: TextStyle(
-                                                                      fontFamily: 'WorkSansMedium',
-                                                                      // fontWeight:
-                                                                      //     FontWeight.bold,
-                                                                      fontSize: 14),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
                                                     ),
                                                   ],
                                                 )),
@@ -1203,6 +1265,18 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               .keterangan =
                                                                           input,
                                                                 )),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Divider(
+                                                                  height: 1,
+                                                                  thickness: 2,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
                                                               ),
                                                               Padding(
                                                                 padding:
@@ -1435,16 +1509,31 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: new Center(
-                                                        child: new Text(
-                                                          namadsn,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontSize: 16),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 8),
+                                                      child: Scrollbar(
+                                                        child: Container(
+                                                          child:
+                                                              SingleChildScrollView(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: new Center(
+                                                                child: new Text(
+                                                                  namadsn,
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontSize:
+                                                                          16),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -1454,6 +1543,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                               8.0),
                                                       child: Divider(
                                                         height: 1,
+                                                        thickness: 2,
                                                         color: Colors.black,
                                                       ),
                                                     ),
@@ -1496,6 +1586,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                               8.0),
                                                       child: Divider(
                                                         height: 1,
+                                                        thickness: 2,
                                                         color: Colors.black,
                                                       ),
                                                     ),
@@ -1595,7 +1686,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                           style: TextStyle(
                                                               fontFamily:
                                                                   'WorkSansMedium',
-                                                              fontSize: 18),
+                                                              fontSize: 16),
                                                         ),
                                                       ),
                                                     ),
@@ -1604,11 +1695,6 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                               ),
                                             ],
                                           ),
-
-                                          // Divider(
-                                          //   height: 20,
-                                          //   thickness: 10,
-                                          // ),
                                           new Align(
                                             child: new Padding(
                                               padding: EdgeInsets.all(10),
@@ -1635,33 +1721,44 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                           Get.toNamed(
                                                               '/dosen/dashboard/presensi/detail/tampilpeserta')
                                                         },
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              Icons
-                                                                  .people_alt_rounded,
-                                                              color:
-                                                                  Colors.white,
+                                                        child: Scrollbar(
+                                                          child: Container(
+                                                            child:
+                                                                SingleChildScrollView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .people_alt_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    'Tampil Peserta Kelas',
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansMedium',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                            SizedBox(
-                                                              width: 20,
-                                                            ),
-                                                            Text(
-                                                              'Tampil Peserta Kelas',
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
-                                                            ),
-                                                          ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -1693,7 +1790,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                   title:
                                                                       'Presensi Masuk &\nBuka Kelas ?',
                                                                   message:
-                                                                      'Apakah anda yakin ingin\npresensi masuk dan buka kelas ini ?',
+                                                                      'Apakah anda yakin ingin\npresensi masuk dan buka\nkelas ini ?',
                                                                   okBtnText:
                                                                       'Ya',
                                                                   okBtnTxtColor:
@@ -2039,53 +2136,6 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                               ),
                                                             ),
                                                           ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: MaterialButton(
-                                                        color: Colors.blue,
-                                                        shape: StadiumBorder(),
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 50,
-                                                                right: 50,
-                                                                top: 25,
-                                                                bottom: 25),
-                                                        onPressed: () => {
-                                                          Get.offAllNamed(
-                                                              '/dosen/dashboard')
-                                                        },
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              Icons
-                                                                  .arrow_back_rounded,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 20,
-                                                            ),
-                                                            Text(
-                                                              'Kembali',
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
                                                   ]),
                                             ),
                                           ),
@@ -2097,6 +2147,45 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
                                         children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: MaterialButton(
+                                              color: Colors.blue,
+                                              shape: StadiumBorder(),
+                                              padding: EdgeInsets.only(
+                                                  left: 50,
+                                                  right: 50,
+                                                  top: 25,
+                                                  bottom: 25),
+                                              onPressed: () => {
+                                                Get.offAllNamed(
+                                                    '/dosen/dashboard')
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.arrow_back_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'Kembali',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 18),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                           Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.grey[200],
@@ -2192,45 +2281,6 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: MaterialButton(
-                                              color: Colors.blue,
-                                              shape: StadiumBorder(),
-                                              padding: EdgeInsets.only(
-                                                  left: 50,
-                                                  right: 50,
-                                                  top: 25,
-                                                  bottom: 25),
-                                              onPressed: () => {
-                                                Get.offAllNamed(
-                                                    '/dosen/dashboard')
-                                              },
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.arrow_back_rounded,
-                                                    color: Colors.white,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    'Kembali',
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            'WorkSansMedium',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                        fontSize: 18),
                                                   ),
                                                 ],
                                               ),

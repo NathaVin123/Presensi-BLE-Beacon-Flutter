@@ -211,13 +211,21 @@ class _MahasiswaPresensiDashboardPageState
                         alignment: Alignment.centerLeft,
                         child: Center(
                           child: Container(
-                            child: Text(
-                              '${namamhs ?? "-"}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'WorkSansMedium',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                            child: Scrollbar(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Text(
+                                    '${namamhs ?? "-"}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         )),
@@ -328,17 +336,34 @@ class _MahasiswaPresensiDashboardPageState
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child: Text(
-                                                              'Kelas Tertutup',
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white)),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons
+                                                                    .door_front_door_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                  'Kelas Tertutup',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -359,37 +384,64 @@ class _MahasiswaPresensiDashboardPageState
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child: Text(
-                                                              'Kelas Terbuka',
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white)),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons
+                                                                    .meeting_room_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                  'Kelas Terbuka',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Scrollbar(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -413,33 +465,40 @@ class _MahasiswaPresensiDashboardPageState
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.person,
-                                                        color: Colors.black,
+                                                child: Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.person,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Text(
+                                                              listKelasMahasiswaResponseModel
+                                                                  .data[index]
+                                                                  .namadosen1,
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          listKelasMahasiswaResponseModel
-                                                              .data[index]
-                                                              .namadosen1,
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -557,31 +616,41 @@ class _MahasiswaPresensiDashboardPageState
                                                                   vertical: 8,
                                                                   horizontal:
                                                                       26),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
+                                                          child: Scrollbar(
+                                                            child: Container(
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Icon(
+                                                                      Icons
+                                                                          .meeting_room_rounded,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 20,
+                                                                    ),
+                                                                    Text(
+                                                                      'Detail Presensi Masuk',
+                                                                      style: const TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansSemiBold',
+                                                                          fontSize:
+                                                                              18,
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                'Detail Presensi Masuk',
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansSemiBold',
-                                                                    fontSize:
-                                                                        18,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ],
+                                                            ),
                                                           ),
                                                         ),
                                                         color: Colors.green,
@@ -888,31 +957,41 @@ class _MahasiswaPresensiDashboardPageState
                                                                   vertical: 8,
                                                                   horizontal:
                                                                       26),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
+                                                          child: Scrollbar(
+                                                            child: Container(
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Icon(
+                                                                      Icons
+                                                                          .meeting_room_rounded,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 20,
+                                                                    ),
+                                                                    Text(
+                                                                      'Detail Presensi Keluar',
+                                                                      style: const TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansSemiBold',
+                                                                          fontSize:
+                                                                              18,
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                'Detail Presensi Keluar',
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansSemiBold',
-                                                                    fontSize:
-                                                                        18,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ],
+                                                            ),
                                                           ),
                                                         ),
                                                         color: Colors.red,
@@ -1262,22 +1341,32 @@ class _MahasiswaPresensiDashboardPageState
                                               ),
                                             ),
 
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Scrollbar(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -1301,33 +1390,40 @@ class _MahasiswaPresensiDashboardPageState
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.person,
-                                                        color: Colors.black,
+                                                child: Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.person,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Text(
+                                                              listKelasMahasiswaResponseModel
+                                                                  .data[index]
+                                                                  .namadosen1,
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          listKelasMahasiswaResponseModel
-                                                              .data[index]
-                                                              .namadosen1,
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -1497,17 +1593,34 @@ class _MahasiswaPresensiDashboardPageState
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child: Text(
-                                                              'Kelas Tertutup',
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white)),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons
+                                                                    .door_front_door_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                  'Kelas Tertutup',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -1528,37 +1641,64 @@ class _MahasiswaPresensiDashboardPageState
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child: Text(
-                                                              'Kelas Terbuka',
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white)),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons
+                                                                    .meeting_room_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Text(
+                                                                  'Kelas Terbuka',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Scrollbar(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -1582,33 +1722,41 @@ class _MahasiswaPresensiDashboardPageState
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.person,
-                                                        color: Colors.black,
+                                                child: Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.person,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                new AutoSizeText(
+                                                              listKelasMahasiswaResponseModel
+                                                                  .data[index]
+                                                                  .namadosen1,
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          listKelasMahasiswaResponseModel
-                                                              .data[index]
-                                                              .namadosen1,
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
