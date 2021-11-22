@@ -203,20 +203,39 @@ class _MahasiswaInformasiAkunPageState
                               SizedBox(
                                 height: 16,
                               ),
-                              Text(
-                                'Dosen Pembimbing Akademik',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'WorkSansMedium',
-                                    fontSize: 22),
+                              Scrollbar(
+                                child: Center(
+                                  child: Container(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Text(
+                                        'Dosen Pembimbing Akademik',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontSize: 22),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(
-                                pembimbingakademik,
-                                style: TextStyle(
-                                    fontFamily: 'WorkSansMedium', fontSize: 18),
+                              Scrollbar(
+                                child: Center(
+                                  child: Container(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Text(
+                                        pembimbingakademik,
+                                        style: TextStyle(
+                                            fontFamily: 'WorkSansMedium',
+                                            fontSize: 18),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 height: 16,
