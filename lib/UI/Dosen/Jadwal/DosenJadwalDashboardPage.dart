@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Dosen/JadwalDosenModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DosenJadwalDashboardPage extends StatefulWidget {
   DosenJadwalDashboardPage({Key key}) : super(key: key);
@@ -12,50 +15,65 @@ class DosenJadwalDashboardPage extends StatefulWidget {
       _DosenJadwalDashboardPageState();
 }
 
-class Semester {
-  String semester;
-  Semester(this.semester);
-}
-
 class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
+  String _timeString;
   String _dateString;
 
-  String npm = "";
-  String semesterShared = "";
+  String npp = "";
 
-  String data;
+  DateTime timeNow = DateTime.now();
 
-  Semester selectedSemester;
+  JadwalDosenRequestModel jadwalDosenRequestModel;
 
-  List<Semester> semesters = [
-    Semester("1"),
-    Semester("2"),
-    Semester("3"),
-    Semester("4"),
-    Semester("5"),
-    Semester("6"),
-    Semester("7"),
-    Semester("8"),
-  ];
-
-  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
-    List<DropdownMenuItem> items = [];
-
-    for (var item in semesters) {
-      items.add(DropdownMenuItem(
-        child: Text((item.semester)),
-        value: item,
-      ));
-    }
-    return items;
-  }
-
+  JadwalDosenResponseModel jadwalDosenResponseModel;
   @override
   void initState() {
     super.initState();
 
+    jadwalDosenRequestModel = JadwalDosenRequestModel();
+    jadwalDosenResponseModel = JadwalDosenResponseModel();
+
+    _timeString = _formatTime(DateTime.now());
     _dateString = _formatDate(DateTime.now());
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataDosen();
+      getDataJadwalDosen();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
+  }
+
+  getDataDosen() async {
+    SharedPreferences loginDosen = await SharedPreferences.getInstance();
+    setState(() {
+      npp = loginDosen.getString('npp');
+    });
+  }
+
+  void getDataJadwalDosen() async {
+    setState(() {
+      jadwalDosenRequestModel.npp = npp;
+
+      print(jadwalDosenRequestModel.toJson());
+      APIService apiService = new APIService();
+      apiService.postJadwalDosen(jadwalDosenRequestModel).then((value) async {
+        jadwalDosenResponseModel = value;
+      });
+    });
+  }
+
+  void _getTime() {
+    final DateTime now = DateTime.now();
+    final String formattedTime = _formatTime(now);
+
+    setState(() {
+      _timeString = formattedTime;
+    });
   }
 
   void _getDate() {
@@ -68,7 +86,11 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
   }
 
   String _formatDate(DateTime dateTime) {
-    return DateFormat('dd/MM/yyyy').format(dateTime);
+    return DateFormat('d MMMM y').format(dateTime);
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return DateFormat('HH:mm:ss').format(dateTime);
   }
 
   @override
@@ -77,81 +99,261 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
       floatingActionButton: FloatingActionButton.extended(
           label: Text('Segarkan'),
           icon: Icon(Icons.refresh_rounded),
-          onPressed: () {}),
+          onPressed: () => getDataJadwalDosen()),
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Jadwal Kelas',
+          'Jadwal Kuliah',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10),
+                    Center(
                       child: Text(
                         _dateString,
                         style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 16,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        _timeString,
+                        style: TextStyle(
+                            fontSize: 25,
                             fontFamily: 'WorkSansMedium',
                             color: Colors.white),
                       ),
                     ),
                   ],
-                )),
-            Center(
-                child: Text(
-              'Pilih Semester',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'WorkSansMedium',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            )),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(
-                      color: Colors.white, style: BorderStyle.solid, width: 1),
                 ),
-                child: DropdownButton(
-                  iconEnabledColor: Colors.white,
-                  style: TextStyle(color: Colors.white),
-                  dropdownColor: Color.fromRGBO(23, 75, 137, 1),
-                  underline: Text(''),
-                  onTap: () => {},
-                  items: generateSemester(semesters),
-                  value: selectedSemester,
-                  onChanged: (item) {
-                    setState(() {
-                      selectedSemester = item;
-                      semesterShared = selectedSemester.semester;
-                    });
-                  },
+              ],
+            ),
+          ),
+          Center(
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Kuliah Selanjutnya',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              ],
             ),
-            SizedBox(
-              height: 8,
-            ),
-          ],
-        ),
+          ),
+          jadwalDosenResponseModel.data == null ||
+                  jadwalDosenResponseModel.data.isEmpty
+              ? Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Jadwal kuliah anda kosong',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'WorkSansMedium',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: Scrollbar(
+                    child: ListView.builder(
+                        itemCount: jadwalDosenResponseModel.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: new ListTile(
+                                title: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Scrollbar(
+                                        child: Center(
+                                          child: Container(
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${jadwalDosenResponseModel.data[index].namamk} ${jadwalDosenResponseModel.data[index].kelas}',
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    new Text(
+                                      'Pertemuan ke - ${jadwalDosenResponseModel.data[index].pertemuan}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                jadwalDosenResponseModel
+                                                    .data[index].hari1,
+                                                style: TextStyle(
+                                                  color: Colors.grey[50],
+                                                  fontSize: 14,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                jadwalDosenResponseModel
+                                                    .data[index].tglmasuk,
+                                                style: TextStyle(
+                                                  color: Colors.grey[50],
+                                                  fontSize: 14,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Sesi ${jadwalDosenResponseModel.data[index].sesi1}',
+                                                style: TextStyle(
+                                                  color: Colors.grey[50],
+                                                  fontSize: 14,
+                                                  fontFamily: 'WorkSansMedium',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Tekan untuk melihat detail kuliah',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onTap: () async {
+                                  // await Get.toNamed(
+                                  //     '/mahasiswa/dashboard/jadwal/detail');
+                                },
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                )
+        ],
       ),
     );
   }

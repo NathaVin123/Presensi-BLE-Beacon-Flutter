@@ -87,7 +87,7 @@ class _LoginDosenState extends State<LoginDosen> {
                         keyboardType: TextInputType.phone,
                         onSaved: (input) => loginDosenRequestModel.npp = input,
                         validator: (input) =>
-                            input.length < 8 ? "NPP minimal 9 karakter" : null,
+                            input.length < 1 ? "NPP tidak boleh kosong" : null,
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.all(20.0),
                           hintText: "NPP DOSEN",
@@ -119,8 +119,8 @@ class _LoginDosenState extends State<LoginDosen> {
                         keyboardType: TextInputType.text,
                         onSaved: (input) =>
                             loginDosenRequestModel.password = input,
-                        validator: (input) => input.length < 5
-                            ? "PASSWORD minimal 5 karakter"
+                        validator: (input) => input.length < 1
+                            ? "PASSWORD tidak boleh kosong"
                             : null,
                         obscureText: hidePassword,
                         decoration: new InputDecoration(

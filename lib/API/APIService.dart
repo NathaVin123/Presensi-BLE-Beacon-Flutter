@@ -11,6 +11,8 @@ import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/RuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/UbahBeaconModel.dart';
+import 'package:presensiblebeacon/MODEL/Dosen/JadwalDosenModel.dart';
+import 'package:presensiblebeacon/MODEL/Dosen/RiwayatDosenModel.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
@@ -309,7 +311,37 @@ class APIService {
     }
   }
 
-  // Post Get Data Jadwal Dosen
+  Future<JadwalDosenResponseModel> postJadwalDosen(
+      JadwalDosenRequestModel requestModel) async {
+    String url = address + "jadwalmhs/postgetalldosen";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return JadwalDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return JadwalDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
+    }
+  }
+
+  // Post Get Data Riwayat Mahasiswa
   Future<RiwayatMahasiswaResponseModel> postRiwayatMahasiswa(
       RiwayatMahasiswaRequestModel requestModel) async {
     String url = address + "riwayatmhs/postgetall/";
@@ -324,6 +356,36 @@ class APIService {
     } else if (response.statusCode == 400 || response.statusCode == 422) {
       print(response.body);
       return RiwayatMahasiswaResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(response);
+      Fluttertoast.showToast(
+          msg: 'Gagal memuat data',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      throw Exception('Gagal memuat data');
+    }
+  }
+
+  Future<RiwayatDosenResponseModel> postRiwayatDosen(
+      RiwayatDosenRequestModel requestModel) async {
+    String url = address + "riwayatmhs/postgetalldosen";
+    print(url);
+    http.Response response = await http.post(url, body: requestModel.toJson());
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return RiwayatDosenResponseModel.fromJson(
+        json.decode(response.body),
+      );
+    } else if (response.statusCode == 400 || response.statusCode == 422) {
+      print(response.body);
+      return RiwayatDosenResponseModel.fromJson(
         json.decode(response.body),
       );
     } else {

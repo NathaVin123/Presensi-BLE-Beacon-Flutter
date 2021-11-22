@@ -134,8 +134,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                                           onSaved: (input) =>
                                               loginAdminRequestModel.npp =
                                                   input,
-                                          validator: (input) => input.length < 8
-                                              ? "NPP minimal 9 karakter"
+                                          validator: (input) => input.length < 1
+                                              ? "NPP tidak boleh kosong"
                                               : null,
                                           decoration: new InputDecoration(
                                             contentPadding:
@@ -174,8 +174,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                                           onSaved: (input) =>
                                               loginAdminRequestModel.password =
                                                   input,
-                                          validator: (input) => input.length < 5
-                                              ? "PASSWORD minimal 5 karakter"
+                                          validator: (input) => input.length < 1
+                                              ? "PASSWORD tidak boleh kosong"
                                               : null,
                                           obscureText: hidePassword,
                                           decoration: new InputDecoration(

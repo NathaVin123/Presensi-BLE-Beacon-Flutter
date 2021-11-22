@@ -88,7 +88,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                         onSaved: (input) =>
                             loginMahasiswaRequestModel.npm = input,
                         validator: (input) =>
-                            input.length < 8 ? "NPM minimal 9 karakter" : null,
+                            input.length < 1 ? "NPM tidak boleh kosong" : null,
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.all(20.0),
                           hintText: "NPM MAHASISWA",
@@ -120,8 +120,8 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                         keyboardType: TextInputType.text,
                         onSaved: (input) =>
                             loginMahasiswaRequestModel.password = input,
-                        validator: (input) => input.length < 5
-                            ? "PASSWORD minimal 5 karakter"
+                        validator: (input) => input.length < 1
+                            ? "PASSWORD tidak boleh kosong"
                             : null,
                         obscureText: hidePassword,
                         decoration: new InputDecoration(

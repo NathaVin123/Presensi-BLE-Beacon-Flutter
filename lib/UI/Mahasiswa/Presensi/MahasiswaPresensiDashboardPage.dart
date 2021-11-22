@@ -180,15 +180,14 @@ class _MahasiswaPresensiDashboardPageState
                 child: Column(
                   children: [
                     Center(
-                        // alignment: Alignment.centerRight,
-                        // child: Text(
-                        //   _dateString,
-                        //   style: TextStyle(
-                        //       fontSize: 22,
-                        //       fontFamily: 'WorkSansMedium',
-                        //       color: Colors.white),
-                        // ),
-                        ),
+                      child: Text(
+                        _dateString,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
+                      ),
+                    ),
                     Center(
                       // alignment: Alignment.centerLeft,
                       child: Text(

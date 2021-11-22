@@ -87,7 +87,7 @@ class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage>
             new Tab(
               icon: new Icon(Icons.person_rounded,
                   color: controller.index == 3 ? Colors.black : Colors.grey),
-              text: "Akun Saya",
+              text: "Akun",
             )
           ],
         ),

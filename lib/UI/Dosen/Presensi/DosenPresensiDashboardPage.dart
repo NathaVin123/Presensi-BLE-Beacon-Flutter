@@ -11,7 +11,6 @@ import 'package:presensiblebeacon/Utils/extension_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:intl/intl.dart';
-import 'package:widget_marquee/widget_marquee.dart';
 
 class DosenPresensiDashboardPage extends StatefulWidget {
   @override
@@ -19,16 +18,9 @@ class DosenPresensiDashboardPage extends StatefulWidget {
       _DosenPresensiDashboardPageState();
 }
 
-class Semester {
-  String semester;
-  Semester(this.semester);
-}
-
 class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     with WidgetsBindingObserver {
   final StreamController<BluetoothState> streamController = StreamController();
-
-  // RuangBeaconResponseModel ruangBeaconResponseModel;
 
   List<Data> matakuliahListSearch = List<Data>();
 
@@ -39,9 +31,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   String _timeString;
   String _dateString;
 
-  // String _timeStringFilter;
-  // String _dateStringFilter;
-
   String kelas = "";
   String jam = "";
   String jammasuk = "";
@@ -51,34 +40,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
   String npp = "";
   String namadsn = "";
 
-  String semesterShared = "";
-
-  Semester selectedSemester;
-
   DateTime timeNow = DateTime.now();
-
-  List<Semester> semesters = [
-    Semester("1"),
-    Semester("2"),
-    Semester("3"),
-    Semester("4"),
-    Semester("5"),
-    Semester("6"),
-    Semester("7"),
-    Semester("8"),
-  ];
-
-  List<DropdownMenuItem> generateSemester(List<Semester> semesters) {
-    List<DropdownMenuItem> items = [];
-
-    for (var item in semesters) {
-      items.add(DropdownMenuItem(
-        child: Text((item.semester)),
-        value: item,
-      ));
-    }
-    return items;
-  }
 
   ListKelasDosenRequestModel listKelasDosenRequestModel;
 
@@ -86,8 +48,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
   @override
   void initState() {
-    print(timeNow);
-
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
@@ -151,14 +111,6 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     return DateFormat('HH:mm:ss').format(dateTime);
   }
 
-  // void getModalKelas() async {
-  //   SharedPreferences modalKelas = await SharedPreferences.getInstance();
-
-  //   kelas = modalKelas.getString('Kelas');
-  //   jam = modalKelas.getString('Jam');
-  //   print(kelas);
-  // }
-
   void getDataDosen() async {
     SharedPreferences loginDosen = await SharedPreferences.getInstance();
     setState(() {
@@ -167,21 +119,9 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     });
   }
 
-  // void getDataRuangBeacon() async {
-  //   setState(() {
-  //     print(ruangBeaconResponseModel.toJson());
-  //     APIService apiService = new APIService();
-  //     apiService.getKelasBeacon().then((value) async {
-  //       ruangBeaconResponseModel = value;
-  //     });
-  //   });
-  // }
-
   void getDataListKelasDosen() async {
     setState(() {
       listKelasDosenRequestModel.npp = npp;
-      // listKelasDosenRequestModel.tglnow = _dateString + ' ' + _timeString;
-      // listKelasDosenRequestModel. = semesterShared;
 
       print(listKelasDosenRequestModel.toJson());
 
@@ -247,9 +187,18 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   children: [
                     Center(
                       child: Text(
+                        _dateString,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'WorkSansMedium',
+                            color: Colors.white),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
                         _timeString,
                         style: TextStyle(
-                            fontSize: 35,
+                            fontSize: 25,
                             fontFamily: 'WorkSansMedium',
                             color: Colors.white),
                       ),
@@ -302,7 +251,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kuliah Hari Ini',
+                      'Kuliah Saat Ini',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -373,7 +322,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      'Tidak ada kuliah',
+                                      'Tidak ada kuliah saat ini',
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'WorkSansMedium',
@@ -547,7 +496,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                               ),
                                             ),
                                             Row(
-                                              children: [
+                                              children: <Widget>[
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.all(8),
