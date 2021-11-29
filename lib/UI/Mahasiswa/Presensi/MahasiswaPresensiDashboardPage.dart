@@ -243,7 +243,7 @@ class _MahasiswaPresensiDashboardPageState
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: Text(
-                      'Kuliah Hari Ini',
+                      'Kuliah Saat Ini',
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -946,347 +946,389 @@ class _MahasiswaPresensiDashboardPageState
                                                               '/pindaiMahasiswa');
                                                         },
                                                       )
-                                                    : MaterialButton(
-                                                        padding:
-                                                            EdgeInsets.all(8),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8,
-                                                                  horizontal:
-                                                                      26),
-                                                          child: Scrollbar(
-                                                            child: Container(
-                                                              child:
-                                                                  SingleChildScrollView(
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Icon(
-                                                                      Icons
-                                                                          .meeting_room_rounded,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 20,
-                                                                    ),
-                                                                    Text(
-                                                                      'Detail Presensi Keluar',
-                                                                      style: const TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansSemiBold',
-                                                                          fontSize:
-                                                                              18,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                    : statusPresensi == 3
+                                                        ? Column(
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    MaterialButton(
+                                                                        padding:
+                                                                            EdgeInsets.all(
+                                                                                8),
+                                                                        child:
+                                                                            Text(
+                                                                          'Sudah Presensi',
+                                                                          style: const TextStyle(
+                                                                              fontFamily: 'WorkSansSemiBold',
+                                                                              fontSize: 18,
+                                                                              color: Colors.white),
+                                                                        ),
+                                                                        color: Colors.yellow[
+                                                                            800],
+                                                                        shape:
+                                                                            StadiumBorder(),
+                                                                        onPressed:
+                                                                            () {}),
                                                               ),
-                                                            ),
+                                                              Text(
+                                                                'Wajib Log Out, lalu Log In kembali jika status presensi tidak berubah',
+                                                                style: const TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansSemiBold',
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Colors
+                                                                        .black),
+                                                              )
+                                                            ],
+                                                          )
+                                                        : Column(
+                                                            children: <Widget>[
+                                                              MaterialButton(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(8),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          8,
+                                                                      horizontal:
+                                                                          26),
+                                                                  child:
+                                                                      Scrollbar(
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          SingleChildScrollView(
+                                                                        scrollDirection:
+                                                                            Axis.horizontal,
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Icon(
+                                                                              Icons.meeting_room_rounded,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 20,
+                                                                            ),
+                                                                            Text(
+                                                                              'Detail Presensi Keluar',
+                                                                              style: const TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 18, color: Colors.white),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                color:
+                                                                    Colors.red,
+                                                                shape:
+                                                                    StadiumBorder(),
+                                                                onPressed:
+                                                                    () async {
+                                                                  SharedPreferences
+                                                                      dataPresensiMahasiswa =
+                                                                      await SharedPreferences
+                                                                          .getInstance();
+
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'jam',
+                                                                          _timeString);
+
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'tanggal',
+                                                                          _dateString);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'ruang',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .ruang);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'uuid',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .uuid);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'namadevice',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .namadevice);
+
+                                                                  await dataPresensiMahasiswa.setDouble(
+                                                                      'jarakmin',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .jarakmin);
+
+                                                                  if (listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .uuid !=
+                                                                      null) {
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'uuid',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .uuid);
+                                                                  } else {
+                                                                    await dataPresensiMahasiswa
+                                                                        .setString(
+                                                                            'uuid',
+                                                                            '-');
+                                                                  }
+
+                                                                  if (listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .namadevice !=
+                                                                      null) {
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'namadevice',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .namadevice);
+                                                                  } else {
+                                                                    await dataPresensiMahasiswa
+                                                                        .setString(
+                                                                            'namadevice',
+                                                                            '-');
+                                                                  }
+                                                                  if (listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .jarakmin !=
+                                                                      null) {
+                                                                    await dataPresensiMahasiswa.setDouble(
+                                                                        'jarakmin',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .jarakmin);
+                                                                  } else {
+                                                                    await dataPresensiMahasiswa
+                                                                        .setDouble(
+                                                                            'jarakmin',
+                                                                            0);
+                                                                  }
+
+                                                                  if (listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .major !=
+                                                                      null) {
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'major',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .major);
+                                                                  } else {
+                                                                    await dataPresensiMahasiswa
+                                                                        .setInt(
+                                                                            'major',
+                                                                            0);
+                                                                  }
+
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'idkelas',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .idkelas);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'namamk',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .namamk);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'kelas',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .kelas);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'nppdosen1',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .nppdosen1);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'nppdosen2',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].nppdosen2);
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'nppdosen3',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].nppdosen3);
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'nppdosen4',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].nppdosen4);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'namadosen1',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .namadosen1);
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'namadosen2',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].namadosen2);
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'namadosen3',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].namadosen3);
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'namadosen4',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].namadosen4);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'hari1',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .hari1);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'hari2',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].hari2);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'hari3',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].hari3);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'hari4',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].hari4);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'sesi1',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .sesi1);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'sesi2',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].sesi2);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'sesi3',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].sesi3);
+
+                                                                  // await dataPresensiMahasiswa.setString(
+                                                                  //     'sesi4',
+                                                                  //     listKelasMahasiswaResponseModel
+                                                                  //         .data[index].sesi4);
+
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'sks',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .sks);
+
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'pertemuan',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .pertemuan);
+
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'kapasitas',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .kapasitas);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'tglmasuk',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .tglmasuk);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'tglkeluar',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .tglkeluar);
+
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'bukapresensi',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .bukapresensi);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'jammasuk',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .jammasuk);
+
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'jamkeluar',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .jamkeluar);
+
+                                                                  await Get
+                                                                      .offAllNamed(
+                                                                          '/pindaiMahasiswa');
+                                                                },
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Text(
+                                                                  'Jangan Log Out, ketika sudah presensi masuk',
+                                                                  style: const TextStyle(
+                                                                      fontFamily:
+                                                                          'WorkSansSemiBold',
+                                                                      fontSize:
+                                                                          10,
+                                                                      color: Colors
+                                                                          .red),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
-                                                        ),
-                                                        color: Colors.red,
-                                                        shape: StadiumBorder(),
-                                                        onPressed: () async {
-                                                          SharedPreferences
-                                                              dataPresensiMahasiswa =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString('jam',
-                                                                  _timeString);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tanggal',
-                                                                  _dateString);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'ruang',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .ruang);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'uuid',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .uuid);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namadevice',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadevice);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setDouble(
-                                                                  'jarakmin',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jarakmin);
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .uuid !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'uuid',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .uuid);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'uuid',
-                                                                    '-');
-                                                          }
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .namadevice !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa.setString(
-                                                                'namadevice',
-                                                                listKelasMahasiswaResponseModel
-                                                                    .data[index]
-                                                                    .namadevice);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'namadevice',
-                                                                    '-');
-                                                          }
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .jarakmin !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .jarakmin);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    0);
-                                                          }
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .major !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setInt(
-                                                                    'major',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .major);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setInt(
-                                                                    'major', 0);
-                                                          }
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'idkelas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .idkelas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namamk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namamk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'kelas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kelas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'nppdosen1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .nppdosen1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen2);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen3);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namadosen1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadosen1);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen2);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen3);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'hari1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .hari1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari2);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari3);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'sesi1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sesi1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi2);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi3);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'sks',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sks);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'pertemuan',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .pertemuan);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'kapasitas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kapasitas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tglmasuk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglmasuk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tglkeluar',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglkeluar);
-
-                                                          await dataPresensiMahasiswa.setInt(
-                                                              'bukapresensi',
-                                                              listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .bukapresensi);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'jammasuk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jammasuk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'jamkeluar',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jamkeluar);
-
-                                                          await Get.offAllNamed(
-                                                              '/pindaiMahasiswa');
-                                                        },
-                                                      ),
                                           ],
                                         ),
                                       ),
@@ -1339,7 +1381,6 @@ class _MahasiswaPresensiDashboardPageState
                                                 ),
                                               ),
                                             ),
-
                                             Scrollbar(
                                               child: Container(
                                                 child: SingleChildScrollView(

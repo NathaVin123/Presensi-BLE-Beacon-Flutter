@@ -913,71 +913,42 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                           ),
                                                         ),
                                                       ),
-                                                      // Padding(
-                                                      //   padding:
-                                                      //       const EdgeInsets
-                                                      //           .all(8.0),
-                                                      //   child: Divider(
-                                                      //     height: 1,
-                                                      //     thickness: 2,
-                                                      //     color: Colors.black,
-                                                      //   ),
-                                                      // ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
+                                                      ExpansionTile(
+                                                        title: Text(
+                                                          'Lihat lebih detail',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 14),
+                                                        ),
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Column(
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: Icon(Icons
-                                                                      .meeting_room_rounded),
-                                                                ),
-                                                                new Container(
-                                                                  child:
-                                                                      new Text(
-                                                                    'Pertemuan ${pertemuan ?? "-"}',
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            'WorkSansMedium',
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            18),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
                                                           Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
                                                             children: [
                                                               Padding(
                                                                 padding:
                                                                     const EdgeInsets
                                                                             .all(
                                                                         8.0),
-                                                                child:
-                                                                    new Center(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child: Icon(
-                                                                            Icons.credit_card_rounded),
-                                                                      ),
-                                                                      new Text(
-                                                                        '${sks ?? "-"} SKS',
+                                                                child: Column(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .meeting_room_rounded),
+                                                                    ),
+                                                                    new Container(
+                                                                      child:
+                                                                          new Text(
+                                                                        'Pertemuan ${pertemuan ?? "-"}',
                                                                         style: TextStyle(
                                                                             fontFamily:
                                                                                 'WorkSansMedium',
@@ -985,183 +956,211 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                                 FontWeight.bold,
                                                                             fontSize: 18),
                                                                       ),
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                  ],
                                                                 ),
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        new Center(
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Icon(Icons.credit_card_rounded),
+                                                                          ),
+                                                                          new Text(
+                                                                            '${sks ?? "-"} SKS',
+                                                                            style: TextStyle(
+                                                                                fontFamily: 'WorkSansMedium',
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 18),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Divider(
-                                                          height: 1,
-                                                          thickness: 2,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Column(
-                                                          children: [
-                                                            Column(
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Divider(
+                                                              height: 1,
+                                                              thickness: 2,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Column(
                                                               children: [
+                                                                Column(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .door_sliding_rounded),
+                                                                    ),
+                                                                    Column(
+                                                                      children: [
+                                                                        new Text(
+                                                                          'Ruangan',
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'WorkSansMedium',
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 20),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                                 Padding(
                                                                   padding:
                                                                       const EdgeInsets
                                                                               .all(
                                                                           8.0),
-                                                                  child: Icon(Icons
-                                                                      .door_sliding_rounded),
-                                                                ),
-                                                                Column(
-                                                                  children: [
-                                                                    new Text(
-                                                                      'Ruangan',
+                                                                  child:
+                                                                      new Center(
+                                                                    child:
+                                                                        new Text(
+                                                                      '${ruang ?? "-"}',
                                                                       style: TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansMedium',
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              20),
+                                                                          fontFamily: 'WorkSansMedium',
+                                                                          // fontWeight:
+                                                                          //     FontWeight.bold,
+                                                                          fontSize: 16),
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: new Text(
-                                                                  '${ruang ?? "-"}',
-                                                                  style: TextStyle(
-                                                                      fontFamily: 'WorkSansMedium',
-                                                                      // fontWeight:
-                                                                      //     FontWeight.bold,
-                                                                      fontSize: 16),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Divider(
-                                                          height: 1,
-                                                          thickness: 2,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Scrollbar(
-                                                        child: Container(
-                                                          child:
-                                                              SingleChildScrollView(
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              children: [
-                                                                Column(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child:
-                                                                          new Center(
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding: const EdgeInsets.all(8.0),
-                                                                              child: Icon(Icons.date_range_rounded),
-                                                                            ),
-                                                                            new Text(
-                                                                              'Tanggal',
-                                                                              style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child:
-                                                                          new Center(
-                                                                        child:
-                                                                            new Text(
-                                                                          '${hari ?? "-"}, ${tanggalnow ?? "-"}',
-                                                                          style: TextStyle(
-                                                                              fontFamily: 'WorkSansMedium',
-                                                                              // fontWeight:
-                                                                              //     FontWeight.bold,
-                                                                              fontSize: 14),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Column(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child:
-                                                                          new Center(
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding: const EdgeInsets.all(8.0),
-                                                                              child: Icon(Icons.timer),
-                                                                            ),
-                                                                            new Text(
-                                                                              'Jam',
-                                                                              style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child:
-                                                                          new Center(
-                                                                        child:
-                                                                            new Text(
-                                                                          '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
-                                                                          style: TextStyle(
-                                                                              fontFamily: 'WorkSansMedium',
-                                                                              // fontWeight:
-                                                                              //     FontWeight.bold,
-                                                                              fontSize: 14),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                                  ),
                                                                 ),
                                                               ],
                                                             ),
                                                           ),
-                                                        ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Divider(
+                                                              height: 1,
+                                                              thickness: 2,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          Scrollbar(
+                                                            child: Container(
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  children: [
+                                                                    Column(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              new Center(
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: Icon(Icons.date_range_rounded),
+                                                                                ),
+                                                                                new Text(
+                                                                                  'Tanggal',
+                                                                                  style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              new Center(
+                                                                            child:
+                                                                                new Text(
+                                                                              '${hari ?? "-"}, ${tanggalnow ?? "-"}',
+                                                                              style: TextStyle(
+                                                                                  fontFamily: 'WorkSansMedium',
+                                                                                  // fontWeight:
+                                                                                  //     FontWeight.bold,
+                                                                                  fontSize: 14),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Column(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              new Center(
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: Icon(Icons.timer),
+                                                                                ),
+                                                                                new Text(
+                                                                                  'Jam',
+                                                                                  style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, fontSize: 20),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              new Center(
+                                                                            child:
+                                                                                new Text(
+                                                                              '${jammasuk ?? "-"} - ${jamkeluar ?? "-"}',
+                                                                              style: TextStyle(
+                                                                                  fontFamily: 'WorkSansMedium',
+                                                                                  // fontWeight:
+                                                                                  //     FontWeight.bold,
+                                                                                  fontSize: 14),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   )),
@@ -1225,26 +1224,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  // Padding(
-                                                                  //   padding:
-                                                                  //       const EdgeInsets
-                                                                  //               .all(
-                                                                  //           8.0),
-                                                                  //   child:
-                                                                  //       new Center(
-                                                                  //     child:
-                                                                  //         new Text(
-                                                                  //       'Tanggal Masuk',
-                                                                  //       style: TextStyle(
-                                                                  //           fontFamily:
-                                                                  //               'WorkSansMedium',
-                                                                  //           fontWeight: FontWeight
-                                                                  //               .bold,
-                                                                  //           fontSize:
-                                                                  //               20),
-                                                                  //     ),
-                                                                  //   ),
-                                                                  // ),
                                                                 ],
                                                               ),
                                                             )
@@ -1358,114 +1337,122 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                           ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Divider(
-                                                          height: 1,
-                                                          thickness: 2,
-                                                          color: Colors.black,
+                                                      ExpansionTile(
+                                                        title: Text(
+                                                          'Lihat lebih detail',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 14),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            'NPM',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            '${npm ?? "-"}',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                // fontWeight:
-                                                                //     FontWeight.bold,
-                                                                fontSize: 16),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Divider(
-                                                          height: 1,
-                                                          thickness: 2,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      statusPresensi == 0 ||
-                                                              statusPresensi ==
-                                                                  null
-                                                          ? Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: new Text(
-                                                                  'Jam Masuk',
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          20),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: new Center(
-                                                                child: new Text(
-                                                                  'Jam Keluar',
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          20),
-                                                                ),
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                'NPM',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        20),
                                                               ),
                                                             ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Center(
-                                                          child: new Text(
-                                                            '${jam ?? "-"}',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                // fontWeight:
-                                                                //     FontWeight.bold,
-                                                                fontSize: 16),
                                                           ),
-                                                        ),
-                                                      )
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                '${npm ?? "-"}',
+                                                                style: TextStyle(
+                                                                    fontFamily: 'WorkSansMedium',
+                                                                    // fontWeight:
+                                                                    //     FontWeight.bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Divider(
+                                                              height: 1,
+                                                              thickness: 2,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          statusPresensi == 0 ||
+                                                                  statusPresensi ==
+                                                                      null
+                                                              ? Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child:
+                                                                      new Center(
+                                                                    child:
+                                                                        new Text(
+                                                                      'Jam Masuk',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              : Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child:
+                                                                      new Center(
+                                                                    child:
+                                                                        new Text(
+                                                                      'Jam Keluar',
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Center(
+                                                              child: new Text(
+                                                                '${jam ?? "-"}',
+                                                                style: TextStyle(
+                                                                    fontFamily: 'WorkSansMedium',
+                                                                    // fontWeight:
+                                                                    //     FontWeight.bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -1696,6 +1683,12 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                         // }
                                                                       });
 
+                                                                      // setState(
+                                                                      //     () {
+                                                                      //   isApiCallProcess =
+                                                                      //       false;
+                                                                      // });
+
                                                                       print(PresensiINMahasiswaToKSIRequestModel()
                                                                           .toJson());
 
@@ -1722,10 +1715,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       // print(
                                                                       //     PresensiINMahasiswaToFTIRequestModel()
                                                                       //         .toJson());
-
-                                                                      APIService
-                                                                          apiService =
-                                                                          new APIService();
 
                                                                       // if (fakultas ==
                                                                       //     'Bisnis dan Ekonomika') {
@@ -1756,6 +1745,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       //           presensiINMahasiswaToFTIRequestModel);
                                                                       // }
 
+                                                                      APIService
+                                                                          apiService =
+                                                                          new APIService();
+
                                                                       await apiService
                                                                           .postInsertPresensiMhsToKSI(
                                                                               presensiINMahasiswaToKSIRequestModel)
@@ -1769,7 +1762,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                                 false;
                                                                           });
                                                                         }
-
                                                                         Get.offAllNamed(
                                                                             '/mahasiswa/dashboard');
 
@@ -1868,10 +1860,15 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                         await SharedPreferences
                                                                             .getInstance();
 
+                                                                    // await dataPresensiMahasiswa
+                                                                    //     .setInt(
+                                                                    //         'statuspresensi',
+                                                                    //         0);
+
                                                                     await dataPresensiMahasiswa
                                                                         .setInt(
                                                                             'statuspresensi',
-                                                                            0);
+                                                                            3);
 
                                                                     setState(
                                                                         () {
@@ -2002,6 +1999,12 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       // }
                                                                     });
 
+                                                                    // setState(
+                                                                    //     () {
+                                                                    //   isApiCallProcess =
+                                                                    //       false;
+                                                                    // });
+
                                                                     print(PresensiOUTMahasiswaToKSIRequestModel()
                                                                         .toJson());
 
@@ -2028,10 +2031,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     // print(
                                                                     //     PresensiOUTMahasiswaToFTIRequestModel()
                                                                     //         .toJson());
-
-                                                                    APIService
-                                                                        apiService =
-                                                                        new APIService();
 
                                                                     // if (fakultas ==
                                                                     //     'Bisnis dan Ekonomika') {
@@ -2060,6 +2059,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     //           presensiOUTMahasiswaToFTIRequestModel);
                                                                     // }
 
+                                                                    APIService
+                                                                        apiService =
+                                                                        new APIService();
+
                                                                     await apiService
                                                                         .putUpdatePresensiMhsToKSI(
                                                                             presensiOUTMahasiswaToKSIRequestModel)
@@ -2073,7 +2076,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                               false;
                                                                         });
                                                                       }
-
                                                                       Get.offAllNamed(
                                                                           '/mahasiswa/dashboard');
 

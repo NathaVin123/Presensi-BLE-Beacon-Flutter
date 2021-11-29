@@ -34,6 +34,7 @@ class Data {
   final int sks;
   final String ruang;
   final int pertemuan;
+  final String status;
   final String materi;
   final String keterangan;
   final String jammasukdosen;
@@ -57,6 +58,7 @@ class Data {
     this.sks,
     this.ruang,
     this.pertemuan,
+    this.status,
     this.materi,
     this.keterangan,
     this.jammasukdosen,
@@ -83,6 +85,7 @@ class Data {
         ruang: json["RUANG"] == null ? null : json['RUANG'] as String,
         pertemuan:
             json["PERTEMUAN_KE"] == null ? null : json['PERTEMUAN_KE'] as int,
+        status: json["STATUS"] == null ? null : json['STATUS'] as String,
         materi: json["MATERI"] == null ? null : json['MATERI'] as String,
         keterangan:
             json["KETERANGAN"] == null ? null : json['KETERANGAN'] as String,
@@ -121,6 +124,7 @@ class Data {
         "SKS": sks,
         "RUANG": ruang,
         "PERTEMUAN_KE": pertemuan,
+        "STATUS": status,
         "MATERI": materi,
         "KETERANGAN": keterangan,
         "JAM_MASUK": jammasuk,

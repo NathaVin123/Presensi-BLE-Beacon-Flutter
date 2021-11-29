@@ -298,9 +298,9 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                                         isApiCallProcess = true;
                                       });
 
-                                      setState(() {
-                                        isApiCallProcess = false;
-                                      });
+                                      // setState(() {
+                                      //   isApiCallProcess = false;
+                                      // });
 
                                       APIService apiService = new APIService();
                                       apiService

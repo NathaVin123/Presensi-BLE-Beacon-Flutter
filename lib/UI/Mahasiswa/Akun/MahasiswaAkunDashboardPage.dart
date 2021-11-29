@@ -348,6 +348,11 @@ class _MahasiswaAkunDashboardPageState
                             SharedPreferences autoLogin =
                                 await SharedPreferences.getInstance();
                             autoLogin.clear();
+
+                            SharedPreferences dataPresensiMahasiswa =
+                                await SharedPreferences.getInstance();
+                            await dataPresensiMahasiswa.setInt(
+                                'statuspresensi', 0);
                             Get.offAllNamed('/');
 
                             Fluttertoast.showToast(

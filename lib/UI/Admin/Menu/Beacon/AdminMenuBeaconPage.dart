@@ -185,45 +185,45 @@ class _AdminMenuBeaconPageState extends State<AdminMenuBeaconPage> {
                           ),
                         ),
                       )),
-                  Padding(
-                      padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(25),
-                        onTap: () => Get.toNamed('/admin/menu/beacon/hapus'),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 24, right: 20, top: 20, bottom: 20),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.trash,
-                                      color: Colors.black,
-                                      size: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 11,
-                                    ),
-                                    Text(
-                                      'Hapus Beacon',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
+                  // Padding(
+                  //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                  //     child: InkWell(
+                  //       borderRadius: BorderRadius.circular(25),
+                  //       onTap: () => Get.toNamed('/admin/menu/beacon/hapus'),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //             color: Colors.grey[200],
+                  //             borderRadius: BorderRadius.circular(25)),
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //           children: <Widget>[
+                  //             Padding(
+                  //               padding: EdgeInsets.only(
+                  //                   left: 24, right: 20, top: 20, bottom: 20),
+                  //               child: Row(
+                  //                 children: [
+                  //                   Icon(
+                  //                     FontAwesomeIcons.trash,
+                  //                     color: Colors.black,
+                  //                     size: 20,
+                  //                   ),
+                  //                   SizedBox(
+                  //                     width: 11,
+                  //                   ),
+                  //                   Text(
+                  //                     'Hapus Beacon',
+                  //                     style: TextStyle(
+                  //                         fontSize: 20,
+                  //                         fontFamily: 'WorkSansMedium',
+                  //                         fontWeight: FontWeight.bold),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     )),
                 ],
               ),
             ),

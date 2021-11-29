@@ -93,7 +93,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -101,7 +101,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -170,7 +170,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -178,7 +178,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -246,7 +246,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -254,7 +254,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -451,7 +451,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -459,7 +459,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -520,7 +520,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -528,7 +528,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -594,7 +594,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -602,7 +602,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -662,7 +662,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -670,7 +670,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -767,7 +767,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -775,7 +775,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -841,7 +841,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -849,7 +849,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -916,7 +916,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -924,7 +924,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -984,7 +984,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -992,7 +992,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1060,7 +1060,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1068,7 +1068,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1136,7 +1136,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1144,7 +1144,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1212,7 +1212,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1220,7 +1220,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1288,7 +1288,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1296,7 +1296,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1357,7 +1357,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1365,7 +1365,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1426,7 +1426,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1434,7 +1434,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1495,7 +1495,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1503,7 +1503,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1571,7 +1571,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1579,7 +1579,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1641,7 +1641,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1649,7 +1649,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1710,7 +1710,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1718,7 +1718,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1780,7 +1780,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1788,7 +1788,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1849,7 +1849,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1857,7 +1857,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1919,7 +1919,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1927,7 +1927,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -1988,7 +1988,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -1996,7 +1996,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2058,7 +2058,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2066,7 +2066,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2127,7 +2127,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2135,7 +2135,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2197,7 +2197,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2205,7 +2205,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2266,7 +2266,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2274,7 +2274,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2359,7 +2359,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2367,7 +2367,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2421,7 +2421,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2429,7 +2429,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',
@@ -2490,7 +2490,7 @@ class APIService {
       if (e is SocketException) {
         Fluttertoast.showToast(
             msg:
-                'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda',
+                'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -2498,7 +2498,7 @@ class APIService {
             textColor: Colors.white,
             fontSize: 14.0);
         throw Exception(
-            'Tidak terhubung dengan jaringan,\nSilahkan aktifkan internet anda');
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
         Fluttertoast.showToast(
             msg: 'Request Timeout',

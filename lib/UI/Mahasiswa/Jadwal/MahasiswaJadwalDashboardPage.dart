@@ -154,7 +154,7 @@ class _MahasiswaJadwalDashboardPageState
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        'Kuliah Selanjutnya',
+                        'Kuliah 1 Minggu Selanjutnya',
                         style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'WorkSansMedium',
@@ -332,18 +332,87 @@ class _MahasiswaJadwalDashboardPageState
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tekan untuk melihat detail kuliah',
+                                    ExpansionTile(
+                                      title: Text(
+                                        'Lihat lebih detail',
                                         style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 14,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
                                       ),
-                                    )
+                                      children: [
+                                        Scrollbar(
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Dosen Pengampu : ${jadwalMahasiswaResponseModel.data[index].namadosen1}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Ruang : ${jadwalMahasiswaResponseModel.data[index].ruang}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'SKS : ${jadwalMahasiswaResponseModel.data[index].sks}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Jam Kelas : ${jadwalMahasiswaResponseModel.data[index].jammasuk} - ${jadwalMahasiswaResponseModel.data[index].jamkeluar}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 onTap: () async {

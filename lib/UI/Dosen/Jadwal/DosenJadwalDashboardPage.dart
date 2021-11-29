@@ -151,7 +151,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        'Kuliah Selanjutnya',
+                        'Kuliah 1 Minggu Selanjutnya',
                         style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'WorkSansMedium',
@@ -329,18 +329,65 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tekan untuk melihat detail kuliah',
+                                    ExpansionTile(
+                                      title: Text(
+                                        'Lihat lebih detail',
                                         style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 14,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
                                       ),
-                                    )
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Ruang : ${jadwalDosenResponseModel.data[index].ruang}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'SKS : ${jadwalDosenResponseModel.data[index].sks}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Jam Kelas : ${jadwalDosenResponseModel.data[index].jammasuk} - ${jadwalDosenResponseModel.data[index].jamkeluar}',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 onTap: () async {
