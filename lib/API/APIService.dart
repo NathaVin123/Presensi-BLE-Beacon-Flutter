@@ -18,23 +18,23 @@ import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINDosenBukaPresensiModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFBEModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFHModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFISIPModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTBModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToKSIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTOUTPresensiDosen.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINOUTPresensiDosen.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFBEModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFHModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFISIPModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTBModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINDosenBukaPresensiModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiINMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiINMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiINMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiINMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiINMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiINMahasiswaToFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiINMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOUTMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOUTMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOUTMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOUTMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOUTMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOUTMahasiswaToFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiOUTMahasiswaToKSIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganNamaDeviceModel.dart';
@@ -2457,7 +2457,7 @@ class APIService {
 
   Future putUpdatePresensiMhsToFTI(
       PresensiOUTMahasiswaToFTIRequestModel requestModel) async {
-    String url = address + "presensi/putoutmhstokfti";
+    String url = address + "presensi/putoutmhstofti";
     print(url);
     try {
       http.Response response = await http.put(url, body: requestModel.toJson());

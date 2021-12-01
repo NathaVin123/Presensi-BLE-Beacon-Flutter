@@ -74,6 +74,12 @@ class _MahasiswaPresensiDashboardPageState
         t.cancel();
       });
     });
+
+    Future.delayed(Duration(minutes: 1), () async {
+      SharedPreferences dataPresensiMahasiswa =
+          await SharedPreferences.getInstance();
+      await dataPresensiMahasiswa.setInt('statuspresensi', 0);
+    });
   }
 
   void _getTime() {

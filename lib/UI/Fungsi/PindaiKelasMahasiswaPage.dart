@@ -9,20 +9,20 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFBEModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFHModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFISIPModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTBModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToFTModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiINMahasiswaToKSIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFBEModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFHModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFISIPModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTBModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTIModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToFTModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/PresensiOUTMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiINMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiINMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiINMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiINMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiINMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiINMahasiswaToFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiINMahasiswaToKSIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOUTMahasiswaToFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOUTMahasiswaToFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOUTMahasiswaToFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOUTMahasiswaToFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOUTMahasiswaToFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOUTMahasiswaToFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiOUTMahasiswaToKSIModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
@@ -233,7 +233,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   getIDKelasFakultas() async {
     idkelasString = idkelas.toString();
 
-    idkelasFakultas = idkelasString.substring(2);
+    idkelasFakultas = idkelasString.substring(1);
   }
 
   getProximityUUID() async {
@@ -1604,83 +1604,91 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                             ' ' +
                                                                             tanggalnow;
 
-                                                                        // if (fakultas ==
-                                                                        //     'Bisnis dan Ekonomika') {
-                                                                        //   presensiINMahasiswaToFBERequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                        if (fakultas ==
+                                                                            'Bisnis dan Ekonomika') {
+                                                                          presensiINMahasiswaToFBERequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFBERequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFBERequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFBERequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFBERequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFBERequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // } else if (fakultas == 'Hukum') {
-                                                                        //   presensiINMahasiswaToFHRequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                          presensiINMahasiswaToFBERequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        } else if (fakultas ==
+                                                                            'Hukum') {
+                                                                          presensiINMahasiswaToFHRequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFHRequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFHRequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFHRequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFHRequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFHRequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // } else if (fakultas ==
-                                                                        //     'Teknobiologi') {
-                                                                        //   presensiINMahasiswaToFTBRequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                          presensiINMahasiswaToFHRequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        } else if (fakultas ==
+                                                                            'Teknobiologi') {
+                                                                          presensiINMahasiswaToFTBRequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFTBRequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFTBRequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFTBRequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFTBRequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFTBRequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // } else if (fakultas ==
-                                                                        //     'Ilmu Sosial dan Politik') {
-                                                                        //   presensiINMahasiswaToFISIPRequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                          presensiINMahasiswaToFTBRequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        } else if (fakultas ==
+                                                                            'Ilmu Sosial dan Politik') {
+                                                                          presensiINMahasiswaToFISIPRequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFISIPRequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFISIPRequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFISIPRequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFISIPRequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFISIPRequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // } else if (fakultas == 'Teknik') {
-                                                                        //   presensiINMahasiswaToFTRequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                          presensiINMahasiswaToFISIPRequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        } else if (fakultas ==
+                                                                            'Teknik') {
+                                                                          presensiINMahasiswaToFTRequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFTRequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFTRequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFTRequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFTRequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFTRequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // } else if (fakultas ==
-                                                                        //     'Teknologi Industri') {
-                                                                        //   presensiINMahasiswaToFTIRequestModel
-                                                                        //       .idkelas = idkelasFakultas;
+                                                                          presensiINMahasiswaToFTRequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        } else if (fakultas ==
+                                                                            'Teknologi Industri') {
+                                                                          presensiINMahasiswaToFTIRequestModel.idkelas =
+                                                                              idkelasFakultas;
 
-                                                                        //   presensiINMahasiswaToFTIRequestModel
-                                                                        //       .npm = npm;
+                                                                          presensiINMahasiswaToFTIRequestModel.npm =
+                                                                              npm;
 
-                                                                        //   presensiINMahasiswaToFTIRequestModel
-                                                                        //       .pertemuan = pertemuan;
+                                                                          presensiINMahasiswaToFTIRequestModel.pertemuan =
+                                                                              pertemuan;
 
-                                                                        //   presensiINMahasiswaToFTIRequestModel
-                                                                        //       .tglin = jam + ' ' + tanggalnow;
-                                                                        // }
+                                                                          presensiINMahasiswaToFTIRequestModel.tglin = jam +
+                                                                              ' ' +
+                                                                              tanggalnow;
+                                                                        }
                                                                       });
 
                                                                       // setState(
@@ -1692,62 +1700,61 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       print(PresensiINMahasiswaToKSIRequestModel()
                                                                           .toJson());
 
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFBERequestModel()
-                                                                      //         .toJson());
-
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFHRequestModel()
-                                                                      //         .toJson());
-
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFISIPRequestModel()
-                                                                      //         .toJson());
-
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFTRequestModel()
-                                                                      //         .toJson());
-
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFTBRequestModel()
-                                                                      //         .toJson());
-
-                                                                      // print(
-                                                                      //     PresensiINMahasiswaToFTIRequestModel()
-                                                                      //         .toJson());
-
-                                                                      // if (fakultas ==
-                                                                      //     'Bisnis dan Ekonomika') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFBE(
-                                                                      //           presensiINMahasiswaToFBERequestModel);
-                                                                      // } else if (fakultas == 'Hukum') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFH(
-                                                                      //           presensiINMahasiswaToFHRequestModel);
-                                                                      // } else if (fakultas == 'Teknobiologi') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFH(
-                                                                      //           presensiINMahasiswaToFHRequestModel);
-                                                                      // } else if (fakultas ==
-                                                                      //     'Ilmu Sosial dan Politik') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFISIP(
-                                                                      //           presensiINMahasiswaToFISIPRequestModel);
-                                                                      // } else if (fakultas == 'Teknik') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFT(
-                                                                      //           presensiINMahasiswaToFTRequestModel);
-                                                                      // } else if (fakultas ==
-                                                                      //     'Teknologi Industri') {
-                                                                      //   await apiService
-                                                                      //       .postInsertPresensiMhsToFTI(
-                                                                      //           presensiINMahasiswaToFTIRequestModel);
-                                                                      // }
+                                                                      if (fakultas ==
+                                                                          'Bisnis dan Ekonomika') {
+                                                                        print(PresensiINMahasiswaToFBERequestModel()
+                                                                            .toJson());
+                                                                      } else if (fakultas ==
+                                                                          'Hukum') {
+                                                                        print(PresensiINMahasiswaToFHRequestModel()
+                                                                            .toJson());
+                                                                      } else if (fakultas ==
+                                                                          'Teknobiologi') {
+                                                                        print(PresensiINMahasiswaToFTBRequestModel()
+                                                                            .toJson());
+                                                                      } else if (fakultas ==
+                                                                          'Ilmu Sosial dan Politik') {
+                                                                        print(PresensiINMahasiswaToFISIPRequestModel()
+                                                                            .toJson());
+                                                                      } else if (fakultas ==
+                                                                          'Teknik') {
+                                                                        print(PresensiINMahasiswaToFTRequestModel()
+                                                                            .toJson());
+                                                                      } else if (fakultas ==
+                                                                          'Teknologi Industri') {
+                                                                        print(PresensiINMahasiswaToFTIRequestModel()
+                                                                            .toJson());
+                                                                      }
 
                                                                       APIService
                                                                           apiService =
                                                                           new APIService();
+
+                                                                      if (fakultas ==
+                                                                          'Bisnis dan Ekonomika') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFBE(presensiINMahasiswaToFBERequestModel);
+                                                                      } else if (fakultas ==
+                                                                          'Hukum') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFH(presensiINMahasiswaToFHRequestModel);
+                                                                      } else if (fakultas ==
+                                                                          'Teknobiologi') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFH(presensiINMahasiswaToFHRequestModel);
+                                                                      } else if (fakultas ==
+                                                                          'Ilmu Sosial dan Politik') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFISIP(presensiINMahasiswaToFISIPRequestModel);
+                                                                      } else if (fakultas ==
+                                                                          'Teknik') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFT(presensiINMahasiswaToFTRequestModel);
+                                                                      } else if (fakultas ==
+                                                                          'Teknologi Industri') {
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsToFTI(presensiINMahasiswaToFTIRequestModel);
+                                                                      }
 
                                                                       await apiService
                                                                           .postInsertPresensiMhsToKSI(
@@ -1896,107 +1903,109 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       presensiOUTMahasiswaToKSIRequestModel
                                                                               .status =
                                                                           'H';
-                                                                      // if (fakultas ==
-                                                                      //     'Bisnis dan Ekonomika') {
-                                                                      //   presensiOUTMahasiswaToFBERequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                      if (fakultas ==
+                                                                          'Bisnis dan Ekonomika') {
+                                                                        presensiOUTMahasiswaToFBERequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFBERequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFBERequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFBERequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFBERequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFBERequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFBERequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFBERequestModel
-                                                                      //       .status = 'H';
-                                                                      // } else if (fakultas == 'Hukum') {
-                                                                      //   presensiOUTMahasiswaToFHRequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                        presensiOUTMahasiswaToFBERequestModel.status =
+                                                                            'H';
+                                                                      } else if (fakultas ==
+                                                                          'Hukum') {
+                                                                        presensiOUTMahasiswaToFHRequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFHRequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFHRequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFHRequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFHRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFHRequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFHRequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFHRequestModel
-                                                                      //       .status = 'H';
-                                                                      // } else if (fakultas ==
-                                                                      //     'Teknobiologi') {
-                                                                      //   presensiOUTMahasiswaToFTBRequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                        presensiOUTMahasiswaToFHRequestModel.status =
+                                                                            'H';
+                                                                      } else if (fakultas ==
+                                                                          'Teknobiologi') {
+                                                                        presensiOUTMahasiswaToFTBRequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFTBRequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFTBRequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFTBRequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFTBRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFTBRequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFTBRequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFTBRequestModel
-                                                                      //       .status = 'H';
-                                                                      // } else if (fakultas ==
-                                                                      //     'Ilmu Sosial dan Politik') {
-                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                        presensiOUTMahasiswaToFTBRequestModel.status =
+                                                                            'H';
+                                                                      } else if (fakultas ==
+                                                                          'Ilmu Sosial dan Politik') {
+                                                                        presensiOUTMahasiswaToFISIPRequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFISIPRequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFISIPRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFISIPRequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFISIPRequestModel
-                                                                      //       .status = 'H';
-                                                                      // } else if (fakultas == 'Teknik') {
-                                                                      //   presensiOUTMahasiswaToFTRequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                        presensiOUTMahasiswaToFISIPRequestModel.status =
+                                                                            'H';
+                                                                      } else if (fakultas ==
+                                                                          'Teknik') {
+                                                                        presensiOUTMahasiswaToFTRequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFTRequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFTRequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFTRequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFTRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFTRequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFTRequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFTRequestModel
-                                                                      //       .status = 'H';
-                                                                      // } else if (fakultas ==
-                                                                      //     'Teknologi Industri') {
-                                                                      //   presensiOUTMahasiswaToFTIRequestModel
-                                                                      //       .idkelas = idkelasFakultas;
+                                                                        presensiOUTMahasiswaToFTRequestModel.status =
+                                                                            'H';
+                                                                      } else if (fakultas ==
+                                                                          'Teknologi Industri') {
+                                                                        presensiOUTMahasiswaToFTIRequestModel.idkelas =
+                                                                            idkelasFakultas;
 
-                                                                      //   presensiOUTMahasiswaToFTIRequestModel
-                                                                      //       .npm = npm;
+                                                                        presensiOUTMahasiswaToFTIRequestModel.npm =
+                                                                            npm;
 
-                                                                      //   presensiOUTMahasiswaToFTIRequestModel
-                                                                      //       .pertemuan = pertemuan;
+                                                                        presensiOUTMahasiswaToFTIRequestModel.pertemuan =
+                                                                            pertemuan;
 
-                                                                      //   presensiOUTMahasiswaToFTIRequestModel
-                                                                      //           .tglout =
-                                                                      //       jam + ' ' + tanggalnow;
+                                                                        // presensiOUTMahasiswaToFTIRequestModel.tglout = jam +
+                                                                        //     ' ' +
+                                                                        //     tanggalnow;
 
-                                                                      //   presensiOUTMahasiswaToFTIRequestModel
-                                                                      //       .status = 'H';
-                                                                      // }
+                                                                        presensiOUTMahasiswaToFTIRequestModel.status =
+                                                                            'H';
+                                                                      }
                                                                     });
 
                                                                     // setState(
@@ -2008,60 +2017,67 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     print(PresensiOUTMahasiswaToKSIRequestModel()
                                                                         .toJson());
 
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFBERequestModel()
-                                                                    //         .toJson());
-
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFHRequestModel()
-                                                                    //         .toJson());
-
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFISIPRequestModel()
-                                                                    //         .toJson());
-
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFTRequestModel()
-                                                                    //         .toJson());
-
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFTBRequestModel()
-                                                                    //         .toJson());
-
-                                                                    // print(
-                                                                    //     PresensiOUTMahasiswaToFTIRequestModel()
-                                                                    //         .toJson());
-
-                                                                    // if (fakultas ==
-                                                                    //     'Bisnis dan Ekonomika') {
-                                                                    //   await apiService
-                                                                    //       .putUpdatePresensiMhsToFBE(
-                                                                    //           presensiOUTMahasiswaToFBERequestModel);
-                                                                    // } else if (fakultas == 'Hukum') {
-                                                                    //   await apiService.putUpdatePresensiMhsToFH(
-                                                                    //       presensiOUTMahasiswaToFHRequestModel);
-                                                                    // } else if (fakultas == 'Teknobiologi') {
-                                                                    //   await apiService
-                                                                    //       .putUpdatePresensiMhsToFTB(
-                                                                    //           presensiOUTMahasiswaToFTBRequestModel);
-                                                                    // } else if (fakultas ==
-                                                                    //     'Ilmu Sosial dan Politik') {
-                                                                    //   await apiService
-                                                                    //       .putUpdatePresensiMhsToFISIP(
-                                                                    //           presensiOUTMahasiswaToFISIPRequestModel);
-                                                                    // } else if (fakultas == 'Teknik') {
-                                                                    //   await apiService.putUpdatePresensiMhsToFT(
-                                                                    //       presensiOUTMahasiswaToFTRequestModel);
-                                                                    // } else if (fakultas ==
-                                                                    //     'Teknologi Industri') {
-                                                                    //   await apiService
-                                                                    //       .putUpdatePresensiMhsToFTI(
-                                                                    //           presensiOUTMahasiswaToFTIRequestModel);
-                                                                    // }
+                                                                    if (fakultas ==
+                                                                        'Bisnis dan Ekonomika') {
+                                                                      print(PresensiOUTMahasiswaToFBERequestModel()
+                                                                          .toJson());
+                                                                    } else if (fakultas ==
+                                                                        'Hukum') {
+                                                                      print(PresensiOUTMahasiswaToFHRequestModel()
+                                                                          .toJson());
+                                                                    } else if (fakultas ==
+                                                                        'Teknobiologi') {
+                                                                      print(PresensiOUTMahasiswaToFTBRequestModel()
+                                                                          .toJson());
+                                                                    } else if (fakultas ==
+                                                                        'Ilmu Sosial dan Politik') {
+                                                                      print(PresensiOUTMahasiswaToFISIPRequestModel()
+                                                                          .toJson());
+                                                                    } else if (fakultas ==
+                                                                        'Teknik') {
+                                                                      print(PresensiOUTMahasiswaToFTRequestModel()
+                                                                          .toJson());
+                                                                    } else if (fakultas ==
+                                                                        'Teknologi Industri') {
+                                                                      print(PresensiOUTMahasiswaToFTIRequestModel()
+                                                                          .toJson());
+                                                                    }
 
                                                                     APIService
                                                                         apiService =
                                                                         new APIService();
+
+                                                                    if (fakultas ==
+                                                                        'Bisnis dan Ekonomika') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFBE(
+                                                                              presensiOUTMahasiswaToFBERequestModel);
+                                                                    } else if (fakultas ==
+                                                                        'Hukum') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFH(
+                                                                              presensiOUTMahasiswaToFHRequestModel);
+                                                                    } else if (fakultas ==
+                                                                        'Teknobiologi') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFTB(
+                                                                              presensiOUTMahasiswaToFTBRequestModel);
+                                                                    } else if (fakultas ==
+                                                                        'Ilmu Sosial dan Politik') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFISIP(
+                                                                              presensiOUTMahasiswaToFISIPRequestModel);
+                                                                    } else if (fakultas ==
+                                                                        'Teknik') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFT(
+                                                                              presensiOUTMahasiswaToFTRequestModel);
+                                                                    } else if (fakultas ==
+                                                                        'Teknologi Industri') {
+                                                                      await apiService
+                                                                          .putUpdatePresensiMhsToFTI(
+                                                                              presensiOUTMahasiswaToFTIRequestModel);
+                                                                    }
 
                                                                     await apiService
                                                                         .putUpdatePresensiMhsToKSI(
