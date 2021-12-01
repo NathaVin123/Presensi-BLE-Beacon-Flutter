@@ -16,6 +16,7 @@ import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/AdminTampilRuanganpage.d
 import 'package:presensiblebeacon/UI/Admin/Menu/Ruangan/Detail/AdminUbahDetailRuanganPage.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailListKelas.dart';
 import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/DosenDetailPresensiPage.dart';
+import 'package:presensiblebeacon/UI/Dosen/Presensi/Detail/TampilPesertaKelas/DosenTampilKehadiranPesertaKelasPage.dart';
 import 'package:presensiblebeacon/UI/Fungsi/PindaiKelasDosenPage.dart';
 import 'package:presensiblebeacon/UI/Mahasiswa/Presensi/Detail/MahasiswaDetailListKelas.dart';
 
@@ -242,6 +243,10 @@ class _MyAppState extends State<MyApp> {
           GetPage(
               name: '/dosen/dashboard/presensi/detail/tampilpeserta',
               page: () => DosenTampilPesertaKelasPage()),
+
+          GetPage(
+              name: '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta',
+              page: () => DosenTampilKehadiranPesertaKelasPage()),
           GetPage(
               name: '/dosen/dashboard/presensi/notifikasi',
               page: () => DosenNotifikasiPresensiPage()),

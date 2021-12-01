@@ -119,7 +119,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                                   Text(
                                                     'Pindai Beacon',
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         fontFamily:
                                                             'WorkSansMedium',
                                                         fontWeight:
@@ -167,7 +167,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                                   Text(
                                                     'Tampil Beacon',
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         fontFamily:
                                                             'WorkSansMedium',
                                                         fontWeight:
@@ -215,7 +215,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                                   Text(
                                                     'Tambah Beacon',
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         fontFamily:
                                                             'WorkSansMedium',
                                                         fontWeight:
@@ -263,7 +263,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                                   Text(
                                                     'Ubah Beacon',
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         fontFamily:
                                                             'WorkSansMedium',
                                                         fontWeight:
@@ -512,7 +512,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                 //                   Text(
                 //                     'Ubah Jadwal Kelas',
                 //                     style: TextStyle(
-                //                         fontSize: 20,
+                //                         fontSize: 16,
                 //                         fontFamily: 'WorkSansMedium',
                 //                         fontWeight: FontWeight.bold),
                 //                   ),

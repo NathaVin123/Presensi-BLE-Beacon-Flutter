@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:intl/intl.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -410,6 +411,55 @@ class _MahasiswaJadwalDashboardPageState
                                               ),
                                             ),
                                           ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MaterialButton(
+                                            padding: EdgeInsets.all(8),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 26),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.people_alt_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'Tampil Peserta Kelas',
+                                                    style: const TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansSemiBold',
+                                                        fontSize: 16,
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            color: Colors.yellow[700],
+                                            shape: StadiumBorder(),
+                                            onPressed: () async {
+                                              SharedPreferences
+                                                  dataPresensiDosen =
+                                                  await SharedPreferences
+                                                      .getInstance();
+
+                                              await dataPresensiDosen.setInt(
+                                                  'idkelas',
+                                                  jadwalMahasiswaResponseModel
+                                                      .data[index].idkelas);
+
+                                              Get.toNamed(
+                                                  '/mahasiswa/dashboard/presensi/detail/tampilpeserta');
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),
