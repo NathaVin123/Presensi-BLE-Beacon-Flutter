@@ -446,19 +446,12 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         floatingActionButton: showFab
-            ? FloatingActionButton.extended(
-                backgroundColor: Colors.blue,
+            ? FloatingActionButton(
                 onPressed: () => {
                   _scrollController
                       .jumpTo(_scrollController.position.maxScrollExtent)
                 },
-                label: Text(
-                  'Presensi',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'WorkSansMedium'),
-                ),
-                icon: Icon(Icons.arrow_downward_rounded),
+                child: Icon(Icons.arrow_downward_rounded),
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

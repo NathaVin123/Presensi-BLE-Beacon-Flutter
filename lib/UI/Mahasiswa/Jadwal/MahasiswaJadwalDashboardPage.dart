@@ -100,9 +100,8 @@ class _MahasiswaJadwalDashboardPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text('Segarkan'),
-          icon: Icon(Icons.refresh_rounded),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh_rounded),
           onPressed: () => getDataJadwalMahasiswa()),
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
