@@ -40,7 +40,7 @@ class _TentangPageState extends State<TentangPage> {
                         Padding(
                             padding: EdgeInsets.all(22),
                             child: CircleAvatar(
-                                backgroundColor: Colors.grey[350],
+                                backgroundColor: Colors.blue[800],
                                 radius: 50,
                                 // child: const Text('NV'),
                                 child: Padding(
@@ -55,7 +55,7 @@ class _TentangPageState extends State<TentangPage> {
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.center,
-                                child: Text('Presensi UAJY',
+                                child: Text('E-Presensi UAJY',
                                     style: const TextStyle(
                                         fontFamily: 'WorkSansSemiBold',
                                         fontSize: 22.0,

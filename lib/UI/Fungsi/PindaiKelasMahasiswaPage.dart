@@ -76,6 +76,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   String tglmasuk = "";
   String tglkeluar = "";
   int bukapresensi = 0;
+  String tglin = "";
+  String tglout = "";
 
   String idkelasString;
   String idkelasFakultas;
@@ -227,6 +229,8 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
       tglkeluar = dataPresensiMahasiswa.getString('tglkeluar');
       bukapresensi = dataPresensiMahasiswa.getInt('bukapresensi');
       statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
+      tglin = dataPresensiMahasiswa.getString('tglin');
+      tglout = dataPresensiMahasiswa.getString('tglout');
     });
   }
 
@@ -1178,9 +1182,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                               25)),
                                                   child: Column(
                                                     children: <Widget>[
-                                                      statusPresensi == 0 ||
-                                                              statusPresensi ==
-                                                                  null
+                                                      tglin == '-'
                                                           ? Padding(
                                                               padding:
                                                                   const EdgeInsets
@@ -1393,9 +1395,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                   Colors.black,
                                                             ),
                                                           ),
-                                                          statusPresensi == 0 ||
-                                                                  statusPresensi ==
-                                                                      null
+                                                          tglin == '-'
                                                               ? Padding(
                                                                   padding:
                                                                       const EdgeInsets
@@ -1525,9 +1525,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                           ),
                                                         ),
                                                       ),
-                                                      statusPresensi == 0 ||
-                                                              statusPresensi ==
-                                                                  null
+                                                      tglin == '-'
                                                           ? Padding(
                                                               padding:
                                                                   const EdgeInsets

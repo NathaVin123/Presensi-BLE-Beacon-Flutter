@@ -173,7 +173,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
             //     onPressed: () =>
             //         Get.toNamed('/dosen/dashboard/presensi/detail/list')),
             title: Image.asset(
-              'SplashPage_LogoAtmaJaya'.png,
+              'SplashPage_LogoAtmaJaya_3'.png,
               height: 30,
             ),
             centerTitle: true,
@@ -298,382 +298,247 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
               //     ),
               //   ),
               // ),
-              listKelasDosenResponseModel.data == null ||
-                      listKelasDosenResponseModel.data.isEmpty
-                  ? Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              // Padding(
-                              //   padding: const EdgeInsets.all(16),
-                              //   child: CircularProgressIndicator(
-                              //     color: Colors.white,
-                              //   ),
-                              // ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Tidak ada kuliah saat ini',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              // Text(
-                              //   'Silakan tekan tombol "Segarkan" jika bermasalah',
-                              //   style: TextStyle(
-                              //       fontSize: 14,
-                              //       fontFamily: 'WorkSansMedium',
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
-                            ],
-                          ),
-                        ),
+              listKelasDosenResponseModel.data == null
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
                       ),
                     )
-                  : Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                            itemCount: listKelasDosenResponseModel.data.length,
-                            itemBuilder: (context, index) {
-                              if (listKelasDosenResponseModel
-                                          .data[index].bukapresensi ==
-                                      0 ||
-                                  listKelasDosenResponseModel
-                                          .data[index].bukapresensi ==
-                                      1) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 8, bottom: 8),
-                                  child: Container(
+                  : listKelasDosenResponseModel.data.isEmpty
+                      ? Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
                                     decoration: BoxDecoration(
-                                        color: Colors.grey[200],
+                                        color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(25)),
-                                    child: new ListTile(
-                                      title: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: <Widget>[
-                                            listKelasDosenResponseModel
-                                                        .data[index]
-                                                        .bukapresensi ==
-                                                    0
-                                                ? Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(vertical: 8),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.red,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .door_front_door_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Tertutup',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                : Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Terbuka',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                            Scrollbar(
-                                              child: Container(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: Text(
-                                                          '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Tidak ada kuliah saat ini',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+
+                                  // Text(
+                                  //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                                  //   style: TextStyle(
+                                  //       fontSize: 14,
+                                  //       fontFamily: 'WorkSansMedium',
+                                  //       fontWeight: FontWeight.bold,
+                                  //       color: Colors.white),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: Scrollbar(
+                            child: ListView.builder(
+                                itemCount:
+                                    listKelasDosenResponseModel.data.length,
+                                itemBuilder: (context, index) {
+                                  if (listKelasDosenResponseModel
+                                              .data[index].bukapresensi ==
+                                          0 ||
+                                      listKelasDosenResponseModel
+                                              .data[index].bukapresensi ==
+                                          1) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 12,
+                                          top: 8,
+                                          bottom: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: new ListTile(
+                                          title: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
                                               children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Pertemuan ke - ${listKelasDosenResponseModel.data[index].pertemuan}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.room_rounded,
-                                                        color: Colors.black,
-                                                      ),
-                                                      Padding(
+                                                listKelasDosenResponseModel
+                                                            .data[index]
+                                                            .bukapresensi ==
+                                                        0
+                                                    ? Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
+                                                                    .symmetric(
+                                                                vertical: 8),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.red,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .door_front_door_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Tertutup',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Colors.white)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                      Icons.date_range_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasDosenResponseModel.data[index].hari1}'
-                                                      ','
-                                                      ' '
-                                                      '${listKelasDosenResponseModel.data[index].tglmasuk}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'SKS : ${listKelasDosenResponseModel.data[index].sks}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.alarm_on_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasDosenResponseModel.data[index].jammasuk}'
-                                                      ' '
-                                                      '-'
-                                                      ' '
-                                                      '${listKelasDosenResponseModel.data[index].jamkeluar}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8),
-                                              child: Divider(
-                                                thickness: 2,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            listKelasDosenResponseModel
-                                                        .data[index]
-                                                        .bukapresensi ==
-                                                    0
-                                                ? Column(
-                                                    children: <Widget>[
-                                                      Padding(
+                                                      )
+                                                    : Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Container(
                                                           decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .yellow[700],
+                                                              color:
+                                                                  Colors.green,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           25)),
-                                                          child: Padding(
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .meeting_room_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Terbuka',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Colors.white)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                    .all(12),
-                                                            child: new Text(
-                                                              'Mahasiswa belum bisa presensi, perlu membuka kelas',
+                                                                    .all(8),
+                                                            child: Text(
+                                                              '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Pertemuan ke - ${listKelasDosenResponseModel.data[index].pertemuan}',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.room_rounded,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                new AutoSizeText(
+                                                              'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
                                                               style: TextStyle(
                                                                   fontSize: 14,
                                                                   fontFamily:
@@ -682,845 +547,31 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                       FontWeight
                                                                           .bold,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .black),
                                                             ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                      MaterialButton(
-                                                        padding:
-                                                            EdgeInsets.all(8),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8,
-                                                                  horizontal:
-                                                                      26),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                'Detail Presensi Masuk',
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansSemiBold',
-                                                                    fontSize:
-                                                                        16,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        color: Colors.green,
-                                                        shape: StadiumBorder(),
-                                                        onPressed: () async {
-                                                          SharedPreferences
-                                                              dataPresensiDosen =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-
-                                                          await dataPresensiDosen
-                                                              .setString('jam',
-                                                                  _timeString);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tanggalnow',
-                                                                  _dateString);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'ruang',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .ruang);
-
-                                                          // if (listKelasDosenResponseModel
-                                                          //             .data[index].uuid !=
-                                                          //         null ||
-                                                          //     listKelasDosenResponseModel
-                                                          //
-                                                          //        .data[index].uuid.isNotEmpty) {
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .uuid !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'uuid',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .uuid);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'uuid',
-                                                                    '-');
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .namadevice !=
-                                                              null) {
-                                                            await dataPresensiDosen.setString(
-                                                                'namadevice',
-                                                                listKelasDosenResponseModel
-                                                                    .data[index]
-                                                                    .namadevice);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'namadevice',
-                                                                    '-');
-                                                          }
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .jarakmin !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .jarakmin);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    0);
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .major !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'major',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .major);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'major', 0);
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .minor !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'minor',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .minor);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'minor', 0);
-                                                          }
-
-                                                          // }
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'idkelas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .idkelas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'namamk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namamk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'kelas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kelas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'nppdosen1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .nppdosen1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen2);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen3);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'namadosen1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadosen1);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen2);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen3);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'hari1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .hari1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari2);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari3);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'sesi1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sesi1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi2);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi3);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi4);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'sks',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sks);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'pertemuan',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .pertemuan);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'kapasitas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kapasitas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tglmasuk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglmasuk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tglkeluar',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglkeluar);
-
-                                                          await dataPresensiDosen.setInt(
-                                                              'bukapresensi',
-                                                              listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .bukapresensi);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'jammasuk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jammasuk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'jamkeluar',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jamkeluar);
-
-                                                          await Get.offAllNamed(
-                                                              '/pindaiDosen');
-                                                        },
-                                                      ),
-                                                    ],
-                                                  )
-                                                : Column(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .yellow[700],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25)),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(12),
-                                                            child: new Text(
-                                                              'Persilahkan mahasiswa untuk presensi masuk',
-                                                              style: TextStyle(
-                                                                fontSize: 14,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      MaterialButton(
-                                                        padding:
-                                                            EdgeInsets.all(8),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8,
-                                                                  horizontal:
-                                                                      26),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .door_front_door_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                'Detail Presensi Keluar',
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansSemiBold',
-                                                                    fontSize:
-                                                                        16,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        color: Colors.red,
-                                                        shape: StadiumBorder(),
-                                                        onPressed: () async {
-                                                          SharedPreferences
-                                                              dataPresensiDosen =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-
-                                                          await dataPresensiDosen
-                                                              .setString('jam',
-                                                                  _timeString);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tanggalnow',
-                                                                  _dateString);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'ruang',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .ruang);
-
-                                                          // if (listKelasDosenResponseModel
-                                                          //             .data[index].uuid !=
-                                                          //         null ||
-                                                          //     listKelasDosenResponseModel
-                                                          //
-                                                          //        .data[index].uuid.isNotEmpty) {
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .uuid !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'uuid',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .uuid);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'uuid',
-                                                                    '-');
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .namadevice !=
-                                                              null) {
-                                                            await dataPresensiDosen.setString(
-                                                                'namadevice',
-                                                                listKelasDosenResponseModel
-                                                                    .data[index]
-                                                                    .namadevice);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setString(
-                                                                    'namadevice',
-                                                                    '-');
-                                                          }
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .jarakmin !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .jarakmin);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    0);
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .major !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'major',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .major);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'major', 0);
-                                                          }
-
-                                                          if (listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .minor !=
-                                                              null) {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'minor',
-                                                                    listKelasDosenResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .minor);
-                                                          } else {
-                                                            await dataPresensiDosen
-                                                                .setInt(
-                                                                    'minor', 0);
-                                                          }
-
-                                                          // }
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'idkelas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .idkelas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'namamk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namamk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'kelas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kelas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'nppdosen1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .nppdosen1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen2);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen3);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'nppdosen4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].nppdosen4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'namadosen1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadosen1);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen2);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen3);
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'namadosen4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].namadosen4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'hari1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .hari1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari2);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari3);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'hari4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].hari4);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'sesi1',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sesi1);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi2',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi2);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi3',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi3);
-
-                                                          // await dataPresensiDosen.setString(
-                                                          //     'sesi4',
-                                                          //     listKelasDosenResponseModel
-                                                          //         .data[index].sesi4);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'sks',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sks);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'pertemuan',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .pertemuan);
-
-                                                          await dataPresensiDosen
-                                                              .setInt(
-                                                                  'kapasitas',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kapasitas);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tglmasuk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglmasuk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'tglkeluar',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglkeluar);
-
-                                                          await dataPresensiDosen.setInt(
-                                                              'bukapresensi',
-                                                              listKelasDosenResponseModel
-                                                                  .data[index]
-                                                                  .bukapresensi);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'jammasuk',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jammasuk);
-
-                                                          await dataPresensiDosen
-                                                              .setString(
-                                                                  'jamkeluar',
-                                                                  listKelasDosenResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jamkeluar);
-
-                                                          await Get.offAllNamed(
-                                                              '/pindaiDosen');
-                                                        },
-                                                      ),
-                                                    ],
-                                                  )
-                                          ],
-                                        ),
-                                      ),
-                                      // onTap: () async {
-
-                                      // },
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 8, bottom: 8),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: new ListTile(
-                                      title: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25)),
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: <Widget>[
-                                                        Icon(
-                                                          Icons
-                                                              .door_front_door_rounded,
-                                                          color: Colors.white,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 20,
-                                                        ),
-                                                        Text('Kelas Berakhir',
-                                                            style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .white)),
-                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
 
-                                            Scrollbar(
-                                              child: Container(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: Text(
-                                                          '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Pertemuan ke - ${listKelasDosenResponseModel.data[index].pertemuan}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Container(
+                                                      const EdgeInsets.all(8.0),
                                                   child: Row(
                                                     children: [
-                                                      Icon(
-                                                        Icons.room_rounded,
-                                                        color: Colors.black,
-                                                      ),
+                                                      Icon(Icons
+                                                          .date_range_rounded),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
+                                                        child: new Text(
+                                                          '${listKelasDosenResponseModel.data[index].hari1}'
+                                                          ','
+                                                          ' '
+                                                          '${listKelasDosenResponseModel.data[index].tglmasuk}',
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontFamily:
@@ -1535,151 +586,1126 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                            ),
 
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                      Icons.date_range_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasDosenResponseModel.data[index].hari1}'
-                                                      ','
-                                                      ' '
-                                                      '${listKelasDosenResponseModel.data[index].tglmasuk}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'SKS : ${listKelasDosenResponseModel.data[index].sks}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .alarm_on_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasDosenResponseModel.data[index].jammasuk}'
+                                                          ' '
+                                                          '-'
+                                                          ' '
+                                                          '${listKelasDosenResponseModel.data[index].jamkeluar}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'SKS : ${listKelasDosenResponseModel.data[index].sks}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 8),
-                                            //   child: new Text(
-                                            //     'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
-                                            //     style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       fontFamily: 'WorkSansMedium',
-                                            //       fontWeight: FontWeight.bold,
-                                            //     ),
-                                            //   ),
-                                            // ),
-
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.alarm_on_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasDosenResponseModel.data[index].jammasuk}'
-                                                      ' '
-                                                      '-'
-                                                      ' '
-                                                      '${listKelasDosenResponseModel.data[index].jamkeluar}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Divider(
+                                                    thickness: 2,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                listKelasDosenResponseModel
+                                                            .data[index]
+                                                            .bukapresensi ==
+                                                        0
+                                                    ? Column(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                          .yellow[
+                                                                      700],
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              25)),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(12),
+                                                                child: new Text(
+                                                                  'Mahasiswa belum bisa presensi, perlu membuka kelas',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          MaterialButton(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 8,
+                                                                  horizontal:
+                                                                      26),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .meeting_room_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    'Detail Presensi Masuk',
+                                                                    style: const TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansSemiBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            color: Colors.green,
+                                                            shape:
+                                                                StadiumBorder(),
+                                                            onPressed:
+                                                                () async {
+                                                              SharedPreferences
+                                                                  dataPresensiDosen =
+                                                                  await SharedPreferences
+                                                                      .getInstance();
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'jam',
+                                                                      _timeString);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'tanggalnow',
+                                                                      _dateString);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'ruang',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .ruang);
+
+                                                              // if (listKelasDosenResponseModel
+                                                              //             .data[index].uuid !=
+                                                              //         null ||
+                                                              //     listKelasDosenResponseModel
+                                                              //
+                                                              //        .data[index].uuid.isNotEmpty) {
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .uuid !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setString(
+                                                                    'uuid',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .uuid);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setString(
+                                                                        'uuid',
+                                                                        '-');
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadevice !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setString(
+                                                                    'namadevice',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namadevice);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setString(
+                                                                        'namadevice',
+                                                                        '-');
+                                                              }
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jarakmin !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setDouble(
+                                                                    'jarakmin',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jarakmin);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setDouble(
+                                                                        'jarakmin',
+                                                                        0);
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .major !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setInt(
+                                                                    'major',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .major);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setInt(
+                                                                        'major',
+                                                                        0);
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .minor !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setInt(
+                                                                    'minor',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .minor);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setInt(
+                                                                        'minor',
+                                                                        0);
+                                                              }
+
+                                                              // }
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'idkelas',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .idkelas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'namamk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namamk);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'kelas',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .kelas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'nppdosen1',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .nppdosen1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen2);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen3);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen4);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'namadosen1',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadosen1);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen2);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen3);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen4);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'hari1',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .hari1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari2);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari3);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari4);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'sesi1',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .sesi1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi2);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi3);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi4);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'sks',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .sks);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'pertemuan',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .pertemuan);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'kapasitas',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .kapasitas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'tglmasuk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglmasuk);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'tglkeluar',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglkeluar);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'bukapresensi',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .bukapresensi);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'jammasuk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jammasuk);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'jamkeluar',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jamkeluar);
+
+                                                              await Get.offAllNamed(
+                                                                  '/pindaiDosen');
+                                                            },
+                                                          ),
+                                                        ],
+                                                      )
+                                                    : Column(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                          .yellow[
+                                                                      700],
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              25)),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(12),
+                                                                child: new Text(
+                                                                  'Persilahkan mahasiswa untuk presensi masuk',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          MaterialButton(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 8,
+                                                                  horizontal:
+                                                                      26),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .door_front_door_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    'Detail Presensi Keluar',
+                                                                    style: const TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansSemiBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            color: Colors.red,
+                                                            shape:
+                                                                StadiumBorder(),
+                                                            onPressed:
+                                                                () async {
+                                                              SharedPreferences
+                                                                  dataPresensiDosen =
+                                                                  await SharedPreferences
+                                                                      .getInstance();
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'jam',
+                                                                      _timeString);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'tanggalnow',
+                                                                      _dateString);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'ruang',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .ruang);
+
+                                                              // if (listKelasDosenResponseModel
+                                                              //             .data[index].uuid !=
+                                                              //         null ||
+                                                              //     listKelasDosenResponseModel
+                                                              //
+                                                              //        .data[index].uuid.isNotEmpty) {
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .uuid !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setString(
+                                                                    'uuid',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .uuid);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setString(
+                                                                        'uuid',
+                                                                        '-');
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadevice !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setString(
+                                                                    'namadevice',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namadevice);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setString(
+                                                                        'namadevice',
+                                                                        '-');
+                                                              }
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jarakmin !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setDouble(
+                                                                    'jarakmin',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jarakmin);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setDouble(
+                                                                        'jarakmin',
+                                                                        0);
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .major !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setInt(
+                                                                    'major',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .major);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setInt(
+                                                                        'major',
+                                                                        0);
+                                                              }
+
+                                                              if (listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .minor !=
+                                                                  null) {
+                                                                await dataPresensiDosen.setInt(
+                                                                    'minor',
+                                                                    listKelasDosenResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .minor);
+                                                              } else {
+                                                                await dataPresensiDosen
+                                                                    .setInt(
+                                                                        'minor',
+                                                                        0);
+                                                              }
+
+                                                              // }
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'idkelas',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .idkelas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'namamk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namamk);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'kelas',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .kelas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'nppdosen1',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .nppdosen1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen2);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen3);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'nppdosen4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].nppdosen4);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'namadosen1',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadosen1);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen2);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen3);
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'namadosen4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].namadosen4);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'hari1',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .hari1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari2);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari3);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'hari4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].hari4);
+
+                                                              await dataPresensiDosen
+                                                                  .setString(
+                                                                      'sesi1',
+                                                                      listKelasDosenResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .sesi1);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi2',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi2);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi3',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi3);
+
+                                                              // await dataPresensiDosen.setString(
+                                                              //     'sesi4',
+                                                              //     listKelasDosenResponseModel
+                                                              //         .data[index].sesi4);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'sks',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .sks);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'pertemuan',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .pertemuan);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'kapasitas',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .kapasitas);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'tglmasuk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglmasuk);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'tglkeluar',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglkeluar);
+
+                                                              await dataPresensiDosen.setInt(
+                                                                  'bukapresensi',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .bukapresensi);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'jammasuk',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jammasuk);
+
+                                                              await dataPresensiDosen.setString(
+                                                                  'jamkeluar',
+                                                                  listKelasDosenResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .jamkeluar);
+
+                                                              await Get.offAllNamed(
+                                                                  '/pindaiDosen');
+                                                            },
+                                                          ),
+                                                        ],
+                                                      )
+                                              ],
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8),
-                                              child: Divider(
-                                                thickness: 2,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.all(8.0),
-                                            //   child: Container(
-                                            //     decoration: BoxDecoration(
-                                            //         color: Colors.red,
-                                            //         borderRadius:
-                                            //             BorderRadius.circular(
-                                            //                 25)),
-                                            //     child: Padding(
-                                            //       padding:
-                                            //           const EdgeInsets.all(8),
-                                            //       child: new Text(
-                                            //         'Kelas Berakhir',
-                                            //         style: TextStyle(
-                                            //           fontSize: 16,
-                                            //           fontFamily:
-                                            //               'WorkSansMedium',
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           color: Colors.white,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                          ],
+                                          ),
+                                          // onTap: () async {
+
+                                          // },
                                         ),
                                       ),
-                                      // onTap: () async {
+                                    );
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 12,
+                                          top: 8,
+                                          bottom: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: new ListTile(
+                                          title: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Icon(
+                                                              Icons
+                                                                  .door_front_door_rounded,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 20,
+                                                            ),
+                                                            Text(
+                                                                'Kelas Berakhir',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white)),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
 
-                                      // },
-                                    ),
-                                  ),
-                                );
-                              }
-                            }),
-                      ),
-                    )
+                                                Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: Text(
+                                                              '${listKelasDosenResponseModel.data[index].namamk} ${listKelasDosenResponseModel.data[index].kelas}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Pertemuan ke - ${listKelasDosenResponseModel.data[index].pertemuan}',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.room_rounded,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                new AutoSizeText(
+                                                              'Ruang ${listKelasDosenResponseModel.data[index].ruang}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .date_range_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasDosenResponseModel.data[index].hari1}'
+                                                          ','
+                                                          ' '
+                                                          '${listKelasDosenResponseModel.data[index].tglmasuk}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'SKS : ${listKelasDosenResponseModel.data[index].sks}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'Hari : ${listKelasDosenResponseModel.data[index].hari1}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(top: 8),
+                                                //   child: new Text(
+                                                //     'Sesi : ${listKelasDosenResponseModel.data[index].sesi1}',
+                                                //     style: TextStyle(
+                                                //       fontSize: 15,
+                                                //       fontFamily: 'WorkSansMedium',
+                                                //       fontWeight: FontWeight.bold,
+                                                //     ),
+                                                //   ),
+                                                // ),
+
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .alarm_on_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasDosenResponseModel.data[index].jammasuk}'
+                                                          ' '
+                                                          '-'
+                                                          ' '
+                                                          '${listKelasDosenResponseModel.data[index].jamkeluar}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Divider(
+                                                    thickness: 2,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.all(8.0),
+                                                //   child: Container(
+                                                //     decoration: BoxDecoration(
+                                                //         color: Colors.red,
+                                                //         borderRadius:
+                                                //             BorderRadius.circular(
+                                                //                 25)),
+                                                //     child: Padding(
+                                                //       padding:
+                                                //           const EdgeInsets.all(8),
+                                                //       child: new Text(
+                                                //         'Kelas Berakhir',
+                                                //         style: TextStyle(
+                                                //           fontSize: 16,
+                                                //           fontFamily:
+                                                //               'WorkSansMedium',
+                                                //           fontWeight:
+                                                //               FontWeight.bold,
+                                                //           color: Colors.white,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                              ],
+                                            ),
+                                          ),
+                                          // onTap: () async {
+
+                                          // },
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }),
+                          ),
+                        )
             ],
           )),
     );

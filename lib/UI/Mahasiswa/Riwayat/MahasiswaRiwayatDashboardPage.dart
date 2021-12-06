@@ -143,141 +143,180 @@ class _MahasiswaRiwayatDashboardPageState
               ],
             ),
           ),
-          riwayatMahasiswaResponseModel.data == null ||
-                  riwayatMahasiswaResponseModel.data.isEmpty
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Riwayat kuliah anda kosong',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+          riwayatMahasiswaResponseModel.data == null
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
                   ),
                 )
-              : Expanded(
-                  child: Scrollbar(
-                    child: ListView.builder(
-                        itemCount: riwayatMahasiswaResponseModel.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 12, top: 8, bottom: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: new ListTile(
-                                title: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+              : riwayatMahasiswaResponseModel.data.isEmpty
+                  ? Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Riwayat presensi anda kosong',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+
+                              // Text(
+                              //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                              //   style: TextStyle(
+                              //       fontSize: 14,
+                              //       fontFamily: 'WorkSansMedium',
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.white),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Scrollbar(
+                        child: ListView.builder(
+                            itemCount:
+                                riwayatMahasiswaResponseModel.data?.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 8, bottom: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: new ListTile(
+                                    title: Column(
                                       children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '${riwayatMahasiswaResponseModel.data[index].hari1}, ${riwayatMahasiswaResponseModel.data[index].tglmasuk}',
-                                                style: TextStyle(
-                                                  color: Colors.grey[50],
-                                                  fontSize: 14,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    '${riwayatMahasiswaResponseModel.data[index].hari1}, ${riwayatMahasiswaResponseModel.data[index].tglmasuk}',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[50],
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Scrollbar(
+                                          child: Center(
+                                            child: Container(
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: new Text(
+                                                            '${riwayatMahasiswaResponseModel.data[index].namamk} ${riwayatMahasiswaResponseModel.data[index].kelas}',
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Scrollbar(
-                                      child: Center(
-                                        child: Container(
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Row(
-                                                  children: <Widget>[
+                                        new Text(
+                                          'Pertemuan ke - ${riwayatMahasiswaResponseModel.data[index].pertemuan}',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        ExpansionTile(
+                                          title: Text(
+                                            'Lihat lebih detail',
+                                            style: TextStyle(
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
+                                          children: [
+                                            Scrollbar(
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  children: [
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.all(
                                                               8.0),
-                                                      child: new Text(
-                                                        '${riwayatMahasiswaResponseModel.data[index].namamk} ${riwayatMahasiswaResponseModel.data[index].kelas}',
+                                                      child: Text(
+                                                        'Dosen Pengampu : ${riwayatMahasiswaResponseModel.data[index].namadosen1}',
                                                         style: TextStyle(
-                                                            fontSize: 15,
                                                             fontFamily:
                                                                 'WorkSansMedium',
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                                FontWeight.bold,
+                                                            fontSize: 14),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    new Text(
-                                      'Pertemuan ke - ${riwayatMahasiswaResponseModel.data[index].pertemuan}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    ExpansionTile(
-                                      title: Text(
-                                        'Lihat lebih detail',
-                                        style: TextStyle(
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                      children: [
-                                        Scrollbar(
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
+                                            Row(
                                               children: [
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
-                                                    'Dosen Pengampu : ${riwayatMahasiswaResponseModel.data[index].namadosen1}',
+                                                    'Ruang : ${riwayatMahasiswaResponseModel.data[index].ruang}',
                                                     style: TextStyle(
                                                         fontFamily:
                                                             'WorkSansMedium',
@@ -288,143 +327,135 @@ class _MahasiswaRiwayatDashboardPageState
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Ruang : ${riwayatMahasiswaResponseModel.data[index].ruang}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'SKS : ${riwayatMahasiswaResponseModel.data[index].sks}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Sesi : ${riwayatMahasiswaResponseModel.data[index].sesi1}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Mahasiswa Masuk : ${riwayatMahasiswaResponseModel.data[index].jammasukdosen ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Mahasiswa Keluar : ${riwayatMahasiswaResponseModel.data[index].jamkeluardosen ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'SKS : ${riwayatMahasiswaResponseModel.data[index].sks}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Sesi : ${riwayatMahasiswaResponseModel.data[index].sesi1}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Mahasiswa Masuk : ${riwayatMahasiswaResponseModel.data[index].jammasukdosen ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Mahasiswa Keluar : ${riwayatMahasiswaResponseModel.data[index].jamkeluardosen ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        riwayatMahasiswaResponseModel
+                                                    .data[index].status ==
+                                                'H'
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: new Text(
+                                                    'Status : ${riwayatMahasiswaResponseModel.data[index].status ?? "-"}',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: new Text(
+                                                    'Status : ${riwayatMahasiswaResponseModel.data[index].status ?? "-"}',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
                                       ],
                                     ),
-                                    riwayatMahasiswaResponseModel
-                                                .data[index].status ==
-                                            'H'
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: new Text(
-                                                'Status : ${riwayatMahasiswaResponseModel.data[index].status ?? "-"}',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: new Text(
-                                                'Status : ${riwayatMahasiswaResponseModel.data[index].status ?? "-"}',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                  ],
+                                    onTap: () async {
+                                      // await Get.toNamed(
+                                      //     '/mahasiswa/dashboard/jadwal/detail');
+                                    },
+                                  ),
                                 ),
-                                onTap: () async {
-                                  // await Get.toNamed(
-                                  //     '/mahasiswa/dashboard/jadwal/detail');
-                                },
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-                )
+                              );
+                            }),
+                      ),
+                    )
         ],
       ),
     );

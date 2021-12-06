@@ -140,327 +140,357 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
               ],
             ),
           ),
-          riwayatDosenResponseModel.data == null ||
-                  riwayatDosenResponseModel.data.isEmpty
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Riwayat kuliah anda kosong',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+          riwayatDosenResponseModel.data == null
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
                   ),
                 )
-              : Expanded(
-                  child: Scrollbar(
-                    child: ListView.builder(
-                        itemCount: riwayatDosenResponseModel.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 12, top: 8, bottom: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: new ListTile(
-                                title: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+              : riwayatDosenResponseModel.data.isEmpty
+                  ? Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Riwayat presensi anda kosong',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'WorkSansMedium',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+
+                              // Text(
+                              //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                              //   style: TextStyle(
+                              //       fontSize: 14,
+                              //       fontFamily: 'WorkSansMedium',
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.white),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Scrollbar(
+                        child: ListView.builder(
+                            itemCount: riwayatDosenResponseModel.data?.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 8, bottom: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: new ListTile(
+                                    title: Column(
                                       children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '${riwayatDosenResponseModel.data[index].hari1}, ${riwayatDosenResponseModel.data[index].tglmasuk}',
-                                                style: TextStyle(
-                                                  color: Colors.grey[50],
-                                                  fontSize: 14,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    '${riwayatDosenResponseModel.data[index].hari1}, ${riwayatDosenResponseModel.data[index].tglmasuk}',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[50],
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    Scrollbar(
-                                      child: Center(
-                                        child: Container(
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Row(
+                                        Scrollbar(
+                                          child: Center(
+                                            child: Container(
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Column(
                                                   children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: new Text(
-                                                        '${riwayatDosenResponseModel.data[index].namamk} ${riwayatDosenResponseModel.data[index].kelas}',
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: new Text(
+                                                            '${riwayatDosenResponseModel.data[index].namamk} ${riwayatDosenResponseModel.data[index].kelas}',
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    new Text(
-                                      'Pertemuan ke - ${riwayatDosenResponseModel.data[index].pertemuan}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    ExpansionTile(
-                                      title: Text(
-                                        'Lihat lebih detail',
-                                        style: TextStyle(
+                                        new Text(
+                                          'Pertemuan ke - ${riwayatDosenResponseModel.data[index].pertemuan}',
+                                          style: TextStyle(
+                                            fontSize: 14,
                                             fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                      children: [
-                                        Row(
+                                          ),
+                                        ),
+                                        ExpansionTile(
+                                          title: Text(
+                                            'Lihat lebih detail',
+                                            style: TextStyle(
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
                                           children: [
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Ruang : ${riwayatDosenResponseModel.data[index].ruang}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'SKS : ${riwayatDosenResponseModel.data[index].sks}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Sesi : ${riwayatDosenResponseModel.data[index].sesi1}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Keterangan : ${riwayatDosenResponseModel.data[index].keterangan ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Materi : ${riwayatDosenResponseModel.data[index].materi ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Jam Kelas :  ${riwayatDosenResponseModel.data[index].jammasuk} - ${riwayatDosenResponseModel.data[index].jamkeluar}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Dosen Masuk : ${riwayatDosenResponseModel.data[index].jammasukdosen ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Dosen Keluar : ${riwayatDosenResponseModel.data[index].jamkeluardosen ?? "-"}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Ruang : ${riwayatDosenResponseModel.data[index].ruang}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'SKS : ${riwayatDosenResponseModel.data[index].sks}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Sesi : ${riwayatDosenResponseModel.data[index].sesi1}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Keterangan : ${riwayatDosenResponseModel.data[index].keterangan ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Materi : ${riwayatDosenResponseModel.data[index].materi ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Jam Kelas :  ${riwayatDosenResponseModel.data[index].jammasuk} - ${riwayatDosenResponseModel.data[index].jamkeluar}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Dosen Masuk : ${riwayatDosenResponseModel.data[index].jammasukdosen ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Dosen Keluar : ${riwayatDosenResponseModel.data[index].jamkeluardosen ?? "-"}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: MaterialButton(
-                                            padding: EdgeInsets.all(8),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                              child: MaterialButton(
+                                                padding: EdgeInsets.all(8),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
                                                       vertical: 8,
                                                       horizontal: 26),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.people_alt_rounded,
-                                                    color: Colors.white,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        Icons
+                                                            .people_alt_rounded,
+                                                        color: Colors.white,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Text(
+                                                        'Tampil Kehadiran Kelas',
+                                                        style: const TextStyle(
+                                                            fontFamily:
+                                                                'WorkSansSemiBold',
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    'Tampil Peserta Kelas',
-                                                    style: const TextStyle(
-                                                        fontFamily:
-                                                            'WorkSansSemiBold',
-                                                        fontSize: 16,
-                                                        color: Colors.white),
-                                                  ),
-                                                ],
+                                                ),
+                                                color: Colors.yellow[700],
+                                                shape: StadiumBorder(),
+                                                onPressed: () async {
+                                                  SharedPreferences
+                                                      dataPresensiDosen =
+                                                      await SharedPreferences
+                                                          .getInstance();
+
+                                                  await dataPresensiDosen.setInt(
+                                                      'idkelas',
+                                                      riwayatDosenResponseModel
+                                                          .data[index].idkelas);
+
+                                                  await dataPresensiDosen.setInt(
+                                                      'pertemuan',
+                                                      riwayatDosenResponseModel
+                                                          .data[index]
+                                                          .pertemuan);
+
+                                                  Get.toNamed(
+                                                      '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta');
+                                                },
                                               ),
                                             ),
-                                            color: Colors.yellow[700],
-                                            shape: StadiumBorder(),
-                                            onPressed: () async {
-                                              SharedPreferences
-                                                  dataPresensiDosen =
-                                                  await SharedPreferences
-                                                      .getInstance();
-
-                                              await dataPresensiDosen.setInt(
-                                                  'idkelas',
-                                                  riwayatDosenResponseModel
-                                                      .data[index].idkelas);
-
-                                              await dataPresensiDosen.setInt(
-                                                  'pertemuan',
-                                                  riwayatDosenResponseModel
-                                                      .data[index].pertemuan);
-
-                                              Get.toNamed(
-                                                  '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta');
-                                            },
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                    onTap: () async {
+                                      // await Get.toNamed(
+                                      //     '/mahasiswa/dashboard/jadwal/detail');
+                                    },
+                                  ),
                                 ),
-                                onTap: () async {
-                                  // await Get.toNamed(
-                                  //     '/mahasiswa/dashboard/jadwal/detail');
-                                },
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-                )
+                              );
+                            }),
+                      ),
+                    )
         ],
       ),
     );

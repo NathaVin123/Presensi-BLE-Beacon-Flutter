@@ -65,25 +65,26 @@ class _LoginPageState extends State<LoginPage>
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  padding: const EdgeInsets.all(8.0),
                   child: Image(
-                      height:
-                          MediaQuery.of(context).size.height > 800 ? 150.0 : 75,
+                      height: MediaQuery.of(context).size.height > 800
+                          ? 200.0
+                          : 150,
                       fit: BoxFit.fill,
                       image: const AssetImage(
                           'assets/png/SplashPage_LogoAtmaJaya.png')),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Center(
-                    child: Text('Presensi UAJY',
-                        style: const TextStyle(
-                            fontFamily: 'WorkSansMedium',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Center(
+                //     child: Text('Presensi UAJY',
+                //         style: const TextStyle(
+                //             fontFamily: 'WorkSansMedium',
+                //             fontSize: 30.0,
+                //             fontWeight: FontWeight.bold,
+                //             color: Colors.white)),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: _buildMenuBar(context),

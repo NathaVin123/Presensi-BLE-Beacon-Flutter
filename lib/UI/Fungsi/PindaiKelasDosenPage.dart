@@ -12,6 +12,7 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINDosenBukaPresensiModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTPresensiDosen.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
@@ -86,6 +87,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
   PresensiINOUTOUTDosenBukaPresensiRequestModel
       presensiINOUTOUTDosenBukaPresensiRequestModel;
 
+  PresensiOUTMahasiswaRequestModel presensiOUTMahasiswaRequestModel;
+
   @override
   void initState() {
     super.initState();
@@ -104,6 +107,8 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
     presensiINOUTOUTDosenBukaPresensiRequestModel =
         PresensiINOUTOUTDosenBukaPresensiRequestModel();
+
+    presensiOUTMahasiswaRequestModel = PresensiOUTMahasiswaRequestModel();
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDetailKelas();
@@ -1703,64 +1708,118 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                               ),
                                                             ),
                                                           )
-                                                        : Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child:
-                                                                MaterialButton(
-                                                              color: Colors
-                                                                  .yellow[700],
-                                                              shape:
-                                                                  StadiumBorder(),
-                                                              padding: EdgeInsets
-                                                                  .only(
+                                                        : Column(
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    MaterialButton(
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  shape:
+                                                                      StadiumBorder(),
+                                                                  padding: EdgeInsets.only(
                                                                       left: 50,
                                                                       right: 50,
                                                                       top: 25,
                                                                       bottom:
                                                                           25),
-                                                              onPressed: () => {
-                                                                Get.toNamed(
-                                                                    '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta')
-                                                              },
-                                                              child: Scrollbar(
-                                                                child:
-                                                                    Container(
+                                                                  onPressed:
+                                                                      () => {
+                                                                    Get.toNamed(
+                                                                        '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta')
+                                                                  },
                                                                   child:
-                                                                      SingleChildScrollView(
-                                                                    scrollDirection:
-                                                                        Axis.horizontal,
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Icon(
-                                                                          Icons
-                                                                              .people_alt_rounded,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              20,
-                                                                        ),
-                                                                        Text(
-                                                                          'Tampil Kehadiran Kelas',
-                                                                          style: TextStyle(
-                                                                              fontFamily: 'WorkSansMedium',
-                                                                              fontWeight: FontWeight.bold,
+                                                                      Scrollbar(
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          SingleChildScrollView(
+                                                                        scrollDirection:
+                                                                            Axis.horizontal,
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Icon(
+                                                                              Icons.people_alt_rounded,
                                                                               color: Colors.white,
-                                                                              fontSize: 18),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 20,
+                                                                            ),
+                                                                            Text(
+                                                                              'Tampil Kehadiran Kelas',
+                                                                              style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                      ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    MaterialButton(
+                                                                  color: Colors
+                                                                          .yellow[
+                                                                      700],
+                                                                  shape:
+                                                                      StadiumBorder(),
+                                                                  padding: EdgeInsets.only(
+                                                                      left: 50,
+                                                                      right: 50,
+                                                                      top: 25,
+                                                                      bottom:
+                                                                          25),
+                                                                  onPressed:
+                                                                      () => {
+                                                                    Get.toNamed(
+                                                                        '/dosen/dashboard/presensi/detail/tampilpeserta')
+                                                                  },
+                                                                  child:
+                                                                      Scrollbar(
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          SingleChildScrollView(
+                                                                        scrollDirection:
+                                                                            Axis.horizontal,
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Icon(
+                                                                              Icons.people_alt_rounded,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 20,
+                                                                            ),
+                                                                            Text(
+                                                                              'Tampil Peserta Kelas',
+                                                                              style: TextStyle(fontFamily: 'WorkSansMedium', fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                     bukapresensi == 0
                                                         ? Padding(
@@ -2036,6 +2095,18 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                         presensiINOUTOUTDosenBukaPresensiRequestModel.pertemuan =
                                                                             pertemuan;
 
+                                                                        presensiOUTMahasiswaRequestModel.idkelas =
+                                                                            idkelas;
+
+                                                                        presensiOUTMahasiswaRequestModel.pertemuan =
+                                                                            pertemuan;
+
+                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel.idkelas =
+                                                                            idkelas;
+
+                                                                        presensiINOUTOUTDosenBukaPresensiRequestModel.pertemuan =
+                                                                            pertemuan;
+
                                                                         presensiINOUTOUTDosenBukaPresensiRequestModel.jamkeluar = jam +
                                                                             ' ' +
                                                                             tanggalnow;
@@ -2053,6 +2124,21 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                       APIService
                                                                           apiService =
                                                                           new APIService();
+
+                                                                      await apiService
+                                                                          .putOutMahasiswa(
+                                                                              presensiOUTMahasiswaRequestModel)
+                                                                          .then(
+                                                                              (value) async {
+                                                                        if (value !=
+                                                                            null) {
+                                                                          setState(
+                                                                              () {
+                                                                            isApiCallProcess =
+                                                                                false;
+                                                                          });
+                                                                        }
+                                                                      });
 
                                                                       await apiService
                                                                           .putPresensiOUTDosen(

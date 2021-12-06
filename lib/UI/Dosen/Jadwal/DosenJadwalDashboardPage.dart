@@ -165,291 +165,323 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
               ],
             ),
           ),
-          jadwalDosenResponseModel.data == null ||
-                  jadwalDosenResponseModel.data.isEmpty
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Jadwal kuliah anda kosong',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'WorkSansMedium',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+          jadwalDosenResponseModel.data == null
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
                   ),
                 )
-              : Expanded(
-                  child: Scrollbar(
-                    child: ListView.builder(
-                        itemCount: jadwalDosenResponseModel.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 12, top: 8, bottom: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: new ListTile(
-                                title: Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Scrollbar(
-                                        child: Center(
-                                          child: Container(
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Text(
-                                                          '${jadwalDosenResponseModel.data[index].namamk} ${jadwalDosenResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    new Text(
-                                      'Pertemuan ke - ${jadwalDosenResponseModel.data[index].pertemuan}',
-                                      style: TextStyle(
-                                        fontSize: 14,
+              : jadwalDosenResponseModel.data.isEmpty
+                  ? Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Jadwal kuliah anda kosong',
+                                    style: TextStyle(
+                                        fontSize: 18,
                                         fontFamily: 'WorkSansMedium',
                                         fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+
+                              // Text(
+                              //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                              //   style: TextStyle(
+                              //       fontSize: 14,
+                              //       fontFamily: 'WorkSansMedium',
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.white),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Scrollbar(
+                        child: ListView.builder(
+                            itemCount: jadwalDosenResponseModel.data?.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 8, bottom: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: new ListTile(
+                                    title: Column(
                                       children: <Widget>[
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                jadwalDosenResponseModel
-                                                    .data[index].hari1,
-                                                style: TextStyle(
-                                                  color: Colors.grey[50],
-                                                  fontSize: 14,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
+                                          child: Scrollbar(
+                                            child: Center(
+                                              child: Container(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: new Text(
+                                                              '${jadwalDosenResponseModel.data[index].namamk} ${jadwalDosenResponseModel.data[index].kelas}',
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                jadwalDosenResponseModel
-                                                    .data[index].tglmasuk,
-                                                style: TextStyle(
-                                                  color: Colors.grey[50],
-                                                  fontSize: 14,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Sesi ${jadwalDosenResponseModel.data[index].sesi1}',
-                                                style: TextStyle(
-                                                  color: Colors.grey[50],
-                                                  fontSize: 14,
-                                                  fontFamily: 'WorkSansMedium',
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    ExpansionTile(
-                                      title: Text(
-                                        'Lihat lebih detail',
-                                        style: TextStyle(
+                                        new Text(
+                                          'Pertemuan ke - ${jadwalDosenResponseModel.data[index].pertemuan}',
+                                          style: TextStyle(
+                                            fontSize: 14,
                                             fontFamily: 'WorkSansMedium',
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                      children: [
+                                          ),
+                                        ),
                                         Row(
-                                          children: [
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Ruang : ${jadwalDosenResponseModel.data[index].ruang}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    jadwalDosenResponseModel
+                                                        .data[index].hari1,
+                                                    style: TextStyle(
+                                                      color: Colors.grey[50],
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    jadwalDosenResponseModel
+                                                        .data[index].tglmasuk,
+                                                    style: TextStyle(
+                                                      color: Colors.grey[50],
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Sesi ${jadwalDosenResponseModel.data[index].sesi1}',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[50],
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'WorkSansMedium',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        Row(
+                                        ExpansionTile(
+                                          title: Text(
+                                            'Lihat lebih detail',
+                                            style: TextStyle(
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
                                           children: [
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Ruang : ${jadwalDosenResponseModel.data[index].ruang}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'SKS : ${jadwalDosenResponseModel.data[index].sks}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Jam Kelas : ${jadwalDosenResponseModel.data[index].jammasuk} - ${jadwalDosenResponseModel.data[index].jamkeluar}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'WorkSansMedium',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'SKS : ${jadwalDosenResponseModel.data[index].sks}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'Jam Kelas : ${jadwalDosenResponseModel.data[index].jammasuk} - ${jadwalDosenResponseModel.data[index].jamkeluar}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'WorkSansMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: MaterialButton(
-                                            padding: EdgeInsets.all(8),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                              child: MaterialButton(
+                                                padding: EdgeInsets.all(8),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
                                                       vertical: 8,
                                                       horizontal: 26),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.people_alt_rounded,
-                                                    color: Colors.white,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        Icons
+                                                            .people_alt_rounded,
+                                                        color: Colors.white,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Text(
+                                                        'Tampil Peserta Kelas',
+                                                        style: const TextStyle(
+                                                            fontFamily:
+                                                                'WorkSansSemiBold',
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    'Tampil Peserta Kelas',
-                                                    style: const TextStyle(
-                                                        fontFamily:
-                                                            'WorkSansSemiBold',
-                                                        fontSize: 16,
-                                                        color: Colors.white),
-                                                  ),
-                                                ],
+                                                ),
+                                                color: Colors.yellow[700],
+                                                shape: StadiumBorder(),
+                                                onPressed: () async {
+                                                  SharedPreferences
+                                                      dataPresensiDosen =
+                                                      await SharedPreferences
+                                                          .getInstance();
+
+                                                  await dataPresensiDosen.setInt(
+                                                      'idkelas',
+                                                      jadwalDosenResponseModel
+                                                          .data[index].idkelas);
+
+                                                  Get.toNamed(
+                                                      '/mahasiswa/dashboard/presensi/detail/tampilpeserta');
+                                                },
                                               ),
                                             ),
-                                            color: Colors.yellow[700],
-                                            shape: StadiumBorder(),
-                                            onPressed: () async {
-                                              SharedPreferences
-                                                  dataPresensiDosen =
-                                                  await SharedPreferences
-                                                      .getInstance();
-
-                                              await dataPresensiDosen.setInt(
-                                                  'idkelas',
-                                                  jadwalDosenResponseModel
-                                                      .data[index].idkelas);
-
-                                              Get.toNamed(
-                                                  '/mahasiswa/dashboard/presensi/detail/tampilpeserta');
-                                            },
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                    onTap: () async {
+                                      // await Get.toNamed(
+                                      //     '/mahasiswa/dashboard/jadwal/detail');
+                                    },
+                                  ),
                                 ),
-                                onTap: () async {
-                                  // await Get.toNamed(
-                                  //     '/mahasiswa/dashboard/jadwal/detail');
-                                },
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-                )
+                              );
+                            }),
+                      ),
+                    )
         ],
       ),
     );

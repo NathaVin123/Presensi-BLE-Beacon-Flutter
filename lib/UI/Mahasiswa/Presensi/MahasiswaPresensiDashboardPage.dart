@@ -173,7 +173,7 @@ class _MahasiswaPresensiDashboardPageState
             //     onPressed: () =>
             //         Get.toNamed('/mahasiswa/dashboard/presensi/detail/list')),
             title: Image.asset(
-              'SplashPage_LogoAtmaJaya'.png,
+              'SplashPage_LogoAtmaJaya_3'.png,
               height: 30,
             ),
             centerTitle: true,
@@ -259,1212 +259,192 @@ class _MahasiswaPresensiDashboardPageState
                   ),
                 ),
               ),
-              listKelasMahasiswaResponseModel.data == null ||
-                      listKelasMahasiswaResponseModel.data.isEmpty
-                  ? Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Tidak ada kuliah',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'WorkSansMedium',
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              // Text(
-                              //   'Silakan tekan tombol "Segarkan" jika bermasalah',
-                              //   style: TextStyle(
-                              //       fontSize: 14,
-                              //       fontFamily: 'WorkSansMedium',
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
-                            ],
-                          ),
-                        ),
+              listKelasMahasiswaResponseModel.data == null
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
                       ),
                     )
-                  : Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                            itemCount:
-                                listKelasMahasiswaResponseModel.data.length,
-                            itemBuilder: (context, index) {
-                              if (listKelasMahasiswaResponseModel
-                                      .data[index].bukapresensi ==
-                                  1) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 8, bottom: 8),
-                                  child: Container(
+                  : listKelasMahasiswaResponseModel.data.isEmpty
+                      ? Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
                                     decoration: BoxDecoration(
-                                        color: Colors.grey[200],
+                                        color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(25)),
-                                    child: new ListTile(
-                                      title: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            listKelasMahasiswaResponseModel
-                                                        .data[index]
-                                                        .bukapresensi ==
-                                                    0
-                                                ? Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.red,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .door_front_door_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Tertutup',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                : Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Terbuka',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                            Scrollbar(
-                                              child: Container(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: new Text(
-                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Scrollbar(
-                                                  child: Container(
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(
-                                                            Icons.person,
-                                                            color: Colors.black,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: new Text(
-                                                              listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .namadosen1,
-                                                              style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontFamily:
-                                                                      'WorkSansMedium',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.room_rounded,
-                                                        color: Colors.black,
-                                                      ),
-                                                      Padding(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Tidak ada kuliah saat ini',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: Scrollbar(
+                            child: ListView.builder(
+                                itemCount:
+                                    listKelasMahasiswaResponseModel.data.length,
+                                itemBuilder: (context, index) {
+                                  if (listKelasMahasiswaResponseModel
+                                          .data[index].bukapresensi ==
+                                      1) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 12,
+                                          top: 8,
+                                          bottom: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: new ListTile(
+                                          title: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                listKelasMahasiswaResponseModel
+                                                            .data[index]
+                                                            .bukapresensi ==
+                                                        0
+                                                    ? Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                      Icons.date_range_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].hari1}'
-                                                      ','
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.alarm_on_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
-                                                      ' '
-                                                      '-'
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Divider(
-                                                height: 1,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            listKelasMahasiswaResponseModel
-                                                        .data[index]
-                                                        .bukapresensi ==
-                                                    0
-                                                ? SizedBox(height: 0)
-                                                : statusPresensi == 0
-                                                    ? MaterialButton(
-                                                        padding:
-                                                            EdgeInsets.all(8),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8,
-                                                                  horizontal:
-                                                                      26),
-                                                          child: Scrollbar(
-                                                            child: Container(
-                                                              child:
-                                                                  SingleChildScrollView(
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Icon(
-                                                                      Icons
-                                                                          .meeting_room_rounded,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 20,
-                                                                    ),
-                                                                    Text(
-                                                                      'Detail Presensi Masuk',
-                                                                      style: const TextStyle(
-                                                                          fontFamily:
-                                                                              'WorkSansSemiBold',
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.red,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .door_front_door_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Tertutup',
+                                                                      style: TextStyle(
                                                                           fontSize:
                                                                               18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
                                                                           color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                                              Colors.white)),
+                                                                ],
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                        color: Colors.green,
-                                                        shape: StadiumBorder(),
-                                                        onPressed: () async {
-                                                          SharedPreferences
-                                                              dataPresensiMahasiswa =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString('jam',
-                                                                  _timeString);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tanggal',
-                                                                  _dateString);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'ruang',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .ruang);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'uuid',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .uuid);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namadevice',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadevice);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setDouble(
-                                                                  'jarakmin',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jarakmin);
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .uuid !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'uuid',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .uuid);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'uuid',
-                                                                    '-');
-                                                          }
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .namadevice !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa.setString(
-                                                                'namadevice',
-                                                                listKelasMahasiswaResponseModel
-                                                                    .data[index]
-                                                                    .namadevice);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setString(
-                                                                    'namadevice',
-                                                                    '-');
-                                                          }
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .jarakmin !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .jarakmin);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setDouble(
-                                                                    'jarakmin',
-                                                                    0);
-                                                          }
-
-                                                          if (listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .major !=
-                                                              null) {
-                                                            await dataPresensiMahasiswa
-                                                                .setInt(
-                                                                    'major',
-                                                                    listKelasMahasiswaResponseModel
-                                                                        .data[
-                                                                            index]
-                                                                        .major);
-                                                          } else {
-                                                            await dataPresensiMahasiswa
-                                                                .setInt(
-                                                                    'major', 0);
-                                                          }
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'idkelas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .idkelas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namamk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namamk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'kelas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kelas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'nppdosen1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .nppdosen1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen2);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen3);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'nppdosen4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].nppdosen4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'namadosen1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .namadosen1);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen2);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen3);
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'namadosen4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].namadosen4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'hari1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .hari1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari2);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari3);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'hari4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].hari4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'sesi1',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sesi1);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi2',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi2);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi3',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi3);
-
-                                                          // await dataPresensiMahasiswa.setString(
-                                                          //     'sesi4',
-                                                          //     listKelasMahasiswaResponseModel
-                                                          //         .data[index].sesi4);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'sks',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .sks);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'pertemuan',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .pertemuan);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setInt(
-                                                                  'kapasitas',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .kapasitas);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tglmasuk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglmasuk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'tglkeluar',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .tglkeluar);
-
-                                                          await dataPresensiMahasiswa.setInt(
-                                                              'bukapresensi',
-                                                              listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .bukapresensi);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'jammasuk',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jammasuk);
-
-                                                          await dataPresensiMahasiswa
-                                                              .setString(
-                                                                  'jamkeluar',
-                                                                  listKelasMahasiswaResponseModel
-                                                                      .data[
-                                                                          index]
-                                                                      .jamkeluar);
-
-                                                          await Get.offAllNamed(
-                                                              '/pindaiMahasiswa');
-                                                        },
                                                       )
-                                                    : statusPresensi == 3
-                                                        ? Column(
-                                                            children: <Widget>[
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
-                                                                child:
-                                                                    MaterialButton(
-                                                                        padding:
-                                                                            EdgeInsets.all(
-                                                                                8),
-                                                                        child:
-                                                                            Text(
-                                                                          'Sudah Presensi',
-                                                                          style: const TextStyle(
-                                                                              fontFamily: 'WorkSansSemiBold',
-                                                                              fontSize: 18,
-                                                                              color: Colors.white),
-                                                                        ),
-                                                                        color: Colors.yellow[
-                                                                            800],
-                                                                        shape:
-                                                                            StadiumBorder(),
-                                                                        onPressed:
-                                                                            () {}),
-                                                              ),
-                                                              Text(
-                                                                'Wajib Log Out, lalu Log In kembali jika status presensi tidak berubah',
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'WorkSansSemiBold',
-                                                                    fontSize:
-                                                                        10,
-                                                                    color: Colors
-                                                                        .black),
-                                                              )
-                                                            ],
-                                                          )
-                                                        : Column(
-                                                            children: <Widget>[
-                                                              MaterialButton(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(8),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                      vertical:
-                                                                          8,
-                                                                      horizontal:
-                                                                          26),
-                                                                  child:
-                                                                      Scrollbar(
-                                                                    child:
-                                                                        Container(
-                                                                      child:
-                                                                          SingleChildScrollView(
-                                                                        scrollDirection:
-                                                                            Axis.horizontal,
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Icon(
-                                                                              Icons.meeting_room_rounded,
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                            SizedBox(
-                                                                              width: 20,
-                                                                            ),
-                                                                            Text(
-                                                                              'Detail Presensi Keluar',
-                                                                              style: const TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 18, color: Colors.white),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                color:
-                                                                    Colors.red,
-                                                                shape:
-                                                                    StadiumBorder(),
-                                                                onPressed:
-                                                                    () async {
-                                                                  SharedPreferences
-                                                                      dataPresensiMahasiswa =
-                                                                      await SharedPreferences
-                                                                          .getInstance();
-
-                                                                  await dataPresensiMahasiswa
-                                                                      .setString(
-                                                                          'jam',
-                                                                          _timeString);
-
-                                                                  await dataPresensiMahasiswa
-                                                                      .setString(
-                                                                          'tanggal',
-                                                                          _dateString);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'ruang',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .ruang);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'uuid',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .uuid);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'namadevice',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .namadevice);
-
-                                                                  await dataPresensiMahasiswa.setDouble(
-                                                                      'jarakmin',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .jarakmin);
-
-                                                                  if (listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .uuid !=
-                                                                      null) {
-                                                                    await dataPresensiMahasiswa.setString(
-                                                                        'uuid',
-                                                                        listKelasMahasiswaResponseModel
-                                                                            .data[index]
-                                                                            .uuid);
-                                                                  } else {
-                                                                    await dataPresensiMahasiswa
-                                                                        .setString(
-                                                                            'uuid',
-                                                                            '-');
-                                                                  }
-
-                                                                  if (listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .namadevice !=
-                                                                      null) {
-                                                                    await dataPresensiMahasiswa.setString(
-                                                                        'namadevice',
-                                                                        listKelasMahasiswaResponseModel
-                                                                            .data[index]
-                                                                            .namadevice);
-                                                                  } else {
-                                                                    await dataPresensiMahasiswa
-                                                                        .setString(
-                                                                            'namadevice',
-                                                                            '-');
-                                                                  }
-                                                                  if (listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .jarakmin !=
-                                                                      null) {
-                                                                    await dataPresensiMahasiswa.setDouble(
-                                                                        'jarakmin',
-                                                                        listKelasMahasiswaResponseModel
-                                                                            .data[index]
-                                                                            .jarakmin);
-                                                                  } else {
-                                                                    await dataPresensiMahasiswa
-                                                                        .setDouble(
-                                                                            'jarakmin',
-                                                                            0);
-                                                                  }
-
-                                                                  if (listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .major !=
-                                                                      null) {
-                                                                    await dataPresensiMahasiswa.setInt(
-                                                                        'major',
-                                                                        listKelasMahasiswaResponseModel
-                                                                            .data[index]
-                                                                            .major);
-                                                                  } else {
-                                                                    await dataPresensiMahasiswa
-                                                                        .setInt(
-                                                                            'major',
-                                                                            0);
-                                                                  }
-
-                                                                  await dataPresensiMahasiswa.setInt(
-                                                                      'idkelas',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .idkelas);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'namamk',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .namamk);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'kelas',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .kelas);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'nppdosen1',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .nppdosen1);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'nppdosen2',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].nppdosen2);
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'nppdosen3',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].nppdosen3);
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'nppdosen4',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].nppdosen4);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'namadosen1',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .namadosen1);
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'namadosen2',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].namadosen2);
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'namadosen3',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].namadosen3);
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'namadosen4',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].namadosen4);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'hari1',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .hari1);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'hari2',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].hari2);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'hari3',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].hari3);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'hari4',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].hari4);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'sesi1',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .sesi1);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'sesi2',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].sesi2);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'sesi3',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].sesi3);
-
-                                                                  // await dataPresensiMahasiswa.setString(
-                                                                  //     'sesi4',
-                                                                  //     listKelasMahasiswaResponseModel
-                                                                  //         .data[index].sesi4);
-
-                                                                  await dataPresensiMahasiswa.setInt(
-                                                                      'sks',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .sks);
-
-                                                                  await dataPresensiMahasiswa.setInt(
-                                                                      'pertemuan',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .pertemuan);
-
-                                                                  await dataPresensiMahasiswa.setInt(
-                                                                      'kapasitas',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .kapasitas);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'tglmasuk',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .tglmasuk);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'tglkeluar',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .tglkeluar);
-
-                                                                  await dataPresensiMahasiswa.setInt(
-                                                                      'bukapresensi',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .bukapresensi);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'jammasuk',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .jammasuk);
-
-                                                                  await dataPresensiMahasiswa.setString(
-                                                                      'jamkeluar',
-                                                                      listKelasMahasiswaResponseModel
-                                                                          .data[
-                                                                              index]
-                                                                          .jamkeluar);
-
-                                                                  await Get
-                                                                      .offAllNamed(
-                                                                          '/pindaiMahasiswa');
-                                                                },
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
-                                                                child: Text(
-                                                                  'Jangan Log Out, ketika sudah presensi masuk',
-                                                                  style: const TextStyle(
-                                                                      fontFamily:
-                                                                          'WorkSansSemiBold',
-                                                                      fontSize:
-                                                                          10,
-                                                                      color: Colors
-                                                                          .red),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else if (listKelasMahasiswaResponseModel
-                                      .data[index].bukapresensi ==
-                                  3) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 8, bottom: 8),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: new ListTile(
-                                      title: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25)),
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                        'Kelas Berakhir',
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Scrollbar(
-                                              child: Container(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Padding(
+                                                    : Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8),
-                                                        child: new Text(
-                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18),
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .meeting_room_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Terbuka',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Colors.white)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Scrollbar(
+                                                Scrollbar(
                                                   child: Container(
                                                     child:
                                                         SingleChildScrollView(
                                                       scrollDirection:
                                                           Axis.horizontal,
                                                       child: Row(
-                                                        children: [
-                                                          Icon(
-                                                            Icons.person,
-                                                            color: Colors.black,
-                                                          ),
+                                                        children: <Widget>[
                                                           Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                    .all(8.0),
+                                                                    .all(8),
                                                             child: new Text(
-                                                              listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .namadosen1,
+                                                              '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
                                                               style: TextStyle(
-                                                                  fontSize: 14,
                                                                   fontFamily:
                                                                       'WorkSansMedium',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  color: Colors
-                                                                      .black),
+                                                                  fontSize: 18),
                                                             ),
                                                           ),
                                                         ],
@@ -1472,312 +452,80 @@ class _MahasiswaPresensiDashboardPageState
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.room_rounded,
-                                                        color: Colors.black,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                      Icons.date_range_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].hari1}'
-                                                      ','
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
-                                                      style: TextStyle(
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
+                                                        style: TextStyle(
                                                           fontSize: 14,
                                                           fontFamily:
                                                               'WorkSansMedium',
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.alarm_on_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
-                                                      ' '
-                                                      '-'
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Divider(
-                                                height: 1,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.all(8.0),
-                                            //   child: Container(
-                                            //     decoration: BoxDecoration(
-                                            //         color: Colors.green,
-                                            //         borderRadius:
-                                            //             BorderRadius.circular(
-                                            //                 25)),
-                                            //     child: Padding(
-                                            //       padding:
-                                            //           const EdgeInsets.all(8),
-                                            //       child: new Text(
-                                            //         '',
-                                            //         style: TextStyle(
-                                            //           fontSize: 14,
-                                            //           fontFamily:
-                                            //               'WorkSansMedium',
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           color: Colors.white,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 8, bottom: 8),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: new ListTile(
-                                      title: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            listKelasMahasiswaResponseModel
-                                                        .data[index]
-                                                        .bukapresensi ==
-                                                    0
-                                                ? Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.red,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .door_front_door_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Tertutup',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  )
-                                                : Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons
-                                                                    .meeting_room_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              Text(
-                                                                  'Kelas Terbuka',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontFamily:
-                                                                          'WorkSansMedium',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white)),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                            Scrollbar(
-                                              child: Container(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: new Text(
-                                                          '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.person,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: new Text(
+                                                                  listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadosen1,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Scrollbar(
-                                                  child: Container(
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Container(
                                                       child: Row(
                                                         children: [
                                                           Icon(
-                                                            Icons.person,
+                                                            Icons.room_rounded,
                                                             color: Colors.black,
                                                           ),
                                                           Padding(
@@ -1786,9 +534,7 @@ class _MahasiswaPresensiDashboardPageState
                                                                     .all(8.0),
                                                             child:
                                                                 new AutoSizeText(
-                                                              listKelasMahasiswaResponseModel
-                                                                  .data[index]
-                                                                  .namadosen1,
+                                                              'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
                                                               style: TextStyle(
                                                                   fontSize: 14,
                                                                   fontFamily:
@@ -1805,25 +551,22 @@ class _MahasiswaPresensiDashboardPageState
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Container(
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Row(
                                                     children: [
-                                                      Icon(
-                                                        Icons.room_rounded,
-                                                        color: Colors.black,
-                                                      ),
+                                                      Icon(Icons
+                                                          .date_range_rounded),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: new AutoSizeText(
-                                                          'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].hari1}'
+                                                          ','
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontFamily:
@@ -1838,132 +581,1538 @@ class _MahasiswaPresensiDashboardPageState
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                      Icons.date_range_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].hari1}'
-                                                      ','
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.alarm_on_rounded),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: new Text(
-                                                      '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
-                                                      ' '
-                                                      '-'
-                                                      ' '
-                                                      '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'WorkSansMedium',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Divider(
-                                                height: 1,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.yellow[700],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25)),
-                                                child: Padding(
+                                                Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: new Text(
-                                                    'Mohon tunggu dosen membuka kelas',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'WorkSansMedium',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .alarm_on_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                          ' '
+                                                          '-'
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Divider(
+                                                    height: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                listKelasMahasiswaResponseModel
+                                                            .data[index]
+                                                            .bukapresensi ==
+                                                        0
+                                                    ? SizedBox(height: 0)
+                                                    : Column(
+                                                        children: <Widget>[
+                                                          if (listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglin ==
+                                                                  null &&
+                                                              listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglout ==
+                                                                  null)
+                                                            MaterialButton(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(8),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        26),
+                                                                child:
+                                                                    Scrollbar(
+                                                                  child:
+                                                                      Container(
+                                                                    child:
+                                                                        SingleChildScrollView(
+                                                                      scrollDirection:
+                                                                          Axis.horizontal,
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Icon(
+                                                                            Icons.meeting_room_rounded,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                20,
+                                                                          ),
+                                                                          Text(
+                                                                            'Detail Presensi Masuk',
+                                                                            style: const TextStyle(
+                                                                                fontFamily: 'WorkSansSemiBold',
+                                                                                fontSize: 18,
+                                                                                color: Colors.white),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              color:
+                                                                  Colors.green,
+                                                              shape:
+                                                                  StadiumBorder(),
+                                                              onPressed:
+                                                                  () async {
+                                                                SharedPreferences
+                                                                    dataPresensiMahasiswa =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+
+                                                                await dataPresensiMahasiswa
+                                                                    .setString(
+                                                                        'jam',
+                                                                        _timeString);
+
+                                                                await dataPresensiMahasiswa
+                                                                    .setString(
+                                                                        'tanggal',
+                                                                        _dateString);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'ruang',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .ruang);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'uuid',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .uuid);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'namadevice',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namadevice);
+
+                                                                await dataPresensiMahasiswa.setDouble(
+                                                                    'jarakmin',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jarakmin);
+
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .uuid !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'uuid',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .uuid);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'uuid',
+                                                                          '-');
+                                                                }
+
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namadevice !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'namadevice',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .namadevice);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'namadevice',
+                                                                          '-');
+                                                                }
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jarakmin !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setDouble(
+                                                                      'jarakmin',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .jarakmin);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setDouble(
+                                                                          'jarakmin',
+                                                                          0);
+                                                                }
+
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .major !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setInt(
+                                                                      'major',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .major);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setInt(
+                                                                          'major',
+                                                                          0);
+                                                                }
+
+                                                                await dataPresensiMahasiswa.setInt(
+                                                                    'idkelas',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .idkelas);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'namamk',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namamk);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'kelas',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .kelas);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'nppdosen1',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .nppdosen1);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'nppdosen2',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].nppdosen2);
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'nppdosen3',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].nppdosen3);
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'nppdosen4',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].nppdosen4);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'namadosen1',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .namadosen1);
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'namadosen2',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].namadosen2);
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'namadosen3',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].namadosen3);
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'namadosen4',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].namadosen4);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'hari1',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .hari1);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'hari2',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].hari2);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'hari3',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].hari3);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'hari4',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].hari4);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'sesi1',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .sesi1);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'sesi2',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].sesi2);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'sesi3',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].sesi3);
+
+                                                                // await dataPresensiMahasiswa.setString(
+                                                                //     'sesi4',
+                                                                //     listKelasMahasiswaResponseModel
+                                                                //         .data[index].sesi4);
+
+                                                                await dataPresensiMahasiswa.setInt(
+                                                                    'sks',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .sks);
+
+                                                                await dataPresensiMahasiswa.setInt(
+                                                                    'pertemuan',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .pertemuan);
+
+                                                                await dataPresensiMahasiswa.setInt(
+                                                                    'kapasitas',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .kapasitas);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'tglmasuk',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .tglmasuk);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'tglkeluar',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .tglkeluar);
+
+                                                                await dataPresensiMahasiswa.setInt(
+                                                                    'bukapresensi',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .bukapresensi);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'jammasuk',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jammasuk);
+
+                                                                await dataPresensiMahasiswa.setString(
+                                                                    'jamkeluar',
+                                                                    listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .jamkeluar);
+
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .tglin !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'tglin',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .tglin);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'tglin',
+                                                                          '-');
+                                                                }
+
+                                                                if (listKelasMahasiswaResponseModel
+                                                                        .data[
+                                                                            index]
+                                                                        .tglout !=
+                                                                    null) {
+                                                                  await dataPresensiMahasiswa.setString(
+                                                                      'tglout',
+                                                                      listKelasMahasiswaResponseModel
+                                                                          .data[
+                                                                              index]
+                                                                          .tglout);
+                                                                } else {
+                                                                  await dataPresensiMahasiswa
+                                                                      .setString(
+                                                                          'tglout',
+                                                                          '-');
+                                                                }
+
+                                                                await Get
+                                                                    .offAllNamed(
+                                                                        '/pindaiMahasiswa');
+                                                              },
+                                                            )
+                                                          else if (listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglin !=
+                                                                  null &&
+                                                              listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglout ==
+                                                                  null)
+                                                            Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                MaterialButton(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                        vertical:
+                                                                            8,
+                                                                        horizontal:
+                                                                            26),
+                                                                    child:
+                                                                        Scrollbar(
+                                                                      child:
+                                                                          Container(
+                                                                        child:
+                                                                            SingleChildScrollView(
+                                                                          scrollDirection:
+                                                                              Axis.horizontal,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Icon(
+                                                                                Icons.meeting_room_rounded,
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 20,
+                                                                              ),
+                                                                              Text(
+                                                                                'Detail Presensi Keluar',
+                                                                                style: const TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 18, color: Colors.white),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  color: Colors
+                                                                      .red,
+                                                                  shape:
+                                                                      StadiumBorder(),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    SharedPreferences
+                                                                        dataPresensiMahasiswa =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
+
+                                                                    await dataPresensiMahasiswa
+                                                                        .setString(
+                                                                            'jam',
+                                                                            _timeString);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'tanggal',
+                                                                        _dateString);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'ruang',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .ruang);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'uuid',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .uuid);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'namadevice',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .namadevice);
+
+                                                                    await dataPresensiMahasiswa.setDouble(
+                                                                        'jarakmin',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .jarakmin);
+
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .uuid !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'uuid',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .uuid);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'uuid',
+                                                                          '-');
+                                                                    }
+
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .namadevice !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'namadevice',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .namadevice);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'namadevice',
+                                                                          '-');
+                                                                    }
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .jarakmin !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setDouble(
+                                                                          'jarakmin',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .jarakmin);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa
+                                                                          .setDouble(
+                                                                              'jarakmin',
+                                                                              0);
+                                                                    }
+
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .major !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setInt(
+                                                                          'major',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .major);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa
+                                                                          .setInt(
+                                                                              'major',
+                                                                              0);
+                                                                    }
+
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'idkelas',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .idkelas);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'namamk',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .namamk);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'kelas',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .kelas);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'nppdosen1',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .nppdosen1);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'nppdosen2',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].nppdosen2);
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'nppdosen3',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].nppdosen3);
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'nppdosen4',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].nppdosen4);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'namadosen1',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .namadosen1);
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'namadosen2',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].namadosen2);
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'namadosen3',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].namadosen3);
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'namadosen4',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].namadosen4);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'hari1',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .hari1);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'hari2',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].hari2);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'hari3',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].hari3);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'hari4',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].hari4);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'sesi1',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .sesi1);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'sesi2',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].sesi2);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'sesi3',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].sesi3);
+
+                                                                    // await dataPresensiMahasiswa.setString(
+                                                                    //     'sesi4',
+                                                                    //     listKelasMahasiswaResponseModel
+                                                                    //         .data[index].sesi4);
+
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'sks',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .sks);
+
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'pertemuan',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .pertemuan);
+
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'kapasitas',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .kapasitas);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'tglmasuk',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .tglmasuk);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'tglkeluar',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .tglkeluar);
+
+                                                                    await dataPresensiMahasiswa.setInt(
+                                                                        'bukapresensi',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .bukapresensi);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'jammasuk',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .jammasuk);
+
+                                                                    await dataPresensiMahasiswa.setString(
+                                                                        'jamkeluar',
+                                                                        listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .jamkeluar);
+
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .tglin !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'tglin',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .tglin);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'tglin',
+                                                                          '-');
+                                                                    }
+
+                                                                    if (listKelasMahasiswaResponseModel
+                                                                            .data[index]
+                                                                            .tglout !=
+                                                                        null) {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'tglout',
+                                                                          listKelasMahasiswaResponseModel
+                                                                              .data[index]
+                                                                              .tglout);
+                                                                    } else {
+                                                                      await dataPresensiMahasiswa.setString(
+                                                                          'tglout',
+                                                                          '-');
+                                                                    }
+
+                                                                    await Get
+                                                                        .offAllNamed(
+                                                                            '/pindaiMahasiswa');
+                                                                  },
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: Text(
+                                                                    'Jangan Log Out, ketika sudah presensi masuk',
+                                                                    style: const TextStyle(
+                                                                        fontFamily:
+                                                                            'WorkSansSemiBold',
+                                                                        fontSize:
+                                                                            10,
+                                                                        color: Colors
+                                                                            .red),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )
+                                                          else if (listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglin !=
+                                                                  null &&
+                                                              listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .tglout !=
+                                                                  null)
+                                                            Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: MaterialButton(
+                                                                      padding: EdgeInsets.all(8),
+                                                                      child: Text(
+                                                                        'Sudah Presensi',
+                                                                        style: const TextStyle(
+                                                                            fontFamily:
+                                                                                'WorkSansSemiBold',
+                                                                            fontSize:
+                                                                                18,
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                      color: Colors.yellow[800],
+                                                                      shape: StadiumBorder(),
+                                                                      onPressed: () {}),
+                                                                ),
+                                                                // Text(
+                                                                //   'Wajib Log Out, lalu Log In kembali jika status presensi tidak berubah',
+                                                                //   style: const TextStyle(
+                                                                //       fontFamily:
+                                                                //           'WorkSansSemiBold',
+                                                                //       fontSize:
+                                                                //           10,
+                                                                //       color: Colors
+                                                                //           .black),
+                                                                // )
+                                                              ],
+                                                            )
+
+                                                          // listKelasMahasiswaResponseModel
+                                                          //             .data[
+                                                          //                 index]
+                                                          //             .tglout !=
+                                                          //         null
+                                                          //     ? Column(
+                                                          //         children: <
+                                                          //             Widget>[
+                                                          //           Padding(
+                                                          //             padding:
+                                                          //                 const EdgeInsets.all(
+                                                          //                     8.0),
+                                                          //             child: MaterialButton(
+                                                          //                 padding: EdgeInsets.all(8),
+                                                          //                 child: Text(
+                                                          //                   'Sudah Presensi',
+                                                          //                   style: const TextStyle(
+                                                          //                       fontFamily: 'WorkSansSemiBold',
+                                                          //                       fontSize: 18,
+                                                          //                       color: Colors.white),
+                                                          //                 ),
+                                                          //                 color: Colors.yellow[800],
+                                                          //                 shape: StadiumBorder(),
+                                                          //                 onPressed: () {}),
+                                                          //           ),
+                                                          //           Text(
+                                                          //             'Wajib Log Out, lalu Log In kembali jika status presensi tidak berubah',
+                                                          //             style: const TextStyle(
+                                                          //                 fontFamily:
+                                                          //                     'WorkSansSemiBold',
+                                                          //                 fontSize:
+                                                          //                     10,
+                                                          //                 color:
+                                                          //                     Colors.black),
+                                                          //           )
+                                                          //         ],
+                                                          //       )
+                                                          //     : Container()
+                                                        ],
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else if (listKelasMahasiswaResponseModel
+                                          .data[index].bukapresensi ==
+                                      3) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 12,
+                                          top: 8,
+                                          bottom: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: new ListTile(
+                                          title: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                            'Kelas Berakhir',
+                                                            style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                    'WorkSansMedium',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white)),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
+                                                Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: new Text(
+                                                              '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.person,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: new Text(
+                                                                  listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadosen1,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.room_rounded,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                new AutoSizeText(
+                                                              'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .date_range_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].hari1}'
+                                                          ','
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .alarm_on_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                          ' '
+                                                          '-'
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Divider(
+                                                    height: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.all(8.0),
+                                                //   child: Container(
+                                                //     decoration: BoxDecoration(
+                                                //         color: Colors.green,
+                                                //         borderRadius:
+                                                //             BorderRadius.circular(
+                                                //                 25)),
+                                                //     child: Padding(
+                                                //       padding:
+                                                //           const EdgeInsets.all(8),
+                                                //       child: new Text(
+                                                //         '',
+                                                //         style: TextStyle(
+                                                //           fontSize: 14,
+                                                //           fontFamily:
+                                                //               'WorkSansMedium',
+                                                //           fontWeight:
+                                                //               FontWeight.bold,
+                                                //           color: Colors.white,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              // return Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Column(
-                              //     children: [
-                              //       Container(
-                              //         decoration: BoxDecoration(
-                              //             color: Colors.green,
-                              //             borderRadius:
-                              //                 BorderRadius.circular(25)),
-                              //         child: Padding(
-                              //           padding: const EdgeInsets.all(8.0),
-                              //           child: Text(
-                              //             'Mohon tunggu dosen anda membuka kelas anda',
-                              //             style: TextStyle(
-                              //                 fontSize: 18,
-                              //                 fontFamily: 'WorkSansMedium',
-                              //                 fontWeight: FontWeight.bold,
-                              //                 color: Colors.white),
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // );
-                            }),
-                      ),
-                    )
+                                    );
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 12,
+                                          top: 8,
+                                          bottom: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: new ListTile(
+                                          title: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                listKelasMahasiswaResponseModel
+                                                            .data[index]
+                                                            .bukapresensi ==
+                                                        0
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.red,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .door_front_door_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Tertutup',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Colors.white)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .meeting_room_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                      'Kelas Terbuka',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              'WorkSansMedium',
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Colors.white)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                Scrollbar(
+                                                  child: Container(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: new Text(
+                                                              '${listKelasMahasiswaResponseModel.data[index].namamk} ${listKelasMahasiswaResponseModel.data[index].kelas}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Pertemuan ke - ${listKelasMahasiswaResponseModel.data[index].pertemuan}',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Scrollbar(
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.person,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    new AutoSizeText(
+                                                                  listKelasMahasiswaResponseModel
+                                                                      .data[
+                                                                          index]
+                                                                      .namadosen1,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontFamily:
+                                                                          'WorkSansMedium',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.room_rounded,
+                                                            color: Colors.black,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                new AutoSizeText(
+                                                              'Ruang ${listKelasMahasiswaResponseModel.data[index].ruang}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .date_range_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].hari1}'
+                                                          ','
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].tglmasuk}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons
+                                                          .alarm_on_rounded),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: new Text(
+                                                          '${listKelasMahasiswaResponseModel.data[index].jammasuk}'
+                                                          ' '
+                                                          '-'
+                                                          ' '
+                                                          '${listKelasMahasiswaResponseModel.data[index].jamkeluar}',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Divider(
+                                                    height: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Colors.yellow[700],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: new Text(
+                                                        'Mohon tunggu dosen membuka kelas',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'WorkSansMedium',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  // return Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Column(
+                                  //     children: [
+                                  //       Container(
+                                  //         decoration: BoxDecoration(
+                                  //             color: Colors.green,
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(25)),
+                                  //         child: Padding(
+                                  //           padding: const EdgeInsets.all(8.0),
+                                  //           child: Text(
+                                  //             'Mohon tunggu dosen anda membuka kelas anda',
+                                  //             style: TextStyle(
+                                  //                 fontSize: 18,
+                                  //                 fontFamily: 'WorkSansMedium',
+                                  //                 fontWeight: FontWeight.bold,
+                                  //                 color: Colors.white),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // );
+                                }),
+                          ),
+                        )
             ],
           )),
     );

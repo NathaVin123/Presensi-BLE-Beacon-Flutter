@@ -55,6 +55,9 @@ class Data {
   final String jammasuk;
   final String jamkeluar;
   final int bukapresensi;
+  final String tglin;
+  final String tglout;
+  final String status;
 
   Data(
       {this.idkelas,
@@ -89,7 +92,10 @@ class Data {
       this.tglkeluar,
       this.jammasuk,
       this.jamkeluar,
-      this.bukapresensi});
+      this.bukapresensi,
+      this.tglin,
+      this.tglout,
+      this.status});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         idkelas: json["ID_KELAS"] == null ? null : json['ID_KELAS'] as int,
@@ -151,6 +157,9 @@ class Data {
         bukapresensi: json["IS_BUKA_PRESENSI"] == null
             ? null
             : json['IS_BUKA_PRESENSI'] as int,
+        tglin: json["TGL_IN"] == null ? null : json['TGL_IN'] as String,
+        tglout: json["TGL_OUT"] == null ? null : json['TGL_OUT'] as String,
+        status: json["status"] == null ? null : json['STATUS'] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -187,6 +196,9 @@ class Data {
         "JAM_MASUK_SEHARUSNYA": jammasuk,
         "JAM_KELUAR_SEHARUSNYA": jamkeluar,
         "IS_BUKA_PRESENSI": bukapresensi,
+        "TGL_IN": tglin,
+        "TGL_OUT": tglout,
+        "status": status,
       };
 }
 
