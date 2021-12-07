@@ -10,15 +10,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOutMahasiswaFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOutMahasiswaTidakHadirToFBEModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOutMahasiswaFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOutMahasiswaTidakHadirToFHModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOutMahasiswaFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOutMahasiswaTidakHadirToFISIPModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOutMahasiswaFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOutMahasiswaTidakHadirToFTModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOutMahasiswaFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOutMahasiswaTidakHadirToFTBModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOutMahasiswaFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOutMahasiswaTidakHadirToFTIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINDosenBukaPresensiModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaTidakHadirModel.dart';
 import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
@@ -111,6 +118,21 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
   PresensiOUTMahasiswaFTIRequestModel presensiOUTMahasiswaFTIRequestModel;
 
+  PresensiOUTMahasiswaTidakHadirRequestModel
+      presensiOUTMahasiswaTidakHadirRequestModel;
+  PresensiOUTMahasiswaTidakHadirFBERequestModel
+      presensiOUTMahasiswaTidakHadirFBERequestModel;
+  PresensiOUTMahasiswaTidakHadirFHRequestModel
+      presensiOUTMahasiswaTidakHadirFHRequestModel;
+  PresensiOUTMahasiswaTidakHadirFISIPRequestModel
+      presensiOUTMahasiswaTidakHadirFISIPRequestModel;
+  PresensiOUTMahasiswaTidakHadirFTRequestModel
+      presensiOUTMahasiswaTidakHadirFTRequestModel;
+  PresensiOUTMahasiswaTidakHadirFTBRequestModel
+      presensiOUTMahasiswaTidakHadirFTBRequestModel;
+  PresensiOUTMahasiswaTidakHadirFTIRequestModel
+      presensiOUTMahasiswaTidakHadirFTIRequestModel;
+
   @override
   void initState() {
     super.initState();
@@ -144,6 +166,27 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
     presensiOUTMahasiswaFTBRequestModel = PresensiOUTMahasiswaFTBRequestModel();
 
     presensiOUTMahasiswaFTIRequestModel = PresensiOUTMahasiswaFTIRequestModel();
+
+    presensiOUTMahasiswaTidakHadirRequestModel =
+        PresensiOUTMahasiswaTidakHadirRequestModel();
+
+    presensiOUTMahasiswaTidakHadirFBERequestModel =
+        PresensiOUTMahasiswaTidakHadirFBERequestModel();
+
+    presensiOUTMahasiswaTidakHadirFHRequestModel =
+        PresensiOUTMahasiswaTidakHadirFHRequestModel();
+
+    presensiOUTMahasiswaTidakHadirFISIPRequestModel =
+        PresensiOUTMahasiswaTidakHadirFISIPRequestModel();
+
+    presensiOUTMahasiswaTidakHadirFTRequestModel =
+        PresensiOUTMahasiswaTidakHadirFTRequestModel();
+
+    presensiOUTMahasiswaTidakHadirFTBRequestModel =
+        PresensiOUTMahasiswaTidakHadirFTBRequestModel();
+
+    presensiOUTMahasiswaTidakHadirFTIRequestModel =
+        PresensiOUTMahasiswaTidakHadirFTIRequestModel();
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       getDetailKelas();
@@ -2144,6 +2187,12 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                         presensiOUTMahasiswaRequestModel.pertemuan =
                                                                             pertemuan;
 
+                                                                        presensiOUTMahasiswaTidakHadirRequestModel.idkelas =
+                                                                            idkelas;
+
+                                                                        presensiOUTMahasiswaTidakHadirRequestModel.pertemuan =
+                                                                            pertemuan;
+
                                                                         presensiINOUTOUTDosenBukaPresensiRequestModel.idkelas =
                                                                             idkelas;
 
@@ -2173,12 +2222,24 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
                                                                           presensiOUTMahasiswaFBERequestModel.pertemuan =
                                                                               pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFBERequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFBERequestModel.pertemuan =
+                                                                              pertemuan;
                                                                         } else if (fakultas ==
                                                                             'Hukum') {
                                                                           presensiOUTMahasiswaFHRequestModel.idkelas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaFHRequestModel.pertemuan =
+                                                                              pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFHRequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFHRequestModel.pertemuan =
                                                                               pertemuan;
                                                                         } else if (fakultas ==
                                                                             'Teknobiologi') {
@@ -2187,12 +2248,24 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
                                                                           presensiOUTMahasiswaFTBRequestModel.pertemuan =
                                                                               pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTBRequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTBRequestModel.pertemuan =
+                                                                              pertemuan;
                                                                         } else if (fakultas ==
                                                                             'Ilmu Sosial dan Politik') {
                                                                           presensiOUTMahasiswaFISIPRequestModel.idkelas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaFISIPRequestModel.pertemuan =
+                                                                              pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFISIPRequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFISIPRequestModel.pertemuan =
                                                                               pertemuan;
                                                                         } else if (fakultas ==
                                                                             'Teknik') {
@@ -2201,6 +2274,12 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
                                                                           presensiOUTMahasiswaFTRequestModel.pertemuan =
                                                                               pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTRequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTRequestModel.pertemuan =
+                                                                              pertemuan;
                                                                         } else if (fakultas ==
                                                                             'Teknologi Industri') {
                                                                           presensiOUTMahasiswaFTIRequestModel.idkelas =
@@ -2208,35 +2287,62 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
                                                                           presensiOUTMahasiswaFTIRequestModel.pertemuan =
                                                                               pertemuan;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTIRequestModel.idkelas =
+                                                                              idkelasFakultas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTIRequestModel.pertemuan =
+                                                                              pertemuan;
                                                                         }
                                                                       });
 
                                                                       print(PresensiOUTMahasiswaRequestModel()
                                                                           .toJson());
 
+                                                                      print(PresensiOUTMahasiswaTidakHadirRequestModel()
+                                                                          .toJson());
+
                                                                       if (fakultas ==
                                                                           'Bisnis dan Ekonomika') {
                                                                         print(PresensiOUTMahasiswaFBERequestModel()
+                                                                            .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFBERequestModel()
                                                                             .toJson());
                                                                       } else if (fakultas ==
                                                                           'Hukum') {
                                                                         print(PresensiOUTMahasiswaFHRequestModel()
                                                                             .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFHRequestModel()
+                                                                            .toJson());
                                                                       } else if (fakultas ==
                                                                           'Teknobiologi') {
                                                                         print(PresensiOUTMahasiswaFTBRequestModel()
+                                                                            .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFTBRequestModel()
                                                                             .toJson());
                                                                       } else if (fakultas ==
                                                                           'Ilmu Sosial dan Politik') {
                                                                         print(PresensiOUTMahasiswaFISIPRequestModel()
                                                                             .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFISIPRequestModel()
+                                                                            .toJson());
                                                                       } else if (fakultas ==
                                                                           'Teknik') {
                                                                         print(PresensiOUTMahasiswaFTRequestModel()
                                                                             .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFTRequestModel()
+                                                                            .toJson());
                                                                       } else if (fakultas ==
                                                                           'Teknologi Industri') {
                                                                         print(PresensiOUTMahasiswaFTIRequestModel()
+                                                                            .toJson());
+
+                                                                        print(PresensiOUTMahasiswaTidakHadirFTIRequestModel()
                                                                             .toJson());
                                                                       }
 
@@ -2248,27 +2354,49 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                           'Bisnis dan Ekonomika') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFBE(presensiOUTMahasiswaFBERequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFBE(presensiOUTMahasiswaTidakHadirFBERequestModel);
                                                                       } else if (fakultas ==
                                                                           'Hukum') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFH(presensiOUTMahasiswaFHRequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFH(presensiOUTMahasiswaTidakHadirFHRequestModel);
                                                                       } else if (fakultas ==
                                                                           'Teknobiologi') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFTB(presensiOUTMahasiswaFTBRequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFTB(presensiOUTMahasiswaTidakHadirFTBRequestModel);
                                                                       } else if (fakultas ==
                                                                           'Ilmu Sosial dan Politik') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFISIP(presensiOUTMahasiswaFISIPRequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFISIP(presensiOUTMahasiswaTidakHadirFISIPRequestModel);
                                                                       } else if (fakultas ==
                                                                           'Teknik') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFT(presensiOUTMahasiswaFTRequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFT(presensiOUTMahasiswaTidakHadirFTRequestModel);
                                                                       } else if (fakultas ==
                                                                           'Teknologi Industri') {
                                                                         await apiService
                                                                             .putOutMahasiswaToFTI(presensiOUTMahasiswaFTIRequestModel);
+
+                                                                        await apiService
+                                                                            .postInsertPresensiMhsTidakHadirToFTI(presensiOUTMahasiswaTidakHadirFTIRequestModel);
                                                                       }
+
+                                                                      await apiService
+                                                                          .postInsertPresensiMhsTidakHadir(
+                                                                              presensiOUTMahasiswaTidakHadirRequestModel);
 
                                                                       await apiService
                                                                           .putOutMahasiswa(

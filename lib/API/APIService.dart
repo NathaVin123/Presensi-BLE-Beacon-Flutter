@@ -17,12 +17,19 @@ import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/JadwalMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOutMahasiswaFBEModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FBE/PresensiOutMahasiswaTidakHadirToFBEModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOutMahasiswaFHModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FH/PresensiOutMahasiswaTidakHadirToFHModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOutMahasiswaFISIPModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FISIP/PresensiOutMahasiswaTidakHadirToFISIPModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOutMahasiswaFTModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOutMahasiswaTidakHadirToFTModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOutMahasiswaFTBModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOutMahasiswaTidakHadirToFTBModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOutMahasiswaFTIModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOutMahasiswaTidakHadirToFTIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaModel.dart';
+import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaTidakHadirModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasDosenModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/ListKelasMahasiswa.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINDosenBukaPresensiModel.dart';
@@ -2083,6 +2090,489 @@ class APIService {
     print(url);
     try {
       http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadir(
+      PresensiOUTMahasiswaTidakHadirRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadir";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFBE(
+      PresensiOUTMahasiswaTidakHadirFBERequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadirtofbe";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFH(
+      PresensiOUTMahasiswaTidakHadirFHRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadirtofh";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFISIP(
+      PresensiOUTMahasiswaTidakHadirFISIPRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadir";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFT(
+      PresensiOUTMahasiswaTidakHadirFTRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadir";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFTB(
+      PresensiOUTMahasiswaTidakHadirFTBRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadir";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future postInsertPresensiMhsTidakHadirToFTI(
+      PresensiOUTMahasiswaTidakHadirFTIRequestModel requestModel) async {
+    String url = address + "presensi/postoutmahasiswatidakhadir";
+    print(url);
+    try {
+      http.Response response =
+          await http.post(url, body: requestModel.toJson());
       print(response.statusCode);
       if (response.statusCode == 200) {
         print(response.body);
