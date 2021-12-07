@@ -97,9 +97,8 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text('Segarkan'),
-          icon: Icon(Icons.refresh_rounded),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh_rounded),
           onPressed: () => getDataRiwayatDosen()),
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
@@ -441,14 +440,21 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                                       SizedBox(
                                                         width: 20,
                                                       ),
-                                                      Text(
-                                                        'Tampil Kehadiran Kelas',
-                                                        style: const TextStyle(
-                                                            fontFamily:
-                                                                'WorkSansSemiBold',
-                                                            fontSize: 16,
-                                                            color:
-                                                                Colors.white),
+                                                      Scrollbar(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Text(
+                                                            'Tampil Kehadiran Kelas',
+                                                            style: const TextStyle(
+                                                                fontFamily:
+                                                                    'WorkSansSemiBold',
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

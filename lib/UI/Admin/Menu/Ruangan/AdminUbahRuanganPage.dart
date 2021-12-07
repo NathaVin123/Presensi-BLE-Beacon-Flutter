@@ -60,14 +60,9 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => getListRuangan(),
-        label: Text(
-          'Segarkan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-        ),
-        icon: Icon(Icons.search_rounded),
+        child: Icon(Icons.search_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),

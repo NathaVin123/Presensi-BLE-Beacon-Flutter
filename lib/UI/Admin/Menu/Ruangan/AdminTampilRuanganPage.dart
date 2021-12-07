@@ -59,14 +59,9 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => getListDetailRuangan(),
-        label: Text(
-          'Segarkan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-        ),
-        icon: Icon(Icons.search_rounded),
+        child: Icon(Icons.search_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),

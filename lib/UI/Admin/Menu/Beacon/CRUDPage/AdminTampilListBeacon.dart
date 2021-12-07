@@ -63,14 +63,9 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => getListBeacon(),
-        label: Text(
-          'Segarkan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-        ),
-        icon: Icon(Icons.search_rounded),
+        child: Icon(Icons.search_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
