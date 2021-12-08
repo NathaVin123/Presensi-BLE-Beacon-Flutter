@@ -36,7 +36,6 @@ class Data {
       this.alamat,
       this.prodi,
       this.fakultas,
-      this.pembimbingakademik,
       this.token});
 
   final String npm;
@@ -46,7 +45,7 @@ class Data {
   final String alamat;
   final String prodi;
   final String fakultas;
-  final String pembimbingakademik;
+
   final String token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -58,9 +57,6 @@ class Data {
         alamat: json["ALAMAT"] == null ? null : json["ALAMAT"],
         prodi: json["PRODI"] == null ? null : json["PRODI"],
         fakultas: json["FAKULTAS"] == null ? null : json["FAKULTAS"],
-        pembimbingakademik: json["DSN_PEMBIMBING_AKADEMIK"] == null
-            ? null
-            : json["DSN_PEMBIMBING_AKADEMIK"],
         token: json["token"] == null ? null : json["token"],
       );
 
@@ -72,8 +68,6 @@ class Data {
         "ALAMAT": alamat == null ? null : alamat,
         "PRODI": prodi == null ? null : prodi,
         "FAKULTAS": fakultas == null ? null : fakultas,
-        "DSN_PEMBIMBING_AKADEMIK":
-            pembimbingakademik == null ? null : pembimbingakademik,
         "token": token == null ? null : token
       };
 }

@@ -20,7 +20,7 @@ class _MahasiswaInformasiAkunPageState
   String alamat = "";
   String fakultas = "";
   String prodi = "";
-  String pembimbingakademik = "";
+  // String pembimbingakademik = "";
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MahasiswaInformasiAkunPageState
       alamat = loginMahasiswa.getString('alamat');
       fakultas = loginMahasiswa.getString('fakultas');
       prodi = loginMahasiswa.getString('prodi');
-      pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
+      // pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
     });
   }
 
@@ -203,40 +203,40 @@ class _MahasiswaInformasiAkunPageState
                               SizedBox(
                                 height: 16,
                               ),
-                              Scrollbar(
-                                child: Center(
-                                  child: Container(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Text(
-                                        'Dosen Pembimbing Akademik',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontSize: 22),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Scrollbar(
-                                child: Center(
-                                  child: Container(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Text(
-                                        pembimbingakademik,
-                                        style: TextStyle(
-                                            fontFamily: 'WorkSansMedium',
-                                            fontSize: 18),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Scrollbar(
+                              //   child: Center(
+                              //     child: Container(
+                              //       child: SingleChildScrollView(
+                              //         scrollDirection: Axis.horizontal,
+                              //         child: Text(
+                              //           'Dosen Pembimbing Akademik',
+                              //           style: TextStyle(
+                              //               fontWeight: FontWeight.bold,
+                              //               fontFamily: 'WorkSansMedium',
+                              //               fontSize: 22),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 5,
+                              // ),
+                              // Scrollbar(
+                              //   child: Center(
+                              //     child: Container(
+                              //       child: SingleChildScrollView(
+                              //         scrollDirection: Axis.horizontal,
+                              //         child: Text(
+                              //           pembimbingakademik,
+                              //           style: TextStyle(
+                              //               fontFamily: 'WorkSansMedium',
+                              //               fontSize: 18),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(
                                 height: 16,
                               ),

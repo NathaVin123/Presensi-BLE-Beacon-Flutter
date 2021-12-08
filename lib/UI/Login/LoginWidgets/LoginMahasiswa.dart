@@ -212,9 +212,9 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                     'fakultas', value.data.fakultas);
                                 await loginMahasiswa.setString(
                                     'prodi', value.data.prodi);
-                                await loginMahasiswa.setString(
-                                    'pembimbingakademik',
-                                    value.data.pembimbingakademik);
+                                // await loginMahasiswa.setString(
+                                //     'pembimbingakademik',
+                                //     value.data.pembimbingakademik);
 
                                 SharedPreferences autoLogin =
                                     await SharedPreferences.getInstance();
