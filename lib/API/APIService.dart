@@ -81,60 +81,60 @@ class APIService {
         );
       } else if (response.statusCode == 400 || response.statusCode == 422) {
         print(response.body);
-        // Fluttertoast.showToast(
-        //     msg: 'Bad Request',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         return LoginMahasiswaResponseModel.fromJson(
           json.decode(response.body),
         );
       } else {
         print(response);
-        // Fluttertoast.showToast(
-        //     msg: 'Gagal memuat data',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Gagal memuat data');
       }
     } catch (e) {
       if (e is SocketException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Tidak terhubung dengan jaringan',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Request Timeout',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Request Timeout');
       } else {
-        // Fluttertoast.showToast(
-        //     msg: 'Sistem sedang dalam masalah',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
@@ -157,60 +157,60 @@ class APIService {
         );
       } else if (response.statusCode == 400 || response.statusCode == 422) {
         print(response.body);
-        // Fluttertoast.showToast(
-        //     msg: 'Bad Request',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         return LoginDosenResponseModel.fromJson(
           json.decode(response.body),
         );
       } else {
         print(response);
-        // Fluttertoast.showToast(
-        //     msg: 'Gagal memuat data',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Gagal memuat data');
       }
     } catch (e) {
       if (e is SocketException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Tidak terhubung dengan jaringan',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Request Timeout',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Request Timeout');
       } else {
-        // Fluttertoast.showToast(
-        //     msg: 'Sistem sedang dalam masalah',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
@@ -232,60 +232,60 @@ class APIService {
         );
       } else if (response.statusCode == 400 || response.statusCode == 422) {
         print(response.body);
-        // Fluttertoast.showToast(
-        //     msg: 'Bad Request',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Bad Request',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         return LoginAdminResponseModel.fromJson(
           json.decode(response.body),
         );
       } else {
         print(response);
-        // Fluttertoast.showToast(
-        //     msg: 'Gagal memuat data',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Gagal memuat data',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Gagal memuat data');
       }
     } catch (e) {
       if (e is SocketException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Tidak terhubung dengan jaringan',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Tidak terhubung dengan jaringan',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
       } else if (e is TimeoutException) {
-        // Fluttertoast.showToast(
-        //     msg: 'Request Timeout',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Request Timeout',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception('Request Timeout');
       } else {
-        // Fluttertoast.showToast(
-        //     msg: 'Sistem sedang dalam masalah',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.TOP,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Colors.red,
-        //     textColor: Colors.white,
-        //     fontSize: 12.0);
+        Fluttertoast.showToast(
+            msg: 'Sistem sedang dalam masalah',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12.0);
         throw Exception(
             'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
       }
@@ -2361,7 +2361,7 @@ class APIService {
 
   Future postInsertPresensiMhsTidakHadirToFISIP(
       PresensiOUTMahasiswaTidakHadirFISIPRequestModel requestModel) async {
-    String url = address + "presensi/postoutmahasiswatidakhadir";
+    String url = address + "presensi/postoutmahasiswatidakhadirtofisip";
     print(url);
     try {
       http.Response response =
@@ -2430,7 +2430,7 @@ class APIService {
 
   Future postInsertPresensiMhsTidakHadirToFT(
       PresensiOUTMahasiswaTidakHadirFTRequestModel requestModel) async {
-    String url = address + "presensi/postoutmahasiswatidakhadir";
+    String url = address + "presensi/postoutmahasiswatidakhadirtoft";
     print(url);
     try {
       http.Response response =
@@ -2499,7 +2499,7 @@ class APIService {
 
   Future postInsertPresensiMhsTidakHadirToFTB(
       PresensiOUTMahasiswaTidakHadirFTBRequestModel requestModel) async {
-    String url = address + "presensi/postoutmahasiswatidakhadir";
+    String url = address + "presensi/postoutmahasiswatidakhadirtoftb";
     print(url);
     try {
       http.Response response =
@@ -2568,7 +2568,7 @@ class APIService {
 
   Future postInsertPresensiMhsTidakHadirToFTI(
       PresensiOUTMahasiswaTidakHadirFTIRequestModel requestModel) async {
-    String url = address + "presensi/postoutmahasiswatidakhadir";
+    String url = address + "presensi/postoutmahasiswatidakhadirtofti";
     print(url);
     try {
       http.Response response =

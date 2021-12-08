@@ -2224,6 +2224,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFBERequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFBERequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFBERequestModel.pertemuan =
@@ -2237,6 +2240,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFHRequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFHRequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFHRequestModel.pertemuan =
@@ -2250,6 +2256,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFTBRequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTBRequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFTBRequestModel.pertemuan =
@@ -2263,6 +2272,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFISIPRequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFISIPRequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFISIPRequestModel.pertemuan =
@@ -2276,6 +2288,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFTRequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTRequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFTRequestModel.pertemuan =
@@ -2289,6 +2304,9 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
                                                                               pertemuan;
 
                                                                           presensiOUTMahasiswaTidakHadirFTIRequestModel.idkelas =
+                                                                              idkelas;
+
+                                                                          presensiOUTMahasiswaTidakHadirFTIRequestModel.idkelasfakultas =
                                                                               idkelasFakultas;
 
                                                                           presensiOUTMahasiswaTidakHadirFTIRequestModel.pertemuan =
