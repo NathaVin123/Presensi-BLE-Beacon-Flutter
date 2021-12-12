@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:intl/intl.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -102,7 +103,17 @@ class _MahasiswaRiwayatDashboardPageState
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh_rounded),
-          onPressed: () => getDataRiwayatMahasiswa()),
+          onPressed: () => {
+                getDataRiwayatMahasiswa(),
+                Fluttertoast.showToast(
+                    msg: 'Menyegarkan...',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 14.0)
+              }),
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
         elevation: 0,
@@ -145,8 +156,23 @@ class _MahasiswaRiwayatDashboardPageState
           riwayatMahasiswaResponseModel.data == null
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Mohon Tunggu..',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'WorkSansMedium',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 )
               : riwayatMahasiswaResponseModel.data.isEmpty

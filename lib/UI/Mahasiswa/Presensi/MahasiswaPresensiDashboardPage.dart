@@ -262,8 +262,23 @@ class _MahasiswaPresensiDashboardPageState
               listKelasMahasiswaResponseModel.data == null
                   ? Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
+                      child: Column(
+                        children: [
+                          CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Mohon Tunggu..',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'WorkSansMedium',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ],
                       ),
                     )
                   : listKelasMahasiswaResponseModel.data.isEmpty
