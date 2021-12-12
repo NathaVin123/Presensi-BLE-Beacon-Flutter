@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/ListBeaconModel.dart';
 
@@ -64,7 +65,17 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => getListBeacon(),
+        onPressed: () => {
+          getListBeacon(),
+          Fluttertoast.showToast(
+              msg: 'Menyegarkan...',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 14.0)
+        },
         child: Icon(Icons.refresh_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,

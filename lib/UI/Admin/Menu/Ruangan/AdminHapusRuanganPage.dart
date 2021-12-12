@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/UbahRuangBeaconModel.dart';
@@ -70,7 +71,17 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
-        onPressed: () => getListRuangan(),
+        onPressed: () => {
+          getListRuangan(),
+          Fluttertoast.showToast(
+              msg: 'Menyegarkan...',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 14.0)
+        },
 
         child: Icon(Icons.refresh_rounded),
       ),
@@ -271,18 +282,18 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                                             false;
                                                       });
                                                     }
-                                                    // Get.back();
+                                                    Get.back();
 
                                                     await Fluttertoast.showToast(
                                                         msg:
-                                                            'Berhasil Menghapus Perangkat Beacon dari Ruangan',
+                                                            'Berhasil menghapus perangkat beacon dari ruangan',
                                                         toastLength:
                                                             Toast.LENGTH_SHORT,
                                                         gravity:
                                                             ToastGravity.BOTTOM,
                                                         timeInSecForIosWeb: 1,
                                                         backgroundColor:
-                                                            Colors.green,
+                                                            Colors.red,
                                                         textColor: Colors.white,
                                                         fontSize: 14.0);
                                                   });
@@ -293,73 +304,73 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                   ],
                                 ),
                               ),
-                              onTap: () async {
-                                // Get.toNamed('/admin/menu/ruangan/detail');
+                              // onTap: () async {
+                              //   // Get.toNamed('/admin/menu/ruangan/detail');
 
-                                SKAlertDialog.show(
-                                  context: context,
-                                  type: SKAlertType.buttons,
-                                  title: 'Hapus ?',
-                                  message:
-                                      'Apakah anda yakin\ningin menghapus perangkat\ndari ruangan ini ?',
-                                  okBtnText: 'Ya',
-                                  okBtnTxtColor: Colors.white,
-                                  okBtnColor: Colors.red,
-                                  cancelBtnText: 'Tidak',
-                                  cancelBtnTxtColor: Colors.white,
-                                  cancelBtnColor: Colors.grey,
-                                  onOkBtnTap: (value) async {
-                                    print(ubahRuangBeaconRequestModel.toJson());
+                              //   SKAlertDialog.show(
+                              //     context: context,
+                              //     type: SKAlertType.buttons,
+                              //     title: 'Hapus ?',
+                              //     message:
+                              //         'Apakah anda yakin\ningin menghapus perangkat\ndari ruangan ini ?',
+                              //     okBtnText: 'Ya',
+                              //     okBtnTxtColor: Colors.white,
+                              //     okBtnColor: Colors.red,
+                              //     cancelBtnText: 'Tidak',
+                              //     cancelBtnTxtColor: Colors.white,
+                              //     cancelBtnColor: Colors.grey,
+                              //     onOkBtnTap: (value) async {
+                              //       print(ubahRuangBeaconRequestModel.toJson());
 
-                                    setState(() {
-                                      isApiCallProcess = true;
+                              //       setState(() {
+                              //         isApiCallProcess = true;
 
-                                      ubahRuangBeaconRequestModel.ruang =
-                                          ruanganListSearch[index].ruang;
+                              //         ubahRuangBeaconRequestModel.ruang =
+                              //             ruanganListSearch[index].ruang;
 
-                                      ubahRuangBeaconRequestModel.namadevice =
-                                          "";
-                                    });
+                              //         ubahRuangBeaconRequestModel.namadevice =
+                              //             "";
+                              //       });
 
-                                    APIService apiService = new APIService();
+                              //       APIService apiService = new APIService();
 
-                                    apiService
-                                        .putUbahRuangBeacon(
-                                            ubahRuangBeaconRequestModel)
-                                        .then((value) async {
-                                      if (value != null) {
-                                        setState(() {
-                                          isApiCallProcess = false;
-                                        });
-                                      }
-                                      // Get.back();
+                              //       apiService
+                              //           .putUbahRuangBeacon(
+                              //               ubahRuangBeaconRequestModel)
+                              //           .then((value) async {
+                              //         if (value != null) {
+                              //           setState(() {
+                              //             isApiCallProcess = false;
+                              //           });
+                              //         }
+                              //         Get.back();
 
-                                      await Fluttertoast.showToast(
-                                          msg:
-                                              'Berhasil Menghapus Perangkat Beacon dari Ruangan',
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 14.0);
-                                    });
-                                  },
-                                  onCancelBtnTap: (value) {},
-                                );
+                              //         await Fluttertoast.showToast(
+                              //             msg:
+                              //                 'Berhasil menghapus perangkat beacon dari ruangan',
+                              //             toastLength: Toast.LENGTH_SHORT,
+                              //             gravity: ToastGravity.BOTTOM,
+                              //             timeInSecForIosWeb: 1,
+                              //             backgroundColor: Colors.red,
+                              //             textColor: Colors.white,
+                              //             fontSize: 14.0);
+                              //       });
+                              //     },
+                              //     onCancelBtnTap: (value) {},
+                              //   );
 
-                                // SharedPreferences saveRuangan =
-                                //     await SharedPreferences.getInstance();
+                              //   // SharedPreferences saveRuangan =
+                              //   //     await SharedPreferences.getInstance();
 
-                                // await saveRuangan.setString(
-                                //     'ruang', ruanganListSearch[index].ruang);
-                                // await saveRuangan.setString(
-                                //     'fakultas',
-                                //     listDetailRuanganResponseModel
-                                //         .data[index].fakultas);
-                                // await saveRuangan.setString(
-                                //     'prodi', ruanganListSearch[index].prodi);
-                              },
+                              //   // await saveRuangan.setString(
+                              //   //     'ruang', ruanganListSearch[index].ruang);
+                              //   // await saveRuangan.setString(
+                              //   //     'fakultas',
+                              //   //     listDetailRuanganResponseModel
+                              //   //         .data[index].fakultas);
+                              //   // await saveRuangan.setString(
+                              //   //     'prodi', ruanganListSearch[index].prodi);
+                              // },
                             ),
                           ),
                         );

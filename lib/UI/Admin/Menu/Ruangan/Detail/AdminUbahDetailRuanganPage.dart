@@ -350,8 +350,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                           Get.back();
 
                           await Fluttertoast.showToast(
-                              msg:
-                                  'Berhasil Mengubah Perangkat Beacon di Ruangan',
+                              msg: 'Berhasil mengubah perangkat beacon ruangan',
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -395,7 +394,18 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                         // ),
                       ],
                     ),
-                    onPressed: () => {getListBeacon(), getDataNamaDevice()}),
+                    onPressed: () => {
+                          getListBeacon(),
+                          getDataNamaDevice(),
+                          Fluttertoast.showToast(
+                              msg: 'Menyegarkan...',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 14.0)
+                        }),
               ),
             ],
           ),

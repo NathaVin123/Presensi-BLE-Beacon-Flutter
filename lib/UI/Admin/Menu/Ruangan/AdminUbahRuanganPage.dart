@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
@@ -61,7 +62,17 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => getListRuangan(),
+        onPressed: () => {
+          getListRuangan(),
+          Fluttertoast.showToast(
+              msg: 'Menyegarkan...',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 14.0)
+        },
         child: Icon(Icons.search_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
