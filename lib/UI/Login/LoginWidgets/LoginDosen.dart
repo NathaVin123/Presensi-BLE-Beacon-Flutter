@@ -71,38 +71,76 @@ class _LoginDosenState extends State<LoginDosen> {
                       height: 0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        controller: _nppFieldController,
-                        focusNode: _nppFieldFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(
-                              context, _nppFieldFocus, _passwordFieldFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        style: const TextStyle(
-                            fontFamily: 'WorkSansSemiBold',
-                            fontSize: 18.0,
-                            color: Colors.black),
-                        keyboardType: TextInputType.phone,
-                        onSaved: (input) => loginDosenRequestModel.npp = input,
-                        validator: (input) =>
-                            input.length < 1 ? "NPP tidak boleh kosong" : null,
-                        decoration: new InputDecoration(
-                          contentPadding: EdgeInsets.all(20.0),
-                          hintText: "NPP DOSEN",
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black)),
-                          prefixIcon: Icon(
-                            Icons.person_rounded,
-                            color: Colors.black,
-                            size: 22.0,
-                          ),
-                        ),
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(10),
+                        child: GetPlatform.isAndroid != null
+                            ? TextFormField(
+                                controller: _nppFieldController,
+                                focusNode: _nppFieldFocus,
+                                onFieldSubmitted: (term) {
+                                  _fieldFocusChange(context, _nppFieldFocus,
+                                      _passwordFieldFocus);
+                                },
+                                textInputAction: TextInputAction.next,
+                                style: const TextStyle(
+                                    fontFamily: 'WorkSansSemiBold',
+                                    fontSize: 18.0,
+                                    color: Colors.black),
+                                keyboardType: TextInputType.phone,
+                                onSaved: (input) =>
+                                    loginDosenRequestModel.npp = input,
+                                validator: (input) => input.length < 1
+                                    ? "NPP tidak boleh kosong"
+                                    : null,
+                                decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.all(20.0),
+                                  hintText: "NPP DOSEN",
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
+                                  prefixIcon: Icon(
+                                    Icons.person_rounded,
+                                    color: Colors.black,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              )
+                            : TextFormField(
+                                controller: _nppFieldController,
+                                focusNode: _nppFieldFocus,
+                                onFieldSubmitted: (term) {
+                                  _fieldFocusChange(context, _nppFieldFocus,
+                                      _passwordFieldFocus);
+                                },
+                                textInputAction: TextInputAction.next,
+                                style: const TextStyle(
+                                    fontFamily: 'WorkSansSemiBold',
+                                    fontSize: 18.0,
+                                    color: Colors.black),
+                                keyboardType: TextInputType.text,
+                                onSaved: (input) =>
+                                    loginDosenRequestModel.npp = input,
+                                validator: (input) => input.length < 1
+                                    ? "NPP tidak boleh kosong"
+                                    : null,
+                                decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.all(20.0),
+                                  hintText: "NPP DOSEN",
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
+                                  prefixIcon: Icon(
+                                    Icons.person_rounded,
+                                    color: Colors.black,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              )),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(

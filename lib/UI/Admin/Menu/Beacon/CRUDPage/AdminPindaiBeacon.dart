@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:get/get.dart';
 
 class AdminPindaiBeacon extends StatefulWidget {
   @override
@@ -291,11 +292,8 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Platform.isIOS == null
-                  ? Center(
-                      child: Text('Mohon maaf, iOS belum mendukung fitur ini'),
-                    )
-                  : Container(
+              GetPlatform.isAndroid != null
+                  ? Container(
                       child: _beacons == null || _beacons.isEmpty
                           ? Center(
                               child: Column(
@@ -477,7 +475,24 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
                                     })).toList(),
                               ),
                             ),
-                    ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Maaf, perangkat iOS belum mendukung fitur pindai beacon',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'WorkSansMedium',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                    )
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
               //   child: Center(

@@ -84,54 +84,61 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                     fontSize: 14),
                               ),
                               children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 14, right: 14, bottom: 14),
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(25),
-                                      onTap: () => Get.toNamed(
-                                          '/admin/menu/beacon/pindai'),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 24,
-                                                  right: 20,
-                                                  top: 20,
-                                                  bottom: 20),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    FontAwesomeIcons.search,
-                                                    color: Colors.black,
-                                                    size: 20,
+                                GetPlatform.isAndroid != null
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 14, right: 14, bottom: 14),
+                                        child: InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          onTap: () => Get.toNamed(
+                                              '/admin/menu/beacon/pindai'),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 24,
+                                                      right: 20,
+                                                      top: 20,
+                                                      bottom: 20),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        FontAwesomeIcons.search,
+                                                        color: Colors.black,
+                                                        size: 20,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 11,
+                                                      ),
+                                                      Text(
+                                                        'Pindai Beacon',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontFamily:
+                                                                'WorkSansMedium',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 11,
-                                                  ),
-                                                  Text(
-                                                    'Pindai Beacon',
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontFamily:
-                                                            'WorkSansMedium',
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ))
+                                    : SizedBox(
+                                        height: 0,
                                       ),
-                                    )),
                                 Padding(
                                     padding: EdgeInsets.only(
                                         left: 14, right: 14, bottom: 14),

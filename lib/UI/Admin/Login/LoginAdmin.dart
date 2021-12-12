@@ -115,46 +115,112 @@ class _LoginAdminState extends State<LoginAdmin> {
                                         height: 0,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: TextFormField(
-                                          controller: _nppAdminFieldController,
-                                          focusNode: _nppAdminFieldFocus,
-                                          onFieldSubmitted: (term) {
-                                            _fieldFocusChange(
-                                                context,
-                                                _nppAdminFieldFocus,
-                                                _passwordAdminFieldFocus);
-                                          },
-                                          textInputAction: TextInputAction.next,
-                                          style: const TextStyle(
-                                              fontFamily: 'WorkSansSemiBold',
-                                              fontSize: 18.0,
-                                              color: Colors.black),
-                                          keyboardType: TextInputType.phone,
-                                          onSaved: (input) =>
-                                              loginAdminRequestModel.npp =
-                                                  input,
-                                          validator: (input) => input.length < 1
-                                              ? "NPP tidak boleh kosong"
-                                              : null,
-                                          decoration: new InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.all(20.0),
-                                            hintText: "NPP KARYAWAN",
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey)),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black)),
-                                            prefixIcon: Icon(
-                                              Icons.person_rounded,
-                                              color: Colors.black,
-                                              size: 22.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                          padding: const EdgeInsets.all(10),
+                                          child: GetPlatform.isAndroid != null
+                                              ? TextFormField(
+                                                  controller:
+                                                      _nppAdminFieldController,
+                                                  focusNode:
+                                                      _nppAdminFieldFocus,
+                                                  onFieldSubmitted: (term) {
+                                                    _fieldFocusChange(
+                                                        context,
+                                                        _nppAdminFieldFocus,
+                                                        _passwordAdminFieldFocus);
+                                                  },
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  style: const TextStyle(
+                                                      fontFamily:
+                                                          'WorkSansSemiBold',
+                                                      fontSize: 18.0,
+                                                      color: Colors.black),
+                                                  keyboardType:
+                                                      TextInputType.phone,
+                                                  onSaved: (input) =>
+                                                      loginAdminRequestModel
+                                                          .npp = input,
+                                                  validator: (input) => input
+                                                              .length <
+                                                          1
+                                                      ? "NPP tidak boleh kosong"
+                                                      : null,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    contentPadding:
+                                                        EdgeInsets.all(20.0),
+                                                    hintText: "NPP KARYAWAN",
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .grey)),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black)),
+                                                    prefixIcon: Icon(
+                                                      Icons.person_rounded,
+                                                      color: Colors.black,
+                                                      size: 22.0,
+                                                    ),
+                                                  ),
+                                                )
+                                              : TextFormField(
+                                                  controller:
+                                                      _nppAdminFieldController,
+                                                  focusNode:
+                                                      _nppAdminFieldFocus,
+                                                  onFieldSubmitted: (term) {
+                                                    _fieldFocusChange(
+                                                        context,
+                                                        _nppAdminFieldFocus,
+                                                        _passwordAdminFieldFocus);
+                                                  },
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  style: const TextStyle(
+                                                      fontFamily:
+                                                          'WorkSansSemiBold',
+                                                      fontSize: 18.0,
+                                                      color: Colors.black),
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  onSaved: (input) =>
+                                                      loginAdminRequestModel
+                                                          .npp = input,
+                                                  validator: (input) => input
+                                                              .length <
+                                                          1
+                                                      ? "NPP tidak boleh kosong"
+                                                      : null,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    contentPadding:
+                                                        EdgeInsets.all(20.0),
+                                                    hintText: "NPP KARYAWAN",
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .grey)),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black)),
+                                                    prefixIcon: Icon(
+                                                      Icons.person_rounded,
+                                                      color: Colors.black,
+                                                      size: 22.0,
+                                                    ),
+                                                  ),
+                                                )),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             left: 10, right: 10),
