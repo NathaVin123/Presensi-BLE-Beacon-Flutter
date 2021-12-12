@@ -174,9 +174,9 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                             isApiCallProcess = true;
                           });
 
-                          setState(() {
-                            isApiCallProcess = false;
-                          });
+                          // setState(() {
+                          //   isApiCallProcess = false;
+                          // });
 
                           APIService apiService = new APIService();
                           apiService

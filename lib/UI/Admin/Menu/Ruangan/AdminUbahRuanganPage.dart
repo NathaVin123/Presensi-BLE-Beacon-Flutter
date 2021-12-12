@@ -88,14 +88,14 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Text(
-                        'Silakan tekan tombol "Segarkan" jika bermasalah',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      // Text(
+                      //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                      //   style: TextStyle(
+                      //       fontSize: 15,
+                      //       fontFamily: 'WorkSansMedium',
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
@@ -156,26 +156,70 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Text(
-                                        'Ruang ${ruanganListSearch[index].ruang}',
-                                        style: TextStyle(
-                                            fontSize: 18,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Ruang ${ruanganListSearch[index].ruang}',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Fakultas ${ruanganListSearch[index].fakultas}',
+                                          style: TextStyle(
+                                            fontSize: 16,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      new Text(
-                                        'Fakultas ${ruanganListSearch[index].fakultas}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
                                       ),
-                                      new Text(
-                                        'Prodi ${ruanganListSearch[index].prodi}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Prodi ${ruanganListSearch[index].prodi}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: MaterialButton(
+                                            color: Colors.yellow[800],
+                                            shape: StadiumBorder(),
+                                            padding: EdgeInsets.all(15),
+                                            child: Text(
+                                              "Ubah Perangkat",
+                                              style: const TextStyle(
+                                                  fontFamily:
+                                                      'WorkSansSemiBold',
+                                                  fontSize: 14.0,
+                                                  color: Colors.white),
+                                            ),
+                                            onPressed: () async {
+                                              Get.toNamed(
+                                                  '/admin/menu/ruangan/detail');
+
+                                              SharedPreferences saveRuangan =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              await saveRuangan.setString(
+                                                  'ruang',
+                                                  ruanganListSearch[index]
+                                                      .ruang);
+                                              await saveRuangan.setString(
+                                                  'fakultas',
+                                                  ruanganListSearch[index]
+                                                      .fakultas);
+                                              await saveRuangan.setString(
+                                                  'prodi',
+                                                  ruanganListSearch[index]
+                                                      .prodi);
+                                            }),
                                       ),
                                     ],
                                   ),

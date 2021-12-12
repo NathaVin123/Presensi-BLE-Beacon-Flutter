@@ -61,7 +61,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => getListDetailRuangan(),
-        child: Icon(Icons.search_rounded),
+        child: Icon(Icons.refresh_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
@@ -87,14 +87,14 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Text(
-                        'Silakan tekan tombol "Segarkan" jika bermasalah',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      // Text(
+                      //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                      //   style: TextStyle(
+                      //       fontSize: 15,
+                      //       fontFamily: 'WorkSansMedium',
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
@@ -156,41 +156,56 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Text(
-                                        'Ruang ${ruanganListSearch[index].ruang}',
-                                        style: TextStyle(
-                                            fontSize: 18,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Ruang ${ruanganListSearch[index].ruang}',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Fakultas ${ruanganListSearch[index].fakultas}',
+                                          style: TextStyle(
+                                            fontSize: 16,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      new Text(
-                                        'Fakultas ${ruanganListSearch[index].fakultas}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
                                       ),
-                                      new Text(
-                                        'Prodi ${ruanganListSearch[index].prodi}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Prodi ${ruanganListSearch[index].prodi}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
                                       ),
-                                      new Text(
-                                        'Nama Device : ${ruanganListSearch[index].namadevice}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      new Text(
-                                        'Jarak Minimal :  ${ruanganListSearch[index].jarak} m',
-                                        style: TextStyle(
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Nama Device : ${ruanganListSearch[index].namadevice}',
+                                          style: TextStyle(
                                             fontSize: 14,
                                             fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          'Jarak Minimal :  ${ruanganListSearch[index].jarak} m',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ],
                                   ),

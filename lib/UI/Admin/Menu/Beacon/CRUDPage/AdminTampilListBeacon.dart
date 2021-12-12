@@ -65,7 +65,7 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => getListBeacon(),
-        child: Icon(Icons.search_rounded),
+        child: Icon(Icons.refresh_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
@@ -91,14 +91,14 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Text(
-                        'Silakan tekan tombol "Segarkan" jika bermasalah',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      // Text(
+                      //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                      //   style: TextStyle(
+                      //       fontSize: 15,
+                      //       fontFamily: 'WorkSansMedium',
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
@@ -173,71 +173,103 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        new Text(
-                                          beaconListSearch[index].namadevice,
-                                          style: TextStyle(
-                                              fontSize: 22,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            beaconListSearch[index].namadevice,
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontFamily: 'WorkSansMedium',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            'UUID',
+                                            style: TextStyle(
+                                              fontSize: 15,
                                               fontFamily: 'WorkSansMedium',
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        new Text(
-                                          'UUID',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          beaconListSearch[index].uuid,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Scrollbar(
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: new Text(
+                                                beaconListSearch[index].uuid,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontFamily: 'WorkSansMedium',
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          'Jarak Minimal',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            'Jarak Minimal',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          '${beaconListSearch[index].jarakmin} m',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            '${beaconListSearch[index].jarakmin} m',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          'MAJOR',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            'MAJOR',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          '${beaconListSearch[index].major}',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            '${beaconListSearch[index].major}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          'Minor',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            'Minor',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        new Text(
-                                          '${beaconListSearch[index].minor}',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'WorkSansMedium',
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Text(
+                                            '${beaconListSearch[index].minor}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSansMedium',
+                                            ),
                                           ),
                                         ),
                                       ],

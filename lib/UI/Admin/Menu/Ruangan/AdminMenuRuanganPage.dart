@@ -135,7 +135,7 @@ class _AdminMenuRuanganPageState extends State<AdminMenuRuanganPage> {
                                       width: 11,
                                     ),
                                     Text(
-                                      'Lepas Perangkat Ruangan',
+                                      'Hapus Perangkat Ruangan',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'WorkSansMedium',

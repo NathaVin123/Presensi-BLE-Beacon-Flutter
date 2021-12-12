@@ -61,22 +61,18 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         centerTitle: true,
         title: Text(
-          'Lepas Perangkat Ruangan',
+          'Hapus Perangkat Ruangan',
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         // onPressed: () => {_streamRanging?.resume(), getDataRuangBeacon()},
         onPressed: () => getListRuangan(),
-        label: Text(
-          'Segarkan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-        ),
-        icon: Icon(Icons.search_rounded),
+
+        child: Icon(Icons.refresh_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
@@ -102,14 +98,14 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Text(
-                        'Silakan tekan tombol "Segarkan" jika bermasalah',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'WorkSansMedium',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      // Text(
+                      //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                      //   style: TextStyle(
+                      //       fontSize: 15,
+                      //       fontFamily: 'WorkSansMedium',
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
@@ -171,41 +167,129 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    new Text(
-                                      'Ruang ${ruanganListSearch[index].ruang}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    new Text(
-                                      'Fakultas ${ruanganListSearch[index].fakultas}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Text(
+                                        'Ruang ${ruanganListSearch[index].ruang}',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    new Text(
-                                      'Prodi ${ruanganListSearch[index].prodi}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'WorkSansMedium',
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Text(
+                                        'Fakultas ${ruanganListSearch[index].fakultas}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSansMedium',
+                                        ),
                                       ),
                                     ),
-                                    new Text(
-                                      'Nama Device : ${ruanganListSearch[index].namadevice}',
-                                      style: TextStyle(
-                                          fontSize: 14,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Text(
+                                        'Prodi ${ruanganListSearch[index].prodi}',
+                                        style: TextStyle(
+                                          fontSize: 16,
                                           fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
-                                    new Text(
-                                      'Jarak : ${ruanganListSearch[index].jarak}',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'WorkSansMedium',
-                                          fontWeight: FontWeight.bold),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Text(
+                                        'Nama Device : ${ruanganListSearch[index].namadevice}',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Text(
+                                        'Jarak : ${ruanganListSearch[index].jarak}',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'WorkSansMedium',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                        color: Colors.red,
+                                        shape: StadiumBorder(),
+                                        padding: EdgeInsets.all(15),
+                                        child: Text(
+                                          "Hapus Perangkat",
+                                          style: const TextStyle(
+                                              fontFamily: 'WorkSansSemiBold',
+                                              fontSize: 14.0,
+                                              color: Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                              SKAlertDialog.show(
+                                                context: context,
+                                                type: SKAlertType.buttons,
+                                                title: 'Hapus ?',
+                                                message:
+                                                    'Apakah anda yakin\ningin menghapus perangkat\ndari ruangan ini ?',
+                                                okBtnText: 'Ya',
+                                                okBtnTxtColor: Colors.white,
+                                                okBtnColor: Colors.red,
+                                                cancelBtnText: 'Tidak',
+                                                cancelBtnTxtColor: Colors.white,
+                                                cancelBtnColor: Colors.grey,
+                                                onOkBtnTap: (value) async {
+                                                  print(
+                                                      ubahRuangBeaconRequestModel
+                                                          .toJson());
+
+                                                  setState(() {
+                                                    isApiCallProcess = true;
+
+                                                    ubahRuangBeaconRequestModel
+                                                            .ruang =
+                                                        ruanganListSearch[index]
+                                                            .ruang;
+
+                                                    ubahRuangBeaconRequestModel
+                                                        .namadevice = "";
+                                                  });
+
+                                                  APIService apiService =
+                                                      new APIService();
+
+                                                  apiService
+                                                      .putUbahRuangBeacon(
+                                                          ubahRuangBeaconRequestModel)
+                                                      .then((value) async {
+                                                    if (value != null) {
+                                                      setState(() {
+                                                        isApiCallProcess =
+                                                            false;
+                                                      });
+                                                    }
+                                                    // Get.back();
+
+                                                    await Fluttertoast.showToast(
+                                                        msg:
+                                                            'Berhasil Menghapus Perangkat Beacon dari Ruangan',
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.BOTTOM,
+                                                        timeInSecForIosWeb: 1,
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        textColor: Colors.white,
+                                                        fontSize: 14.0);
+                                                  });
+                                                },
+                                                onCancelBtnTap: (value) {},
+                                              )
+                                            }),
                                   ],
                                 ),
                               ),
@@ -215,9 +299,9 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                 SKAlertDialog.show(
                                   context: context,
                                   type: SKAlertType.buttons,
-                                  title: 'Keluar ?',
+                                  title: 'Hapus ?',
                                   message:
-                                      'Apakah anda yakin\ningin melepas perangkat ini ?',
+                                      'Apakah anda yakin\ningin menghapus perangkat\ndari ruangan ini ?',
                                   okBtnText: 'Ya',
                                   okBtnTxtColor: Colors.white,
                                   okBtnColor: Colors.red,
@@ -252,7 +336,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
 
                                       await Fluttertoast.showToast(
                                           msg:
-                                              'Berhasil Melepas Perangkat Beacon di Ruangan',
+                                              'Berhasil Menghapus Perangkat Beacon dari Ruangan',
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,

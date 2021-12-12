@@ -298,9 +298,19 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
                   : Container(
                       child: _beacons == null || _beacons.isEmpty
                           ? Center(
-                              child: SpinKitRipple(
-                                color: Colors.white,
-                                size: 100,
+                              child: Column(
+                                children: [
+                                  SpinKitRipple(
+                                    color: Colors.white,
+                                    size: 100,
+                                  ),
+                                  Text('Sedang Memindai ...',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontFamily: 'WorkSansMedium',
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white))
+                                ],
                               ),
                             )
                           : SingleChildScrollView(
@@ -340,91 +350,125 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
                                                       const EdgeInsets.all(8.0),
                                                   child: Column(
                                                     children: <Widget>[
-                                                      Text(
-                                                          'UUID : ${beacon.proximityUUID}',
-                                                          style: TextStyle(
-                                                              fontSize: 12.0,
-                                                              fontFamily:
-                                                                  'WorkSansMedium',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                          'MAC Address : ${beacon.macAddress}',
-                                                          style: TextStyle(
-                                                            fontSize: 12.0,
-                                                            fontFamily:
-                                                                'WorkSansMedium',
-                                                          )),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: <Widget>[
-                                                          Text(
-                                                              'Major : ${beacon.major}',
+                                                      Scrollbar(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Text(
+                                                              'UUID : ${beacon.proximityUUID}',
                                                               style: TextStyle(
-                                                                fontSize: 14.0,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                              )),
-                                                          Text(
-                                                              'Minor : ${beacon.minor}',
-                                                              style: TextStyle(
-                                                                fontSize: 12.0,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                              )),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: <Widget>[
-                                                          Text(
-                                                              'RSSI : ${beacon.rssi}',
-                                                              style: TextStyle(
-                                                                fontSize: 12.0,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                              )),
-                                                          Text(
-                                                              'Tx Power : ${beacon.txPower}',
-                                                              style: TextStyle(
-                                                                fontSize: 12.0,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                              )),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Jarak : ${beacon.accuracy} m',
+                                                            'MAC Address : ${beacon.macAddress}',
                                                             style: TextStyle(
-                                                                fontSize: 20.0,
-                                                                fontFamily:
-                                                                    'WorkSansMedium',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .blue)),
+                                                              fontSize: 14.0,
+                                                              fontFamily:
+                                                                  'WorkSansMedium',
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: <Widget>[
+                                                            Text(
+                                                                'Major : ${beacon.major}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                )),
+                                                            Text(
+                                                                'Minor : ${beacon.minor}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: <Widget>[
+                                                            Text(
+                                                                'RSSI : ${beacon.rssi}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                )),
+                                                            Text(
+                                                                'Tx Power : ${beacon.txPower}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors
+                                                                  .yellow[800],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                                'Jarak : ${beacon.accuracy} m',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        22.0,
+                                                                    fontFamily:
+                                                                        'WorkSansMedium',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white)),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -434,18 +478,18 @@ class _AdminPindaiBeaconState extends State<AdminPindaiBeacon>
                               ),
                             ),
                     ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    'Silahkan pilih beacon untuk menyalin UUID',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'WorkSansMedium',
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              )
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Center(
+              //     child: Text(
+              //       'Silahkan pilih beacon untuk menyalin UUID',
+              //       style: TextStyle(
+              //           color: Colors.white,
+              //           fontFamily: 'WorkSansMedium',
+              //           fontWeight: FontWeight.bold),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ));

@@ -61,6 +61,16 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                 fontWeight: FontWeight.bold),
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.green,
+          onPressed: () => Get.toNamed('/admin/menu/beacon/pindai'),
+          label: Text('Pindai',
+              style: const TextStyle(
+                  fontFamily: 'WorkSansSemiBold',
+                  fontSize: 14.0,
+                  color: Colors.white)),
+          icon: Icon(Icons.search_rounded),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -76,6 +86,19 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                       key: globalFormKey,
                       child: Column(
                         children: <Widget>[
+                          // MaterialButton(
+                          //     color: Colors.yellow[800],
+                          //     shape: StadiumBorder(),
+                          //     padding: EdgeInsets.all(15),
+                          //     child: Text(
+                          //       "Pindai Beacon",
+                          //       style: const TextStyle(
+                          //           fontFamily: 'WorkSansSemiBold',
+                          //           fontSize: 18.0,
+                          //           color: Colors.white),
+                          //     ),
+                          //     onPressed: () =>
+                          //         Get.toNamed('/admin/menu/beacon/pindai')),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
@@ -88,19 +111,6 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               ),
                             ),
                           ),
-                          MaterialButton(
-                              color: Colors.blue,
-                              shape: StadiumBorder(),
-                              padding: EdgeInsets.all(15),
-                              child: Text(
-                                "Pindai Beacon",
-                                style: const TextStyle(
-                                    fontFamily: 'WorkSansSemiBold',
-                                    fontSize: 18.0,
-                                    color: Colors.white),
-                              ),
-                              onPressed: () =>
-                                  Get.toNamed('/admin/menu/beacon/pindai')),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
@@ -160,6 +170,8 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               validator: (input) => input.length < 1
                                   ? "Tidak boleh kosong"
                                   : null,
+                              decoration: new InputDecoration(
+                                  hintText: "Silahkan Isi Nama Perangkat"),
                             )),
                           ),
                           Padding(
@@ -195,8 +207,8 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               validator: (input) => input.length < 1
                                   ? "Tidak boleh kosong"
                                   : null,
-                              decoration:
-                                  new InputDecoration(hintText: "Dalam Meter"),
+                              decoration: new InputDecoration(
+                                  hintText: "Silahkan Isi Nilai Dalam Meter"),
                             )),
                           ),
                           Padding(
@@ -232,8 +244,9 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               validator: (input) => input.length < 1
                                   ? "Tidak boleh kosong"
                                   : null,
-                              decoration:
-                                  new InputDecoration(hintText: "0 - 65535"),
+                              decoration: new InputDecoration(
+                                  hintText:
+                                      "Silahkan Isi dalam rentang 0 - 65535"),
                             )),
                           ),
                           Padding(
@@ -268,8 +281,9 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                               validator: (input) => input.length < 1
                                   ? "Tidak boleh kosong"
                                   : null,
-                              decoration:
-                                  new InputDecoration(hintText: "0 - 65535"),
+                              decoration: new InputDecoration(
+                                  hintText:
+                                      "Silahkan Isi dalam rentang 0 - 65535"),
                             )),
                           ),
                           SizedBox(

@@ -190,7 +190,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'Pilih Perangkat',
+                'Silahkan pilih perangkat',
                 style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'WorkSansMedium',
@@ -228,14 +228,14 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
-                          Text(
-                            'Silakan tekan tombol "Segarkan" jika bermasalah',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'WorkSansMedium',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                          // Text(
+                          //   'Silakan tekan tombol "Segarkan" jika bermasalah',
+                          //   style: TextStyle(
+                          //       fontSize: 15,
+                          //       fontFamily: 'WorkSansMedium',
+                          //       fontWeight: FontWeight.bold,
+                          //       color: Colors.white),
+                          // ),
                         ],
                       ),
                     ),
@@ -261,19 +261,25 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Text(
-                                        listBeaconResponseModel
-                                            .data[index].namadevice,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'WorkSansMedium',
-                                            fontWeight: FontWeight.bold),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          listBeaconResponseModel
+                                              .data[index].namadevice,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'WorkSansMedium',
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                      new Text(
-                                        '${listBeaconResponseModel.data[index].jarakmin} m',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'WorkSansMedium',
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Text(
+                                          '${listBeaconResponseModel.data[index].jarakmin} m',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'WorkSansMedium',
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -377,16 +383,16 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                           Icons.refresh_rounded,
                           color: Colors.white,
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Segarkan",
-                          style: const TextStyle(
-                              fontFamily: 'WorkSansSemiBold',
-                              fontSize: 18.0,
-                              color: Colors.white),
-                        ),
+                        // SizedBox(
+                        //   width: 10,
+                        // ),
+                        // Text(
+                        //   "Segarkan",
+                        //   style: const TextStyle(
+                        //       fontFamily: 'WorkSansSemiBold',
+                        //       fontSize: 18.0,
+                        //       color: Colors.white),
+                        // ),
                       ],
                     ),
                     onPressed: () => {getListBeacon(), getDataNamaDevice()}),

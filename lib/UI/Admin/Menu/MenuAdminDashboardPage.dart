@@ -460,7 +460,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                                                     width: 11,
                                                   ),
                                                   Text(
-                                                    'Lepas Perangkat Ruangan',
+                                                    'Hapus Perangkat Ruangan',
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         fontFamily:

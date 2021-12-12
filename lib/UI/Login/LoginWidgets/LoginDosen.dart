@@ -173,9 +173,9 @@ class _LoginDosenState extends State<LoginDosen> {
                               isApiCallProcess = true;
                             });
 
-                            setState(() {
-                              isApiCallProcess = false;
-                            });
+                            // setState(() {
+                            //   isApiCallProcess = false;
+                            // });
 
                             APIService apiService = new APIService();
                             apiService
