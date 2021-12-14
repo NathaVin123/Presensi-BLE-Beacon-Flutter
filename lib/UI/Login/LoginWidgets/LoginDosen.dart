@@ -187,95 +187,109 @@ class _LoginDosenState extends State<LoginDosen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    MaterialButton(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 100),
-                        child: Text(
-                          "MASUK",
-                          style: const TextStyle(
-                              fontFamily: 'WorkSansSemiBold',
-                              fontSize: 18.0,
-                              color: Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: MaterialButton(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.login_rounded,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "MASUK",
+                                style: const TextStyle(
+                                    fontFamily: 'WorkSansSemiBold',
+                                    fontSize: 18.0,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      color: Color.fromRGBO(247, 180, 7, 1),
-                      shape: StadiumBorder(),
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        try {
-                          if (validateAndSave()) {
-                            print(loginDosenRequestModel.toJson());
+                        color: Color.fromRGBO(247, 180, 7, 1),
+                        shape: StadiumBorder(),
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          try {
+                            if (validateAndSave()) {
+                              print(loginDosenRequestModel.toJson());
 
-                            setState(() {
-                              isApiCallProcess = true;
-                            });
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
 
-                            // setState(() {
-                            //   isApiCallProcess = false;
-                            // });
+                              // setState(() {
+                              //   isApiCallProcess = false;
+                              // });
 
-                            APIService apiService = new APIService();
-                            apiService
-                                .loginDosen(loginDosenRequestModel)
-                                .then((value) async {
-                              if (value != null) {
-                                setState(() {
-                                  isApiCallProcess = false;
-                                });
+                              APIService apiService = new APIService();
+                              apiService
+                                  .loginDosen(loginDosenRequestModel)
+                                  .then((value) async {
+                                if (value != null) {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
 
-                                if (value?.data?.token?.isNotEmpty ?? false) {
-                                  Get.offNamed('/dosen/dashboard');
+                                  if (value?.data?.token?.isNotEmpty ?? false) {
+                                    Get.offNamed('/dosen/dashboard');
 
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Selamat datang,\n${value.data.namadsn}',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            'Selamat datang,\n${value.data.namadsn}',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.green,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
 
-                                  SharedPreferences loginDosen =
-                                      await SharedPreferences.getInstance();
-                                  await loginDosen.setString(
-                                      'npp', value.data.npp);
-                                  await loginDosen.setString(
-                                      'namadsn', value.data.namadsn);
-                                  await loginDosen.setString(
-                                      'prodi', value.data.prodi);
-                                  await loginDosen.setString(
-                                      'fakultas', value.data.fakultas);
+                                    SharedPreferences loginDosen =
+                                        await SharedPreferences.getInstance();
+                                    await loginDosen.setString(
+                                        'npp', value.data.npp);
+                                    await loginDosen.setString(
+                                        'namadsn', value.data.namadsn);
+                                    await loginDosen.setString(
+                                        'prodi', value.data.prodi);
+                                    await loginDosen.setString(
+                                        'fakultas', value.data.fakultas);
 
-                                  SharedPreferences autoLogin =
-                                      await SharedPreferences.getInstance();
-                                  autoLogin?.setBool("isLoggedDosen", true);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Silahkan Masukan NPP/Password dengan benar',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 14.0);
+                                    SharedPreferences autoLogin =
+                                        await SharedPreferences.getInstance();
+                                    autoLogin?.setBool("isLoggedDosen", true);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            'Silahkan Masukan NPP/Password dengan benar',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  }
                                 }
-                              }
-                            });
+                              });
+                            }
+                          } catch (error) {
+                            Fluttertoast.showToast(
+                                msg: 'Terjadi kesalahan, silahkan coba lagi',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 14.0);
                           }
-                        } catch (error) {
-                          Fluttertoast.showToast(
-                              msg: 'Terjadi kesalahan, silahkan coba lagi',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 14.0);
-                        }
-                      },
+                        },
+                      ),
                     ),
                     SizedBox(height: 15),
                   ],

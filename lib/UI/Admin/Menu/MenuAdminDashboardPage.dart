@@ -489,7 +489,7 @@ class _MenuAdminDashboardPageState extends State<MenuAdminDashboardPage> {
                       ),
                     )),
                 SizedBox(
-                  height: 400,
+                  height: 900,
                 )
                 // Padding(
                 //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),

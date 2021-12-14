@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage>
   Color left = Colors.black;
   Color right = Colors.white;
 
+  int showAdmin = 0;
+
   @override
   void dispose() {
     _pageController?.dispose();
@@ -37,25 +39,35 @@ class _LoginPageState extends State<LoginPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'LOGIN',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-          ),
+          // title: Text(
+          //   'LOGIN',
+          //   style: TextStyle(
+          //       fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
+          // ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           actions: <Widget>[
-            Column(
-              children: <Widget>[
-                IconButton(
-                  iconSize: 35,
-                  onPressed: () => Get.toNamed('/login/admin'),
-                  icon: Icon(Icons.admin_panel_settings_rounded),
-                  color: Colors.white,
-                ),
-              ],
-            ),
+            showAdmin == 1
+                ? Column(
+                    children: <Widget>[
+                      TextButton.icon(
+                        label: Text('ADMIN',
+                            style: TextStyle(
+                                color: left,
+                                fontSize: 16.0,
+                                fontFamily: 'WorkSansSemiBold')),
+                        onPressed: () => Get.toNamed('/login/admin'),
+                        icon: Icon(
+                          Icons.app_settings_alt_rounded,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  )
+                : SizedBox(
+                    height: 0,
+                  )
           ],
         ),
         body: Container(
@@ -69,22 +81,15 @@ class _LoginPageState extends State<LoginPage>
                   child: Image(
                       height: MediaQuery.of(context).size.height > 800
                           ? 200.0
-                          : 150,
+                          : MediaQuery.of(context).size.height > 400
+                              ? 150
+                              : MediaQuery.of(context).size.height > 200
+                                  ? 75
+                                  : 0,
                       fit: BoxFit.fill,
                       image: const AssetImage(
                           'assets/png/SplashPage_LogoAtmaJaya.png')),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 5),
-                //   child: Center(
-                //     child: Text('Presensi UAJY',
-                //         style: const TextStyle(
-                //             fontFamily: 'WorkSansMedium',
-                //             fontSize: 30.0,
-                //             fontWeight: FontWeight.bold,
-                //             color: Colors.white)),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: _buildMenuBar(context),
@@ -100,11 +105,13 @@ class _LoginPageState extends State<LoginPage>
                         setState(() {
                           right = Colors.white;
                           left = Colors.black;
+                          showAdmin = 0;
                         });
                       } else if (i == 1) {
                         setState(() {
                           right = Colors.black;
                           left = Colors.white;
+                          showAdmin = 1;
                         });
                       }
                     },

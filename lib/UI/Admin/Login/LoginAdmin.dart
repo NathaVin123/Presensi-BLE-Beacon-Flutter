@@ -49,240 +49,262 @@ class _LoginAdminState extends State<LoginAdmin> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            'ADMIN',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-          ),
+          // title: Text(
+          //   'ADMIN',
+          //   style: TextStyle(
+          //       fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
+          // ),
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           elevation: 0,
         ),
-        body: Container(
-            decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Image(
-                          height: MediaQuery.of(context).size.height > 800
-                              ? 200.0
-                              : 150,
-                          fit: BoxFit.fill,
-                          image: const AssetImage(
-                              'assets/png/SplashPage_LogoAtmaJaya.png')),
+        body: SingleChildScrollView(
+          child: Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.app_settings_alt_rounded,
+                      size: MediaQuery.of(context).size.height > 800
+                          ? 150.0
+                          : MediaQuery.of(context).size.height > 400
+                              ? 150
+                              : MediaQuery.of(context).size.height > 200
+                                  ? 75
+                                  : 0,
+                      color: Colors.white,
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 5),
-                    //   child: Center(
-                    //     child: Text('Presensi UAJY',
-                    //         style: const TextStyle(
-                    //             fontFamily: 'WorkSansMedium',
-                    //             fontSize: 30.0,
-                    //             fontWeight: FontWeight.bold,
-                    //             color: Colors.white)),
-                    //   ),
-                    // ),
-                    Container(
-                        key: scaffoldKey,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 15,
+                  ),
+                  // Image(
+                  //     height: MediaQuery.of(context).size.height > 800
+                  //         ? 200.0
+                  //         : 150,
+                  //     fit: BoxFit.fill,
+                  //     image: const AssetImage(
+                  //         'assets/png/SplashPage_LogoAtmaJaya.png')),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text('ADMIN',
+                          style: const TextStyle(
+                              fontFamily: 'WorkSansMedium',
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    ),
+                  ),
+                  Container(
+                      key: scaffoldKey,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 15),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25.0),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Theme.of(context)
+                                          .hintColor
+                                          .withOpacity(0.2),
+                                      offset: Offset(0, 10),
+                                      blurRadius: 20)
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Theme.of(context)
-                                            .hintColor
-                                            .withOpacity(0.2),
-                                        offset: Offset(0, 10),
-                                        blurRadius: 20)
-                                  ],
-                                ),
-                                child: Form(
-                                  key: globalFormKey,
-                                  child: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 0,
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: GetPlatform.isAndroid != null
-                                              ? TextFormField(
-                                                  controller:
-                                                      _nppAdminFieldController,
-                                                  focusNode:
+                              child: Form(
+                                key: globalFormKey,
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 0,
+                                    ),
+                                    Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: GetPlatform.isAndroid != null
+                                            ? TextFormField(
+                                                controller:
+                                                    _nppAdminFieldController,
+                                                focusNode: _nppAdminFieldFocus,
+                                                onFieldSubmitted: (term) {
+                                                  _fieldFocusChange(
+                                                      context,
                                                       _nppAdminFieldFocus,
-                                                  onFieldSubmitted: (term) {
-                                                    _fieldFocusChange(
-                                                        context,
-                                                        _nppAdminFieldFocus,
-                                                        _passwordAdminFieldFocus);
-                                                  },
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  style: const TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansSemiBold',
-                                                      fontSize: 18.0,
-                                                      color: Colors.black),
-                                                  keyboardType:
-                                                      TextInputType.phone,
-                                                  onSaved: (input) =>
-                                                      loginAdminRequestModel
-                                                          .npp = input,
-                                                  validator: (input) => input
-                                                              .length <
-                                                          1
-                                                      ? "NPP tidak boleh kosong"
-                                                      : null,
-                                                  decoration:
-                                                      new InputDecoration(
-                                                    contentPadding:
-                                                        EdgeInsets.all(20.0),
-                                                    hintText: "NPP KARYAWAN",
-                                                    enabledBorder:
-                                                        UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    color: Colors
-                                                                        .grey)),
-                                                    focusedBorder:
-                                                        UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    color: Colors
-                                                                        .black)),
-                                                    prefixIcon: Icon(
-                                                      Icons.person_rounded,
-                                                      color: Colors.black,
-                                                      size: 22.0,
-                                                    ),
+                                                      _passwordAdminFieldFocus);
+                                                },
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                style: const TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansSemiBold',
+                                                    fontSize: 18.0,
+                                                    color: Colors.black),
+                                                keyboardType:
+                                                    TextInputType.phone,
+                                                onSaved: (input) =>
+                                                    loginAdminRequestModel.npp =
+                                                        input,
+                                                validator: (input) => input
+                                                            .length <
+                                                        1
+                                                    ? "NPP tidak boleh kosong"
+                                                    : null,
+                                                decoration: new InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.all(20.0),
+                                                  hintText: "NPP KARYAWAN",
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .grey)),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .black)),
+                                                  prefixIcon: Icon(
+                                                    Icons.person_rounded,
+                                                    color: Colors.black,
+                                                    size: 22.0,
                                                   ),
-                                                )
-                                              : TextFormField(
-                                                  controller:
-                                                      _nppAdminFieldController,
-                                                  focusNode:
+                                                ),
+                                              )
+                                            : TextFormField(
+                                                controller:
+                                                    _nppAdminFieldController,
+                                                focusNode: _nppAdminFieldFocus,
+                                                onFieldSubmitted: (term) {
+                                                  _fieldFocusChange(
+                                                      context,
                                                       _nppAdminFieldFocus,
-                                                  onFieldSubmitted: (term) {
-                                                    _fieldFocusChange(
-                                                        context,
-                                                        _nppAdminFieldFocus,
-                                                        _passwordAdminFieldFocus);
-                                                  },
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  style: const TextStyle(
-                                                      fontFamily:
-                                                          'WorkSansSemiBold',
-                                                      fontSize: 18.0,
-                                                      color: Colors.black),
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  onSaved: (input) =>
-                                                      loginAdminRequestModel
-                                                          .npp = input,
-                                                  validator: (input) => input
-                                                              .length <
-                                                          1
-                                                      ? "NPP tidak boleh kosong"
-                                                      : null,
-                                                  decoration:
-                                                      new InputDecoration(
-                                                    contentPadding:
-                                                        EdgeInsets.all(20.0),
-                                                    hintText: "NPP KARYAWAN",
-                                                    enabledBorder:
-                                                        UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    color: Colors
-                                                                        .grey)),
-                                                    focusedBorder:
-                                                        UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    color: Colors
-                                                                        .black)),
-                                                    prefixIcon: Icon(
-                                                      Icons.person_rounded,
-                                                      color: Colors.black,
-                                                      size: 22.0,
-                                                    ),
+                                                      _passwordAdminFieldFocus);
+                                                },
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                style: const TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansSemiBold',
+                                                    fontSize: 18.0,
+                                                    color: Colors.black),
+                                                keyboardType:
+                                                    TextInputType.text,
+                                                onSaved: (input) =>
+                                                    loginAdminRequestModel.npp =
+                                                        input,
+                                                validator: (input) => input
+                                                            .length <
+                                                        1
+                                                    ? "NPP tidak boleh kosong"
+                                                    : null,
+                                                decoration: new InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.all(20.0),
+                                                  hintText: "NPP KARYAWAN",
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .grey)),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .black)),
+                                                  prefixIcon: Icon(
+                                                    Icons.person_rounded,
+                                                    color: Colors.black,
+                                                    size: 22.0,
                                                   ),
-                                                )),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: TextFormField(
-                                          controller:
-                                              _passwordAdminFieldController,
-                                          focusNode: _passwordAdminFieldFocus,
-                                          textInputAction: TextInputAction.done,
-                                          onFieldSubmitted: (value) {
-                                            _passwordAdminFieldFocus.unfocus();
-                                          },
-                                          style: const TextStyle(
-                                              fontFamily: 'WorkSansSemiBold',
-                                              fontSize: 18.0,
-                                              color: Colors.black),
-                                          keyboardType: TextInputType.text,
-                                          onSaved: (input) =>
-                                              loginAdminRequestModel.password =
-                                                  input,
-                                          validator: (input) => input.length < 1
-                                              ? "PASSWORD tidak boleh kosong"
-                                              : null,
-                                          obscureText: hidePassword,
-                                          decoration: new InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.all(20.0),
-                                            hintText: "PASSWORD",
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey)),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black)),
-                                            prefixIcon: Icon(
-                                              Icons.lock_rounded,
-                                              color: Colors.black,
-                                            ),
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  hidePassword = !hidePassword;
-                                                });
-                                              },
-                                              color: Colors.black,
-                                              icon: Icon(hidePassword
-                                                  ? Icons.visibility_off
-                                                  : Icons.visibility),
-                                            ),
+                                                ),
+                                              )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: TextFormField(
+                                        controller:
+                                            _passwordAdminFieldController,
+                                        focusNode: _passwordAdminFieldFocus,
+                                        textInputAction: TextInputAction.done,
+                                        onFieldSubmitted: (value) {
+                                          _passwordAdminFieldFocus.unfocus();
+                                        },
+                                        style: const TextStyle(
+                                            fontFamily: 'WorkSansSemiBold',
+                                            fontSize: 18.0,
+                                            color: Colors.black),
+                                        keyboardType: TextInputType.text,
+                                        onSaved: (input) =>
+                                            loginAdminRequestModel.password =
+                                                input,
+                                        validator: (input) => input.length < 1
+                                            ? "PASSWORD tidak boleh kosong"
+                                            : null,
+                                        obscureText: hidePassword,
+                                        decoration: new InputDecoration(
+                                          contentPadding: EdgeInsets.all(20.0),
+                                          hintText: "PASSWORD",
+                                          enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey)),
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black)),
+                                          prefixIcon: Icon(
+                                            Icons.lock_rounded,
+                                            color: Colors.black,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                hidePassword = !hidePassword;
+                                              });
+                                            },
+                                            color: Colors.black,
+                                            icon: Icon(hidePassword
+                                                ? Icons.visibility_off
+                                                : Icons.visibility),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 20),
-                                      MaterialButton(
+                                    ),
+                                    SizedBox(height: 20),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: MaterialButton(
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 100),
-                                          child: Text(
-                                            "MASUK",
-                                            style: const TextStyle(
-                                                fontFamily: 'WorkSansSemiBold',
-                                                fontSize: 18.0,
-                                                color: Colors.white),
+                                              vertical: 15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.login_rounded,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                "MASUK",
+                                                style: const TextStyle(
+                                                    fontFamily:
+                                                        'WorkSansSemiBold',
+                                                    fontSize: 18.0,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         color: Color.fromRGBO(247, 180, 7, 1),
@@ -377,29 +399,32 @@ class _LoginAdminState extends State<LoginAdmin> {
                                           }
                                         },
                                       ),
-                                      SizedBox(height: 15),
-                                    ],
-                                  ),
+                                    ),
+                                    SizedBox(height: 15),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Center(
-                                    child: Text(
-                                  'Silahkan login dengan akun simka.',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontFamily: 'WorkSansMedium'),
-                                )),
-                              ),
-                            ],
-                          ),
-                        ))
-                  ],
-                ),
-              ),
-            )));
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Center(
+                                  child: Text(
+                                'Silahkan login dengan akun simka.',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontFamily: 'WorkSansMedium'),
+                              )),
+                            ),
+                            SizedBox(
+                              height: 700,
+                            )
+                          ],
+                        ),
+                      ))
+                ],
+              )),
+        ));
   }
 
   bool validateAndSave() {
