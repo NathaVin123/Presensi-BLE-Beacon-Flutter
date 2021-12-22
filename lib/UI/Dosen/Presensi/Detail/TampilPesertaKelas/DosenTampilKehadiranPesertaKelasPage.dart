@@ -195,6 +195,75 @@ class _DosenTampilKehadiranPesertaKelasPageState
                                                 ),
                                               ),
                                             ),
+                                            tampilKehadiranPesertaKelasResponseModel
+                                                        .data[index].status ==
+                                                    'H'
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              'Status : ${tampilKehadiranPesertaKelasResponseModel.data[index].status ?? "-"}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              'Status : ${tampilKehadiranPesertaKelasResponseModel.data[index].status ?? "-"}',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'WorkSansMedium',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
                                           ],
                                         ),
                                       ),
@@ -212,23 +281,6 @@ class _DosenTampilKehadiranPesertaKelasPageState
                                       fontSize: 14),
                                 ),
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Status : ${tampilKehadiranPesertaKelasResponseModel.data[index].status ?? "-"}',
-                                            style: TextStyle(
-                                                fontFamily: 'WorkSansMedium',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(

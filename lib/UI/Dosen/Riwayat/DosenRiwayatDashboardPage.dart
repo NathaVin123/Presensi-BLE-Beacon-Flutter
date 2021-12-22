@@ -453,25 +453,25 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                                           .symmetric(
                                                       vertical: 8,
                                                       horizontal: 26),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons
-                                                            .people_alt_rounded,
-                                                        color: Colors.white,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Scrollbar(
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          scrollDirection:
-                                                              Axis.horizontal,
-                                                          child: Text(
+                                                  child: Scrollbar(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          Icon(
+                                                            Icons
+                                                                .people_alt_rounded,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 20,
+                                                          ),
+                                                          Text(
                                                             'Tampil Kehadiran Kelas',
                                                             style: const TextStyle(
                                                                 fontFamily:
@@ -480,9 +480,9 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
                                                                 color: Colors
                                                                     .white),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                                 color: Colors.yellow[700],
