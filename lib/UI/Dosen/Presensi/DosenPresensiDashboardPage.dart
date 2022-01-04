@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -177,6 +178,39 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
               height: 30,
             ),
             centerTitle: true,
+            actions: [
+              FutureBuilder(
+                future: Connectivity().checkConnectivity(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<ConnectivityResult> snapshot) {
+                  if (snapshot.data == ConnectivityResult.wifi) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.wifi_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else if (snapshot.data == ConnectivityResult.mobile) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_4_bar_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_off_rounded,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
           ),
           body: Column(
             children: <Widget>[

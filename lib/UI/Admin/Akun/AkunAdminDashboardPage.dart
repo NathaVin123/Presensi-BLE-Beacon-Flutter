@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,11 +27,11 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
   @override
   void initState() {
     super.initState();
-    getDataAdmin();
   }
 
   @override
   Widget build(BuildContext context) {
+    getDataAdmin();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -42,6 +43,39 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
           ),
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           elevation: 0,
+          actions: [
+            FutureBuilder(
+              future: Connectivity().checkConnectivity(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data == ConnectivityResult.wifi) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.wifi_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else if (snapshot.data == ConnectivityResult.mobile) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_4_bar_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_off_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              },
+            )
+          ],
         ),
         body: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(23, 75, 137, 1)),

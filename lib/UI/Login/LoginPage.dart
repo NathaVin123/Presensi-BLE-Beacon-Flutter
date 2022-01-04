@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -47,27 +48,58 @@ class _LoginPageState extends State<LoginPage>
           centerTitle: true,
           elevation: 0,
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-          actions: <Widget>[
-            showAdmin == 1
-                ? Column(
-                    children: <Widget>[
-                      TextButton.icon(
-                        label: Text('ADMIN',
-                            style: TextStyle(
-                                color: left,
-                                fontSize: 16.0,
-                                fontFamily: 'WorkSansSemiBold')),
-                        onPressed: () => Get.toNamed('/login/admin'),
-                        icon: Icon(
-                          Icons.app_settings_alt_rounded,
-                          color: Colors.white,
-                        ),
+          title: showAdmin == 1
+              ? Row(
+                  children: <Widget>[
+                    TextButton.icon(
+                      label: Text('ADMIN',
+                          style: TextStyle(
+                              color: left,
+                              fontSize: 16.0,
+                              fontFamily: 'WorkSansSemiBold')),
+                      onPressed: () => Get.toNamed('/login/admin'),
+                      icon: Icon(
+                        Icons.app_settings_alt_rounded,
+                        color: Colors.white,
                       ),
-                    ],
-                  )
-                : SizedBox(
-                    height: 0,
-                  )
+                    ),
+                  ],
+                )
+              : SizedBox(
+                  height: 0,
+                ),
+          actions: <Widget>[
+            FutureBuilder(
+              future: Connectivity().checkConnectivity(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data == ConnectivityResult.wifi) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.wifi_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else if (snapshot.data == ConnectivityResult.mobile) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_4_bar_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_off_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              },
+            )
           ],
         ),
         body: Container(

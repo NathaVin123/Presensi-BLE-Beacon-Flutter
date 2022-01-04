@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -48,6 +49,39 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
+        actions: [
+          FutureBuilder(
+            future: Connectivity().checkConnectivity(),
+            builder: (BuildContext context,
+                AsyncSnapshot<ConnectivityResult> snapshot) {
+              if (snapshot.data == ConnectivityResult.wifi) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.wifi_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else if (snapshot.data == ConnectivityResult.mobile) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_4_bar_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_off_rounded,
+                    color: Colors.red,
+                  ),
+                );
+              }
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

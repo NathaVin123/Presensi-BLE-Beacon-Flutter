@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginProgressHUD extends StatelessWidget {
+class ProgressHUD extends StatelessWidget {
   final Widget child;
   final bool inAsyncCall;
   final double opacity;
   final Color color;
   final Animation<Color> valueColor;
 
-  LoginProgressHUD({
+  ProgressHUD({
     Key key,
     @required this.child,
     @required this.inAsyncCall,

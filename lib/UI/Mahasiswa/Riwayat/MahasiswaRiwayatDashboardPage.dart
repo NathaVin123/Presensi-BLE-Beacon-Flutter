@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:intl/intl.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
-import 'package:presensiblebeacon/MODEL/Dosen/RiwayatDosenModel.dart';
 import 'package:presensiblebeacon/MODEL/Mahasiswa/RiwayatMahasiswaModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,13 +42,13 @@ class _MahasiswaRiwayatDashboardPageState
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataMahasiswa();
-      getDataRiwayatMahasiswa();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataMahasiswa();
+    //   getDataRiwayatMahasiswa();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
   }
 
   getDataMahasiswa() async {
@@ -100,6 +100,8 @@ class _MahasiswaRiwayatDashboardPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataMahasiswa();
+    getDataRiwayatMahasiswa();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh_rounded),
@@ -126,6 +128,39 @@ class _MahasiswaRiwayatDashboardPageState
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
+        actions: [
+          FutureBuilder(
+            future: Connectivity().checkConnectivity(),
+            builder: (BuildContext context,
+                AsyncSnapshot<ConnectivityResult> snapshot) {
+              if (snapshot.data == ConnectivityResult.wifi) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.wifi_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else if (snapshot.data == ConnectivityResult.mobile) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_4_bar_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_off_rounded,
+                    color: Colors.red,
+                  ),
+                );
+              }
+            },
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[

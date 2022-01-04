@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,41 @@ class _AdminMenuBeaconPageState extends State<AdminMenuBeaconPage> {
                 color: Colors.white,
                 fontFamily: 'WorkSansMedium',
                 fontWeight: FontWeight.bold),
+                
           ),
+          actions: [
+              FutureBuilder(
+                future: Connectivity().checkConnectivity(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<ConnectivityResult> snapshot) {
+                  if (snapshot.data == ConnectivityResult.wifi) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.wifi_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else if (snapshot.data == ConnectivityResult.mobile) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_4_bar_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_off_rounded,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
         ),
         body: Column(
           children: <Widget>[

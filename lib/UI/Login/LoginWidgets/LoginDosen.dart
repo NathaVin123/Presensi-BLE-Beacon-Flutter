@@ -4,7 +4,7 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginDosenModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 
 class LoginDosen extends StatefulWidget {
   const LoginDosen({Key key}) : super(key: key);
@@ -37,7 +37,7 @@ class _LoginDosenState extends State<LoginDosen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildLoginDosen(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -224,11 +224,21 @@ class _LoginDosenState extends State<LoginDosen> {
                                 isApiCallProcess = true;
                               });
 
-                              // setState(() {
-                              //   isApiCallProcess = false;
-                              // });
-
                               APIService apiService = new APIService();
+                              Future.delayed(Duration(seconds: 5), () {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                Fluttertoast.showToast(
+                                    msg: 'Silahkan coba kembali',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 14.0);
+                              });
                               apiService
                                   .loginDosen(loginDosenRequestModel)
                                   .then((value) async {

@@ -1,12 +1,11 @@
-import 'dart:async';
-
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/UbahBeaconModel.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminDetailUbahBeacon extends StatefulWidget {
@@ -42,12 +41,12 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataUbahBeacon();
-      Future.delayed(Duration(seconds: 1), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataUbahBeacon();
+    //   Future.delayed(Duration(seconds: 1), () {
+    //     t.cancel();
+    //   });
+    // });
 
     ubahBeaconRequestModel = new UbahBeaconRequestModel();
   }
@@ -65,7 +64,7 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildUbahBeacon(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -73,6 +72,7 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   }
 
   Widget buildUbahBeacon(BuildContext context) {
+    getDataUbahBeacon();
     return Scaffold(
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         appBar: AppBar(
@@ -86,6 +86,39 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
                 fontFamily: 'WorkSansMedium',
                 fontWeight: FontWeight.bold),
           ),
+          actions: [
+            FutureBuilder(
+              future: Connectivity().checkConnectivity(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data == ConnectivityResult.wifi) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.wifi_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else if (snapshot.data == ConnectivityResult.mobile) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_4_bar_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_off_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              },
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(

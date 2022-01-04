@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilKehadiranPesertaKelasModel.dart';
-import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DosenTampilKehadiranPesertaKelasPage extends StatefulWidget {

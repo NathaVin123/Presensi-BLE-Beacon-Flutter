@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,39 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
+        actions: [
+          FutureBuilder(
+            future: Connectivity().checkConnectivity(),
+            builder: (BuildContext context,
+                AsyncSnapshot<ConnectivityResult> snapshot) {
+              if (snapshot.data == ConnectivityResult.wifi) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.wifi_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else if (snapshot.data == ConnectivityResult.mobile) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_4_bar_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_off_rounded,
+                    color: Colors.red,
+                  ),
+                );
+              }
+            },
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
@@ -73,7 +107,7 @@ class _AdminRuanganPageState extends State<AdminRuanganPage> {
               textColor: Colors.white,
               fontSize: 14.0)
         },
-        child: Icon(Icons.search_rounded),
+        child: Icon(Icons.refresh_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),

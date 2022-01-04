@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
@@ -25,21 +23,21 @@ class _MahasiswaTampilPesertaKelasPageState
 
     tampilPesertaKelasRequestModel = TampilPesertaKelasRequestModel();
     tampilPesertaKelasResponseModel = TampilPesertaKelasResponseModel();
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataIDKelas();
-      // getDataPesertaKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataIDKelas();
+    //   // getDataPesertaKelas();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      // getDataIDKelas();
-      getDataPesertaKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   // getDataIDKelas();
+    //   getDataPesertaKelas();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
   }
 
   getDataIDKelas() async {
@@ -68,6 +66,8 @@ class _MahasiswaTampilPesertaKelasPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataIDKelas();
+    getDataPesertaKelas();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.refresh_rounded),

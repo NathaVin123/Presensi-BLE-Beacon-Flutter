@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,13 +22,9 @@ class _MahasiswaAkunDashboardPageState
   String namamhs = "";
   String prodi = "";
 
-  bool lightSwitch = false;
-  bool notifSwitch = false;
-
   @override
   void initState() {
     super.initState();
-    getDataMahasiswa();
   }
 
   getDataMahasiswa() async {
@@ -41,6 +38,7 @@ class _MahasiswaAkunDashboardPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataMahasiswa();
     return Scaffold(
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
@@ -54,6 +52,39 @@ class _MahasiswaAkunDashboardPageState
               fontFamily: 'WorkSansMedium',
               fontWeight: FontWeight.bold),
         ),
+        actions: [
+          FutureBuilder(
+            future: Connectivity().checkConnectivity(),
+            builder: (BuildContext context,
+                AsyncSnapshot<ConnectivityResult> snapshot) {
+              if (snapshot.data == ConnectivityResult.wifi) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.wifi_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else if (snapshot.data == ConnectivityResult.mobile) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_4_bar_rounded,
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Icon(
+                    Icons.signal_cellular_off_rounded,
+                    color: Colors.red,
+                  ),
+                );
+              }
+            },
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -71,27 +102,6 @@ class _MahasiswaAkunDashboardPageState
                       children: [
                         Padding(
                           padding: EdgeInsets.all(22),
-                          // child: ClipRRect(
-                          //   borderRadius: BorderRadius.circular(8.0),
-                          //   child: Image.asset(
-                          //     'person-male'.png,
-                          //     height: 150.0,
-                          //     width: 100.0,
-                          //   ),
-                          // ),
-                          // child: CircleAvatar(
-                          //     backgroundColor: Colors.grey[350],
-                          //     radius: 50,
-                          //     // child: const Text('NV'),
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.all(10.0),
-                          //       child: Image.asset(
-                          //         'person-male'.png,
-                          //       ),
-                          //     ))
-                          // child: AdvancedAvatar(
-                          //   name: namamhs,
-                          // ),
                           child: Initicon(
                             text: namamhs,
                             backgroundColor: Colors.grey[400],
@@ -128,26 +138,6 @@ class _MahasiswaAkunDashboardPageState
                             SizedBox(
                               height: 10,
                             ),
-                            // Text(
-                            //   prodi,
-                            //   style: TextStyle(
-                            //       fontWeight: FontWeight.bold,
-                            //       fontFamily: 'WorkSansMedium',
-                            //       fontSize: 18),
-                            // ),
-                            // SizedBox(
-                            //   height: 16,
-                            // ),
-                            // Text(
-                            //   prodi,
-                            //   style: TextStyle(
-                            //       fontWeight: FontWeight.bold,
-                            //       fontFamily: 'WorkSansMedium',
-                            //       fontSize: 20),
-                            // ),
-                            // SizedBox(
-                            //   height: 16,
-                            // ),
                           ],
                         ))
                       ],
@@ -159,138 +149,6 @@ class _MahasiswaAkunDashboardPageState
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //       left: 14, right: 14, top: 14, bottom: 14),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //         color: Colors.grey[200],
-                //         borderRadius: BorderRadius.circular(25)),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: <Widget>[
-                //         Padding(
-                //           padding: EdgeInsets.all(20),
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.notifications_active,
-                //                 color: Colors.black,
-                //               ),
-                //               SizedBox(
-                //                 width: 10,
-                //               ),
-                //               Text(
-                //                 'Notifikasi Kelas',
-                //                 style: TextStyle(
-                //                     fontSize: 20,
-                //                     fontFamily: 'WorkSansMedium',
-                //                     fontWeight: FontWeight.bold),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         Align(
-                //           alignment: Alignment.bottomRight,
-                //           child: Switch(
-                //               value: notifSwitch,
-                //               onChanged: (value) {
-                //                 setState(() {
-                //                   notifSwitch = value;
-                //                   print(notifSwitch);
-                //                 });
-                //               }),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //       left: 14, right: 14, top: 14, bottom: 14),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //         color: Colors.grey[200],
-                //         borderRadius: BorderRadius.circular(25)),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: <Widget>[
-                //         Padding(
-                //           padding: EdgeInsets.only(
-                //               left: 24, right: 20, top: 20, bottom: 20),
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 FontAwesomeIcons.solidMoon,
-                //                 color: Colors.black,
-                //                 size: 20,
-                //               ),
-                //               SizedBox(
-                //                 width: 11,
-                //               ),
-                //               Text(
-                //                 'Dark Mode',
-                //                 style: TextStyle(
-                //                     fontSize: 20,
-                //                     fontFamily: 'WorkSansMedium',
-                //                     fontWeight: FontWeight.bold),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         Align(
-                //           alignment: Alignment.bottomRight,
-                //           child: Switch(
-                //               value: lightSwitch,
-                //               onChanged: (toggle) {
-                //                 setState(() {
-                //                   lightSwitch = toggle;
-                //                 });
-                //               }),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                //     child: InkWell(
-                //       borderRadius: BorderRadius.circular(25),
-                //       onTap: () => Get.toNamed('/statistik/mahasiswa'),
-                //       child: Container(
-                //         decoration: BoxDecoration(
-                //             color: Colors.grey[200],
-                //             borderRadius: BorderRadius.circular(25)),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //           children: <Widget>[
-                //             Padding(
-                //               padding: EdgeInsets.only(
-                //                   left: 24, right: 20, top: 20, bottom: 20),
-                //               child: Row(
-                //                 children: [
-                //                   Icon(
-                //                     FontAwesomeIcons.chartBar,
-                //                     color: Colors.black,
-                //                     size: 20,
-                //                   ),
-                //                   SizedBox(
-                //                     width: 11,
-                //                   ),
-                //                   Text(
-                //                     'Statistik',
-                //                     style: TextStyle(
-                //                         fontSize: 20,
-                //                         fontFamily: 'WorkSansMedium',
-                //                         fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     )),
                 Padding(
                     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                     child: InkWell(
@@ -366,19 +224,6 @@ class _MahasiswaAkunDashboardPageState
                           },
                           onCancelBtnTap: (value) {},
                         );
-                        // SharedPreferences autoLogin =
-                        //     await SharedPreferences.getInstance();
-                        // autoLogin.clear();
-                        // Get.offAllNamed('/');
-
-                        // Fluttertoast.showToast(
-                        //     msg: 'Anda telah keluar',
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     gravity: ToastGravity.BOTTOM,
-                        //     timeInSecForIosWeb: 1,
-                        //     backgroundColor: Colors.red,
-                        //     textColor: Colors.white,
-                        //     fontSize: 14.0);
                       },
                       child: Container(
                         decoration: BoxDecoration(

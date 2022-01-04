@@ -23,7 +23,7 @@ import 'package:presensiblebeacon/MODEL/Presensi/FTB/PresensiOUTMahasiswaToFTBMo
 import 'package:presensiblebeacon/MODEL/Presensi/FTI/PresensiOUTMahasiswaToFTIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOUTMahasiswaToFTModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiOUTMahasiswaToKSIModel.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -125,27 +125,27 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
     _scrollController = ScrollController();
 
-    getProximityUUID();
+    // getProximityUUID();
 
     listeningState();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDetailKelas();
-      // getDetailMahasiswa();
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDetailKelas();
+    //   // getDetailMahasiswa();
 
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      // getDetailKelas();
-      getDetailMahasiswa();
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   // getDetailKelas();
+    //   getDetailMahasiswa();
 
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
     presensiINMahasiswaToKSIRequestModel =
         PresensiINMahasiswaToKSIRequestModel();
@@ -435,7 +435,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildDetailPresensiMahasiswa(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -443,6 +443,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   }
 
   Widget buildDetailPresensiMahasiswa(BuildContext context) {
+    getDetailKelas();
+    getProximityUUID();
+    getDetailMahasiswa();
+    getIDKelasFakultas();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         floatingActionButton: showFab

@@ -1,10 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginAdminModel.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginAdmin extends StatefulWidget {
@@ -33,12 +35,14 @@ class _LoginAdminState extends State<LoginAdmin> {
   @override
   void initState() {
     super.initState();
+    Connectivity().onConnectivityChanged;
     loginAdminRequestModel = new LoginAdminRequestModel();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    Connectivity().checkConnectivity();
+    return ProgressHUD(
       child: buildLoginAdmin(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -48,12 +52,45 @@ class _LoginAdminState extends State<LoginAdmin> {
   Widget buildLoginAdmin(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
+          // centerTitle: true,
           // title: Text(
           //   'ADMIN',
           //   style: TextStyle(
           //       fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
           // ),
+          actions: <Widget>[
+            FutureBuilder(
+              future: Connectivity().checkConnectivity(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data == ConnectivityResult.wifi) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.wifi_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else if (snapshot.data == ConnectivityResult.mobile) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_4_bar_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_off_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              },
+            )
+          ],
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
           elevation: 0,
         ),
@@ -320,12 +357,27 @@ class _LoginAdminState extends State<LoginAdmin> {
                                                 isApiCallProcess = true;
                                               });
 
-                                              // setState(() {
-                                              //   isApiCallProcess = false;
-                                              // });
-
                                               APIService apiService =
                                                   new APIService();
+                                              Future.delayed(
+                                                  Duration(seconds: 5),
+                                                  () async {
+                                                setState(() {
+                                                  isApiCallProcess = false;
+                                                });
+
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        'Silahkan coba kembali',
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                        ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor: Colors.red,
+                                                    textColor: Colors.white,
+                                                    fontSize: 14.0);
+                                              });
                                               apiService
                                                   .loginAdmin(
                                                       loginAdminRequestModel)

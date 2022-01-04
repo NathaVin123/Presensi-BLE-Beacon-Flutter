@@ -25,7 +25,6 @@ class _MahasiswaInformasiAkunPageState
   @override
   void initState() {
     super.initState();
-    getDataMahasiswa();
   }
 
   getDataMahasiswa() async {
@@ -42,6 +41,7 @@ class _MahasiswaInformasiAkunPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataMahasiswa();
     return Scaffold(
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         appBar: AppBar(

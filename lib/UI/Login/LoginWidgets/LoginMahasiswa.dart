@@ -4,7 +4,7 @@ import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Login/LoginMahasiswaModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 
 class LoginMahasiswa extends StatefulWidget {
   const LoginMahasiswa({Key key}) : super(key: key);
@@ -37,7 +37,7 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildLoginMahasiswa(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -187,11 +187,21 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                               isApiCallProcess = true;
                             });
 
-                            // setState(() {
-                            //   isApiCallProcess = false;
-                            // });
-
                             APIService apiService = new APIService();
+                            Future.delayed(Duration(seconds: 5), () {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+
+                              Fluttertoast.showToast(
+                                  msg: 'Silahkan coba kembali',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 14.0);
+                            });
                             apiService
                                 .loginMahasiswa(loginMahasiswaRequestModel)
                                 .then((value) async {

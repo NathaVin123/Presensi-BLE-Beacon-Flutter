@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:get/get.dart';
@@ -54,19 +55,19 @@ class _MahasiswaPresensiDashboardPageState
     listKelasMahasiswaRequestModel = ListKelasMahasiswaRequestModel();
     listKelasMahasiswaResponseModel = ListKelasMahasiswaResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataMahasiswa();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataMahasiswa();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(milliseconds: 1500), (Timer t) {
-      getDataListKelasMahasiswa();
-      // Future.delayed(Duration(seconds: 10), () {
-      //   t.cancel();
-      // });
-    });
+    // Timer.periodic(Duration(milliseconds: 1500), (Timer t) {
+    //   getDataListKelasMahasiswa();
+    //   // Future.delayed(Duration(seconds: 10), () {
+    //   //   t.cancel();
+    //   // });
+    // });
 
     Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
       getDetailKelas();
@@ -144,6 +145,9 @@ class _MahasiswaPresensiDashboardPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataMahasiswa();
+    getDataListKelasMahasiswa();
+    getDetailKelas();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -177,6 +181,39 @@ class _MahasiswaPresensiDashboardPageState
               height: 30,
             ),
             centerTitle: true,
+            actions: [
+              FutureBuilder(
+                future: Connectivity().checkConnectivity(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<ConnectivityResult> snapshot) {
+                  if (snapshot.data == ConnectivityResult.wifi) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.wifi_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else if (snapshot.data == ConnectivityResult.mobile) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_4_bar_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_off_rounded,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
           ),
           body: Column(
             children: <Widget>[

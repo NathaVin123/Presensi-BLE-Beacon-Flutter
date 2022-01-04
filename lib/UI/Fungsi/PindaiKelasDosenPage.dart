@@ -26,7 +26,7 @@ import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTOUTPrese
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiINOUTPresensiDosen.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Dosen/PresensiOutMahasiswaTidakHadirModel.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
@@ -139,8 +139,6 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
     _scrollController = ScrollController();
 
-    getProximityUUID();
-
     listeningState();
 
     presensiINDosenBukaPresensiRequestModel =
@@ -188,29 +186,29 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
     presensiOUTMahasiswaTidakHadirFTIRequestModel =
         PresensiOUTMahasiswaTidakHadirFTIRequestModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDetailKelas();
-      // getDetailDosen();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDetailKelas();
+    //   // getDetailDosen();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      // getDetailKelas();
-      getDetailDosen();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   // getDetailKelas();
+    //   getDetailDosen();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getIDKelasFakultas();
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getIDKelasFakultas();
 
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
   }
 
   getDetailDosen() async {
@@ -447,7 +445,7 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildDetailPresensiDosen(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -456,6 +454,10 @@ class _PindaiKelasDosenPageState extends State<PindaiKelasDosenPage>
 
   // @override
   Widget buildDetailPresensiDosen(BuildContext context) {
+    getDetailKelas();
+    getProximityUUID();
+    getDetailDosen();
+    getIDKelasFakultas();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
         floatingActionButton: showFab

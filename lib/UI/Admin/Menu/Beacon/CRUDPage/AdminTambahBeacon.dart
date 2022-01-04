@@ -1,9 +1,10 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
 import 'package:presensiblebeacon/MODEL/Beacon/TambahBeaconModel.dart';
-import 'package:presensiblebeacon/UTILS/LoginProgressHUD.dart';
+import 'package:presensiblebeacon/UTILS/ProgressHUD.dart';
 
 class AdminTambahBeacon extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginProgressHUD(
+    return ProgressHUD(
       child: buildTambahBeacon(context),
       inAsyncCall: isApiCallProcess,
       opacity: 0,
@@ -60,6 +61,39 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                 fontFamily: 'WorkSansMedium',
                 fontWeight: FontWeight.bold),
           ),
+          actions: [
+              FutureBuilder(
+                future: Connectivity().checkConnectivity(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<ConnectivityResult> snapshot) {
+                  if (snapshot.data == ConnectivityResult.wifi) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.wifi_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else if (snapshot.data == ConnectivityResult.mobile) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_4_bar_rounded,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Icon(
+                        Icons.signal_cellular_off_rounded,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
         ),
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.green,
