@@ -369,6 +369,21 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
                               selectedNamaDevice;
                         });
 
+                        Future.delayed(Duration(seconds: 10), () async {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+
+                          Fluttertoast.showToast(
+                              msg: 'Silahkan coba kembali',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 14.0);
+                        });
+
                         APIService apiService = new APIService();
 
                         apiService

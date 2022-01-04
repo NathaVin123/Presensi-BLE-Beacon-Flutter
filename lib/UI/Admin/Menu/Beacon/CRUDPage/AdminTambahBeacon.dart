@@ -62,38 +62,38 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                 fontWeight: FontWeight.bold),
           ),
           actions: [
-              FutureBuilder(
-                future: Connectivity().checkConnectivity(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<ConnectivityResult> snapshot) {
-                  if (snapshot.data == ConnectivityResult.wifi) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        Icons.wifi_rounded,
-                        color: Colors.green,
-                      ),
-                    );
-                  } else if (snapshot.data == ConnectivityResult.mobile) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        Icons.signal_cellular_4_bar_rounded,
-                        color: Colors.green,
-                      ),
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        Icons.signal_cellular_off_rounded,
-                        color: Colors.red,
-                      ),
-                    );
-                  }
-                },
-              )
-            ],
+            FutureBuilder(
+              future: Connectivity().checkConnectivity(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data == ConnectivityResult.wifi) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.wifi_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else if (snapshot.data == ConnectivityResult.mobile) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_4_bar_rounded,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.signal_cellular_off_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.green,
@@ -349,6 +349,22 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                                       // setState(() {
                                       //   isApiCallProcess = false;
                                       // });
+
+                                      Future.delayed(Duration(seconds: 10),
+                                          () async {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
+
+                                        Fluttertoast.showToast(
+                                            msg: 'Silahkan coba kembali',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 14.0);
+                                      });
 
                                       APIService apiService = new APIService();
                                       apiService
