@@ -82,7 +82,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
   String idkelasString;
   String idkelasFakultas;
 
-  int statusPresensi = 0;
+  // int statusPresensi = 0;
 
   bool isApiCallProcess = false;
 
@@ -228,7 +228,7 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
       tglmasuk = dataPresensiMahasiswa.getString('tglmasuk');
       tglkeluar = dataPresensiMahasiswa.getString('tglkeluar');
       bukapresensi = dataPresensiMahasiswa.getInt('bukapresensi');
-      statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
+      // statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
       tglin = dataPresensiMahasiswa.getString('tglin');
       tglout = dataPresensiMahasiswa.getString('tglout');
     });
@@ -1571,15 +1571,15 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                             .grey,
                                                                     onOkBtnTap:
                                                                         (value) async {
-                                                                      SharedPreferences
-                                                                          dataPresensiMahasiswa =
-                                                                          await SharedPreferences
-                                                                              .getInstance();
+                                                                      // SharedPreferences
+                                                                      //     dataPresensiMahasiswa =
+                                                                      //     await SharedPreferences
+                                                                      //         .getInstance();
 
-                                                                      await dataPresensiMahasiswa
-                                                                          .setInt(
-                                                                              'statuspresensi',
-                                                                              1);
+                                                                      // await dataPresensiMahasiswa
+                                                                      //     .setInt(
+                                                                      //         'statuspresensi',
+                                                                      //         1);
 
                                                                       setState(
                                                                           () {
@@ -1720,6 +1720,31 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                         print(PresensiINMahasiswaToFTIRequestModel()
                                                                             .toJson());
                                                                       }
+
+                                                                      Future.delayed(
+                                                                          Duration(
+                                                                              seconds: 10),
+                                                                          () async {
+                                                                        setState(
+                                                                            () {
+                                                                          isApiCallProcess =
+                                                                              false;
+                                                                        });
+
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Silahkan coba kembali',
+                                                                            toastLength: Toast
+                                                                                .LENGTH_SHORT,
+                                                                            gravity: ToastGravity
+                                                                                .BOTTOM,
+                                                                            timeInSecForIosWeb:
+                                                                                1,
+                                                                            backgroundColor:
+                                                                                Colors.red,
+                                                                            textColor: Colors.white,
+                                                                            fontSize: 14.0);
+                                                                      });
 
                                                                       APIService
                                                                           apiService =
@@ -1867,10 +1892,10 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                     //         'statuspresensi',
                                                                     //         0);
 
-                                                                    await dataPresensiMahasiswa
-                                                                        .setInt(
-                                                                            'statuspresensi',
-                                                                            3);
+                                                                    // await dataPresensiMahasiswa
+                                                                    //     .setInt(
+                                                                    //         'statuspresensi',
+                                                                    //         3);
 
                                                                     setState(
                                                                         () {
@@ -2037,6 +2062,34 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
                                                                       print(PresensiOUTMahasiswaToFTIRequestModel()
                                                                           .toJson());
                                                                     }
+
+                                                                    Future.delayed(
+                                                                        Duration(
+                                                                            seconds:
+                                                                                10),
+                                                                        () async {
+                                                                      setState(
+                                                                          () {
+                                                                        isApiCallProcess =
+                                                                            false;
+                                                                      });
+
+                                                                      Fluttertoast.showToast(
+                                                                          msg:
+                                                                              'Silahkan coba kembali',
+                                                                          toastLength: Toast
+                                                                              .LENGTH_SHORT,
+                                                                          gravity: ToastGravity
+                                                                              .BOTTOM,
+                                                                          timeInSecForIosWeb:
+                                                                              1,
+                                                                          backgroundColor: Colors
+                                                                              .red,
+                                                                          textColor: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              14.0);
+                                                                    });
 
                                                                     APIService
                                                                         apiService =
