@@ -346,10 +346,6 @@ class _AdminTambahBeaconState extends State<AdminTambahBeacon> {
                                         isApiCallProcess = true;
                                       });
 
-                                      // setState(() {
-                                      //   isApiCallProcess = false;
-                                      // });
-
                                       Future.delayed(Duration(seconds: 10),
                                           () async {
                                         setState(() {
