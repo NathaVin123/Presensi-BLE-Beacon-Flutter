@@ -24,7 +24,7 @@ class _AdminTampilRuanganPageState extends State<AdminTampilRuanganPage> {
 
     listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getListDetailRuangan();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();

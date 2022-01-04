@@ -18,13 +18,9 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
   String npp = "";
   String namadsn = "";
 
-  bool lightSwitch = false;
-  bool notifSwitch = false;
-
   @override
   void initState() {
     super.initState();
-    getDataDosen();
   }
 
   getDataDosen() async {
@@ -36,6 +32,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    getDataDosen();
     return Scaffold(
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       appBar: AppBar(
@@ -147,126 +144,6 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  // Padding(
-                  //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                  //     child: InkWell(
-                  //       borderRadius: BorderRadius.circular(25),
-                  //       onTap: () => Get.toNamed('/statistik/dosen'),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             color: Colors.grey[200],
-                  //             borderRadius: BorderRadius.circular(25)),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: <Widget>[
-                  //             Padding(
-                  //               padding: EdgeInsets.only(
-                  //                   left: 24, right: 20, top: 20, bottom: 20),
-                  //               child: Row(
-                  //                 children: [
-                  //                   Icon(
-                  //                     FontAwesomeIcons.chartBar,
-                  //                     color: Colors.black,
-                  //                     size: 20,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 11,
-                  //                   ),
-                  //                   Text(
-                  //                     'Statistik',
-                  //                     style: TextStyle(
-                  //                         fontSize: 20,
-                  //                         fontFamily: 'WorkSansMedium',
-                  //                         fontWeight: FontWeight.bold),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     )),
-                  // Padding(
-                  //     padding:
-                  //         EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                  //     child: InkWell(
-                  //       borderRadius: BorderRadius.circular(25),
-                  //       onTap: () =>
-                  //           Get.toNamed('/dosen/dashboard/akun/beacon'),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             color: Colors.grey[200],
-                  //             borderRadius: BorderRadius.circular(25)),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: <Widget>[
-                  //             Padding(
-                  //               padding: EdgeInsets.only(
-                  //                   left: 24, right: 20, top: 20, bottom: 20),
-                  //               child: Row(
-                  //                 children: [
-                  //                   Icon(
-                  //                     FontAwesomeIcons.bluetooth,
-                  //                     color: Colors.black,
-                  //                     size: 20,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 11,
-                  //                   ),
-                  //                   Text(
-                  //                     'Konfigurasi Beacon',
-                  //                     style: TextStyle(
-                  //                         fontSize: 20,
-                  //                         fontFamily: 'WorkSansMedium',
-                  //                         fontWeight: FontWeight.bold),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     )),
-                  // Padding(
-                  //     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                  //     child: InkWell(
-                  //       borderRadius: BorderRadius.circular(25),
-                  //       onTap: () =>
-                  //           Get.toNamed('/dosen/dashboard/akun/gantipassword'),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             color: Colors.grey[200],
-                  //             borderRadius: BorderRadius.circular(25)),
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: <Widget>[
-                  //             Padding(
-                  //               padding: EdgeInsets.only(
-                  //                   left: 24, right: 20, top: 20, bottom: 20),
-                  //               child: Row(
-                  //                 children: [
-                  //                   Icon(
-                  //                     FontAwesomeIcons.userLock,
-                  //                     color: Colors.black,
-                  //                     size: 20,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 11,
-                  //                   ),
-                  //                   Text(
-                  //                     'Ubah Password',
-                  //                     style: TextStyle(
-                  //                         fontSize: 20,
-                  //                         fontFamily: 'WorkSansMedium',
-                  //                         fontWeight: FontWeight.bold),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     )),
                   Padding(
                       padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                       child: InkWell(
@@ -312,7 +189,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                           SKAlertDialog.show(
                             context: context,
                             type: SKAlertType.buttons,
-                            title: 'LOG OUT',
+                            title: 'KELUAR',
                             message: 'Apakah anda yakin ingin keluar?',
                             okBtnText: 'Ya',
                             okBtnTxtColor: Colors.white,
@@ -324,6 +201,7 @@ class _DosenAkunDashboardPageState extends State<DosenAkunDashboardPage> {
                               SharedPreferences autoLogin =
                                   await SharedPreferences.getInstance();
                               autoLogin.clear();
+
                               Get.offAllNamed('/');
 
                               Fluttertoast.showToast(

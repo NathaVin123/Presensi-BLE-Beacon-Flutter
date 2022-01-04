@@ -19,7 +19,6 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
   @override
   void initState() {
     super.initState();
-    getDataInfoDosen();
   }
 
   getDataInfoDosen() async {
@@ -34,6 +33,7 @@ class _DosenInformasiAkunPageState extends State<DosenInformasiAkunPage> {
 
   @override
   Widget build(BuildContext context) {
+    getDataInfoDosen();
     return Scaffold(
       backgroundColor: Color.fromRGBO(23, 75, 137, 1),
       body: CustomScrollView(

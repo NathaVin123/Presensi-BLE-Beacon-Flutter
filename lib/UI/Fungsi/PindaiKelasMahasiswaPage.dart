@@ -129,24 +129,6 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
 
     listeningState();
 
-    // Timer.periodic(Duration(seconds: 1), (Timer t) {
-    //   getDetailKelas();
-    //   // getDetailMahasiswa();
-
-    //   Future.delayed(Duration(seconds: 5), () {
-    //     t.cancel();
-    //   });
-    // });
-
-    // Timer.periodic(Duration(seconds: 1), (Timer t) {
-    //   // getDetailKelas();
-    //   getDetailMahasiswa();
-
-    //   Future.delayed(Duration(seconds: 5), () {
-    //     t.cancel();
-    //   });
-    // });
-
     presensiINMahasiswaToKSIRequestModel =
         PresensiINMahasiswaToKSIRequestModel();
 
@@ -187,13 +169,31 @@ class _PindaiKelasMahasiswaPageState extends State<PindaiKelasMahasiswaPage>
     presensiOUTMahasiswaToFTIRequestModel =
         PresensiOUTMahasiswaToFTIRequestModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getIDKelasFakultas();
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDetailKelas();
+    //   // getDetailMahasiswa();
 
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
+
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   // getDetailKelas();
+    //   getDetailMahasiswa();
+
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
+
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getIDKelasFakultas();
+
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
   }
 
   getDetailMahasiswa() async {

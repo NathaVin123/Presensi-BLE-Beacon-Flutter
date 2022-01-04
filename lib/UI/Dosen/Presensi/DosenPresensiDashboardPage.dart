@@ -69,20 +69,15 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     listKelasDosenRequestModel = ListKelasDosenRequestModel();
     listKelasDosenResponseModel = ListKelasDosenResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      this.getDataDosen();
-      // this.getDataListKelasDosen();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   this.getDataDosen();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(milliseconds: 1500), (Timer t) {
-      // this.getDataDosen();
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       this.getDataListKelasDosen();
-      // Future.delayed(Duration(seconds: 5), () {
-      //   t.cancel();
-      // });
     });
   }
 
@@ -139,6 +134,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
   @override
   Widget build(BuildContext context) {
+    this.getDataDosen();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

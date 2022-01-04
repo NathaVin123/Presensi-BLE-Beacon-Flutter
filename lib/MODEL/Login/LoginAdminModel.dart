@@ -28,11 +28,11 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 
 class Data {
-  Data({this.npp, this.namaadm, this.password, this.token});
+  Data({this.npp, this.namaadm, this.token});
 
   final String npp;
   final String namaadm;
-  final String password;
+  // final String password;
   final String token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -40,14 +40,14 @@ class Data {
         namaadm: json["NAMA_LENGKAP_GELAR"] == null
             ? null
             : json["NAMA_LENGKAP_GELAR"],
-        password: json["PASSWORD"] == null ? null : json["PASSWORD"],
+        // password: json["PASSWORD"] == null ? null : json["PASSWORD"],
         token: json["token"] == null ? null : json["token"],
       );
 
   Map<String, dynamic> toJson() => {
         "NPP": npp == null ? null : npp,
         "NAMA_LENGKAP_GELAR": namaadm == null ? null : namaadm,
-        "PASSWORD": password == null ? null : password,
+        // "PASSWORD": password == null ? null : password,
         "token": token == null ? null : token
       };
 }

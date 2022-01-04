@@ -34,7 +34,7 @@ class _MahasiswaPresensiDashboardPageState
   String npm = "";
   String namamhs = "";
 
-  int statusPresensi = 0;
+  // int statusPresensi = 0;
 
   ListKelasMahasiswaRequestModel listKelasMahasiswaRequestModel;
 
@@ -62,25 +62,22 @@ class _MahasiswaPresensiDashboardPageState
     //   });
     // });
 
-    // Timer.periodic(Duration(milliseconds: 1500), (Timer t) {
-    //   getDataListKelasMahasiswa();
-    //   // Future.delayed(Duration(seconds: 10), () {
-    //   //   t.cancel();
-    //   // });
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
+      getDataListKelasMahasiswa();
+    });
+
+    // Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
+    //   getDetailKelas();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
     // });
 
-    Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
-      getDetailKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
-
-    Future.delayed(Duration(minutes: 1), () async {
-      SharedPreferences dataPresensiMahasiswa =
-          await SharedPreferences.getInstance();
-      await dataPresensiMahasiswa.setInt('statuspresensi', 0);
-    });
+    // Future.delayed(Duration(minutes: 1), () async {
+    //   SharedPreferences dataPresensiMahasiswa =
+    //       await SharedPreferences.getInstance();
+    //   await dataPresensiMahasiswa.setInt('statuspresensi', 0);
+    // });
   }
 
   void _getTime() {
@@ -134,20 +131,20 @@ class _MahasiswaPresensiDashboardPageState
     });
   }
 
-  getDetailKelas() async {
-    SharedPreferences dataPresensiMahasiswa =
-        await SharedPreferences.getInstance();
+  // getDetailKelas() async {
+  //   SharedPreferences dataPresensiMahasiswa =
+  //       await SharedPreferences.getInstance();
 
-    setState(() {
-      statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
-    });
-  }
+  //   setState(() {
+  //     statusPresensi = dataPresensiMahasiswa.getInt('statuspresensi');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     getDataMahasiswa();
-    getDataListKelasMahasiswa();
-    getDetailKelas();
+    // getDetailKelas();
+    // getDataListKelasMahasiswa();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

@@ -230,8 +230,6 @@ class _LoginMahasiswaState extends State<LoginMahasiswa> {
                                   await loginMahasiswa.setString(
                                       'namamhs', value.data.namamhs);
                                   await loginMahasiswa.setString(
-                                      'alamat', value.data.alamat);
-                                  await loginMahasiswa.setString(
                                       'fakultas', value.data.fakultas);
                                   await loginMahasiswa.setString(
                                       'prodi', value.data.prodi);

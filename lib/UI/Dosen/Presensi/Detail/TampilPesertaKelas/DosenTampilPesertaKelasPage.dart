@@ -25,13 +25,13 @@ class _DosenTampilPesertaKelasPageState
 
     tampilPesertaKelasRequestModel = TampilPesertaKelasRequestModel();
     tampilPesertaKelasResponseModel = TampilPesertaKelasResponseModel();
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataIDKelas();
-      // getDataPesertaKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataIDKelas();
+    //   // getDataPesertaKelas();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       // getDataIDKelas();
@@ -68,6 +68,7 @@ class _DosenTampilPesertaKelasPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataIDKelas();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.refresh_rounded),

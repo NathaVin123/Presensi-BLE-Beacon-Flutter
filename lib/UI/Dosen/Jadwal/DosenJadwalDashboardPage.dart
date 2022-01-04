@@ -43,7 +43,6 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
     Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataDosen();
       getDataJadwalDosen();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();
@@ -98,6 +97,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    getDataDosen();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh_rounded),

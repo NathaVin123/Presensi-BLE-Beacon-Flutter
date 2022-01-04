@@ -25,7 +25,7 @@ class _AdminUbahBeaconState extends State<AdminUbahBeacon> {
 
     listBeaconResponseModel = ListBeaconResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getListBeacon();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();

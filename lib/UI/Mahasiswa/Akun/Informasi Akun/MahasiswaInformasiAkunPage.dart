@@ -17,7 +17,7 @@ class _MahasiswaInformasiAkunPageState
     extends State<MahasiswaInformasiAkunPage> {
   String npm = "";
   String namamhs = "";
-  String alamat = "";
+  // String alamat = "";
   String fakultas = "";
   String prodi = "";
   // String pembimbingakademik = "";
@@ -32,7 +32,7 @@ class _MahasiswaInformasiAkunPageState
     setState(() {
       npm = loginMahasiswa.getString('npm');
       namamhs = loginMahasiswa.getString('namamhs');
-      alamat = loginMahasiswa.getString('alamat');
+      // alamat = loginMahasiswa.getString('alamat');
       fakultas = loginMahasiswa.getString('fakultas');
       prodi = loginMahasiswa.getString('prodi');
       // pembimbingakademik = loginMahasiswa.getString('pembimbingakademik');
@@ -180,29 +180,29 @@ class _MahasiswaInformasiAkunPageState
                               SizedBox(
                                 height: 16,
                               ),
-                              Text(
-                                'Alamat',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'WorkSansMedium',
-                                    fontSize: 22),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Text(
-                                  alamat,
-                                  style: TextStyle(
-                                      fontFamily: 'WorkSansMedium',
-                                      fontSize: 18),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
+                              // Text(
+                              //   'Alamat',
+                              //   style: TextStyle(
+                              //       fontWeight: FontWeight.bold,
+                              //       fontFamily: 'WorkSansMedium',
+                              //       fontSize: 22),
+                              // ),
+                              // SizedBox(
+                              //   height: 5,
+                              // ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.only(left: 10, right: 10),
+                              //   child: Text(
+                              //     alamat,
+                              //     style: TextStyle(
+                              //         fontFamily: 'WorkSansMedium',
+                              //         fontSize: 18),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 16,
+                              // ),
                               // Scrollbar(
                               //   child: Center(
                               //     child: Container(

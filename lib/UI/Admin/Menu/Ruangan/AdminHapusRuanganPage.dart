@@ -33,7 +33,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
 
     listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getListRuangan();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();

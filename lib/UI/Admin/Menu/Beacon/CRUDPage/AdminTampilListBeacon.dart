@@ -26,7 +26,7 @@ class _AdminTampilListBeaconState extends State<AdminTampilListBeacon> {
 
     listBeaconResponseModel = ListBeaconResponseModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getListBeacon();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();

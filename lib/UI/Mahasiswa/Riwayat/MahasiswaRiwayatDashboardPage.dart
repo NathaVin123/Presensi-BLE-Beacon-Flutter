@@ -42,13 +42,13 @@ class _MahasiswaRiwayatDashboardPageState
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    // Timer.periodic(Duration(seconds: 1), (Timer t) {
-    //   getDataMahasiswa();
-    //   getDataRiwayatMahasiswa();
-    //   Future.delayed(Duration(seconds: 5), () {
-    //     t.cancel();
-    //   });
-    // });
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
+      // getDataMahasiswa();
+      getDataRiwayatMahasiswa();
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
+    });
   }
 
   getDataMahasiswa() async {
@@ -101,7 +101,7 @@ class _MahasiswaRiwayatDashboardPageState
   @override
   Widget build(BuildContext context) {
     getDataMahasiswa();
-    getDataRiwayatMahasiswa();
+    // getDataRiwayatMahasiswa();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh_rounded),

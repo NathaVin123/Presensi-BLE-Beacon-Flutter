@@ -30,15 +30,15 @@ class _DosenTampilKehadiranPesertaKelasPageState
         TampilKehadiranPesertaKelasRequestModel();
     tampilKehadiranPesertaKelasResponseModel =
         TampilKehadiranPesertaKelasResponseModel();
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataIDKelas();
-      // getDataPesertaKelas();
-      Future.delayed(Duration(seconds: 5), () {
-        t.cancel();
-      });
-    });
+    // Timer.periodic(Duration(seconds: 1), (Timer t) {
+    //   getDataIDKelas();
+    //   // getDataPesertaKelas();
+    //   Future.delayed(Duration(seconds: 5), () {
+    //     t.cancel();
+    //   });
+    // });
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       // getDataIDKelas();
       getDataPesertaKelas();
       Future.delayed(Duration(seconds: 5), () {
@@ -75,6 +75,7 @@ class _DosenTampilKehadiranPesertaKelasPageState
 
   @override
   Widget build(BuildContext context) {
+    getDataIDKelas();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.refresh_rounded),

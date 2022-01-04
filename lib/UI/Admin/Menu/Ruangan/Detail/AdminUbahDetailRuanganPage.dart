@@ -57,7 +57,7 @@ class _AdminDetailRuanganPageState extends State<AdminDetailRuanganPage> {
     listDetailRuanganNamaDeviceRequestModel =
         ListDetailRuanganNamaDeviceRequestModel();
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       // getRuang();
       getListBeacon();
       Future.delayed(Duration(seconds: 5), () {

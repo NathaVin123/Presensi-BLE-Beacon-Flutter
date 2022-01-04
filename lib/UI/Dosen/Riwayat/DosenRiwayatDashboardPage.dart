@@ -42,8 +42,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDataDosen();
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getDataRiwayatDosen();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();
@@ -98,6 +97,7 @@ class _DosenRiwayatDashboardPageState extends State<DosenRiwayatDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    getDataDosen();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh_rounded),

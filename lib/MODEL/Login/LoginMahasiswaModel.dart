@@ -33,7 +33,6 @@ class Data {
       this.namamhs,
       this.password,
       this.kdstatusmhs,
-      this.alamat,
       this.prodi,
       this.fakultas,
       this.token});
@@ -42,7 +41,6 @@ class Data {
   final String namamhs;
   final String password;
   final String kdstatusmhs;
-  final String alamat;
   final String prodi;
   final String fakultas;
 
@@ -54,7 +52,6 @@ class Data {
         password: json["PASSWORD"] == null ? null : json["PASSWORD"],
         kdstatusmhs:
             json["KD_STATUS_MHS"] == null ? null : json["KD_STATUS_MHS"],
-        alamat: json["ALAMAT"] == null ? null : json["ALAMAT"],
         prodi: json["PRODI"] == null ? null : json["PRODI"],
         fakultas: json["FAKULTAS"] == null ? null : json["FAKULTAS"],
         token: json["token"] == null ? null : json["token"],
@@ -65,7 +62,6 @@ class Data {
         "NAMA_MHS": namamhs == null ? null : namamhs,
         "PASSWORD": password == null ? null : password,
         "KD_STATUS_MHS": kdstatusmhs == null ? null : kdstatusmhs,
-        "ALAMAT": alamat == null ? null : alamat,
         "PRODI": prodi == null ? null : prodi,
         "FAKULTAS": fakultas == null ? null : fakultas,
         "token": token == null ? null : token

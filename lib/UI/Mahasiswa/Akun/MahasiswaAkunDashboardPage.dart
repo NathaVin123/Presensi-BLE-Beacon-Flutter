@@ -20,7 +20,6 @@ class _MahasiswaAkunDashboardPageState
     extends State<MahasiswaAkunDashboardPage> {
   String npm = "";
   String namamhs = "";
-  String prodi = "";
 
   @override
   void initState() {
@@ -29,11 +28,9 @@ class _MahasiswaAkunDashboardPageState
 
   getDataMahasiswa() async {
     SharedPreferences loginMahasiswa = await SharedPreferences.getInstance();
-    setState(() {
-      npm = loginMahasiswa.getString('npm');
-      namamhs = loginMahasiswa.getString('namamhs');
-      prodi = loginMahasiswa.getString('prodi');
-    });
+
+    npm = loginMahasiswa.getString('npm');
+    namamhs = loginMahasiswa.getString('namamhs');
   }
 
   @override
@@ -194,7 +191,7 @@ class _MahasiswaAkunDashboardPageState
                         SKAlertDialog.show(
                           context: context,
                           type: SKAlertType.buttons,
-                          title: 'LOG OUT',
+                          title: 'KELUAR',
                           message: 'Apakah anda yakin ingin keluar?',
                           okBtnText: 'Ya',
                           okBtnTxtColor: Colors.white,
@@ -207,10 +204,6 @@ class _MahasiswaAkunDashboardPageState
                                 await SharedPreferences.getInstance();
                             autoLogin.clear();
 
-                            SharedPreferences dataPresensiMahasiswa =
-                                await SharedPreferences.getInstance();
-                            await dataPresensiMahasiswa.setInt(
-                                'statuspresensi', 0);
                             Get.offAllNamed('/');
 
                             Fluttertoast.showToast(

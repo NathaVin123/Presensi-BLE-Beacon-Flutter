@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
@@ -41,12 +43,12 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   @override
   void initState() {
     super.initState();
-    // Timer.periodic(Duration(seconds: 1), (Timer t) {
-    //   getDataUbahBeacon();
-    //   Future.delayed(Duration(seconds: 1), () {
-    //     t.cancel();
-    //   });
-    // });
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      getDataUbahBeacon();
+      Future.delayed(Duration(seconds: 2), () {
+        t.cancel();
+      });
+    });
 
     ubahBeaconRequestModel = new UbahBeaconRequestModel();
   }
@@ -72,7 +74,7 @@ class _AdminDetailUbahBeaconState extends State<AdminDetailUbahBeacon> {
   }
 
   Widget buildUbahBeacon(BuildContext context) {
-    getDataUbahBeacon();
+    // getDataUbahBeacon();
     return Scaffold(
         backgroundColor: Color.fromRGBO(23, 75, 137, 1),
         appBar: AppBar(

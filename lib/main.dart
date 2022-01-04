@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -51,19 +52,19 @@ import 'UI/Dosen/DosenDashboardPage.dart';
 
 import 'UI/Dosen/Presensi/DosenPresensiDashboardPage.dart';
 import 'UI/Dosen/Presensi/Detail/TampilPesertaKelas/DosenTampilPesertaKelasPage.dart';
-import 'UI/Dosen/Presensi/Notifikasi/DosenNotifikasiPresensiPage.dart';
+// import 'UI/Dosen/Presensi/Notifikasi/DosenNotifikasiPresensiPage.dart';
 
 import 'UI/Dosen/Jadwal/DosenJadwalDashboardPage.dart';
-import 'UI/Dosen/Jadwal/Detail/DosenDetailJadwalPage.dart';
+// import 'UI/Dosen/Jadwal/Detail/DosenDetailJadwalPage.dart';
 
 import 'UI/Dosen/Riwayat/DosenRiwayatDashboardPage.dart';
-import 'UI/Dosen/Riwayat/Detail/DosenDetailRiwayatPage.dart';
+// import 'UI/Dosen/Riwayat/Detail/DosenDetailRiwayatPage.dart';
 
 import 'UI/Dosen/Akun/DosenAkunDashboardPage.dart';
 
 import 'UI/Dosen/Akun/InformasiAkun/DosenInformasiAkunPage.dart';
 
-import 'UI/Dosen/Akun/Statistik/DosenStatistikPage.dart';
+// import 'UI/Dosen/Akun/Statistik/DosenStatistikPage.dart';
 
 import 'UI/Tentang/TentangPage.dart';
 
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    flutterBeacon.openBluetoothSettings;
     requestLocationPermission();
   }
 
@@ -237,21 +239,21 @@ class _MyAppState extends State<MyApp> {
             GetPage(
                 name: '/dosen/dashboard/presensi/detail/tampilkehadiranpeserta',
                 page: () => DosenTampilKehadiranPesertaKelasPage()),
-            GetPage(
-                name: '/dosen/dashboard/presensi/notifikasi',
-                page: () => DosenNotifikasiPresensiPage()),
+            // GetPage(
+            //     name: '/dosen/dashboard/presensi/notifikasi',
+            //     page: () => DosenNotifikasiPresensiPage()),
             GetPage(
                 name: '/dosen/dashboard/jadwal',
                 page: () => DosenJadwalDashboardPage()),
-            GetPage(
-                name: '/dosen/dashboard/jadwal/detail',
-                page: () => DosenDetailJadwalPage()),
+            // GetPage(
+            //     name: '/dosen/dashboard/jadwal/detail',
+            //     page: () => DosenDetailJadwalPage()),
             GetPage(
                 name: '/dosen/dashboard/riwayat',
                 page: () => DosenRiwayatDashboardPage()),
-            GetPage(
-                name: '/dosen/dashboard/riwayat/detail',
-                page: () => DosenDetailRiwayatPage()),
+            // GetPage(
+            //     name: '/dosen/dashboard/riwayat/detail',
+            //     page: () => DosenDetailRiwayatPage()),
             GetPage(
                 name: '/dosen/dashboard/akun',
                 page: () => DosenAkunDashboardPage()),
@@ -298,10 +300,10 @@ class _MyAppState extends State<MyApp> {
                 page: () => AdminTampilRuanganPage()),
             GetPage(name: '/login/admin', page: () => LoginAdmin()),
             GetPage(name: '/admin/dashboard', page: () => AdminDashboardPage()),
-            GetPage(
-                name: '/statistik/dosen',
-                page: () => DosenStatistikPage(),
-                transition: Transition.fade),
+            // GetPage(
+            //     name: '/statistik/dosen',
+            //     page: () => DosenStatistikPage(),
+            //     transition: Transition.fade),
             // Tentang Page
             GetPage(
               name: '/tentang',
