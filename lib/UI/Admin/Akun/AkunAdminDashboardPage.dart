@@ -175,7 +175,7 @@ class _AkunAdminDashboardPageState extends State<AkunAdminDashboardPage> {
                       SKAlertDialog.show(
                         context: context,
                         type: SKAlertType.buttons,
-                        title: 'LOG OUT',
+                        title: 'Keluar ?',
                         message: 'Apakah anda yakin ingin keluar?',
                         okBtnText: 'Ya',
                         okBtnTxtColor: Colors.white,

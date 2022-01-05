@@ -1394,22 +1394,22 @@ class _MahasiswaPresensiDashboardPageState
                                                                             '/pindaiMahasiswa');
                                                                   },
                                                                 ),
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: Text(
-                                                                    'Jangan Log Out, ketika sudah presensi masuk',
-                                                                    style: const TextStyle(
-                                                                        fontFamily:
-                                                                            'WorkSansSemiBold',
-                                                                        fontSize:
-                                                                            10,
-                                                                        color: Colors
-                                                                            .red),
-                                                                  ),
-                                                                )
+                                                                // Padding(
+                                                                //   padding:
+                                                                //       const EdgeInsets
+                                                                //               .all(
+                                                                //           8.0),
+                                                                //   child: Text(
+                                                                //     'Jangan Log Out, ketika sudah presensi masuk',
+                                                                //     style: const TextStyle(
+                                                                //         fontFamily:
+                                                                //             'WorkSansSemiBold',
+                                                                //         fontSize:
+                                                                //             10,
+                                                                //         color: Colors
+                                                                //             .red),
+                                                                //   ),
+                                                                // )
                                                               ],
                                                             )
                                                           else if (listKelasMahasiswaResponseModel
