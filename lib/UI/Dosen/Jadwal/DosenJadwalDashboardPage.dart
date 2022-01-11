@@ -42,7 +42,7 @@ class _DosenJadwalDashboardPageState extends State<DosenJadwalDashboardPage> {
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     Timer.periodic(Duration(hours: 1), (Timer t) => _getDate());
 
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 2), (Timer t) {
       getDataJadwalDosen();
       Future.delayed(Duration(seconds: 5), () {
         t.cancel();

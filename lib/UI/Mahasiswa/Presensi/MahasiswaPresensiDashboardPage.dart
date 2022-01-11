@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
@@ -64,6 +65,10 @@ class _MahasiswaPresensiDashboardPageState
 
     Timer.periodic(Duration(seconds: 2), (Timer t) {
       getDataListKelasMahasiswa();
+
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
     });
 
     // Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
@@ -148,18 +153,20 @@ class _MahasiswaPresensiDashboardPageState
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.refresh_rounded),
+              onPressed: () => {
+                    getDataListKelasMahasiswa(),
+                    Fluttertoast.showToast(
+                        msg: 'Menyegarkan...',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 14.0)
+                  }),
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-          // floatingActionButton: FloatingActionButton.extended(
-          //   onPressed: () => getDataListKelasMahasiswa(),
-          //   label: Text(
-          //     'Segarkan',
-          //     style: TextStyle(
-          //         fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-          //   ),
-          //   icon: Icon(Icons.refresh_rounded),
-          // ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniEndFloat,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -720,7 +727,7 @@ class _MahasiswaPresensiDashboardPageState
                                                                                 20,
                                                                           ),
                                                                           Text(
-                                                                            'Detail Presensi Masuk',
+                                                                            'Presensi Masuk',
                                                                             style: const TextStyle(
                                                                                 fontFamily: 'WorkSansSemiBold',
                                                                                 fontSize: 18,
@@ -1100,7 +1107,7 @@ class _MahasiswaPresensiDashboardPageState
                                                                                 width: 20,
                                                                               ),
                                                                               Text(
-                                                                                'Detail Presensi Keluar',
+                                                                                'Presensi Keluar',
                                                                                 style: const TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 18, color: Colors.white),
                                                                               ),
                                                                             ],

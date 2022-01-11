@@ -3,6 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 
@@ -78,6 +79,10 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
 
     Timer.periodic(Duration(seconds: 2), (Timer t) {
       this.getDataListKelasDosen();
+
+      Future.delayed(Duration(seconds: 5), () {
+        t.cancel();
+      });
     });
   }
 
@@ -138,17 +143,20 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          resizeToAvoidBottomInset: false,
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.refresh_rounded),
+              onPressed: () => {
+                    getDataListKelasDosen(),
+                    Fluttertoast.showToast(
+                        msg: 'Menyegarkan...',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 14.0)
+                  }),
           backgroundColor: Color.fromRGBO(23, 75, 137, 1),
-          // floatingActionButton: FloatingActionButton.extended(
-          //   onPressed: () => getDataListKelasDosen(),
-          //   label: Text(
-          //     'Segarkan',
-          //     style: TextStyle(
-          //         fontWeight: FontWeight.bold, fontFamily: 'WorkSansMedium'),
-          //   ),
-          //   icon: Icon(Icons.refresh_rounded),
-          // ),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -773,7 +781,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                     width: 20,
                                                                   ),
                                                                   Text(
-                                                                    'Detail Presensi Masuk',
+                                                                    'Presensi Masuk',
                                                                     style: const TextStyle(
                                                                         fontFamily:
                                                                             'WorkSansSemiBold',
@@ -1143,7 +1151,7 @@ class _DosenPresensiDashboardPageState extends State<DosenPresensiDashboardPage>
                                                                     width: 20,
                                                                   ),
                                                                   Text(
-                                                                    'Detail Presensi Keluar',
+                                                                    'Presensi Keluar',
                                                                     style: const TextStyle(
                                                                         fontFamily:
                                                                             'WorkSansSemiBold',
