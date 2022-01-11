@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:presensiblebeacon/API/APIService.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/LepasRuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/UbahRuangBeaconModel.dart';
 import 'package:sk_alert_dialog/sk_alert_dialog.dart';
@@ -18,7 +19,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
     with WidgetsBindingObserver {
   ListDetailRuanganResponseModel listDetailRuanganResponseModel;
 
-  UbahRuangBeaconRequestModel ubahRuangBeaconRequestModel;
+  LepasRuangBeaconRequestModel lepasRuangBeaconRequestModel;
 
   List<Data> ruanganListSearch = List<Data>();
 
@@ -29,7 +30,7 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
-    ubahRuangBeaconRequestModel = UbahRuangBeaconRequestModel();
+    lepasRuangBeaconRequestModel = LepasRuangBeaconRequestModel();
 
     listDetailRuanganResponseModel = ListDetailRuanganResponseModel();
 
@@ -288,27 +289,24 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                                                 cancelBtnColor: Colors.grey,
                                                 onOkBtnTap: (value) async {
                                                   print(
-                                                      ubahRuangBeaconRequestModel
+                                                      lepasRuangBeaconRequestModel
                                                           .toJson());
 
                                                   setState(() {
                                                     isApiCallProcess = true;
 
-                                                    ubahRuangBeaconRequestModel
+                                                    lepasRuangBeaconRequestModel
                                                             .ruang =
                                                         ruanganListSearch[index]
                                                             .ruang;
-
-                                                    ubahRuangBeaconRequestModel
-                                                        .namadevice = "";
                                                   });
 
                                                   APIService apiService =
                                                       new APIService();
 
                                                   apiService
-                                                      .putUbahRuangBeacon(
-                                                          ubahRuangBeaconRequestModel)
+                                                      .putLepasRuangBeacon(
+                                                          lepasRuangBeaconRequestModel)
                                                       .then((value) async {
                                                     if (value != null) {
                                                       setState(() {
@@ -354,23 +352,23 @@ class _AdminHapusRuanganPageState extends State<AdminHapusRuanganPage>
                               //     cancelBtnTxtColor: Colors.white,
                               //     cancelBtnColor: Colors.grey,
                               //     onOkBtnTap: (value) async {
-                              //       print(ubahRuangBeaconRequestModel.toJson());
+                              //       print(lepasRuangBeaconRequestModel.toJson());
 
                               //       setState(() {
                               //         isApiCallProcess = true;
 
-                              //         ubahRuangBeaconRequestModel.ruang =
+                              //         lepasRuangBeaconRequestModel.ruang =
                               //             ruanganListSearch[index].ruang;
 
-                              //         ubahRuangBeaconRequestModel.namadevice =
+                              //         lepasRuangBeaconRequestModel.namadevice =
                               //             "";
                               //       });
 
                               //       APIService apiService = new APIService();
 
                               //       apiService
-                              //           .putUbahRuangBeacon(
-                              //               ubahRuangBeaconRequestModel)
+                              //           .putLepasRuangBeacon(
+                              //               lepasRuangBeaconRequestModel)
                               //           .then((value) async {
                               //         if (value != null) {
                               //           setState(() {

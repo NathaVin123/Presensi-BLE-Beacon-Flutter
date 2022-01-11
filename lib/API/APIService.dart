@@ -50,6 +50,7 @@ import 'package:presensiblebeacon/MODEL/Presensi/FT/PresensiOUTMahasiswaToFTMode
 import 'package:presensiblebeacon/MODEL/Presensi/KSI/Mahasiswa/PresensiOUTMahasiswaToKSIModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilKehadiranPesertaKelasModel.dart';
 import 'package:presensiblebeacon/MODEL/Presensi/TampilPesertaKelasModel.dart';
+import 'package:presensiblebeacon/MODEL/Ruangan/LepasRuangBeaconModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListDetailRuanganNamaDeviceModel.dart';
 import 'package:presensiblebeacon/MODEL/Ruangan/ListRuanganModel.dart';
@@ -956,6 +957,73 @@ class APIService {
 
   Future putUbahRuangBeacon(UbahRuangBeaconRequestModel requestModel) async {
     String url = address + "ruangbeacon/ubahruangbeacon";
+    print(url);
+    try {
+      http.Response response = await http.put(url, body: requestModel.toJson());
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        print(response.body);
+        // Fluttertoast.showToast(
+        //     msg: 'Bad Request',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+      } else {
+        print(response);
+        // Fluttertoast.showToast(
+        //     msg: 'Gagal memuat data',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Gagal memuat data');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Tidak terhubung dengan jaringan',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Tidak terhubung dengan jaringan / Server sedang down,\n Silahkan coba lagi');
+      } else if (e is TimeoutException) {
+        // Fluttertoast.showToast(
+        //     msg: 'Request Timeout',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception('Request Timeout');
+      } else {
+        // Fluttertoast.showToast(
+        //     msg: 'Sistem sedang dalam masalah',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.TOP,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 12.0);
+        throw Exception(
+            'Sistem sedang dalam masalah,\nSilahkan mulai ulang aplikasi');
+      }
+    }
+  }
+
+  Future putLepasRuangBeacon(LepasRuangBeaconRequestModel requestModel) async {
+    String url = address + "ruangbeacon/lepasruangbeacon";
     print(url);
     try {
       http.Response response = await http.put(url, body: requestModel.toJson());
